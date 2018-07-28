@@ -23,6 +23,14 @@ create table Request(
 	status int default 0
 );
 
+-- Storage of types of cleaning for customer selection
+create table Cleaning_Type(
+	id serial primary key,
+	cleaning_type varchar(80)
+);
+-- Inserts move out and airbnb options into cleaning_type table
+insert into Cleaning_Type ("cleaning_type") values ('Move Out'), ('AirBnB');
+
 -- Storage of Cleaner profile data.  Photo_url may change depending on how AWS is accessed
 create table Cleaner(
 	id serial primary key,
@@ -53,7 +61,8 @@ create table Contact(
 	first_name varchar(80),
 	last_name varchar(80),
 	email varchar(120) not null,
-	phone_number varchar(12)
+	phone_number varchar(12),
+	location_address varchar(200)
 );
 
 -- Storage of Customer Availability Big Calendar object data: FORMAT {id: int, start: new Date(YYYY, MM, DD, hh, mm, ss), end: new Date(YYYY, MM, DD, hh, mm, ss)}
