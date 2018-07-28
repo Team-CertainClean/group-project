@@ -1,4 +1,5 @@
 const pool = require('./pool');
+const roomSort = require('./roomSort');
 
 /*
 Query for selecting rows from request table with contact info for UNSCHEDULED requests
@@ -18,7 +19,7 @@ group by request.id, contact.id;
 class RequestTable{
     constructor(status){
         this.status = status;
-        this.rows = [];
+        this.requests = [];
     }
 
     getRequestAndContactData(){
@@ -27,11 +28,11 @@ class RequestTable{
         group by request.id, contact.id;`
         if(this.status === 'unscheduled'){
             pool.query(queryText, [0]).then(result => {
-                this.rows = [...result.rows];
+                this.requests = result.rows;
             }).catch(error => console.log('Error handling query for unscheduled requests: ', error));
         } else if(this.status === 'scheduled'){ 
             pool.query(queryText, [1]).then(result => {
-                this.rows = [...result.rows];
+                this.requests = result.rows;
             }).catch(error => console.log('Error handling query for scheduled requests: ', error));
         } else {
             console.log("Invalid status");
@@ -49,7 +50,14 @@ class RequestTable{
     }
 
     attachRoomsToRequest(rooms){
-        
+        this.requests = roomSort(rooms, this.requests);
+    }
+
+    getAvailabilityData(){
+        const queryText = `select * from request_availability_calendar_objects`;
+        pool.query(queryText).then(result => {
+            this.attachAvailabilityToRequest(result.rows);
+        }).catch(error => console.log('Error handling query for availability calendar data: ', error));
     }
 
 
