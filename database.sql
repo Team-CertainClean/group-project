@@ -16,11 +16,13 @@ create table Administrator(
 -- Storage of Request information.  start_time and end_time change when Request is scheduled.
 -- "status" is an integer, either 0, 1, or 2.  0 = unscheduled, 1 = scheduled, 2 = closed.
 create table Request(
-	id serial primary key,
-	start_time timestamp,
-	end_time timestamp,
-	est_duration float not null,
-	status int default 0
+    id serial primary key,
+	cleaning_type_id int references Cleaning_Type not null,
+	location_type_id int references Location_Type not null,
+    start_time timestamp,
+    end_time timestamp,
+    est_duration float not null,
+    status int default 0
 );
 
 -- Storage of types of cleaning for customer selection
