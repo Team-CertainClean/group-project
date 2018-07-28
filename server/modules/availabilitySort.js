@@ -1,4 +1,8 @@
+/*
+    Module for sorting through availability calendar objects and attaching to appropriate request
 
+    Big O - N squared... Not optimal
+*/
 function availabilitySort(availability, requestsArray){
     let requests = requestsArray;
     for(let request of requests){
