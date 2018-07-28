@@ -1,12 +1,19 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const craftTable = require('../modules/craftTable');
 
 /**
  * GET route template
  */
-router.get('/requestData', (req, res) => {
-    
+router.get('/unscheduled', (req, res) => {
+    let result = craftTable('unscheduled');
+    res.send(result);
+});
+
+router.get('/scheduled', (req, res) => {
+    let result = craftTable('scheduled');
+    res.send(result);
 });
 
 /**

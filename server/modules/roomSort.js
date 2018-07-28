@@ -1,6 +1,5 @@
 
-function roomSort(roomArray, requestArray){
-    let rooms = roomArray;
+function roomSort(rooms, requestArray){
     let requests = requestArray;
     for(let request of requests){
         request.rooms = [];
