@@ -6,13 +6,8 @@ const craftTable = require('../modules/craftTable');
 /**
  * GET route template
  */
-router.get('/unscheduled', (req, res) => {
-    // 
-    let result = craftTable();
-    res.send(result);
-});
-
-router.get('/scheduled', (req, res) => {
+router.get('/requestTable', (req, res) => {
+    // Uses craftTable module to retrieve Request information and package with all necessary data (rooms, availability)
     let result = craftTable();
     res.send(result);
 });
