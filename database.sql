@@ -23,6 +23,14 @@ create table Request(
 	status int default 0
 );
 
+-- Storage of types of cleaning for customer selection
+create table Cleaning_Type(
+	id serial primary key,
+	cleaning_type varchar(80)
+);
+-- Inserts move out and airbnb options into cleaning_type table
+insert into Cleaning_Type ("cleaning_type") values ('Move Out'), ('AirBnB');
+
 -- Storage of Cleaner profile data.  Photo_url may change depending on how AWS is accessed
 create table Cleaner(
 	id serial primary key,
