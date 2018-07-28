@@ -1,4 +1,4 @@
-const RequestTable = require('../modules/craftRequestTable');
+const RequestTable = require('./RequestTable.class');
 
 function craftTable(){
     // Instantiate a new RequestTable object with methods and a status (unscheduled vs. scheduled)

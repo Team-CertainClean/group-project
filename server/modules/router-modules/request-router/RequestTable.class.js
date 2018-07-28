@@ -1,5 +1,5 @@
 // Requires
-const pool = require('./pool');
+const pool = require('../pool');
 const roomSort = require('./roomSort');
 const availabilitySort = require('./availabilitySort');
 
