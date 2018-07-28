@@ -61,7 +61,8 @@ create table Contact(
 	first_name varchar(80),
 	last_name varchar(80),
 	email varchar(120) not null,
-	phone_number varchar(12)
+	phone_number varchar(12),
+	location_address varchar(200)
 );
 
 -- Storage of Customer Availability Big Calendar object data: FORMAT {id: int, start: new Date(YYYY, MM, DD, hh, mm, ss), end: new Date(YYYY, MM, DD, hh, mm, ss)}
