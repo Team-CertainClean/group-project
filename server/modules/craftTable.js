@@ -1,8 +1,8 @@
 const RequestTable = require('../modules/craftRequestTable');
 
-function craftTable(status){
+function craftTable(){
     // Instantiate a new RequestTable object with methods and a status (unscheduled vs. scheduled)
-    let table = new RequestTable(status);
+    let table = new RequestTable();
 
     /* 
         Call getRequestAndContactData method to query database for all requests and corresponding 
