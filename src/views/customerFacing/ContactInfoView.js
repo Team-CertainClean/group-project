@@ -29,7 +29,7 @@ class ContactInfoView extends Component {
       content = (
         <div>
             <form noValidate autoComplete="off">
-                    <TextField
+            <TextField
                         id="name"
                         label="Name"
                         value={this.state.name}
@@ -71,7 +71,7 @@ class ContactInfoView extends Component {
 
     return (
       <div>
-        <Nav />
+
         { content }
       </div>
     );
