@@ -41,6 +41,7 @@ const App = () => (
           path="/stepper"
           component={Stepper}
         />
+
         <Route
           path="/schedule"
           component={AvailabilitySelectView}
