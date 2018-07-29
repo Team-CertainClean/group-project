@@ -27,7 +27,7 @@ class RegisterPage extends Component {
       };
 
       // making the request to the server to post the new user's registration
-      axios.post('/api/user/register/', body)
+      axios.post('/api/admin/register/', body)
         .then((response) => {
           if (response.status === 201) {
             this.props.history.push('/home');
