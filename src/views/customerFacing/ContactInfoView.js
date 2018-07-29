@@ -6,6 +6,8 @@ import { USER_ACTIONS } from '../../redux/actions/userActions';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -44,47 +46,49 @@ class ContactInfoView extends Component {
     if (this.props.user.userName) {
       content = (
         <div>
+            <Paper>
             <form noValidate autoComplete="off">
-            <TextField
-                        id="name"
-                        placeholder="Name"
-                        value={this.state.name}
-                        onChange={this.handleChange('name')}
-                        margin="normal"
-                    />
-                    <TextField
-                        id="email"
-                        placeholder="Email"
-                        value={this.state.email}
-                        onChange={this.handleChange('email')}
-                        margin="normal"
-                    />
-                    <TextField
-                        id="address"
-                        placeholder="Address"
-                        value={this.state.address}
-                        onChange={this.handleChange('address')}
-                        margin="normal"
-                    />
-                    <TextField
-                        id="cityStateZip"
-                        placeholder="City, State, Zip"
-                        value={this.state.cityStateZip}
-                        onChange={this.handleChange('cityStateZip')}
-                        margin="normal"
-                    />
-                    <TextField
-                        id="phone"
-                        placeholder="Phone"
-                        value={this.state.phone}
-                        onChange={this.handleChange('phone')}
-                        margin="normal"
-                    />
-                    <br/>
-                    <Button variant="contained" onClick={this.submitContactInfo}>
-                        Submit
-                    </Button>
+                <TextField
+                    id="first_name"
+                    placeholder="First Name"
+                    value={this.state.first_name}
+                    onChange={this.handleChange('first_name')}
+                    margin="normal"
+                />
+                <TextField
+                    id="last_name"
+                    placeholder="Last Name"
+                    value={this.state.last_name}
+                    onChange={this.handleChange('last_name')}
+                    margin="normal"
+                />
+                <TextField
+                    id="email"
+                    placeholder="Email"
+                    value={this.state.email}
+                    onChange={this.handleChange('email')}
+                    margin="normal"
+                />
+                <TextField
+                    id="location_address"
+                    placeholder="Location Address"
+                    value={this.state.location_address}
+                    onChange={this.handleChange('location_address')}
+                    margin="normal"
+                />
+                <TextField
+                    id="phone_number"
+                    placeholder="Phone Number"
+                    value={this.state.phone_number}
+                    onChange={this.handleChange('phone_number')}
+                    margin="normal"
+                />
+                <br/>
+                <Button variant="contained" onClick={this.submitContactInfo}>
+                    Submit
+                </Button>
             </form>
+            </Paper>
         </div>
       );
     }
