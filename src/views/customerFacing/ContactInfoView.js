@@ -12,15 +12,31 @@ const mapStateToProps = state => ({
 });
 
 class ContactInfoView extends Component {
-  componentDidMount() {
-    this.props.dispatch({type: USER_ACTIONS.FETCH_USER});
-  }
+    constructor(props){
+        super(props);
+        this.state = {
 
-  componentDidUpdate() {
-    if (!this.props.user.isLoading && this.props.user.userName === null) {
-      this.props.history.push('home');
+        }
+      }
+
+    componentDidMount() {
+        this.props.dispatch({type: USER_ACTIONS.FETCH_USER});
     }
-  }
+
+    componentDidUpdate() {
+        if (!this.props.user.isLoading && this.props.user.userName === null) {
+        this.props.history.push('home');
+        }
+    }
+
+    handleChange = (contactInfo) => {
+        console.log(`in handleChange`)
+
+    }// end handle change
+
+    submitContactInfo(){
+        console.log(`in submitContactInfo`)
+    }// end submitContactInfo
 
   render() {
     let content = null;
@@ -64,6 +80,7 @@ class ContactInfoView extends Component {
                         onChange={this.handleChange('phone')}
                         margin="normal"
                     />
+                    <br/>
                     <Button variant="contained" onClick={this.submitContactInfo}>
                         Submit
                     </Button>
