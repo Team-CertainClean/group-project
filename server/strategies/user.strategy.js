@@ -8,7 +8,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  pool.query('SELECT id, username FROM administrator WHERE id = $1', [id]).then((result) => {
+  pool.query('SELECT id, user_name FROM administrator WHERE id = $1', [id]).then((result) => {
     // Handle Errors
     const user = result && result.rows && result.rows[0];
 
@@ -30,7 +30,7 @@ passport.use('local', new LocalStrategy({
   passReqToCallback: true,
   usernameField: 'username',
 }, ((req, username, password, done) => {
-    pool.query('SELECT * FROM administrator WHERE username = $1', [username])
+    pool.query('SELECT * FROM administrator WHERE user_name = $1', [username])
       .then((result) => {
         const user = result && result.rows && result.rows[0];
         if (user && encryptLib.comparePassword(password, user.password)) {

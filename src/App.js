@@ -12,6 +12,7 @@ import RegisterPage from './components/RegisterPage/RegisterPage';
 import UserPage from './components/UserPage/UserPage';
 import InfoPage from './components/InfoPage/InfoPage';
 import Stepper from './components/Stepper/Stepper';
+import AvailabilitySelectView from './components/AvailabilitySelectView/AvailabilitySelectView';
 import './styles/main.css';
 
 const App = () => (
@@ -39,6 +40,10 @@ const App = () => (
         <Route
           path="/stepper"
           component={Stepper}
+        />
+        <Route
+          path="/schedule"
+          component={AvailabilitySelectView}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />
