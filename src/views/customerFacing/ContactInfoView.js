@@ -64,6 +64,9 @@ class ContactInfoView extends Component {
                         onChange={this.handleChange('phone')}
                         margin="normal"
                     />
+                    <Button variant="contained" onClick={this.submitContactInfo}>
+                        Submit
+                    </Button>
             </form>
         </div>
       );
