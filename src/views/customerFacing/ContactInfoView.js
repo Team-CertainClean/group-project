@@ -31,35 +31,35 @@ class ContactInfoView extends Component {
             <form noValidate autoComplete="off">
             <TextField
                         id="name"
-                        label="Name"
+                        placeholder="Name"
                         value={this.state.name}
                         onChange={this.handleChange('name')}
                         margin="normal"
                     />
                     <TextField
                         id="email"
-                        label="Email"
+                        placeholder="Email"
                         value={this.state.email}
                         onChange={this.handleChange('email')}
                         margin="normal"
                     />
                     <TextField
                         id="address"
-                        label="Address"
+                        placeholder="Address"
                         value={this.state.address}
                         onChange={this.handleChange('address')}
                         margin="normal"
                     />
                     <TextField
                         id="cityStateZip"
-                        label="City, State, Zip"
+                        placeholder="City, State, Zip"
                         value={this.state.cityStateZip}
                         onChange={this.handleChange('cityStateZip')}
                         margin="normal"
                     />
                     <TextField
                         id="phone"
-                        label="Phone"
+                        placeholder="Phone"
                         value={this.state.phone}
                         onChange={this.handleChange('phone')}
                         margin="normal"
