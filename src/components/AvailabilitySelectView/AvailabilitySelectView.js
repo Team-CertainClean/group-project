@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import ContactInfo from './contactInfo';
+import RoomInfo from './roomInfo';
+import TimeAndInfo from './timeAndFinish';
 
 const mapStateToProps = state => ({
     user: state.user,
@@ -20,7 +22,8 @@ class AvailabilitySelectView extends Component {
         return (
             <div>
                 <ContactInfo />
-                
+                <RoomInfo />
+                <TimeAndInfo />
             </div>
         );
     }
