@@ -19,7 +19,7 @@ function sanitizeBody(body){
 
     let sanBody = body;
 
-    console.log(sanBody);
+    console.log(`sanBody recursion ${recursion}`);
 
     for(let object in sanBody){
 
@@ -39,7 +39,7 @@ function sanitizeBody(body){
 
             for(let i = 0; i < sanBody[object].length; i++){
 
-                console.log("Index of array: ", sanBody[object][i]);
+                console.log("Index of array: ", i);
 
                 if(typeof(object[i]) === 'object'){
 
@@ -59,7 +59,7 @@ function sanitizeBody(body){
 
                         console.log("nested string: ", sanBody[object][i]);
 
-                        sanBody[object][i] = sanitizeString(sanBody[object[i]]);
+                        sanBody[object][i] = sanitizeString(sanBody[object][i]);
 
                         console.log(object[i]);
 
@@ -88,8 +88,9 @@ function sanitizeBody(body){
 }
 
 function sanitizeString(string){
+    console.log("Sanitize String");
     let sanString = string;
-    console.log(string, sanString);
+    console.log(string);
     for(let i = 0; i < sanString.length; i++){
         if(sanString[i] === '"'){
             console.log("doublequote found!: ", sanString[i]);
@@ -112,7 +113,7 @@ const testObject = {
     array: ['sup"', {string3: 'nestedObject"'}, 0],
     object: {nestedObject: { num: 10 }, string4: '"string'}
 }
-
+console.log(testObject);
 console.log(sanitizeBody(testObject));
 console.log("iterations: ", recursion);
 
