@@ -7,6 +7,9 @@ const styles = {
     },
     unselectedLocationType: {
         backgroundColo: 'grey'
+    },
+    getStartedButton: {
+        textDecorationLine: 'none'
     }
 } 
 
