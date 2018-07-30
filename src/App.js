@@ -11,15 +11,20 @@ import LoginPage from './components/LoginPage/LoginPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
 import UserPage from './components/UserPage/UserPage';
 import InfoPage from './components/InfoPage/InfoPage';
+
+//Stepper views
 import Stepper from './components/Stepper/Stepper';
 import AvailabilitySelectView from './components/AvailabilitySelectView/AvailabilitySelectView';
 import ContactInfoView from './views/customerFacing/ContactInfoView';
+import RoomInputView from './views/customerFacing/RoomInputView';
+
+//Main view
 import LandingView from './views/customerFacing/LandingView';
 import './styles/main.css';
 
 const App = () => (
   <div>
-    <Header title="Project Base" />
+    <Header title="Certain Clean" />
     <Router>
       <Switch>
         <Redirect exact from="/" to="/home" />
@@ -43,7 +48,10 @@ const App = () => (
           path="/stepper"
           component={Stepper}
         />
-
+        <Route
+          path="/roominput"
+          component={RoomInputView}
+        />
         <Route
           path="/schedule"
           component={AvailabilitySelectView}
