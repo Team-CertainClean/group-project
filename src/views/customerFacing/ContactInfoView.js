@@ -140,7 +140,7 @@ class ContactInfoView extends Component {
                     <InputLabel htmlFor="cleaning_type_id">Cleaning Type</InputLabel>
                     <Select
                         value={this.state.cleaning_type_id}
-                        onChange={this.handleChange('cleaning_type')}
+                        onChange={this.handleChange('cleaning_type_id')}
                         input={<Input name="cleaning_type_id" id="cleaning_type_id" />}
                     >
                         <MenuItem value=""><em>None</em></MenuItem>
