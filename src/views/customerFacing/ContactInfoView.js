@@ -4,16 +4,20 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-
 import Nav from '../../components/Nav/Nav';
 import Stepper from '../../components/Stepper/Stepper';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { CONTACT_ACTIONS } from '../../redux/actions/contactActions';
 
-
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
 
 const styles = theme => ({
     container: {
@@ -28,7 +32,11 @@ const styles = theme => ({
       },
       button: {
           backgroundColor: '#EF8902',
-      }
+      },
+      formControl: {
+        margin: theme.spacing.unit,
+        minWidth: 120,
+      },
 
 });
 
@@ -47,7 +55,8 @@ class ContactInfoView extends Component {
                 email: '',
                 location_address: '',
                 phone_number: '',
-            }
+                cleaning_type: '',
+            },
         }
       }
 
@@ -68,6 +77,7 @@ class ContactInfoView extends Component {
                 ...this.state.contact,
                 [contactInfo]: event.target.value,
                 // username: this.props.user.userName
+                cleaning_type: event.target.value
             }
         })
         console.log(this.state.contact)
@@ -77,7 +87,6 @@ class ContactInfoView extends Component {
         console.log(`in submitContactInfo`)
         event.preventDefault();
         this.props.dispatch({ type: CONTACT_ACTIONS.POST_CONTACT,  payload: this.state.contact});
-        
     }// end submitContactInfo
 
   render() {
@@ -129,6 +138,20 @@ class ContactInfoView extends Component {
                     onChange={this.handleChange('phone_number')}
                     margin="normal"
                 />
+                <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="cleaning_type">Cleaning Type</InputLabel>
+                    <Select
+                        value={this.state.cleaning_type}
+                        onChange={this.handleChange('cleaning_type')}
+                        input={<Input name="cleaning_type" id="cleaning_type" />}
+                    >
+                        <MenuItem value=""><em>None</em></MenuItem>
+                        <MenuItem value={'House'}>House</MenuItem>
+                        <MenuItem value={'Airbnb'}>Airbnb</MenuItem>
+                        <MenuItem value={'Move Out'}>Move Out</MenuItem>
+                    </Select>
+                    {/* <FormHelperText>Some important helper text</FormHelperText> */}
+                </FormControl>
             </form>
             <Button variant="contained" onClick={this.submitContactInfo} className={classes.button}>
                 Submit
