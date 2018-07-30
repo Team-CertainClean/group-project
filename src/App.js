@@ -13,6 +13,8 @@ import UserPage from './components/UserPage/UserPage';
 import InfoPage from './components/InfoPage/InfoPage';
 import Stepper from './components/Stepper/Stepper';
 import AvailabilitySelectView from './components/AvailabilitySelectView/AvailabilitySelectView';
+import ContactInfoView from './views/customerFacing/ContactInfoView';
+import LandingView from './views/customerFacing/LandingView';
 import './styles/main.css';
 
 const App = () => (
@@ -45,6 +47,14 @@ const App = () => (
         <Route
           path="/schedule"
           component={AvailabilitySelectView}
+        />
+        <Route
+          path="/contact"
+          component={ContactInfoView}
+        />
+        <Route
+          path="/landing"
+          component={LandingView}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />
