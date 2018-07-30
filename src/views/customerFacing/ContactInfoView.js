@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+
 
 import Nav from '../../components/Nav/Nav';
 import Stepper from '../../components/Stepper/Stepper';
@@ -10,11 +14,14 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 
+const styles = {
+
+};
 
 const mapStateToProps = state => ({
   user: state.user,
-});
 
+});
 class ContactInfoView extends Component {
     constructor(props){
         super(props);
@@ -40,9 +47,16 @@ class ContactInfoView extends Component {
         }
     }
 
-    handleChange = (contactInfo) => {
+    handleChange = (contactInfo) => (event) => {
         console.log(`in handleChange`)
-
+        this.setState({
+            contact: {
+                ...this.state.contact,
+                [contactInfo]: event.target.value,
+                // username: this.props.user.userName
+            }
+        })
+        console.log(this.state.contact)
     }// end handle change
 
     submitContactInfo(){
@@ -92,8 +106,6 @@ class ContactInfoView extends Component {
                     onChange={this.handleChange('phone_number')}
                     margin="normal"
                 />
-                
-
             </form>
             <Button variant="contained" onClick={this.submitContactInfo}>
                 Submit
@@ -112,5 +124,9 @@ class ContactInfoView extends Component {
   }
 }
 
+ContactInfoView.propTypes = {
+    classes: PropTypes.object,
+  };
+
 // this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(ContactInfoView);
+export default compose(withStyles(styles), connect(mapStateToProps))(ContactInfoView);
