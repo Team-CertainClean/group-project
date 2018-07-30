@@ -1,11 +1,17 @@
-function genQuery(requestData){
-    let queryArray = [];
+const request_Queries = require('./requestQueries');
+
+function genQuery(reqBody){
+    let query = {text: '', array: []};
+
+    query = processBody(reqBody, query);
 
 
-    queryArray.unshift('Begin;');
-    queryArray.push('Commit;');
-    let queryText = queryArray.join(' ');
-    return queryText;
+
+    return query;
+}
+
+function processBody(body, query){
+
 }
 
 module.exports = genQuery;

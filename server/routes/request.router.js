@@ -17,7 +17,8 @@ router.get('/requestTable', (req, res) => {
  * POST route template
  */
 router.post('/', (req, res) => {
-    const queryText = genQuery(req.body); 
+    const query = genQuery(req.body); 
+    
 });
 
 module.exports = router;
