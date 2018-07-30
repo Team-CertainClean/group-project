@@ -1,31 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {compose} from 'redux';
-import { USER_ACTIONS } from '../../redux/actions/userActions';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-
-const styles = {
-  card: {
-    minWidth: 275,
-  },
-  title: {
-    marginBottom: 16,
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-};
+import { USER_ACTIONS } from '../../redux/actions/userActions';
+import ContactInfo from './contactInfo';
+import RoomInfo from './roomInfo';
+import TimeAndInfo from './timeAndFinish';
+import Calendar from './calendar';
 
 const mapStateToProps = state => ({
     user: state.user,
 });
+
+const styles = {
+    contact: {
+        width: '20%',
+    },
+    room: {
+        width: '20%',
+    },
+    time: {
+        width: '20%',
+    },
+    calendar: {
+        width: '20%',
+    },
+};
 
 class AvailabilitySelectView extends Component {
     // constructor(props) {
@@ -40,16 +41,10 @@ class AvailabilitySelectView extends Component {
         const { classes } = this.props;
         return (
             <div>
-                <Card className={classes.card}>
-                    <CardContent>
-                        <Typography className={classes.title} color="textPrimary">
-                            certainclean
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button variant="contained" size="small">Contact Us</Button>
-                    </CardActions>
-                </Card>
+                <ContactInfo className={classes.contact} />
+                <RoomInfo className={classes.room} />
+                <TimeAndInfo className={classes.time} />
+                <Calendar className={classes.calendar} />
             </div>
         );
     }
@@ -59,5 +54,4 @@ AvailabilitySelectView.propTypes = {
     classes: PropTypes.object.isRequired,
 };
   
-
 export default compose(withStyles(styles),connect(mapStateToProps))(AvailabilitySelectView);
