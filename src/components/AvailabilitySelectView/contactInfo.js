@@ -25,7 +25,7 @@ const styles = {
   },
   media: {
     height: '100px',
-    maxWidth: '100%',
+    width: '756px',
   },
 };
 
