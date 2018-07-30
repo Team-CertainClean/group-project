@@ -4,9 +4,10 @@ import { CONTACT_ACTIONS } from '../actions/contactActions';
 const contactInfo = (state = '', action) => {
     switch (action.type) {
         case CONTACT_ACTIONS.POST_CONTACT:
-        return state
+        return action.payload;
+        default:
+        return state;
+    }
 }
 
-export default combineReducers({
-    contactInfo,
-  });
+export default contactInfo;
