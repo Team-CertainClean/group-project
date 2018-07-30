@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Nav from '../../components/Nav/Nav';
+import Stepper from '../../components/Stepper/Stepper';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
+
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -17,6 +19,13 @@ class ContactInfoView extends Component {
     constructor(props){
         super(props);
         this.state = {
+            contact: {
+                first_name: '',
+                last_name: '',
+                email: '',
+                location_address: '',
+                phone_number: '',
+            }
 
         }
       }
@@ -71,7 +80,7 @@ class ContactInfoView extends Component {
                 />
                 <TextField
                     id="location_address"
-                    placeholder="Location Address"
+                    placeholder="Street Address City, State Zip"
                     value={this.state.location_address}
                     onChange={this.handleChange('location_address')}
                     margin="normal"
@@ -83,11 +92,12 @@ class ContactInfoView extends Component {
                     onChange={this.handleChange('phone_number')}
                     margin="normal"
                 />
-                <br/>
-                <Button variant="contained" onClick={this.submitContactInfo}>
-                    Submit
-                </Button>
+                
+
             </form>
+            <Button variant="contained" onClick={this.submitContactInfo}>
+                Submit
+            </Button>
             </Paper>
         </div>
       );
@@ -95,7 +105,7 @@ class ContactInfoView extends Component {
 
     return (
       <div>
-
+        <Stepper />
         { content }
       </div>
     );
