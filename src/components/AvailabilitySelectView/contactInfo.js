@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = {
   card: {
-    minWidth: 275,
+    width: '20%',
   },
   title: {
     marginBottom: 16,
@@ -25,7 +25,7 @@ const styles = {
   },
   media: {
     height: '100px',
-    width: '756px',
+    width: '100%',
   },
 };
 
