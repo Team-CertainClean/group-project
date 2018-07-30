@@ -14,7 +14,7 @@ let recursion = 0;
 
 // Recursive function for sanitizing user inputs in request body
 function sanitizeBody(body){
-    
+
     recursion += 1;
 
     let sanBody = body;
@@ -29,7 +29,7 @@ function sanitizeBody(body){
 
             let sanString = sanBody[object];
 
-            sanString = sanitizeString(sanBody[object]);
+            sanString = sanitizeString(sanString);
 
             sanBody[object] = sanString;
 
@@ -89,6 +89,7 @@ function sanitizeBody(body){
 
 function sanitizeString(string){
     let sanString = string;
+    console.log(string, sanString);
     for(let i = 0; i < sanString.length; i++){
         if(sanString[i] === '"'){
             console.log("doublequote found!: ", sanString[i]);
