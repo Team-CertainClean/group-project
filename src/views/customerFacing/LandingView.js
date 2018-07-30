@@ -97,7 +97,7 @@ class CustomerLandingView extends React.Component{
                         {locationTypeContent}
                     </CardContent>
                 </Card>
-                <Link to={this.state.path} className={classes.getStartedButton}><Button>Get Started</Button></Link>
+                <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
             </Paper>
         );
     }

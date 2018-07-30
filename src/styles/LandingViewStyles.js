@@ -9,6 +9,9 @@ const styles = {
         backgroundColo: 'grey'
     },
     getStartedButton: {
+        backgroundColor: '#ef8902'
+    },
+    getStartedLink: {
         textDecorationLine: 'none'
     }
 } 
