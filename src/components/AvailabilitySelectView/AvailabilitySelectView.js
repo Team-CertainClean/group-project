@@ -4,6 +4,7 @@ import { USER_ACTIONS } from '../../redux/actions/userActions';
 import ContactInfo from './contactInfo';
 import RoomInfo from './roomInfo';
 import TimeAndInfo from './timeAndFinish';
+import Calendar from './calendar';
 
 const mapStateToProps = state => ({
     user: state.user,
@@ -24,6 +25,7 @@ class AvailabilitySelectView extends Component {
                 <ContactInfo />
                 <RoomInfo />
                 <TimeAndInfo />
+                <Calendar />
             </div>
         );
     }
