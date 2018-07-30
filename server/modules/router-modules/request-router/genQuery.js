@@ -1,106 +1,76 @@
+const pool = require('../../pool');
+
 function genQuery(reqBody){
     let query = {text: '', array: []};
     let body = reqBody;
     body = sanitizeBody(body);
-    query = processBody(body, query);
-    return query;
+    let req_id = getRequestId(body);
+    queryText = processBody(body, query, req_id);
+    return queryText;
 }
 
-function processBody(body, query){
-
+function getRequestId(body){
+    let queryText = `INSERT INTO request ("cleaning_type_id", "location_type_id", "est_duration") values ($1, $2, $3) returning id;`;
+    pool.query(queryText, [body.contactInfo.cleaning_type_id, body.location_type_id, body.est_duration]).then(result => result.rows[0].id).catch(error=>console.log('Error handling POST in getRequestId: ', error));
 }
 
-let recursion = 0;
+function processBody(body, query, req_id){
+    for(let room of body.rooms){
+        query.array[query.array.length - 1 ] = `INSERT INTO request_room_junction ("room_id", "request_id", "cleanliness_score") values (${room.room_id}, ${req_id}), ${room.cleanliness_score};`;
+    }
+    for(let object of body.calendarObjects){
+        query.array[query.array.length -1 ] = `INSERT INTO request_availability_calendar_objects ("request_id", "start_time", "end_time") values (${req_id}, ${object.start}, ${object.end});`;
+    }
+    query.array[query.array.length - 1] = `INSERT INTO contact ("request_id", "first_name", "last_name", "email", "phone_number") values (${req_id}, ${body.contactInfo.first_name}, ${body.contactInfo.last_name}, ${body.contactInfo.email}, ${body.contactInfo.phone_number});`;
+    query.text = query.array.join(' ');
+    return query.text;
+}  
 
 // Recursive function for sanitizing user inputs in request body
 function sanitizeBody(body){
-
-    recursion += 1;
-
     let sanBody = body;
-
-    console.log(`sanBody recursion ${recursion}`);
-
     for(let object in sanBody){
-
-        console.log(sanBody[object]);
-
         if(typeof(sanBody[object]) === 'string'){
-
             let sanString = sanBody[object];
-
             sanString = sanitizeString(sanString);
-
-
             sanBody[object] = sanString;
-
         }else if(Array.isArray(sanBody[object])) {
-
-            console.log("In array type");
-
             for(let i = 0; i < sanBody[object].length; i++){
-
-                console.log("Index of array: ", i);
-
-                if(typeof(object[i]) === 'object'){
-
-                    console.log("nested object: ", sanBody[object][i]);
-
+                if(typeof(sanBody[object][i]) === 'object'){
                     sanitizeBody(sanBody[object][i]);
-
                 } else if(Array.isArray(sanBody[object][i])){
-
-                    console.log("nested array: ", sanBody[object][i]);
-
                     sanitizeBody(sanBody[object][i]);
-
                 } else {
-
                     if(typeof(object[i]) === 'string'){
-
-                        console.log("nested string: ", sanBody[object][i]);
-
                         sanBody[object][i] = sanitizeString(sanBody[object][i]);
-
-                        console.log(object[i]);
-
                     }
                 }
             }
         } else if(typeof(sanBody[object]) == 'object'){
-            console.log("In object type");
             sanitizeBody(sanBody[object]);
-            // for(let prop in object){
-            //     console.log("object type property: ", object[prop]);
-            //     if(typeof(object[prop]) == 'object'){
-            //         console.log("object: ", object[prop]);
-            //         sanitizeBody(object[prop]);
-            //     } else {
-            //         if(typeof(object[prop]) == 'string'){
-            //             console.log("string: ", object[prop]);
-            //             object[prop] = sanitizeString(object[prop]);
-            //             console.log("sanString: ",  object[prop]);
-            //         }
-            //     }
-            // }
         }
     }
     return sanBody;
 }
 
+/*
+    Modifies a string to remove any excess quotations marks, double and single.
+
+    Currently removes the quotation mark directly from the string.
+
+    ***Could be modified to simply escape excess quotation marks.***
+*/
 function sanitizeString(string){
-    console.log("Sanitize String");
     let sanString = string;
-    console.log(string);
     for(let i = 0; i < sanString.length; i++){
         if(sanString[i] === '"'){
-            console.log("doublequote found!: ", sanString[i]);
-            sanString.replace(/\"/g,'\\"');
-            console.log(sanString);
+            let splitArray = sanString.split('');
+            splitArray.splice(i, 1);
+            sanString = splitArray.join('');
         } else if(sanString[i] === "'"){
-            console.log("singlequote found!: ", sanString[i]);
-            console.log(sanString.replace(/\'/g,"\\'"));
-            console.log(sanString);
+            let splitArray = sanString.split('');
+            splitArray.splice(i, 1);
+            sanString = splitArray.join('');
         }
     }
     return sanString;
@@ -111,11 +81,13 @@ const testObject = {
     num: 0,
     string1: "'Hello",
     string2: 'Goodbye"',
+    who: "Sally\'s",
     array: ['sup"', {string3: 'nestedObject"'}, 0],
     object: {nestedObject: { num: 10 }, string4: '"string'}
 }
+
 console.log(testObject);
-console.log(sanitizeBody(testObject));
-console.log("iterations: ", recursion);
+sanTestObject = sanitizeBody(testObject);
+console.log(testObject);
 
 module.exports = genQuery;
