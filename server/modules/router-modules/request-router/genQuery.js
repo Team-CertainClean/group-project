@@ -31,6 +31,7 @@ function sanitizeBody(body){
 
             sanString = sanitizeString(sanString);
 
+
             sanBody[object] = sanString;
 
         }else if(Array.isArray(sanBody[object])) {

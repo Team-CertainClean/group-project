@@ -77,7 +77,7 @@ class ContactInfoView extends Component {
                 ...this.state.contact,
                 [contactInfo]: event.target.value,
                 // username: this.props.user.userName
-                cleaning_type: event.target.value
+                // cleaning_type: event.target.value
             }
         })
         console.log(this.state.contact)
