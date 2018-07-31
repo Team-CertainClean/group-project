@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const craftTable = require('../modules/router-modules/request-router/craftTable');
-const genQuery = require('../modules/router-modules/request-router/genQuery');
+const requestTransaction = require('../modules/router-modules/request-router/requestTransaction');
 
 /**
  * GET route template
@@ -17,10 +17,9 @@ router.get('/requestTable', (req, res) => {
  * POST route template
  */
 router.post('/', (req, res) => {
-    const queryText = genQuery(req.body);
-    pool.query(queryText)
+    requestTransaction(req.body)
         .then(result => res.sendStatus(201))
-        .catch(error=>console.log('Error handling POST in /api/request: ', error));
+        .catch(error=>console.log('Error handling POST for /api/request: ', error));
 });
 
 const testBody = {
@@ -55,13 +54,5 @@ const testBody = {
         }
     ]
 }
-
-async function testFunction(){
-    const query = await genQuery(testBody);
-    console.log("router: ", query);
-    pool.query(query).then(result=> console.log(result)).catch(error=> console.log(error));
-}
-
-testFunction();
 
 module.exports = router;
