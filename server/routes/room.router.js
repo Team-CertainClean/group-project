@@ -19,17 +19,7 @@ router.get('/', (req, res)=>{
             res.sendStatus(404);
         });
 });
-
-router.get('/location', (req, res)=>{
-    const queryText = 'select * from location_type;';
-    pool.query(queryText)
-        .then(result=>res.send(result.rows))
-        .catch(error=>{
-            console.log('Error handling GET for /api/room/location: ', error);
-            res.sendStatus(404);
-    });
-});
-
+    
 router.post('/', (req, res)=>{
     const room = req.body;
     console.log(room);
@@ -38,6 +28,27 @@ router.post('/', (req, res)=>{
         .then(result => res.sendStatus(201))
         .catch(error => {
             console.log('Error handling POST for /api/room: ', error);
+            res.sendStatus(500);
+        });
+});
+
+router.get('/location', (req, res)=>{
+    const queryText = 'select * from location_type;';
+    pool.query(queryText)
+        .then(result=>res.send(result.rows))
+        .catch(error=>{
+            console.log('Error handling GET for /api/room/location: ', error);
+            res.sendStatus(404);
+        });
+});
+
+router.post('/location', (req, res)=>{
+    const location = req.body;
+    const queryText = 'insert into location_type ("location_type") values ($1);';
+    pool.query(queryText, [location.location_type])
+        .then(result => res.sendStatus(201))
+        .catch(error => {
+            console.log('Error handling POST for /api/room/location: ', error);
             res.sendStatus(500);
         });
 });
