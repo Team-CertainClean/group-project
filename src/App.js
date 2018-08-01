@@ -18,6 +18,8 @@ import RoomComponent from './components/RoomComponent/RoomComponent';
 import AvailabilitySelectView from './components/AvailabilitySelectView/AvailabilitySelectView';
 import ContactInfoView from './views/customerFacing/ContactInfoView';
 import RoomInputView from './views/customerFacing/RoomInputView';
+import EstimatorControlView from './views/adminFacing/EstimatorControlView';
+
 //Main view
 import LandingView from './views/customerFacing/LandingView';
 import './styles/main.css';
@@ -68,6 +70,10 @@ const App = () => (
         <Route
           path="/landing"
           component={LandingView}
+        />
+        <Route 
+          path="/estimator"
+          component={EstimatorControlView}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />
