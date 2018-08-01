@@ -5,53 +5,52 @@ import { connect } from 'react-redux';
 // Material UI Imports
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 
-// Component Imports
-import LocationSelectionMenu from './LocationSelectionMenu';
+// Component Imports 
+import AddRoomForm from './AddRoomForm';
+
+const mapStateToProps = store => ({
+
+});
 
 class RoomControlTable extends React.Component{
     constructor(){
         super();
         this.state = {
             roomInfo: {
-                room_name: null,
+                room_name: '',
                 location_id: null,
-                metric: null
-            }
+                metric: ''
+            },
+            anchor: null
         }
     }
 
+    componentDidUpdate(){
+        console.log(this.state);
+    }
 
-    handleInputChange = (prop) => event => {
-        this.setState({roomInfo: {...this.state.roomInfo, [prop]: event.target.value}});
+    submitRoom = () => {
+        // this.props.dispatch({type: 'POST_ROOM', payload: this.state.roomInfo});
+        console.log('SEND IT: ', this.state.roomInfo);
+    }
+
+    handleChangeFor = event => {
+        console.log(event.target.value);
+        console.log(event.target.id);
+        this.setState({roomInfo: {...this.state.roomInfo, [event.target.id]: event.target.value}, anchor: null});
     }
 
     render(){
         return(
             <Paper>
                 <Typography variant="title">Add Rooms</Typography>
-                <TextField
-                    id="roomName"
-                    label="Room Name"
-                    // className={classes.textField}
-                    margin="normal"
-                    onChange={() => this.handleInputChange('room_name')}
-                />
-                <TextField
-                    id="durationMetric"
-                    label="Duration Metric"
-                    type="number"
-                    // className={classes.textField}
-                    margin="normal"
-                    onChange={() => this.handleInputChange('metric')}
-                />
-                <LocationSelectionMenu handleInputChange={this.handleInputChange}/>
+                <AddRoomForm handleChangeFor={this.handleChangeFor} submitRoom={this.submitRoom} room={this.state.roomInfo.room_name} metric={this.state.roomInfo.metric} anchor={this.state.anchor} /*locations={this.props.locations}*//>
             </Paper>
         );
     }
 }
 
 export default compose(
-    connect()
+    connect(mapStateToProps)
 )(RoomControlTable);

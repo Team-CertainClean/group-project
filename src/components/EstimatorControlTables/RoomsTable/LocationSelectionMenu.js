@@ -6,23 +6,23 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 class LocationSelectionMenu extends React.Component{
-    constructor(){
-        super();
-        this.state = {anchor: null};
-    }
-
-    closeMenu = () => {
-        this.setState({anchor: null});
+    constructor(props){
+        super(props);
+        this.state = {anchor: this.props.anchor};
     }
 
     openMenu = (event) => {
         this.setState({anchor: event.currentTarget});
     }
 
+    closeMenu = () => {
+        this.setState({anchor: null});
+    }
+
     render(){
         const {anchor} = this.state;
         return(
-            <div>
+            <div style={{display: 'inline'}}>
                 <Button onClick={this.openMenu}>Location Type</Button>
                 <Menu
                     id="location-menu"
@@ -41,8 +41,22 @@ class LocationSelectionMenu extends React.Component{
                             {location.location_name}
                         </MenuItem>
                     })} */}
-                    <MenuItem>TEST: Residential</MenuItem>
-                    <MenuItem>TEST: Commercial</MenuItem>
+                    <MenuItem 
+                    value={1}  
+                    id="location_id"
+                    onClick={this.props.handleChangeFor}
+                    onClick={this.closeMenu}
+                    >
+                        TEST: Residential
+                    </MenuItem>
+                    <MenuItem 
+                    value={2}
+                    id="location_id"
+                    onClick={this.props.handleChangeFor}
+                    onClick={this.closeMenu}
+                    >
+                        TEST: Commercial
+                    </MenuItem>
                 </Menu>
             </div>
         );

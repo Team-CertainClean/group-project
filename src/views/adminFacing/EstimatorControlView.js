@@ -14,7 +14,7 @@ class EstimatorControlView extends React.Component{
         this.setState({selectedTable: index});
     }
     render(){
-        const {classes} = this.props;
+        // const {classes} = this.props;
 
         let table = null;
         if(this.state.selectedTable == 1) {
