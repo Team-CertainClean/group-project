@@ -2,6 +2,7 @@ import React from 'react';
 
 // Component Imports
 import MenuBar from '../../components/MenuBar/MenuBar';
+import RoomControlTable from '../../components/EstimatorControlTables/RoomsTable/RoomsTable';
 
 class EstimatorControlView extends React.Component{
     constructor(){
@@ -16,21 +17,23 @@ class EstimatorControlView extends React.Component{
         const {classes} = this.props;
 
         let table = null;
-        if(this.state.selectedTable === 1) {
+        if(this.state.selectedTable == 1) {
             // table = <LocationControlTable />
         } 
-        else if(this.selectedTable === 2) {
+        else if(this.state.selectedTable == 2) {
             // table = <CleanerControlTable />
         } 
-        else if(this.selectedTable === 0) {
-            // table = <RoomControlTable />
+        else if(this.state.selectedTable == 0){
+            table = <RoomControlTable />;
         }
 
         const menuOptions=["Rooms", "Locations", "Cleaners"];
         return(
             <div>
-                <MenuBar menuOptions={menuOptions} selectOption={this.selectOption}/>
-                {table}
+                <MenuBar menuOptions={menuOptions} selectOption={this.selectOption} />
+                <div>
+                    {table}
+                </div>
             </div>
         );
     }

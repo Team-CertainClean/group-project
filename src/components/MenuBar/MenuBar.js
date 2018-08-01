@@ -17,7 +17,7 @@ class MenuBar extends React.Component{
                 <MenuList className={classes.list}>
                     {this.props.menuOptions.map((option, i) => {
                         return (
-                                <MenuItem onClick={() => this.props.selectOption(i)} className={classes.listOption}>
+                                <MenuItem key={i} onClick={() => this.props.selectOption(i)} className={classes.listOption}>
                                     <Typography>{option}</Typography>
                                 </MenuItem>
                                 );
