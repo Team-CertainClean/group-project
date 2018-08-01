@@ -1,6 +1,8 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { ROOM_ACTIONS } from '../../../redux/actions/roomActions';
+import { LOCATION_ACTIONS } from '../../../redux/actions/locationActions';
 
 // Material UI Imports
 import Paper from '@material-ui/core/Paper';
@@ -34,12 +36,12 @@ class RoomControlTable extends React.Component{
     }
 
     componentDidMount(){
-        this.props.dispatch({type: 'FETCH_LOCATIONS'});
-        this.props.dispatch({type: 'FETCH_ROOMS'});
+        this.props.dispatch({type: LOCATION_ACTIONS.FETCH});
+        this.props.dispatch({type: ROOM_ACTIONS.FETCH});
     }
 
     submitRoom = () => {
-        // this.props.dispatch({type: 'POST_ROOM', payload: this.state.roomInfo});
+        this.props.dispatch({type: ROOM_ACTIONS.POST, payload: this.state.roomInfo});
         console.log('SEND IT: ', this.state.roomInfo);
     }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { CLEANER_ACTIONS } from '../../../redux/actions/cleanerActions';
 
 // Material UI Imports
 import Paper from '@material-ui/core/Paper';
@@ -32,11 +33,11 @@ class CleanerControlTable extends React.Component{
     }
 
     componentDidMount(){
-        this.props.dispatch({type: 'FETCH_CLEANERS'});
+        this.props.dispatch({type: CLEANER_ACTIONS.FETCH});
     }
 
     submitCleaner = () => {
-        // this.props.dispatch({type: 'POST_CLEANER', payload: this.state.cleanerInfo});
+        this.props.dispatch({type: CLEANER_ACTIONS.POST, payload: this.state.cleanerInfo});
         console.log('SEND IT: ', this.state.cleanerInfo);
     }
 

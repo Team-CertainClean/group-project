@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { ROOM_ACTIONS } from '../actions/roomActions';
-import { fetchRooms } from '../requests/roomRequests';
+import { fetchRooms, postRoom } from '../requests/roomRequests';
 
 function* fetch(){
     try{
@@ -11,8 +11,18 @@ function* fetch(){
     }
 }
 
+function* post(action){
+    try{
+        yield postRoom(action.payload);
+        yield put({type: ROOM_ACTIONS.FETCH});
+    }catch(error){
+        alert('Error posting room');
+    }
+}
+
 function* roomSaga(){
     yield takeLatest(ROOM_ACTIONS.FETCH, fetch);
+    yield takeLatest(ROOM_ACTIONS.POST, post);
 }
 
 export default roomSaga;
