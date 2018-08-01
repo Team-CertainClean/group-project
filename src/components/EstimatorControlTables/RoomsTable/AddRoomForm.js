@@ -20,7 +20,7 @@ class AddRoomForm extends React.Component{
                     onChange={this.props.handleChangeFor}
                 />
                 <TextField
-                    id="metric"
+                    id="duration_metric"
                     label="Duration Metric"
                     type="number"
                     // className={classes.textField}

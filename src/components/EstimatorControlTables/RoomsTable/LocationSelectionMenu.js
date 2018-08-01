@@ -40,7 +40,7 @@ class LocationSelectionMenu extends React.Component{
                     {this.props.locations.map(location => {
                         return <MenuItem 
                                     key={location.id}
-                                    id="location_id"
+                                    id="location_type_id"
                                     value={location.id}
                                     onClick={this.handleMenuSelect}
                                     >

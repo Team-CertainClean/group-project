@@ -12,6 +12,7 @@ function* fetch(){
 }
 
 function* post(action){
+    console.log("post in roomSaga: ", action.payload);
     try{
         yield postRoom(action.payload);
         yield put({type: ROOM_ACTIONS.FETCH});

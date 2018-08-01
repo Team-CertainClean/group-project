@@ -28,8 +28,8 @@ class RoomControlTable extends React.Component{
         this.state = {
             roomInfo: {
                 room_name: '',
-                location_id: null,
-                metric: ''
+                location_type_id: 0,
+                duration_metric: 0
             },
             anchor: null
         }
@@ -43,6 +43,7 @@ class RoomControlTable extends React.Component{
     submitRoom = () => {
         this.props.dispatch({type: ROOM_ACTIONS.POST, payload: this.state.roomInfo});
         console.log('SEND IT: ', this.state.roomInfo);
+        this.setState({roomInfo: {room_name: '', location_type_id: 0, duration_metric: 0}});
     }
 
     handleChangeFor = event => {
@@ -89,7 +90,7 @@ class RoomControlTable extends React.Component{
         return(
             <Paper>
                 <Typography variant="title">Add Rooms</Typography>
-                <AddRoomForm handleChangeFor={this.handleChangeFor} submitRoom={this.submitRoom} room={this.state.roomInfo.room_name} metric={this.state.roomInfo.metric} anchor={this.state.anchor} locations={this.props.locations}/>
+                <AddRoomForm handleChangeFor={this.handleChangeFor} submitRoom={this.submitRoom} room={this.state.roomInfo.room_name} metric={this.state.roomInfo.duration_metric} anchor={this.state.anchor} locations={this.props.locations}/>
                 {table}
             </Paper>
         );

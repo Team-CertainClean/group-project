@@ -10,10 +10,14 @@ router.get('/', (req, res)=>{
                             location_type.location_type as location_type 
                         from room
                         join location_type on room.location_type_id = location_type.id
-                        group by room.id, location_type.location_type;`;
+                        group by room.id, location_type.location_type
+                        order by room.id;`;
     pool.query(queryText)
         .then(result => res.send(result.rows))
-        .catch(error=>console.log("Error handling GET for rooms: ", error));
+        .catch(error=>{
+            console.log("Error handling GET for rooms: ", error)
+            res.sendStatus(404);
+        });
 });
 
 router.get('/location', (req, res)=>{
@@ -22,7 +26,20 @@ router.get('/location', (req, res)=>{
         .then(result=>res.send(result.rows))
         .catch(error=>{
             console.log('Error handling GET for /api/room/location: ', error);
+            res.sendStatus(404);
     });
+});
+
+router.post('/', (req, res)=>{
+    const room = req.body;
+    console.log(room);
+    const queryText = 'insert into room ("room_name", "location_type_id", "duration_metric") values ($1, $2, $3);';
+    pool.query(queryText, [room.room_name, room.location_type_id, room.duration_metric])
+        .then(result => res.sendStatus(201))
+        .catch(error => {
+            console.log('Error handling POST for /api/room: ', error);
+            res.sendStatus(500);
+        });
 });
 
 module.exports = router;

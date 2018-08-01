@@ -7,7 +7,7 @@ export function fetchRooms(){
 }
 
 export function postRoom(payload){
-    return axios.post('/api/room')
+    return axios.post('/api/room', payload)
         .then(response => response)
         .catch(error=>alert("Failed to post room."));
 }
