@@ -27,7 +27,7 @@ class CleanerControlTable extends React.Component{
             cleanerInfo: {
                 first_name: '',
                 last_name: '',
-                properly_account_id: ''
+                properly_account_id: 0
             }
         }
     }

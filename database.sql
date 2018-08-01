@@ -46,6 +46,7 @@ create table Cleaner(
 	id serial primary key,
 	first_name varchar(80) not null,
 	last_name varchar(80) not null,
+	properly_account_id int,
 	photo_url varchar(200)
 );
 
