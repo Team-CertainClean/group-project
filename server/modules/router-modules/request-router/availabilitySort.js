@@ -2,6 +2,8 @@
     Module for sorting through availability calendar objects and attaching to appropriate request
 
     Big O - N squared... Not optimal
+
+    THIS WILL BE DEPRECATED ONCE WE COMPLETE getRequestData within craftTable.js    
 */
 function availabilitySort(availability, requestsArray){
     let requests = requestsArray;
