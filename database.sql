@@ -13,6 +13,22 @@ create table Administrator(
 	password varchar(80) not null
 );
 
+-- Storage of types of cleaning for customer selection
+create table Cleaning_Type(
+	id serial primary key,
+	cleaning_type varchar(80)
+);
+-- Inserts move out and airbnb options into cleaning_type table
+insert into Cleaning_Type ("cleaning_type") values ('Move Out'), ('AirBnB');
+
+-- Storage of cleaning locations offered
+create table Location_Type(
+	id serial primary key,
+	location_type varchar(80)
+);
+-- Current location offerings
+insert into Location_Type("location_type") values ('Residential'), ('Commercial');
+
 -- Storage of Request information.  start_time and end_time represent the requested start and end time for cleaning.
 -- "status" is an integer, either 0, 1, or 2.  0 = unscheduled, 1 = scheduled, 2 = closed.
 create table Request(
@@ -24,14 +40,6 @@ create table Request(
     est_duration float not null,
     status int default 0
 );
-
--- Storage of types of cleaning for customer selection
-create table Cleaning_Type(
-	id serial primary key,
-	cleaning_type varchar(80)
-);
--- Inserts move out and airbnb options into cleaning_type table
-insert into Cleaning_Type ("cleaning_type") values ('Move Out'), ('AirBnB');
 
 -- Storage of Cleaner profile data.  Photo_url may change depending on how AWS is accessed
 create table Cleaner(
@@ -66,14 +74,6 @@ create table Contact(
 	location_address varchar(200)
 );
 
--- Storage of cleaning locations offered
-create table Location_Type(
-	id serial primary key,
-	location_type varchar(80)
-);
--- Current location offerings
-insert into Location_Type("location_type") values ('Residential'), ('Commercial');
-
 -- Storage of cleanable rooms with relevant duration metrics, connected to a location type.
 create table Room(
 	id serial primary key,
@@ -81,6 +81,7 @@ create table Room(
 	location_type_id int references Location_Type not null,
 	duration_metric float
 );
+
 -- Current offered rooms (default estimated metrics, replace when provided)
 insert into Room ("room_name", "location_type_id", "duration_metric") 
 values
