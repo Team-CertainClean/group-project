@@ -14,10 +14,10 @@ import InfoPage from './components/InfoPage/InfoPage';
 
 //Stepper views
 import Stepper from './components/Stepper/Stepper';
+import RoomComponent from './components/RoomComponent/RoomComponent';
 import AvailabilitySelectView from './components/AvailabilitySelectView/AvailabilitySelectView';
 import ContactInfoView from './views/customerFacing/ContactInfoView';
 import RoomInputView from './views/customerFacing/RoomInputView';
-
 //Main view
 import LandingView from './views/customerFacing/LandingView';
 import './styles/main.css';
@@ -52,6 +52,10 @@ const App = () => (
         <Route
           path="/roominput"
           component={RoomInputView}
+        />
+           <Route
+          path="/roomcomponent"
+          component={RoomComponent}
         />
         <Route
           path="/schedule"
