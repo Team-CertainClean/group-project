@@ -7,7 +7,7 @@ export function fetchLocations(){
 }
 
 export function postLocation(payload){
-    return axios.post('/api/room/location')
+    return axios.post('/api/room/location', payload)
         .then(response => alert("Post successful"))
         .catch(error=> alert("Failed to post location"));
 }

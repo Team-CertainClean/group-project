@@ -1,6 +1,7 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { LOCATION_ACTIONS } from '../../../redux/actions/locationActions';
 
 // Material UI Imports
 import Paper from '@material-ui/core/Paper';
@@ -30,11 +31,11 @@ class LocationControlTable extends React.Component{
     }
 
     componentDidMount(){
-        this.props.dispatch({type: 'FETCH_LOCATIONS'});
+        this.props.dispatch({type: LOCATION_ACTIONS.FETCH});
     }
 
     submitLocation = () => {
-        // this.props.dispatch({type: 'POST_LOCATION', payload: this.state.locationInfo});
+        this.props.dispatch({type: LOCATION_ACTIONS.POST, payload: this.state.locationInfo});
         console.log('SEND IT: ', this.state.locationInfo);
     }
 
