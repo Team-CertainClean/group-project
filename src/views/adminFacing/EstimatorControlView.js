@@ -4,6 +4,7 @@ import React from 'react';
 import MenuBar from '../../components/MenuBar/MenuBar';
 import RoomControlTable from '../../components/EstimatorControlTables/RoomsTable/RoomsTable';
 import CleanerControlTable from '../../components/EstimatorControlTables/CleanersTable/CleanerTable';
+import LocationControlTable from '../../components/EstimatorControlTables/LocationsTable/LocationsTable';
 
 class EstimatorControlView extends React.Component{
     constructor(){
@@ -19,7 +20,7 @@ class EstimatorControlView extends React.Component{
 
         let table = null;
         if(this.state.selectedTable == 1) {
-            // table = <LocationControlTable />
+            table = <LocationControlTable />
         } 
         else if(this.state.selectedTable == 2) {
             table = <CleanerControlTable />
