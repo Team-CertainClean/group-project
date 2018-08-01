@@ -17,7 +17,7 @@ import AddRoomForm from './AddRoomForm';
 
 const mapStateToProps = store => ({
     locations: store.locations,
-    
+    rooms: store.rooms
 });
 
 class RoomControlTable extends React.Component{
