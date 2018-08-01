@@ -4,11 +4,26 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
+//Components
+import RoomComponent from '../../components/RoomComponent/RoomComponent';
+import Nav from '../../components/Nav/Nav';
 import Stepper from '../../components/Stepper/Stepper';
+
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { ROOM_ACTIONS } from '../../redux/actions/roomActions';
-import Button from '@material-ui/core/Button';
 
+//Material UI
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+
+//Card
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -90,22 +105,18 @@ const styles = {
                <Card className={classes.card}>
         <CardContent>
           <Typography className={classes.title} color="textSecondary">
-            Word of the Day
+            LIVING ROOM
           </Typography>
           <Typography variant="headline" component="h2">
             
           </Typography>
           <Typography className={classes.pos} color="textSecondary">
-            adjective
+          ● ● ● ○ ○
           </Typography>
           <Typography component="p">
-            well meaning and kindly.<br />
-            {'"a benevolent smile"'}
+            SPECIAL COMMENT FOR SPEIFIC ROOM<br />
           </Typography>
         </CardContent>
-        <CardActions>
-          <Button size="small">Learn More</Button>
-        </CardActions>
       </Card>
           </div>
         );
@@ -113,8 +124,12 @@ const styles = {
   
       return (
         <div>
+        
           <Stepper />
           { content }
+          <Button>Add room</Button>
+         <RoomComponent />
+
         </div>
       );
     }
