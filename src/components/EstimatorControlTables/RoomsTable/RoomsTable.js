@@ -16,7 +16,8 @@ import Button from '@material-ui/core/Button';
 import AddRoomForm from './AddRoomForm';
 
 const mapStateToProps = store => ({
-    locations: store.locations
+    locations: store.locations,
+    
 });
 
 class RoomControlTable extends React.Component{
@@ -34,6 +35,7 @@ class RoomControlTable extends React.Component{
 
     componentDidMount(){
         this.props.dispatch({type: 'FETCH_LOCATIONS'});
+        this.props.dispatch({type: 'FETCH_ROOMS'});
     }
 
     submitRoom = () => {
