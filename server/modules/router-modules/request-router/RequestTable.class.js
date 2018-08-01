@@ -6,6 +6,8 @@ const availabilitySort = require('./availabilitySort');
 /* 
     RequestTable class with methods retrieving information 
     relevant to Request Table of Admin Facing GUI 
+
+    THIS WILL BE DEPRECATED ONCE WE COMPLETE getRequestData within craftTable.js
 */
 class RequestTable{
     constructor(){
