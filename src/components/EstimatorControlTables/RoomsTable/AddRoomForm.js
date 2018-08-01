@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 
 class AddRoomForm extends React.Component{
     render(){
-        console.log(this.props);
         return(
             <div>
                 <TextField
@@ -29,7 +28,7 @@ class AddRoomForm extends React.Component{
                     value={this.props.metric}
                     onChange={this.props.handleChangeFor}
                 />
-                <LocationSelectionMenu /*locations={this.props.locations}*/ handleChangeFor={this.props.handleChangeFor} anchor={this.props.anchor} />
+                <LocationSelectionMenu locations={this.props.locations} handleChangeFor={this.props.handleChangeFor} anchor={this.props.anchor} />
                 <Button onClick={this.props.submitRoom}>Add Room</Button>
             </div>
         );

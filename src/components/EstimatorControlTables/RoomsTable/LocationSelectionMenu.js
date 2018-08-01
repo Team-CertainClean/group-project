@@ -19,6 +19,13 @@ class LocationSelectionMenu extends React.Component{
         this.setState({anchor: null});
     }
 
+    handleMenuSelect = async (event) => {
+        console.log("before await");
+        await this.props.handleChangeFor(event);
+        console.log("after await");
+        this.closeMenu();
+    }
+
     render(){
         const {anchor} = this.state;
         return(
@@ -30,33 +37,16 @@ class LocationSelectionMenu extends React.Component{
                     open={Boolean(anchor)}
                     onClose={this.closeMenu}
                 >
-                    {/* {this.props.locations.map(location => {
-                        <MenuItem 
-                        onClick={()=> {
-                            this.props.handleInputChange('location_id');
-                            this.closeMenu();
-                        }}
-                        value={location.id}
-                        >
-                            {location.location_name}
-                        </MenuItem>
-                    })} */}
-                    <MenuItem 
-                    value={1}  
-                    id="location_id"
-                    onClick={this.props.handleChangeFor}
-                    onClick={this.closeMenu}
-                    >
-                        TEST: Residential
-                    </MenuItem>
-                    <MenuItem 
-                    value={2}
-                    id="location_id"
-                    onClick={this.props.handleChangeFor}
-                    onClick={this.closeMenu}
-                    >
-                        TEST: Commercial
-                    </MenuItem>
+                    {this.props.locations.map(location => {
+                        return <MenuItem 
+                                    key={location.id}
+                                    id="location_id"
+                                    value={location.id}
+                                    onClick={this.handleMenuSelect}
+                                    >
+                                        {location.location_type}
+                                </MenuItem>
+                    })}
                 </Menu>
             </div>
         );

@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import AddRoomForm from './AddRoomForm';
 
 const mapStateToProps = store => ({
-
+    locations: store.locations
 });
 
 class RoomControlTable extends React.Component{
@@ -36,16 +36,21 @@ class RoomControlTable extends React.Component{
     }
 
     handleChangeFor = event => {
-        console.log(event.target.value);
-        console.log(event.target.id);
-        this.setState({roomInfo: {...this.state.roomInfo, [event.target.id]: event.target.value}, anchor: null});
+        return new Promise((resolve, reject)=>{
+            try{
+                this.setState({roomInfo: {...this.state.roomInfo, [event.target.id]: event.target.value}, anchor: null});
+                resolve();
+            }catch(error){
+                reject();
+            }
+        });
     }
 
     render(){
         return(
             <Paper>
                 <Typography variant="title">Add Rooms</Typography>
-                <AddRoomForm handleChangeFor={this.handleChangeFor} submitRoom={this.submitRoom} room={this.state.roomInfo.room_name} metric={this.state.roomInfo.metric} anchor={this.state.anchor} /*locations={this.props.locations}*//>
+                <AddRoomForm handleChangeFor={this.handleChangeFor} submitRoom={this.submitRoom} room={this.state.roomInfo.room_name} metric={this.state.roomInfo.metric} anchor={this.state.anchor} locations={this.props.locations}/>
             </Paper>
         );
     }
