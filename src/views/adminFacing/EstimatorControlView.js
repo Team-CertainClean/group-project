@@ -3,6 +3,7 @@ import React from 'react';
 // Component Imports
 import MenuBar from '../../components/MenuBar/MenuBar';
 import RoomControlTable from '../../components/EstimatorControlTables/RoomsTable/RoomsTable';
+import CleanerControlTable from '../../components/EstimatorControlTables/CleanersTable/CleanerTable';
 
 class EstimatorControlView extends React.Component{
     constructor(){
@@ -21,7 +22,7 @@ class EstimatorControlView extends React.Component{
             // table = <LocationControlTable />
         } 
         else if(this.state.selectedTable == 2) {
-            // table = <CleanerControlTable />
+            table = <CleanerControlTable />
         } 
         else if(this.state.selectedTable == 0){
             table = <RoomControlTable />;

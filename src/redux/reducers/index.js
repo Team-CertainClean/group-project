@@ -4,13 +4,15 @@ import login from './loginReducer';
 import contactInfo from './contactReducer';
 import locations from './locationReducer';
 import rooms from './roomReducer';
+import cleaners from './cleanerReducer';
 
 const store = combineReducers({
   user,
   login,
   contactInfo,
   locations,
-  rooms
+  rooms,
+  cleaners
 });
 
 export default store;
