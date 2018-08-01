@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
+//Components
+import RoomComponent from '../../components/RoomComponent/RoomComponent';
 import Nav from '../../components/Nav/Nav';
 import Stepper from '../../components/Stepper/Stepper';
+
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { ROOM_ACTIONS } from '../../redux/actions/roomActions';
-
+//Material UI
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -18,7 +20,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-
+//Card
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -123,6 +125,8 @@ const styles = {
           <Stepper />
           { content }
           <Button>Add room</Button>
+         <RoomComponent />
+
         </div>
       );
     }

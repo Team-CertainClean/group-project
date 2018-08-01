@@ -1,83 +1,60 @@
-import './RoomComponent.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Rating from 'react-rating';
 
-
-Room component
-var App = React.createClass({
-    render() {
-      return (
-        <div>
-          <p>Rating component</p>
-          <Rating />
-          <p>Rating component (with set value that <strong>can</strong> be changed)</p>
-          <Rating rating="2" />
-          {/*
-          <p>Rating component (with set value that <strong>can't</strong> be changed)</p>
-          <Rating rating="1" disabled="true" />
-          */}
-        </div>
-      );
-    }
-  });
-      
-  var Rating = React.createClass({
-    propTypes: {
-      disabled: React.PropTypes.bool
-    },
-    getInitialState() {
-      return {
-        rating: this.props.rating || null,
-        temp_rating: null
-      };
-    },
-    rate(rating) {
-      this.setState({
-        rating: rating,
-        temp_rating: rating
-      });
-    },
-    star_over(rating) {
-      this.state.temp_rating = this.state.rating;
-      this.state.rating = rating;
-      
-      this.setState({
-        rating: this.state.rating,
-        temp_rating: this.state.temp_rating
-      });
-    },
-    star_out() {
-      this.state.rating = this.state.temp_rating;
-      
-      this.setState({ rating: this.state.rating });
-    },
-    render() {
-      var stars = [];
-      
-      for(var i = 0; i < 5; i++) {
-        var klass = 'star-rating__star';
-        
-        if (this.state.rating >= i && this.state.rating != null) {
-          klass += ' is-selected';
-        }
+const mapStateToProps = state => ({
+    user: state.user,
   
-        stars.push(
-          <label
-            className={klass}
-            onClick={this.rate.bind(this, i)}
-            onMouseOver={this.star_over.bind(this, i)}
-            onMouseOut={this.star_out}>
-            ●
-          </label>
-        );
-      }
-      
-      return (
-        <div className="star-rating">
-          {stars}
-        </div>
-      );
-    }
   });
+
+
+
+const styles = {
+    card: {
+      minWidth: 275,
+    },
+    bullet: {
+      display: 'inline-block',
+      margin: '0 2px',
+      transform: 'scale(0.8)',
+    },
+    title: {
+      marginBottom: 16,
+      fontSize: 14,
+    },
+    pos: {
+      marginBottom: 12,
+    },
+  };
+
+
+class RoomComponent extends Component {
+
+constructor(props){
+    super(props);
+    this.state = {
+        room: {
+            room_id:'',
+            cleanliness_score:'',
+        }
+    }
+  }
+
+render() {
+    
+    return (
+      <div>
       
-  React.render(<App />, document.querySelector('#app'));
+        <Rating />
+      </div>
+    );
+  }
+}
+  RoomComponent.propTypes = {
+    classes: PropTypes.object,
+  };
+
+export default compose(withStyles(styles), connect(mapStateToProps))(RoomComponent);
