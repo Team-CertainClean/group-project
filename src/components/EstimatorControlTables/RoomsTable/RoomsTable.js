@@ -26,8 +26,8 @@ class RoomControlTable extends React.Component{
         }
     }
 
-    componentDidUpdate(){
-        console.log(this.state);
+    componentDidMount(){
+        this.props.dispatch({type: 'FETCH_LOCATIONS'});
     }
 
     submitRoom = () => {

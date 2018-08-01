@@ -9,4 +9,13 @@ router.get('/', (req, res)=>{
         .catch(error=>console.log("Error handling GET for rooms: ", error));
 });
 
+router.get('/location', (req, res)=>{
+    const queryText = 'select * from location_type;';
+    pool.query(queryText)
+        .then(result=>res.send(result.rows))
+        .catch(error=>{
+            console.log('Error handling GET for /api/room/location: ', error);
+    });
+});
+
 module.exports = router;
