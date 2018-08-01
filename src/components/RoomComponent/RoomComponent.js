@@ -1,4 +1,9 @@
 import './RoomComponent.css';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+
+Room component
 var App = React.createClass({
     render() {
       return (
