@@ -23,7 +23,6 @@ const styles = theme => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        // backgroundColor: '#EF8902',
       },
       textField: {
         marginLeft: theme.spacing.unit,
@@ -91,7 +90,6 @@ class ContactInfoView extends Component {
     let content = null;
     const { classes } = this.props;
 
-    if (this.props.user.userName) {
       content = (
         <div>
             <Paper>
@@ -157,7 +155,6 @@ class ContactInfoView extends Component {
             </Paper>
         </div>
       );
-    }
 
     return (
       <div>
