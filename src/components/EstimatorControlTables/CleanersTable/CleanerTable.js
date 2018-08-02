@@ -12,6 +12,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Icon from '@material-ui/core/Icon';
 
 // Component Imports 
 import AddCleanerForm from './AddCleanerForm';
@@ -41,6 +43,10 @@ class CleanerControlTable extends React.Component{
         console.log('SEND IT: ', this.state.cleanerInfo);
     }
 
+    removeCleaner = (id) => {
+        this.props.dispatch({type: CLEANER_ACTIONS.REMOVE, payload: id});
+    }
+
     handleChangeFor = event => {
         return new Promise((resolve, reject)=>{
             try{
@@ -63,7 +69,7 @@ class CleanerControlTable extends React.Component{
                             <TableCell>Name</TableCell>
                             <TableCell>Properly Account ID</TableCell>
                             <TableCell>Edit</TableCell>
-                            <TableCell>Hide</TableCell>
+                            <TableCell>Remove</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -73,8 +79,8 @@ class CleanerControlTable extends React.Component{
                                     <TableCell>{cleaner.id}</TableCell>
                                     <TableCell>{cleaner.first_name + ' ' + cleaner.last_name}</TableCell>
                                     <TableCell>{cleaner.properly_account_id}</TableCell>
-                                    <TableCell><Button>Edit</Button></TableCell>
-                                    <TableCell>Insert check box</TableCell>
+                                    <TableCell><IconButton><Icon>edit</Icon></IconButton></TableCell>
+                                    <TableCell><IconButton onClick={() => {this.removeCleaner(cleaner.id)}}><Icon>delete_outline</Icon></IconButton></TableCell>
                                 </TableRow>
                             );
                         })}
