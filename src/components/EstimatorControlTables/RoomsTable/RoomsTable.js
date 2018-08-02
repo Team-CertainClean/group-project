@@ -12,10 +12,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Icon from '@material-ui/core/Icon';
 
 // Component Imports 
 import AddRoomForm from './AddRoomForm';
+import EditableTableRow from '../../EditableTableRow/EditableTableRow';
 
 const mapStateToProps = store => ({
     locations: store.locations,
@@ -42,7 +44,14 @@ class RoomControlTable extends React.Component{
 
     submitRoom = () => {
         this.props.dispatch({type: ROOM_ACTIONS.POST, payload: this.state.roomInfo});
-        console.log('SEND IT: ', this.state.roomInfo);
+        this.clearInputs();
+    }
+
+    removeRoom = (id) => {
+        this.props.dispatch({type: ROOM_ACTIONS.REMOVE, payload: id});
+    }
+
+    clearInputs = () => {
         this.setState({roomInfo: {room_name: '', location_type_id: 0, duration_metric: 0}});
     }
 
@@ -64,23 +73,18 @@ class RoomControlTable extends React.Component{
                 <Table>
                     <TableHead>
                         <TableRow>
+                            <TableCell>Room ID</TableCell>
                             <TableCell>Room Name</TableCell>
-                            <TableCell>Location Type</TableCell>
                             <TableCell>Duration Metric</TableCell>
+                            <TableCell>Location Type</TableCell>
                             <TableCell>Edit</TableCell>
-                            <TableCell>Hide</TableCell>
+                            <TableCell>Remove</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {this.props.rooms.map(room => {
                             return(
-                                <TableRow key={room.id}>
-                                    <TableCell>{room.room_name}</TableCell>
-                                    <TableCell>{room.location_type}</TableCell>
-                                    <TableCell>{room.metric}</TableCell>
-                                    <TableCell><Button>Edit</Button></TableCell>
-                                    <TableCell>Insert check box</TableCell>
-                                </TableRow>
+                                <EditableTableRow rowData={room} remove={this.removeRoom} actions={ROOM_ACTIONS} />
                             );
                         })}
                     </TableBody>

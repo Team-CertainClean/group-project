@@ -6,8 +6,9 @@ router.get('/', (req, res)=>{
     const queryText =   `select 
                             room.id as id, 
                             room.room_name, 
-                            room.duration_metric as metric, 
-                            location_type.location_type as location_type 
+                            room.duration_metric as duration_metric, 
+                            location_type.location_type as location_type,
+                            room.location_type_id as location_type_id
                         from room
                         join location_type on room.location_type_id = location_type.id
                         group by room.id, location_type.location_type
@@ -32,6 +33,27 @@ router.post('/', (req, res)=>{
         });
 });
 
+router.delete('/:id', (req, res)=>{
+    const queryText = 'delete from room where id = $1;';
+    pool.query(queryText, [req.params.id])
+        .then(result => res.sendStatus(200))
+        .catch(error=>{
+            console.log('Error handling DELETE for /api/room: ', error);
+            res.sendStatus(403);
+        });
+});
+
+router.put('/:id', (req, res)=>{
+    const room = req.body;
+    const queryText = 'update room set room_name = $1, location_type_id = $2, duration_metric = $3 where id = $4;';
+    pool.query(queryText, [room.room_name, room.location_type_id, room.duration_metric, req.params.id])
+        .then(result => res.sendStatus(200))
+        .catch(error=>{
+            console.log('Error handling PUT for /api/room: ', error);
+            res.sendStatus(403);
+        });
+});
+
 router.get('/location', (req, res)=>{
     const queryText = 'select * from location_type;';
     pool.query(queryText)
@@ -51,6 +73,24 @@ router.post('/location', (req, res)=>{
             console.log('Error handling POST for /api/room/location: ', error);
             res.sendStatus(500);
         });
+});
+
+router.delete('/location/:id', (req, res)=>{
+    const queryText = 'delete from location_type where id = $1;';
+    pool.query(queryText, [req.params.id])
+        .then(result => res.sendStatus(200))
+        .catch(error=>{
+            console.log('Error handling DELETE for /api/room/location: ', error);
+            res.sendStatus(403);
+        });
+});
+
+router.put('/location/:id', (req, res)=> {
+    const queryText = 'update location_type set location_type = $1 where id = $2;';
+    pool.query(queryText, [req.body.location_type, req.params.id]).then(result => res.sendStatus(200)).catch(error=>{
+        console.log('Error handling PUT for /api/room/location: ', error);
+        res.sendStatus(403);
+    });
 });
 
 module.exports = router;

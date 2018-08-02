@@ -11,3 +11,15 @@ export function postRoom(payload){
         .then(response => response)
         .catch(error=>alert("Failed to post room."));
 }
+
+export function removeRoom(payload){
+    return axios.delete(`/api/room/${payload}`)
+        .then(response => response)
+        .catch(error => alert("Failed to remove room"));
+}
+
+export function editRoom(payload){
+    return axios.put(`/api/room/${payload.id}`, payload)
+        .then(response => response)
+        .catch(error => alert("Failed to edit room"));
+}

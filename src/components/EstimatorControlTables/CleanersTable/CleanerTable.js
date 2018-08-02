@@ -12,9 +12,12 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Icon from '@material-ui/core/Icon';
 
 // Component Imports 
 import AddCleanerForm from './AddCleanerForm';
+import EditableTableRow from '../../EditableTableRow/EditableTableRow';
 
 const mapStateToProps = store => ({
     cleaners: store.cleaners
@@ -39,6 +42,15 @@ class CleanerControlTable extends React.Component{
     submitCleaner = () => {
         this.props.dispatch({type: CLEANER_ACTIONS.POST, payload: this.state.cleanerInfo});
         console.log('SEND IT: ', this.state.cleanerInfo);
+        this.clearInputs();
+    }
+
+    removeCleaner = (id) => {
+        this.props.dispatch({type: CLEANER_ACTIONS.REMOVE, payload: id});
+    }
+
+    clearInputs = () => {
+        this.setState({cleanerInfo: {first_name: '', last_name: '', properly_account_id: 0}});
     }
 
     handleChangeFor = event => {
@@ -60,22 +72,17 @@ class CleanerControlTable extends React.Component{
                     <TableHead>
                         <TableRow>
                             <TableCell>ID</TableCell>
-                            <TableCell>Name</TableCell>
+                            <TableCell>First Name</TableCell>
+                            <TableCell>Last Name</TableCell>
                             <TableCell>Properly Account ID</TableCell>
                             <TableCell>Edit</TableCell>
-                            <TableCell>Hide</TableCell>
+                            <TableCell>Remove</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {this.props.cleaners.map(cleaner => {
                             return(
-                                <TableRow key={cleaner.id}>
-                                    <TableCell>{cleaner.id}</TableCell>
-                                    <TableCell>{cleaner.first_name + ' ' + cleaner.last_name}</TableCell>
-                                    <TableCell>{cleaner.properly_account_id}</TableCell>
-                                    <TableCell><Button>Edit</Button></TableCell>
-                                    <TableCell>Insert check box</TableCell>
-                                </TableRow>
+                                <EditableTableRow rowData={cleaner} remove={this.removeCleaner} actions={CLEANER_ACTIONS}/>
                             );
                         })}
                     </TableBody>
