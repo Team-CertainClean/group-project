@@ -1,11 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 
+
 // Material UI Imports
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles';
-// import styles from '../../styles/LandingViewStyles';
 import { Typography } from '../../../node_modules/@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 
@@ -13,6 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
+
 
 const styles = theme => ({
     container: {
@@ -46,14 +47,35 @@ class AccountCreationView extends React.Component{
         this.state = {
           username: '',
           password: '',
+          confirmPassword: '',
           message: '',
         };
       }
 
+
+    //   const validate = values => {
+    //     const errors = {};
+    //     if (!values.username) {
+    //       errors.username = 'Required';
+    //     }
+    //     if (!values.password) {
+    //       errors.password = 'Required';
+    //     }
+    //     if (!values.confirmpassword ) {
+    //       errors.confirmpassword = 'Required' ;
+    //     } else if (values.confirmpassword !== values.password) {
+    //       errors.confirmpassword = 'Password mismatched' ;
+    //     }
+      
+    //      return errors;
+    //   };
+
+    validate
+
     registerAdmin = (event) => {
         event.preventDefault();
     
-        if (this.state.username === '' || this.state.password === '') {
+        if (this.state.password === this.state.confirmPassword && this.state.username !== '') {
           this.setState({
             message: 'Choose a username and password!',
           });
@@ -67,7 +89,9 @@ class AccountCreationView extends React.Component{
           axios.post('/api/admin/register/', body)
             .then((response) => {
               if (response.status === 201) {
-                this.props.history.push('/home');
+                this.setState({
+                    message: 'That worked. If the passwords are not equal there is a problem'
+                })
               } else {
                 this.setState({
                   message: 'Ooops! That didn\'t work. The username might already be taken. Try again!',
@@ -76,13 +100,13 @@ class AccountCreationView extends React.Component{
             })
             .catch(() => {
               this.setState({
-                message: 'Ooops! Something went wrong! Is the server running?',
+                message: 'Ooops! Something went wrong!',
               });
             });
         }
       } // end registerAdmin
 
-    handleInputChangeFor = propertyName => (event) => {
+    handleChange = propertyName => (event) => {
     this.setState({
         [propertyName]: event.target.value,
     });
@@ -111,37 +135,39 @@ class AccountCreationView extends React.Component{
 
             <div>
             {this.renderAlert()}
-            <form onSubmit={this.registerUser}>
-              <h1>Register User</h1>
+            <form >
+              <h1>Register New Admin</h1>
               <div>
-                <label htmlFor="username">
-                  Username:
-                  <input
-                    type="text"
-                    name="username"
+                <TextField
+                    id="username"
+                    placeholder="Username"
                     value={this.state.username}
-                    onChange={this.handleInputChangeFor('username')}
-                  />
-                </label>
-              </div>
-              <div>
-                <label htmlFor="password">
-                  Password:
-                  <input
-                    type="password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.handleInputChangeFor('password')}
-                  />
-                </label>
-              </div>
-              <div>
-                <input
-                  type="submit"
-                  name="submit"
-                  value="Register"
+                    className={classes.textField}
+                    onChange={this.handleChange('username')}
+                    margin="normal"
                 />
-                <Link to="/home">Cancel</Link>
+                <TextField
+                    id="password"
+                    placeholder="Password"
+                    value={this.state.password}
+                    className={classes.textField}
+                    onChange={this.handleChange('password')}
+                    margin="normal"
+                />
+                <TextField
+                    id="confirmPassword"
+                    placeholder="Confirm Password"
+                    value={this.state.confirmPassword}
+                    className={classes.textField}
+                    onChange={this.handleChange('confirmPassword')}
+                    margin="normal"
+                />
+              </div>
+              <div>
+                <Button variant="contained" onClick={this.registerAdmin} className={classes.button}>
+                    Submit
+                </Button>
+                <Link to="/home"><Typography>Cancel</Typography></Link>
               </div>
             </form>
           </div>
