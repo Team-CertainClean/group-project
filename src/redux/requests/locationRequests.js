@@ -17,3 +17,9 @@ export function removeLocation(payload){
         .then(response => response)
         .catch(error=> alert("Failed to remove location"));
 }
+
+export function updateLocation(payload){
+    return axios.put(`/api/room/location/${payload.id}`, payload)
+        .then(response => response)
+        .catch(error => alert("Failed to update location"));
+}

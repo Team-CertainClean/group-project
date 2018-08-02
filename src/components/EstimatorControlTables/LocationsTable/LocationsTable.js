@@ -16,6 +16,7 @@ import Icon from '@material-ui/core/Icon';
 
 // Component Imports 
 import AddLocationForm from './AddLocationForm';
+import EditableTableRow from '../../EditableTableRow/EditableTableRow';
 
 const mapStateToProps = store => ({
     locations: store.locations,
@@ -66,6 +67,7 @@ class LocationControlTable extends React.Component{
                 <Table>
                     <TableHead>
                         <TableRow>
+                            <TableCell>Location ID</TableCell>
                             <TableCell>Location Type</TableCell>
                             <TableCell>Edit</TableCell>
                             <TableCell>Hide</TableCell>
@@ -74,11 +76,7 @@ class LocationControlTable extends React.Component{
                     <TableBody>
                         {this.props.locations.map(location => {
                             return(
-                                <TableRow key={location.id}>
-                                    <TableCell>{location.location_type}</TableCell>
-                                    <TableCell><IconButton><Icon>edit</Icon></IconButton></TableCell>
-                                    <TableCell><IconButton onClick={()=>{this.removeLocation(location.id)}}><Icon>delete_outline</Icon></IconButton></TableCell>
-                                </TableRow>
+                                <EditableTableRow rowData={location} actions={LOCATION_ACTIONS} remove={this.removeLocation}/>
                             );
                         })}
                     </TableBody>
@@ -87,7 +85,7 @@ class LocationControlTable extends React.Component{
         }
         return(
             <Paper>
-                <Typography variant="title">Add Rooms</Typography>
+                <Typography variant="title">Add Locations</Typography>
                 <AddLocationForm handleChangeFor={this.handleChangeFor} submitLocation={this.submitLocation} location={this.state.locationInfo.location_type}/>
                 {table}
             </Paper>

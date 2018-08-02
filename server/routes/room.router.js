@@ -73,4 +73,12 @@ router.delete('/location/:id', (req, res)=>{
         });
 });
 
+router.put('/location/:id', (req, res)=> {
+    const queryText = 'update location_type set location_type = $1 where id = $2;';
+    pool.query(queryText, [req.body.location_type, req.params.id]).then(result => res.sendStatus(200)).catch(error=>{
+        console.log('Error handling PUT for /api/room/location: ', error);
+        res.sendStatus(403);
+    });
+});
+
 module.exports = router;

@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { LOCATION_ACTIONS } from '../actions/locationActions';
-import { fetchLocations, postLocation, removeLocation } from '../requests/locationRequests';
+import { fetchLocations, postLocation, removeLocation, updateLocation } from '../requests/locationRequests';
 
 function* fetch(){
     try{
@@ -29,10 +29,20 @@ function* remove(action){
     }
 }
 
+function* edit(action){
+    try{
+        yield updateLocation(action.payload);
+        yield put({type: LOCATION_ACTIONS.FETCH});
+    }catch(error){
+        alert("Failed to update location");
+    }
+}
+
 function* locationSaga(){
     yield takeLatest(LOCATION_ACTIONS.FETCH, fetch);
     yield takeLatest(LOCATION_ACTIONS.POST, post);
     yield takeLatest(LOCATION_ACTIONS.REMOVE, remove);
+    yield takeLatest(LOCATION_ACTIONS.EDIT, edit);
 }
 
 export default locationSaga;
