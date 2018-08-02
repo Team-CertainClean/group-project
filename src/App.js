@@ -24,6 +24,9 @@ import EstimatorControlView from './views/adminFacing/EstimatorControlView';
 import LandingView from './views/customerFacing/LandingView';
 import './styles/main.css';
 
+// Admin views
+import AccountCreationView from './views/adminFacing/AccountCreationView';
+
 const App = () => (
   <div>
     {/* <Header title="Project Base" /> */}
@@ -74,6 +77,10 @@ const App = () => (
         <Route 
           path="/estimator"
           component={EstimatorControlView}
+        />
+        <Route 
+          path="/accountCreation"
+          component={AccountCreationView}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />
