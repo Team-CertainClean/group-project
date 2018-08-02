@@ -12,7 +12,7 @@ const store = combineReducers({
   contactInfo,
   locations,
   rooms,
-  cleaners
+  cleaners,
 });
 
 export default store;
