@@ -17,6 +17,7 @@ import Icon from '@material-ui/core/Icon';
 
 // Component Imports 
 import AddRoomForm from './AddRoomForm';
+import EditableTableRow from '../../EditableTableRow/EditableTableRow';
 
 const mapStateToProps = store => ({
     locations: store.locations,
@@ -72,9 +73,10 @@ class RoomControlTable extends React.Component{
                 <Table>
                     <TableHead>
                         <TableRow>
+                            <TableCell>Room ID</TableCell>
                             <TableCell>Room Name</TableCell>
-                            <TableCell>Location Type</TableCell>
                             <TableCell>Duration Metric</TableCell>
+                            <TableCell>Location Type</TableCell>
                             <TableCell>Edit</TableCell>
                             <TableCell>Remove</TableCell>
                         </TableRow>
@@ -82,13 +84,7 @@ class RoomControlTable extends React.Component{
                     <TableBody>
                         {this.props.rooms.map(room => {
                             return(
-                                <TableRow key={room.id}>
-                                    <TableCell>{room.room_name}</TableCell>
-                                    <TableCell>{room.location_type}</TableCell>
-                                    <TableCell>{room.metric}</TableCell>
-                                    <TableCell><IconButton><Icon>edit</Icon></IconButton></TableCell>
-                                    <TableCell><IconButton onClick={()=>{this.removeRoom(room.id)}}><Icon>delete_outline</Icon></IconButton></TableCell>
-                                </TableRow>
+                                <EditableTableRow rowData={room} remove={this.removeRoom} actions={ROOM_ACTIONS} />
                             );
                         })}
                     </TableBody>

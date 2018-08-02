@@ -6,8 +6,9 @@ router.get('/', (req, res)=>{
     const queryText =   `select 
                             room.id as id, 
                             room.room_name, 
-                            room.duration_metric as metric, 
-                            location_type.location_type as location_type 
+                            room.duration_metric as duration_metric, 
+                            location_type.location_type as location_type,
+                            room.location_type_id as location_type_id
                         from room
                         join location_type on room.location_type_id = location_type.id
                         group by room.id, location_type.location_type

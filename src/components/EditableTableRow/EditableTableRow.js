@@ -8,6 +8,12 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 
+import LocationSelectionMenu from '../EstimatorControlTables/RoomsTable/LocationSelectionMenu';
+
+const mapStateToProps = store => ({
+    locations: store.locations
+});
+
 class EditableTableRow extends React.Component{
     constructor(props){
         super(props);
@@ -33,7 +39,10 @@ class EditableTableRow extends React.Component{
     }
 
     handleChangeFor = (event) => {
-        this.setState({content: {...this.state.content, [event.target.id]: event.target.value}});
+        return new Promise((resolve) => {
+            this.setState({content: {...this.state.content, [event.target.id]: event.target.value}});
+            resolve();
+        });
     }
 
     render(){
@@ -43,6 +52,9 @@ class EditableTableRow extends React.Component{
                 row.push(cell);
             }
         }
+        row.forEach((cell, index)=> cell === 'location_type_id' ? row.splice(index, 1) : null);
+        console.log("Row cells: ", row);
+        console.log(this.state.content);
         let content = null;
         if(this.state.editing){
             content = (
@@ -50,14 +62,18 @@ class EditableTableRow extends React.Component{
                     {row.map((cell, i)=> {
                         return (
                             <TableCell key={i}>
-                            { cell != 'id' ? 
+                            {
+                                cell == 'location_type' ?
+                                <LocationSelectionMenu locations={this.props.locations} handleChangeFor={this.handleChangeFor}/>
+                                : 
+                                cell != 'id' ? 
                                 <TextField 
                                     // label={cell}
                                     id={cell} 
                                     value={this.state.content[cell]}
                                     onChange={this.handleChangeFor}
                                 /> 
-                                : 
+                                :
                                 this.state.content[cell]
                             }
                             </TableCell>
@@ -102,4 +118,4 @@ class EditableTableRow extends React.Component{
     }
 }
 
-export default connect()(EditableTableRow);
+export default connect(mapStateToProps)(EditableTableRow);
