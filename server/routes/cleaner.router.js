@@ -33,4 +33,15 @@ router.delete('/:id', (req, res)=>{
         });
 });
 
+router.put('/:id', (req, res)=>{
+    const cleaner = req.body;
+    const queryText = 'update cleaner set first_name = $1, last_name = $2, properly_account_id = $3 where id = $4;';
+    pool.query(queryText, [cleaner.first_name, cleaner.last_name, cleaner.properly_account_id, req.params.id])
+        .then(result => res.sendStatus(200))
+        .catch(error=>{
+            console.log('Error handling PUT for /api/cleaner: ', error);
+            res.sendStatus(403);
+        });
+});
+
 module.exports = router;
