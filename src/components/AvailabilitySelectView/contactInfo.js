@@ -24,7 +24,7 @@ const styles = {
     marginBottom: 12,
   },
   media: {
-    height: '100px',
+    height: 'auto',
     width: '100%',
   },
 };
@@ -56,11 +56,6 @@ class ContactInfo extends Component {
                         src="http://2z07ed4715q54iaau2dycc3r.wpengine.netdna-cdn.com/wp-content/uploads/2016/01/CC-Wordmark-Orange-Trans.png"
                         title="cctextlogo"
                     />
-                    <CardContent>
-                        <Typography className={classes.title} color="textPrimary">
-                            certainclean
-                        </Typography>
-                    </CardContent>
                     <CardActions>
                         <Button variant="contained" size="small">
                             <a href={this.state.url}>Contact Us</a>

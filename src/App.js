@@ -11,15 +11,23 @@ import LoginPage from './components/LoginPage/LoginPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
 import UserPage from './components/UserPage/UserPage';
 import InfoPage from './components/InfoPage/InfoPage';
+
+//Stepper views
 import Stepper from './components/Stepper/Stepper';
+import RoomComponent from './components/RoomComponent/RoomComponent';
 import AvailabilitySelectView from './components/AvailabilitySelectView/AvailabilitySelectView';
 import ContactInfoView from './views/customerFacing/ContactInfoView';
+import RoomInputView from './views/customerFacing/RoomInputView';
+import EstimatorControlView from './views/adminFacing/EstimatorControlView';
+
+//Main view
 import LandingView from './views/customerFacing/LandingView';
 import './styles/main.css';
 
 const App = () => (
   <div>
     {/* <Header title="Project Base" /> */}
+
     <Router>
       <Switch>
         <Redirect exact from="/" to="/home" />
@@ -43,7 +51,14 @@ const App = () => (
           path="/stepper"
           component={Stepper}
         />
-
+        <Route
+          path="/roominput"
+          component={RoomInputView}
+        />
+           <Route
+          path="/roomcomponent"
+          component={RoomComponent}
+        />
         <Route
           path="/schedule"
           component={AvailabilitySelectView}
@@ -55,6 +70,10 @@ const App = () => (
         <Route
           path="/landing"
           component={LandingView}
+        />
+        <Route 
+          path="/estimator"
+          component={EstimatorControlView}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />

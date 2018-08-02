@@ -2,6 +2,8 @@
     Module for sorting through rooms and attaching to appropriate request
 
     Big O - N squared... Not optimal
+
+    THIS WILL BE DEPRECATED ONCE WE COMPLETE getRequestData within craftTable.js
 */
 function roomSort(rooms, requestArray){
     let requests = requestArray;

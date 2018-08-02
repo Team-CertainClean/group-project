@@ -25,19 +25,25 @@ class Calendar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            events: [
-              {
+            events: [{
                 start: new Date(),
-                end: new Date(moment().add(1, "days")),
-                title: "Some title"
-              }
-            ]
+                end: new Date(moment().add(1, "hours")),
+            }],
         }
     }    
 
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
     }
+
+    onSelect = (range) => {
+        console.log(range);
+        this.setState({
+            ...this.state, ...this.state.events[0], start: new Date(range.start), end: new Date(range.end) 
+        });
+        console.log('this.state=', this.state);
+        return true
+    }    
 
     render() {
         const { classes } = this.props;
@@ -47,7 +53,13 @@ class Calendar extends Component {
                 className={classes.calendar}
                 defaultDate={new Date()}
                 defaultView="week"
+                views={{
+                    week: true,
+                }}
                 events={this.state.events}
+                selectable="true"
+                step="30"
+                onSelecting={this.onSelect}
                 />
             </div>
         );
