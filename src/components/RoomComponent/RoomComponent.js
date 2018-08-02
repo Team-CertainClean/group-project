@@ -14,8 +14,8 @@ const mapStateToProps = state => ({
 
 
 const styles = {
-    rate:{
-      color: 'blue'
+    rating: {
+      height: '100'
     }
   };
 
@@ -45,15 +45,11 @@ render() {
       <div className={classes.rate}>
       
       <Rating
-  placeholderRating={3.5}
-  emptySymbol={<img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Circle_Brown_Solid.svg" className="icon" />}
-  placeholderSymbol={<img src="http://www.clker.com/cliparts/W/i/K/w/1/D/glossy-orange-circle-icon-md.png" className="icon" />}
-  fullSymbol={<img src="https://www.iconsdb.com/icons/preview/orange/circle-xxl.png" className="icon" />}
+  placeholderRating={3.0}
+  emptySymbol={<img src="/RatingIconGrey.png" />}
+  placeholderSymbol={<img src="/RatingIconOrange.png" className="icon" />}
+  fullSymbol={<img src="/RatingIconOrange.png" className="icon" />}
 />
-      <Rating {...this.props} initialRating={this.state.value} placeholderRating={3} />
-        <button onClick={this.handleClick}>Reset</button>
-       
-
       </div>
     );
   }
