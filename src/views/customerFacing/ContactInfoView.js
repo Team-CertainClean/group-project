@@ -55,7 +55,7 @@ class ContactInfoView extends Component {
                 email: '',
                 location_address: '',
                 phone_number: '',
-                cleaning_type: '',
+                cleaning_type_id: '',
             },
         }
       }
@@ -76,8 +76,6 @@ class ContactInfoView extends Component {
             contact: {
                 ...this.state.contact,
                 [contactInfo]: event.target.value,
-                // username: this.props.user.userName
-                // cleaning_type: event.target.value
             }
         })
         console.log(this.state.contact)
@@ -139,16 +137,16 @@ class ContactInfoView extends Component {
                     margin="normal"
                 />
                 <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="cleaning_type">Cleaning Type</InputLabel>
+                    <InputLabel htmlFor="cleaning_type_id">Cleaning Type</InputLabel>
                     <Select
-                        value={this.state.cleaning_type}
-                        onChange={this.handleChange('cleaning_type')}
-                        input={<Input name="cleaning_type" id="cleaning_type" />}
+                        value={this.state.cleaning_type_id}
+                        onChange={this.handleChange('cleaning_type_id')}
+                        input={<Input name="cleaning_type_id" id="cleaning_type_id" />}
                     >
                         <MenuItem value=""><em>None</em></MenuItem>
-                        <MenuItem value={'House'}>House</MenuItem>
-                        <MenuItem value={'Airbnb'}>Airbnb</MenuItem>
-                        <MenuItem value={'Move Out'}>Move Out</MenuItem>
+                        <MenuItem value={3}>House</MenuItem>
+                        <MenuItem value={2}>Airbnb</MenuItem>
+                        <MenuItem value={1}>Move Out</MenuItem>
                     </Select>
                     {/* <FormHelperText>Some important helper text</FormHelperText> */}
                 </FormControl>
