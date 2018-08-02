@@ -12,7 +12,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Icon from '@material-ui/core/Icon';
 
 // Component Imports 
 import AddRoomForm from './AddRoomForm';
@@ -42,7 +43,15 @@ class RoomControlTable extends React.Component{
 
     submitRoom = () => {
         this.props.dispatch({type: ROOM_ACTIONS.POST, payload: this.state.roomInfo});
-        console.log('SEND IT: ', this.state.roomInfo);
+        this.clearInputs();
+    }
+
+    removeRoom = (id) => {
+        this.props.dispatch({type: ROOM_ACTIONS.REMOVE, payload: id});
+        this.clearInputs();
+    }
+
+    clearInputs = () => {
         this.setState({roomInfo: {room_name: '', location_type_id: 0, duration_metric: 0}});
     }
 
@@ -68,7 +77,7 @@ class RoomControlTable extends React.Component{
                             <TableCell>Location Type</TableCell>
                             <TableCell>Duration Metric</TableCell>
                             <TableCell>Edit</TableCell>
-                            <TableCell>Hide</TableCell>
+                            <TableCell>Remove</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -78,8 +87,8 @@ class RoomControlTable extends React.Component{
                                     <TableCell>{room.room_name}</TableCell>
                                     <TableCell>{room.location_type}</TableCell>
                                     <TableCell>{room.metric}</TableCell>
-                                    <TableCell><Button>Edit</Button></TableCell>
-                                    <TableCell>Insert check box</TableCell>
+                                    <TableCell><IconButton><Icon>edit</Icon></IconButton></TableCell>
+                                    <TableCell><IconButton onClick={()=>{this.removeRoom(room.id)}}><Icon>delete_outline</Icon></IconButton></TableCell>
                                 </TableRow>
                             );
                         })}
