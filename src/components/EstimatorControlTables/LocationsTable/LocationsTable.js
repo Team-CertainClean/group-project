@@ -11,10 +11,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Icon from '@material-ui/core/Icon';
 
 // Component Imports 
 import AddLocationForm from './AddLocationForm';
+import EditableTableRow from '../../EditableTableRow/EditableTableRow';
 
 const mapStateToProps = store => ({
     locations: store.locations,
@@ -36,7 +38,15 @@ class LocationControlTable extends React.Component{
 
     submitLocation = () => {
         this.props.dispatch({type: LOCATION_ACTIONS.POST, payload: this.state.locationInfo});
-        console.log('SEND IT: ', this.state.locationInfo);
+        this.clearInputs();
+    }
+
+    removeLocation = (id) => {
+        this.props.dispatch({type: LOCATION_ACTIONS.REMOVE, payload: id});
+    }
+
+    clearInputs = () => {
+        this.setState({locationInto: {location_type: ''}});
     }
 
     handleChangeFor = event => {
@@ -57,6 +67,7 @@ class LocationControlTable extends React.Component{
                 <Table>
                     <TableHead>
                         <TableRow>
+                            <TableCell>Location ID</TableCell>
                             <TableCell>Location Type</TableCell>
                             <TableCell>Edit</TableCell>
                             <TableCell>Hide</TableCell>
@@ -65,11 +76,7 @@ class LocationControlTable extends React.Component{
                     <TableBody>
                         {this.props.locations.map(location => {
                             return(
-                                <TableRow key={location.id}>
-                                    <TableCell>{location.location_type}</TableCell>
-                                    <TableCell><Button>Edit</Button></TableCell>
-                                    <TableCell>Insert check box</TableCell>
-                                </TableRow>
+                                <EditableTableRow rowData={location} actions={LOCATION_ACTIONS} remove={this.removeLocation}/>
                             );
                         })}
                     </TableBody>
@@ -78,7 +85,7 @@ class LocationControlTable extends React.Component{
         }
         return(
             <Paper>
-                <Typography variant="title">Add Rooms</Typography>
+                <Typography variant="title">Add Locations</Typography>
                 <AddLocationForm handleChangeFor={this.handleChangeFor} submitLocation={this.submitLocation} location={this.state.locationInfo.location_type}/>
                 {table}
             </Paper>

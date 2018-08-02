@@ -11,3 +11,15 @@ export function postLocation(payload){
         .then(response => alert("Post successful"))
         .catch(error=> alert("Failed to post location"));
 }
+
+export function removeLocation(payload){
+    return axios.delete(`/api/room/location/${payload}`)
+        .then(response => response)
+        .catch(error=> alert("Failed to remove location"));
+}
+
+export function updateLocation(payload){
+    return axios.put(`/api/room/location/${payload.id}`, payload)
+        .then(response => response)
+        .catch(error => alert("Failed to update location"));
+}
