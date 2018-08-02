@@ -2,5 +2,6 @@ export const ROOM_ACTIONS = {
     POST: 'POST_ROOM',
     FETCH: 'FETCH_ROOMS',
     STORE: 'STORE_ROOMS',
-    REMOVE: 'REMOVE_ROOM'
+    REMOVE: 'REMOVE_ROOM',
+    EDIT: 'EDIT_ROOM'
   };
