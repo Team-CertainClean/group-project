@@ -15,7 +15,7 @@ router.post('/', (req, res)=>{
 });
 
 router.get('/', (req, res)=>{
-    const queryText = 'select * from cleaner;';
+    const queryText = 'select id, first_name, last_name, properly_account_id from cleaner;';
     pool.query(queryText)
         .then(result => res.send(result.rows))
         .catch(error => {

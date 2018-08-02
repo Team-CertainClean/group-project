@@ -17,6 +17,7 @@ import Icon from '@material-ui/core/Icon';
 
 // Component Imports 
 import AddCleanerForm from './AddCleanerForm';
+import EditableTableRow from '../../EditableTableRow/EditableTableRow';
 
 const mapStateToProps = store => ({
     cleaners: store.cleaners
@@ -71,7 +72,8 @@ class CleanerControlTable extends React.Component{
                     <TableHead>
                         <TableRow>
                             <TableCell>ID</TableCell>
-                            <TableCell>Name</TableCell>
+                            <TableCell>First Name</TableCell>
+                            <TableCell>Last Name</TableCell>
                             <TableCell>Properly Account ID</TableCell>
                             <TableCell>Edit</TableCell>
                             <TableCell>Remove</TableCell>
@@ -80,13 +82,7 @@ class CleanerControlTable extends React.Component{
                     <TableBody>
                         {this.props.cleaners.map(cleaner => {
                             return(
-                                <TableRow key={cleaner.id}>
-                                    <TableCell>{cleaner.id}</TableCell>
-                                    <TableCell>{cleaner.first_name + ' ' + cleaner.last_name}</TableCell>
-                                    <TableCell>{cleaner.properly_account_id}</TableCell>
-                                    <TableCell><IconButton><Icon>edit</Icon></IconButton></TableCell>
-                                    <TableCell><IconButton onClick={() => {this.removeCleaner(cleaner.id)}}><Icon>delete_outline</Icon></IconButton></TableCell>
-                                </TableRow>
+                                <EditableTableRow rowData={cleaner} remove={this.removeCleaner} actions={CLEANER_ACTIONS}/>
                             );
                         })}
                     </TableBody>
