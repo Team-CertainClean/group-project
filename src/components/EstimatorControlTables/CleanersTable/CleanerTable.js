@@ -46,7 +46,6 @@ class CleanerControlTable extends React.Component{
 
     removeCleaner = (id) => {
         this.props.dispatch({type: CLEANER_ACTIONS.REMOVE, payload: id});
-        this.clearInputs();
     }
 
     clearInputs = () => {

@@ -11,7 +11,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Icon from '@material-ui/core/Icon';
 
 // Component Imports 
 import AddLocationForm from './AddLocationForm';
@@ -36,7 +37,15 @@ class LocationControlTable extends React.Component{
 
     submitLocation = () => {
         this.props.dispatch({type: LOCATION_ACTIONS.POST, payload: this.state.locationInfo});
-        console.log('SEND IT: ', this.state.locationInfo);
+        this.clearInputs();
+    }
+
+    removeLocation = (id) => {
+        this.props.dispatch({type: LOCATION_ACTIONS.REMOVE, payload: id});
+    }
+
+    clearInputs = () => {
+        this.setState({locationInto: {location_type: ''}});
     }
 
     handleChangeFor = event => {
@@ -67,8 +76,8 @@ class LocationControlTable extends React.Component{
                             return(
                                 <TableRow key={location.id}>
                                     <TableCell>{location.location_type}</TableCell>
-                                    <TableCell><Button>Edit</Button></TableCell>
-                                    <TableCell>Insert check box</TableCell>
+                                    <TableCell><IconButton><Icon>edit</Icon></IconButton></TableCell>
+                                    <TableCell><IconButton onClick={()=>{this.removeLocation(location.id)}}><Icon>delete_outline</Icon></IconButton></TableCell>
                                 </TableRow>
                             );
                         })}

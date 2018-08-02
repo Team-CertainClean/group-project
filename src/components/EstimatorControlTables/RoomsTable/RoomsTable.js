@@ -48,7 +48,6 @@ class RoomControlTable extends React.Component{
 
     removeRoom = (id) => {
         this.props.dispatch({type: ROOM_ACTIONS.REMOVE, payload: id});
-        this.clearInputs();
     }
 
     clearInputs = () => {

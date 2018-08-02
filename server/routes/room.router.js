@@ -65,7 +65,7 @@ router.post('/location', (req, res)=>{
 
 router.delete('/location/:id', (req, res)=>{
     const queryText = 'delete from location_type where id = $1;';
-    poo.query(queryText, [req.params.id])
+    pool.query(queryText, [req.params.id])
         .then(result => res.sendStatus(200))
         .catch(error=>{
             console.log('Error handling DELETE for /api/room/location: ', error);
