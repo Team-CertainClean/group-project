@@ -17,3 +17,9 @@ export function removeCleaner(payload){
         .then(response => response)
         .catch(error => alert('Error removing cleaner.'));
 }
+
+export function editCleaner(payload){
+    return axios.put(`/api/cleaner/${payload.id}`, payload)
+        .then(response => response)
+        .catch(error => alert("Erorr editing cleaner"));
+}
