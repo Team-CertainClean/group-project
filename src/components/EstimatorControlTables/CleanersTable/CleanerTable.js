@@ -41,10 +41,16 @@ class CleanerControlTable extends React.Component{
     submitCleaner = () => {
         this.props.dispatch({type: CLEANER_ACTIONS.POST, payload: this.state.cleanerInfo});
         console.log('SEND IT: ', this.state.cleanerInfo);
+        this.clearInputs();
     }
 
     removeCleaner = (id) => {
         this.props.dispatch({type: CLEANER_ACTIONS.REMOVE, payload: id});
+        this.clearInputs();
+    }
+
+    clearInputs = () => {
+        this.setState({cleanerInfo: {first_name: '', last_name: '', properly_account_id: 0}});
     }
 
     handleChangeFor = event => {
