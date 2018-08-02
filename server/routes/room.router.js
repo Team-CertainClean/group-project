@@ -42,6 +42,17 @@ router.delete('/:id', (req, res)=>{
         });
 });
 
+router.put('/:id', (req, res)=>{
+    const room = req.body;
+    const queryText = 'update room set room_name = $1, location_type_id = $2, duration_metric = $3 where id = $4;';
+    pool.query(queryText, [room.room_name, room.location_type_id, room.duration_metric, req.params.id])
+        .then(result => res.sendStatus(200))
+        .catch(error=>{
+            console.log('Error handling PUT for /api/room: ', error);
+            res.sendStatus(403);
+        });
+});
+
 router.get('/location', (req, res)=>{
     const queryText = 'select * from location_type;';
     pool.query(queryText)
