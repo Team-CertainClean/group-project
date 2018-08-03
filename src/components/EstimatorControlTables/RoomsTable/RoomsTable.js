@@ -33,7 +33,7 @@ class RoomControlTable extends React.Component{
             roomInfo: {
                 room_name: '',
                 location_type_id: 0,
-                duration_metric: null
+                duration_metric: ''
             },
             anchor: null,
             page: 0,
