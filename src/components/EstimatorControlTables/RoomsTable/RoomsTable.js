@@ -5,13 +5,13 @@ import { ROOM_ACTIONS } from '../../../redux/actions/roomActions';
 import { LOCATION_ACTIONS } from '../../../redux/actions/locationActions';
 
 // Material UI Imports
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import TablePagination from '@material-ui/core/TablePagination';
 import { withStyles } from '@material-ui/core/styles';
 import { EstimatorControlStyles } from '../styles';
 import Card from '@material-ui/core/Card';
@@ -35,7 +35,9 @@ class RoomControlTable extends React.Component{
                 location_type_id: 0,
                 duration_metric: null
             },
-            anchor: null
+            anchor: null,
+            page: 0,
+            rowsPerPage: 5
         }
     }
 
@@ -54,7 +56,7 @@ class RoomControlTable extends React.Component{
     }
 
     clearInputs = () => {
-        this.setState({roomInfo: {room_name: '', location_type_id: 0, duration_metric: null}});
+        this.setState({roomInfo: {room_name: '', location_type_id: 0, duration_metric: ''}});
     }
 
     handleChangeFor = event => {
@@ -68,7 +70,17 @@ class RoomControlTable extends React.Component{
         });
     }
 
+    handleChangePage = (event, page) => {
+        this.setState({ page });
+    }
+
+    handleChangeRowsPerPage = (event) => {
+        this.setState({ rowsPerPage: event.target.value });
+    }
+
     render(){
+        const { page, rowsPerPage } = this.state;
+        console.log(page, rowsPerPage);
         const { classes } = this.props;
         let table = null;
         if(this.props.rooms){
@@ -85,7 +97,7 @@ class RoomControlTable extends React.Component{
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.rooms.map(room => {
+                        {this.props.rooms.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(room => {
                             return(
                                 <EditableTableRow rowData={room} remove={this.removeRoom} actions={ROOM_ACTIONS} />
                             );
@@ -101,6 +113,20 @@ class RoomControlTable extends React.Component{
                 <Card className={classes.tableCard}>
                     <CardContent>
                         {table}
+                        <TablePagination
+                            component="div"
+                            count={this.props.rooms.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            backIconButtonProps={{
+                                'aria-label': 'Previous Page',
+                            }}
+                            nextIconButtonProps={{
+                                'aria-label': 'Next Page',
+                            }}
+                            onChangePage={this.handleChangePage}
+                            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                            />
                     </CardContent>
                 </Card>
             </div>

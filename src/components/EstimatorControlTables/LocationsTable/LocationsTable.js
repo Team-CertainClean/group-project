@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { LOCATION_ACTIONS } from '../../../redux/actions/locationActions';
 
 // Material UI Imports
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import TablePagination from '@material-ui/core/TablePagination';
 import {withStyles} from '@material-ui/core/styles';
 import {EstimatorControlStyles} from '../styles';
 import Card from '@material-ui/core/Card';
@@ -30,7 +30,9 @@ class LocationControlTable extends React.Component{
         this.state = {
             locationInfo: {
                 location_type: ''
-            }
+            },
+            page: 0,
+            rowsPerPage: 5
         }
     }
 
@@ -62,8 +64,17 @@ class LocationControlTable extends React.Component{
         });
     }
 
+    handleChangePage = (event, page) => {
+        this.setState({ page });
+    }
+
+    handleChangeRowsPerPage = (event) => {
+        this.setState({ rowsPerPage: event.target.value });
+    }
+
     render(){
         const {classes} = this.props;
+        const { page, rowsPerPage } = this.state;
         let table = null;
         if(this.props.locations){
             table = (
@@ -93,6 +104,20 @@ class LocationControlTable extends React.Component{
                 <Card className={classes.tableCard}>
                     <CardContent>
                         {table}
+                        <TablePagination
+                            component="div"
+                            count={this.props.locations.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            backIconButtonProps={{
+                                'aria-label': 'Previous Page',
+                            }}
+                            nextIconButtonProps={{
+                                'aria-label': 'Next Page',
+                            }}
+                            onChangePage={this.handleChangePage}
+                            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                            />
                     </CardContent>
                 </Card>
             </div>
