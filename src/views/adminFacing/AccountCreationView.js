@@ -13,6 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
+import { CLEANER_ACTIONS } from '../../redux/actions/cleanerActions'
 
 
 const styles = theme => ({
@@ -49,13 +50,31 @@ class AccountCreationView extends React.Component{
           password: '',
           confirmPassword: '',
           message: '',
-          cleaner: '',
-          first_name: '',
-          last_name: '',
-          photo_url: '',
-        };
+          cleaner: {
+            showCleaner: '',
+            first_name: '',
+            last_name: '',
+            photo_url: '',
+            }
       }
+    }
 
+    addCleaner = (event) => {
+        event.preventDefault();
+        if (this.state.first_name === '' || this.state.last_name === '') {
+            this.setState({
+                message: 'Fill out both fields, please!',
+            })
+        } else {
+            const body = {
+                first_name: this.state.first_name,
+                last_name: this.state.last_name,
+                photo_url: this.state.photo_url,
+            }
+            console.log(`this is the cleaner body`, body)
+            this.props.dispatch({ type: CLEANER_ACTIONS.POST,  payload: body });
+        }
+    }
 
     registerAdmin = (event) => {
         event.preventDefault();
@@ -95,7 +114,8 @@ class AccountCreationView extends React.Component{
     this.setState({
         [propertyName]: event.target.value,
     });
-    }
+        console.log(this.state)
+    }// end handleChange
 
     renderAlert() {
         if (this.state.message !== '') {
@@ -109,18 +129,19 @@ class AccountCreationView extends React.Component{
           );
         }
         return (<span />);
-      }
+      }// end renderAlert
 
-      toggleAdmin = () => {
-          this.setState({
-              cleaner: 'false',
-          })
-      }
-      toggleCleaner = () => {
+    toggleAdmin = () => {
         this.setState({
-            cleaner: 'true',
-        })
-    }
+            showCleaner: 'false',
+        });
+    }// end toggleAdmin
+
+    toggleCleaner = () => {
+        this.setState({
+            showCleaner: 'true',
+        });
+    }; //end toggleCleaner
 
     render(){
         let content = null;
@@ -130,12 +151,11 @@ class AccountCreationView extends React.Component{
         if (this.props.user.userName) {
             buttons = (
                 <div>
-             <Button onClick={ this.toggleAdmin } className={classes.button}>Admin</Button>
-             <Button onClick={ this.toggleCleaner } className={classes.button}>Cleaner</Button>
-             </div>
+                    <Button onClick={ this.toggleAdmin } className={classes.button}>Admin</Button>
+                    <Button onClick={ this.toggleCleaner } className={classes.button}>Cleaner</Button>
+                </div>
             );
-            if (this.state.cleaner === 'true') {
-
+            if (this.state.showCleaner === 'true') {
                 content = (
                     <div>
                         <form>
@@ -167,7 +187,7 @@ class AccountCreationView extends React.Component{
                             />
                             </div>
                             <div>
-                        <Button variant="contained" onClick={this.registerAdmin} className={classes.button}>
+                        <Button variant="contained" onClick={this.addCleaner} className={classes.button}>
                             Submit
                         </Button>
                         <Link to="/home"><Typography>Cancel</Typography></Link>
