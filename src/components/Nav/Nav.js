@@ -20,6 +20,11 @@ const Nav = () => (
             Info Page
           </Link>
         </li>
+        <li>
+          <Link to="/estimator">
+            Estimator Controller
+          </Link>
+        </li>
       </ul>
     </div>
   </div>

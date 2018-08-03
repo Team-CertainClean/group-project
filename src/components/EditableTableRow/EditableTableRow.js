@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 // Material UI Imports
 import TableRow from '@material-ui/core/TableRow';
@@ -7,6 +8,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
+import { withStyles } from '@material-ui/core/styles';
+import { EstimatorControlStyles } from '../EstimatorControlTables/styles';
 
 import LocationSelectionMenu from '../EstimatorControlTables/RoomsTable/LocationSelectionMenu';
 
@@ -46,6 +49,7 @@ class EditableTableRow extends React.Component{
     }
 
     render(){
+        const { classes } = this.props;
         let row = [];
         if(this.props.rowData){
             for(let cell in this.props.rowData){
@@ -58,7 +62,7 @@ class EditableTableRow extends React.Component{
         let content = null;
         if(this.state.editing){
             content = (
-                <TableRow>
+                <TableRow className={classes.row}>
                     {row.map((cell, i)=> {
                         return (
                             <TableCell key={i}>
@@ -93,7 +97,7 @@ class EditableTableRow extends React.Component{
             );
         } else {
             content = (
-                <TableRow>
+                <TableRow className={classes.row}>
                     {row.map((cell, i) => {
                         return (
                             <TableCell key={i}>
@@ -118,4 +122,7 @@ class EditableTableRow extends React.Component{
     }
 }
 
-export default connect(mapStateToProps)(EditableTableRow);
+export default compose(
+    connect(mapStateToProps),
+    withStyles(EstimatorControlStyles)
+)(EditableTableRow);
