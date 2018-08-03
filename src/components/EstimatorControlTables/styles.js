@@ -2,8 +2,7 @@ export const EstimatorControlStyles = {
     tableCard: {
         width: '85%',
         margin: 'auto',
-        marginTop: 25,
-        backgroundColor: 'rgba(125, 118, 110)'
+        marginTop: 25
     },
     estimatorControlComponent: {
         textAlign: 'center',
@@ -18,7 +17,7 @@ export const EstimatorControlStyles = {
     },
     row: {
         '&:nth-of-type(even)': {
-            backgroundColor: 'rgba(255, 148, 46, 1)'
+            backgroundColor: 'rgba(160, 156, 153)'
         },
         '&:nth-of-type(odd)': {
             backgroundColor: 'rgba(255, 255, 255, 1)'

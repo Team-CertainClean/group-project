@@ -5,6 +5,7 @@ import MenuBar from '../../components/MenuBar/MenuBar';
 import RoomControlTable from '../../components/EstimatorControlTables/RoomsTable/RoomsTable';
 import CleanerControlTable from '../../components/EstimatorControlTables/CleanersTable/CleanerTable';
 import LocationControlTable from '../../components/EstimatorControlTables/LocationsTable/LocationsTable';
+import Nav from '../../components/Nav/Nav';
 
 class EstimatorControlView extends React.Component{
     constructor(){
@@ -31,7 +32,8 @@ class EstimatorControlView extends React.Component{
 
         const menuOptions=["Rooms", "Locations", "Cleaners"];
         return(
-            <div>
+            <div style={{'width': '100vw', 'position': 'relative', 'left': -8}}>
+                <Nav />
                 <MenuBar menuOptions={menuOptions} selectOption={this.selectOption} />
                 <div>
                     {table}

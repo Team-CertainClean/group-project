@@ -54,7 +54,7 @@ class RoomControlTable extends React.Component{
     }
 
     clearInputs = () => {
-        this.setState({roomInfo: {room_name: '', location_type_id: 0, duration_metric: 0}});
+        this.setState({roomInfo: {room_name: '', location_type_id: 0, duration_metric: null}});
     }
 
     handleChangeFor = event => {
@@ -95,7 +95,7 @@ class RoomControlTable extends React.Component{
             );
         }
         return(
-            <Paper className={classes.estimatorControlComponent}>
+            <div className={classes.estimatorControlComponent}>
                 <Typography variant="title">Add Rooms</Typography>
                 <AddRoomForm handleChangeFor={this.handleChangeFor} submitRoom={this.submitRoom} room={this.state.roomInfo.room_name} metric={this.state.roomInfo.duration_metric} anchor={this.state.anchor} locations={this.props.locations}/>
                 <Card className={classes.tableCard}>
@@ -103,7 +103,7 @@ class RoomControlTable extends React.Component{
                         {table}
                     </CardContent>
                 </Card>
-            </Paper>
+            </div>
         );
     }
 }

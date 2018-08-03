@@ -19,6 +19,7 @@ import CardContent from '@material-ui/core/CardContent';
 // Component Imports 
 import AddCleanerForm from './AddCleanerForm';
 import EditableTableRow from '../../EditableTableRow/EditableTableRow';
+import { Divider } from 'material-ui';
 
 const mapStateToProps = store => ({
     cleaners: store.cleaners
@@ -92,7 +93,7 @@ class CleanerControlTable extends React.Component{
             );
         }
         return(
-            <Paper className={classes.estimatorControlComponent}>
+            <div className={classes.estimatorControlComponent}>
                 <Typography variant="title">Add Cleaners</Typography>
                 <AddCleanerForm handleChangeFor={this.handleChangeFor} submitCleaner={this.submitCleaner} first_name={this.state.cleanerInfo.first_name} last_name={this.state.cleanerInfo.last_name} properly_account_id={this.state.cleanerInfo.properly_account_id} />
                 <Card className={classes.tableCard}>
@@ -100,7 +101,7 @@ class CleanerControlTable extends React.Component{
                         {table}
                     </CardContent>
                 </Card>
-            </Paper>
+            </div>
         );
     }
 }
