@@ -11,8 +11,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import IconButton from '@material-ui/core/IconButton';
-import Icon from '@material-ui/core/Icon';
+import {withStyles} from '@material-ui/core/styles';
+import {EstimatorControlStyles} from '../styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 // Component Imports 
 import AddLocationForm from './AddLocationForm';
@@ -61,11 +63,12 @@ class LocationControlTable extends React.Component{
     }
 
     render(){
+        const {classes} = this.props;
         let table = null;
         if(this.props.locations){
             table = (
-                <Table>
-                    <TableHead>
+                <Table className={classes.table}>
+                    <TableHead className={classes.tableHeader}>
                         <TableRow>
                             <TableCell>Location ID</TableCell>
                             <TableCell>Location Type</TableCell>
@@ -84,15 +87,20 @@ class LocationControlTable extends React.Component{
             );
         }
         return(
-            <Paper>
+            <Paper className={classes.estimatorControlComponent}>
                 <Typography variant="title">Add Locations</Typography>
                 <AddLocationForm handleChangeFor={this.handleChangeFor} submitLocation={this.submitLocation} location={this.state.locationInfo.location_type}/>
-                {table}
+                <Card className={classes.tableCard}>
+                    <CardContent>
+                        {table}
+                    </CardContent>
+                </Card>
             </Paper>
         );
     }
 }
 
 export default compose(
-    connect(mapStateToProps)
+    connect(mapStateToProps),
+    withStyles(EstimatorControlStyles)
 )(LocationControlTable);

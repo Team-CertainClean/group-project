@@ -12,8 +12,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import IconButton from '@material-ui/core/IconButton';
-import Icon from '@material-ui/core/Icon';
+import { withStyles } from '@material-ui/core/styles';
+import { EstimatorControlStyles } from '../styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 // Component Imports 
 import AddRoomForm from './AddRoomForm';
@@ -31,7 +33,7 @@ class RoomControlTable extends React.Component{
             roomInfo: {
                 room_name: '',
                 location_type_id: 0,
-                duration_metric: 0
+                duration_metric: null
             },
             anchor: null
         }
@@ -67,11 +69,12 @@ class RoomControlTable extends React.Component{
     }
 
     render(){
+        const { classes } = this.props;
         let table = null;
         if(this.props.rooms){
             table = (
-                <Table>
-                    <TableHead>
+                <Table className={classes.table}>
+                    <TableHead className={classes.tableHeader}>
                         <TableRow>
                             <TableCell>Room ID</TableCell>
                             <TableCell>Room Name</TableCell>
@@ -92,15 +95,20 @@ class RoomControlTable extends React.Component{
             );
         }
         return(
-            <Paper>
+            <Paper className={classes.estimatorControlComponent}>
                 <Typography variant="title">Add Rooms</Typography>
                 <AddRoomForm handleChangeFor={this.handleChangeFor} submitRoom={this.submitRoom} room={this.state.roomInfo.room_name} metric={this.state.roomInfo.duration_metric} anchor={this.state.anchor} locations={this.props.locations}/>
-                {table}
+                <Card className={classes.tableCard}>
+                    <CardContent>
+                        {table}
+                    </CardContent>
+                </Card>
             </Paper>
         );
     }
 }
 
 export default compose(
-    connect(mapStateToProps)
+    connect(mapStateToProps),
+    withStyles(EstimatorControlStyles)
 )(RoomControlTable);
