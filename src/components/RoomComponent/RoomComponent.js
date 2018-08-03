@@ -14,8 +14,32 @@ const mapStateToProps = state => ({
 
 
 const styles = {
-    rating: {
-      height: '100'
+    icon: {
+      float: 'left',
+      height: '16px',
+      margin: '3px',
+      marginTop: '7px'
+    },
+    rate: {
+      borderRadius: '15px',
+      position:'relative',
+      backgroundColor: '#A8A8A8',
+      width: '260px',
+      height: '30px',
+      
+    },
+    roomname: {
+      fontFamily: 'Arial, Helvetica, sans-serif',
+      color: 'white',
+      position: 'absolute',
+      float: 'left',
+      marginTop: '7px',
+      marginLeft: '13px',
+    },
+    circles: {
+      float:'right',
+      marginRight:'5px',
+      paddingBottom: '10px'
     }
   };
 
@@ -26,7 +50,7 @@ constructor(props){
     super(props);
     this.state = {
         room: {
-            room_id:'',
+            room_id:'KITCHEN',
             cleanliness_score:'',
             value: 0
         }
@@ -37,18 +61,19 @@ constructor(props){
     this.setState({value: 3});
   }
 
-
-  
 render() {
     const { classes } = this.props;
     return (
       <div className={classes.rate}>
-      
-      <Rating
+     <p className={classes.roomname}>{this.state.room.room_id}</p>
+      <Rating 
+      className={classes.circles}
+      onChange={(rate) => alert(rate)}
+      initialRating={this.state.value}
   placeholderRating={3.0}
-  emptySymbol={<img src="/RatingIconGrey.png" />}
-  placeholderSymbol={<img src="/RatingIconOrange.png" className="icon" />}
-  fullSymbol={<img src="/RatingIconOrange.png" className="icon" />}
+  emptySymbol={<img src="/RatingIconGrey.png" className={classes.icon}/>}
+  placeholderSymbol={<img src="/RatingIconOrange.png" className={classes.icon} />}
+  fullSymbol={<img src="/RatingIconOrange.png" className={classes.icon} />}
 />
       </div>
     );

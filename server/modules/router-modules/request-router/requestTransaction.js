@@ -1,10 +1,13 @@
 const pool = require('../../pool');
 
-async function requestTransaction(body){
+function requestTransaction(body){
     return new Promise((resolve, reject) => {
         // creates an isolated pool connection to allow the transaction to occur
-        const client = pool.connect();
-        (async()=>{
+
+        
+        // anonymous async arrow function for carrying out asynchronous sql transaction queries
+        ( async () => {
+            const client = pool.connect();
             try{
                 // Initiates the transaction
                 await client.query('BEGIN;');
@@ -29,9 +32,8 @@ async function requestTransaction(body){
             }finally{
                 // Releases isolated pool connection
                 client.release();
-            }
-        })
-    });
+
+            }});});
 }
 
 module.exports = requestTransaction;

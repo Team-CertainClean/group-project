@@ -18,9 +18,14 @@ import RoomComponent from './components/RoomComponent/RoomComponent';
 import AvailabilitySelectView from './components/AvailabilitySelectView/AvailabilitySelectView';
 import ContactInfoView from './views/customerFacing/ContactInfoView';
 import RoomInputView from './views/customerFacing/RoomInputView';
+import EstimatorControlView from './views/adminFacing/EstimatorControlView';
+
 //Main view
 import LandingView from './views/customerFacing/LandingView';
 import './styles/main.css';
+
+// Admin views
+import AccountCreationView from './views/adminFacing/AccountCreationView';
 
 const App = () => (
   <div>
@@ -68,6 +73,14 @@ const App = () => (
         <Route
           path="/landing"
           component={LandingView}
+        />
+        <Route 
+          path="/estimator"
+          component={EstimatorControlView}
+        />
+        <Route 
+          path="/accountCreation"
+          component={AccountCreationView}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />
