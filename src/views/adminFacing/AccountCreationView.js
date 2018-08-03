@@ -49,33 +49,18 @@ class AccountCreationView extends React.Component{
           password: '',
           confirmPassword: '',
           message: '',
+          cleaner: '',
+          first_name: '',
+          last_name: '',
+          photo_url: '',
         };
       }
 
 
-    //   const validate = values => {
-    //     const errors = {};
-    //     if (!values.username) {
-    //       errors.username = 'Required';
-    //     }
-    //     if (!values.password) {
-    //       errors.password = 'Required';
-    //     }
-    //     if (!values.confirmpassword ) {
-    //       errors.confirmpassword = 'Required' ;
-    //     } else if (values.confirmpassword !== values.password) {
-    //       errors.confirmpassword = 'Password mismatched' ;
-    //     }
-      
-    //      return errors;
-    //   };
-
-    validate
-
     registerAdmin = (event) => {
         event.preventDefault();
     
-        if (this.state.password === this.state.confirmPassword && this.state.username !== '') {
+        if (this.state.password === this.state.confirmPassword) {
           this.setState({
             message: 'Choose a username and password!',
           });
@@ -126,56 +111,117 @@ class AccountCreationView extends React.Component{
         return (<span />);
       }
 
+      toggleAdmin = () => {
+          this.setState({
+              cleaner: 'false',
+          })
+      }
+      toggleCleaner = () => {
+        this.setState({
+            cleaner: 'true',
+        })
+    }
+
     render(){
         let content = null;
+        let buttons = null;
         const { classes } = this.props;
     
         if (this.props.user.userName) {
-          content = (
+            buttons = (
+                <div>
+             <Button onClick={ this.toggleAdmin } className={classes.button}>Admin</Button>
+             <Button onClick={ this.toggleCleaner } className={classes.button}>Cleaner</Button>
+             </div>
+            );
+            if (this.state.cleaner === 'true') {
 
-            <div>
-            {this.renderAlert()}
-            <form >
-              <h1>Register New Admin</h1>
-              <div>
-                <TextField
-                    id="username"
-                    placeholder="Username"
-                    value={this.state.username}
-                    className={classes.textField}
-                    onChange={this.handleChange('username')}
-                    margin="normal"
-                />
-                <TextField
-                    id="password"
-                    placeholder="Password"
-                    value={this.state.password}
-                    className={classes.textField}
-                    onChange={this.handleChange('password')}
-                    margin="normal"
-                />
-                <TextField
-                    id="confirmPassword"
-                    placeholder="Confirm Password"
-                    value={this.state.confirmPassword}
-                    className={classes.textField}
-                    onChange={this.handleChange('confirmPassword')}
-                    margin="normal"
-                />
-              </div>
-              <div>
-                <Button variant="contained" onClick={this.registerAdmin} className={classes.button}>
-                    Submit
-                </Button>
-                <Link to="/home"><Typography>Cancel</Typography></Link>
-              </div>
-            </form>
-          </div>
-          );
+                content = (
+                    <div>
+                        <form>
+                            <Typography>Register New Cleaner</Typography>
+                            <div>
+                            <TextField
+                                id="first_name"
+                                placeholder="Cleaner's First Name"
+                                value={this.state.first_name}
+                                className={classes.textField}
+                                onChange={this.handleChange('first_name')}
+                                margin="normal"
+                            />
+                            <TextField
+                                id="last_name"
+                                placeholder="Cleaner's Last Name"
+                                value={this.state.last_name}
+                                className={classes.textField}
+                                onChange={this.handleChange('last_name')}
+                                margin="normal"
+                            />
+                            <TextField
+                                id="photo_url"
+                                placeholder="Image URL"
+                                value={this.state.photo_url}
+                                className={classes.textField}
+                                onChange={this.handleChange('photo_url')}
+                                margin="normal"
+                            />
+                            </div>
+                            <div>
+                        <Button variant="contained" onClick={this.registerAdmin} className={classes.button}>
+                            Submit
+                        </Button>
+                        <Link to="/home"><Typography>Cancel</Typography></Link>
+                    </div>
+                        </form>
+                    </div>
+                )
+            } else {
+                content = (
+                    <div>
+                    {this.renderAlert()}
+                    <form >
+                    <Typography>Register New Admin</Typography>
+                    <div>
+                        <TextField
+                            id="username"
+                            placeholder="Username"
+                            value={this.state.username}
+                            className={classes.textField}
+                            onChange={this.handleChange('username')}
+                            margin="normal"
+                        />
+                        <TextField
+                            id="password"
+                            placeholder="Password"
+                            value={this.state.password}
+                            className={classes.textField}
+                            onChange={this.handleChange('password')}
+                            margin="normal"
+                        />
+                        <TextField
+                            id="confirmPassword"
+                            placeholder="Confirm Password"
+                            value={this.state.confirmPassword}
+                            className={classes.textField}
+                            onChange={this.handleChange('confirmPassword')}
+                            margin="normal"
+                        />
+                    </div>
+                    <div>
+                        <Button variant="contained" onClick={this.registerAdmin} className={classes.button}>
+                            Submit
+                        </Button>
+                        <Link to="/home"><Typography>Cancel</Typography></Link>
+                    </div>
+                    </form>
+                </div>
+                );
         }
+    }
     
         return(
             <Paper>
+                { buttons }
                 { content }
             </Paper>
         );
