@@ -19,6 +19,7 @@ import AvailabilitySelectView from './components/AvailabilitySelectView/Availabi
 import ContactInfoView from './views/customerFacing/ContactInfoView';
 import RoomInputView from './views/customerFacing/RoomInputView';
 import EstimatorControlView from './views/adminFacing/EstimatorControlView';
+import RequestsView from './views/adminFacing/RequestsView';
 
 //Main view
 import LandingView from './views/customerFacing/LandingView';
@@ -81,6 +82,10 @@ const App = () => (
         <Route 
           path="/accountCreation"
           component={AccountCreationView}
+        />
+        <Route
+          path="/requests"
+          component={RequestsView}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />
