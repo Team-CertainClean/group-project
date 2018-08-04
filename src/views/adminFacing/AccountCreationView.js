@@ -49,10 +49,6 @@ class AccountCreationView extends React.Component{
           password: '',
           confirmPassword: '',
           message: '',
-          cleaner: '',
-          first_name: '',
-          last_name: '',
-          photo_url: '',
         };
       }
 
@@ -111,71 +107,11 @@ class AccountCreationView extends React.Component{
         return (<span />);
       }
 
-      toggleAdmin = () => {
-          this.setState({
-              cleaner: 'false',
-          })
-      }
-      toggleCleaner = () => {
-        this.setState({
-            cleaner: 'true',
-        })
-    }
-
     render(){
         let content = null;
-        let buttons = null;
         const { classes } = this.props;
     
         if (this.props.user.userName) {
-            buttons = (
-                <div>
-             <Button onClick={ this.toggleAdmin } className={classes.button}>Admin</Button>
-             <Button onClick={ this.toggleCleaner } className={classes.button}>Cleaner</Button>
-             </div>
-            );
-            if (this.state.cleaner === 'true') {
-
-                content = (
-                    <div>
-                        <form>
-                            <Typography>Register New Cleaner</Typography>
-                            <div>
-                            <TextField
-                                id="first_name"
-                                placeholder="Cleaner's First Name"
-                                value={this.state.first_name}
-                                className={classes.textField}
-                                onChange={this.handleChange('first_name')}
-                                margin="normal"
-                            />
-                            <TextField
-                                id="last_name"
-                                placeholder="Cleaner's Last Name"
-                                value={this.state.last_name}
-                                className={classes.textField}
-                                onChange={this.handleChange('last_name')}
-                                margin="normal"
-                            />
-                            <TextField
-                                id="photo_url"
-                                placeholder="Image URL"
-                                value={this.state.photo_url}
-                                className={classes.textField}
-                                onChange={this.handleChange('photo_url')}
-                                margin="normal"
-                            />
-                            </div>
-                            <div>
-                        <Button variant="contained" onClick={this.registerAdmin} className={classes.button}>
-                            Submit
-                        </Button>
-                        <Link to="/home"><Typography>Cancel</Typography></Link>
-                    </div>
-                        </form>
-                    </div>
-                )
-            } else {
                 content = (
                     <div>
                     {this.renderAlert()}
@@ -217,11 +153,10 @@ class AccountCreationView extends React.Component{
                 </div>
                 );
         }
-    }
+    
     
         return(
             <Paper>
-                { buttons }
                 { content }
             </Paper>
         );
