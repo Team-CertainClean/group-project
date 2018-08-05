@@ -16,12 +16,14 @@ import TableCell from '@material-ui/core/TableCell';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
+
 // Component Imports
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
 import Nav from '../../components/Nav/Nav';
 import { REQUEST_ACTIONS } from '../../redux/actions/requestActions';
+import RequestViewTableRow from '../../components/RequestsViewTableRow/RequestsViewTableRow';
 
 
 const styles = theme => ({
@@ -98,11 +100,11 @@ class RequestsView extends React.Component{
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {/* {this.props.cleaners.map(cleaner => {
+                                    {this.props.request.map(request => {
                                         return(
-                                            <EditableTableRow rowData={cleaner} remove={this.removeCleaner} actions={CLEANER_ACTIONS}/>
+                                            <RequestViewTableRow rowData={request} />
                                         );
-                                    })} */}
+                                    })}
                                 </TableBody>
                             </Table>
                             </CardContent>
