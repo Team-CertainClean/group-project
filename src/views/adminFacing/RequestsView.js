@@ -49,7 +49,7 @@ class RequestsView extends React.Component{
     }
     
     componentDidMount() {
-        // this.props.dispatch({ type: REQUEST_ACTIONS.FETCH });
+        this.props.dispatch({ type: REQUEST_ACTIONS.FETCH });
       }
 
     toggleRes = () => {

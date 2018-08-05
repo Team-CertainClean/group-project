@@ -13,7 +13,7 @@ router.get('/requestTable', async (req, res) => {
     getRequestData()
         .then(result => res.send(result))
         .catch(error => {
-            console.log('Error handling GET for /api/request/requestTable');
+            console.log('Error handling GET for /api/request/requestTable', error);
             res.sendStatus(404);
         });
 });
