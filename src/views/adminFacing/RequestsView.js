@@ -95,7 +95,6 @@ class RequestsView extends React.Component{
                                         <TableCell>Service Type</TableCell>
                                         <TableCell>Room</TableCell>
                                         <TableCell>Requested Time</TableCell>
-                                        <TableCell>Assigned Cleaner</TableCell>
                                         <TableCell>Status</TableCell>
                                     </TableRow>
                                 </TableHead>

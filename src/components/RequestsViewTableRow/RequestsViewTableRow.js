@@ -16,27 +16,36 @@ const mapStateToProps = state => ({
 class RequestViewTableRow extends Component {
 
   render() {
-    let content = null;
+    // let content = null;
 
-      content = (
-        <div>
+    //   content = (
+    //     <div>
+    //       {/* <pre>{JSON.stringify(this.props.rowData.request_info)}</pre> */}
+    //       <TableCell>{ this.props.rowData.request_info.request_id }</TableCell>
+    //       <TableCell>{ this.props.rowData.contact_info.first_name }</TableCell>
+    //       <TableCell>{ this.props.rowData.contact_info.email }</TableCell>
+    //       <TableCell>{ this.props.rowData.request_info.est_duration}</TableCell>
+    //       <TableCell>{ this.props.rowData.request_info.cleaning_type_id }</TableCell>
+    //       <TableCell>Button</TableCell>
+    //       <TableCell>{ this.props.rowData.request_info.start_time }</TableCell>
+    //       <TableCell>{ this.props.rowData.request_info.end_timme }</TableCell>
+    //       <TableCell>{ this.props.rowData.contact_info.status }</TableCell>
+    //     </div>
+    //   );
+    
+
+    return (
+      <TableRow>
           {/* <pre>{JSON.stringify(this.props.rowData.request_info)}</pre> */}
           <TableCell>{ this.props.rowData.request_info.request_id }</TableCell>
           <TableCell>{ this.props.rowData.contact_info.first_name }</TableCell>
           <TableCell>{ this.props.rowData.contact_info.email }</TableCell>
           <TableCell>{ this.props.rowData.request_info.est_duration}</TableCell>
           <TableCell>{ this.props.rowData.request_info.cleaning_type_id }</TableCell>
-          <TableCell>Button</TableCell>
+          <TableCell><Button>Room</Button></TableCell>
           <TableCell>{ this.props.rowData.request_info.start_time }</TableCell>
           <TableCell>{ this.props.rowData.request_info.end_timme }</TableCell>
           <TableCell>{ this.props.rowData.contact_info.status }</TableCell>
-        </div>
-      );
-    
-
-    return (
-      <TableRow>
-        { content }
       </TableRow>
     );
   }
