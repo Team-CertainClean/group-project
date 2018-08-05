@@ -74,21 +74,6 @@ class RoomControlTable extends React.Component{
         });
     }
 
-<<<<<<< HEAD
-    handleChangePage = (event, page) => {
-        this.setState({ page });
-    }
-
-    handleChangeRowsPerPage = (event) => {
-        this.setState({ rowsPerPage: event.target.value });
-    }
-
-    handleRowEdit = () => {
-
-    }
-
-=======
->>>>>>> 0648e963fafdf6086cfde3704ce1ee3772f55f84
     render(){
         const { page, rowsPerPage } = this.state;
         const { classes } = this.props;
@@ -108,11 +93,7 @@ class RoomControlTable extends React.Component{
                         </TableRow>
                     </TableHead>
                     <TableBody>
-<<<<<<< HEAD
-                        {this.state.rooms.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(room=> {
-=======
                         {this.props.rooms.map(room => {
->>>>>>> 0648e963fafdf6086cfde3704ce1ee3772f55f84
                             return(
                                 <EditableTableRow rowData={room} remove={this.removeRoom} actions={ROOM_ACTIONS}/>
                             );
@@ -128,23 +109,6 @@ class RoomControlTable extends React.Component{
                 <Card className={classes.tableCard}>
                     <CardContent>
                         {table}
-<<<<<<< HEAD
-                        <TablePagination
-                            component="div"
-                            count={this.state.rooms.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            backIconButtonProps={{
-                                'aria-label': 'Previous Page',
-                            }}
-                            nextIconButtonProps={{
-                                'aria-label': 'Next Page',
-                            }}
-                            onChangePage={this.handleChangePage}
-                            onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                            />
-=======
->>>>>>> 0648e963fafdf6086cfde3704ce1ee3772f55f84
                     </CardContent>
                 </Card>
             </div>
