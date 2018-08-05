@@ -26,7 +26,9 @@ import LandingView from './views/customerFacing/LandingView';
 import './styles/main.css';
 
 // Admin views
+import AdminLoginView from './views/adminFacing/AdminLoginView';
 import AccountCreationView from './views/adminFacing/AccountCreationView';
+
 
 const App = () => (
   <div>
@@ -37,7 +39,7 @@ const App = () => (
         <Redirect exact from="/" to="/home" />
         <Route
           path="/home"
-          component={LoginPage}
+          component={LandingView}
         />
         <Route
           path="/register"
@@ -86,6 +88,10 @@ const App = () => (
         <Route
           path="/requests"
           component={RequestsView}
+        />
+        <Route
+          path="/login"
+          component={AdminLoginView}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />
