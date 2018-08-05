@@ -25,6 +25,12 @@ const Nav = () => (
             Estimator Controller
           </Link>
         </li>
+        <li>
+          <Link to="/accountCreation">
+            Create New Admin
+          </Link>
+        </li>
+
       </ul>
     </div>
   </div>
