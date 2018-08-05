@@ -1,4 +1,5 @@
 const RequestTable = require('./RequestTable.class');
+const pool = require('../../../modules/pool');
 
 // THIS WILL BE DEPRECATED ONCE WE COMPLETE getRequestData below
 function craftTable(){

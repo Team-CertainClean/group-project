@@ -4,6 +4,7 @@ import loginSaga from './loginSaga';
 import locationSaga from './locationSaga';
 import roomSaga from './roomSaga';
 import cleanerSaga from './cleanerSaga';
+import requestSaga from './requestSaga';
 
 
 export default function* rootSaga() {
@@ -12,7 +13,8 @@ export default function* rootSaga() {
     loginSaga(),
     locationSaga(),
     roomSaga(),
-    cleanerSaga()
+    cleanerSaga(),
+    requestSaga(),
     // watchIncrementAsync()
   ]);
 }
