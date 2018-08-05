@@ -48,8 +48,6 @@ class EditableTableRow extends React.Component{
             }
         }
         row.forEach((cell, index)=> cell === 'location_type_id' ? row.splice(index, 1) : null);
-        console.log("Row cells: ", row);
-        console.log(this.state.content);
         let content = null;
         if(this.state.editing){
             content = (

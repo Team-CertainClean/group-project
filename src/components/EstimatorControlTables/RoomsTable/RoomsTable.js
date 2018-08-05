@@ -11,7 +11,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import TablePagination from '@material-ui/core/TablePagination';
 import { withStyles } from '@material-ui/core/styles';
 import { EstimatorControlStyles } from '../styles';
 import Card from '@material-ui/core/Card';
@@ -35,10 +34,8 @@ class RoomControlTable extends React.Component{
                 location_type_id: 0,
                 duration_metric: ''
             },
-            anchor: null,
-            page: 0,
-            rowsPerPage: 5,
-            rooms: []
+
+            anchor: null
         }
     }
 
@@ -77,6 +74,7 @@ class RoomControlTable extends React.Component{
         });
     }
 
+<<<<<<< HEAD
     handleChangePage = (event, page) => {
         this.setState({ page });
     }
@@ -89,6 +87,8 @@ class RoomControlTable extends React.Component{
 
     }
 
+=======
+>>>>>>> 0648e963fafdf6086cfde3704ce1ee3772f55f84
     render(){
         const { page, rowsPerPage } = this.state;
         const { classes } = this.props;
@@ -108,7 +108,11 @@ class RoomControlTable extends React.Component{
                         </TableRow>
                     </TableHead>
                     <TableBody>
+<<<<<<< HEAD
                         {this.state.rooms.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(room=> {
+=======
+                        {this.props.rooms.map(room => {
+>>>>>>> 0648e963fafdf6086cfde3704ce1ee3772f55f84
                             return(
                                 <EditableTableRow rowData={room} remove={this.removeRoom} actions={ROOM_ACTIONS}/>
                             );
@@ -124,6 +128,7 @@ class RoomControlTable extends React.Component{
                 <Card className={classes.tableCard}>
                     <CardContent>
                         {table}
+<<<<<<< HEAD
                         <TablePagination
                             component="div"
                             count={this.state.rooms.length}
@@ -138,6 +143,8 @@ class RoomControlTable extends React.Component{
                             onChangePage={this.handleChangePage}
                             onChangeRowsPerPage={this.handleChangeRowsPerPage}
                             />
+=======
+>>>>>>> 0648e963fafdf6086cfde3704ce1ee3772f55f84
                     </CardContent>
                 </Card>
             </div>

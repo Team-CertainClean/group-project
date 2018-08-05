@@ -30,9 +30,7 @@ class LocationControlTable extends React.Component{
         this.state = {
             locationInfo: {
                 location_type: ''
-            },
-            page: 0,
-            rowsPerPage: 5
+            }
         }
     }
 
@@ -62,14 +60,6 @@ class LocationControlTable extends React.Component{
                 reject();
             }
         });
-    }
-
-    handleChangePage = (event, page) => {
-        this.setState({ page });
-    }
-
-    handleChangeRowsPerPage = (event) => {
-        this.setState({ rowsPerPage: event.target.value });
     }
 
     render(){
@@ -104,20 +94,6 @@ class LocationControlTable extends React.Component{
                 <Card className={classes.tableCard}>
                     <CardContent>
                         {table}
-                        <TablePagination
-                            component="div"
-                            count={this.props.locations.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            backIconButtonProps={{
-                                'aria-label': 'Previous Page',
-                            }}
-                            nextIconButtonProps={{
-                                'aria-label': 'Next Page',
-                            }}
-                            onChangePage={this.handleChangePage}
-                            onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                            />
                     </CardContent>
                 </Card>
             </div>
