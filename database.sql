@@ -51,7 +51,7 @@ create table Cleaner(
 );
 
 -- Storage of Big Calendar object data of Certain Clean Availability, entered manually through admin portal.
-create table "Availability"(
+create table "availability"(
     id serial primary key,
     start_time Date, -- FORMAT: 'YYYY-MM-DD hh:mm:ss'
     end_time Date -- FORMAT: 'YYYY-MM-DD hh:mm:ss'

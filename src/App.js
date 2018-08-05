@@ -15,7 +15,7 @@ import InfoPage from './components/InfoPage/InfoPage';
 //Stepper views
 import Stepper from './components/Stepper/Stepper';
 import RoomComponent from './components/RoomComponent/RoomComponent';
-import AvailabilitySelectView from './components/AvailabilitySelectView/AvailabilitySelectView';
+import ApptTimeSelectView from './views/customerFacing/ApptTimeSelectView';
 import ContactInfoView from './views/customerFacing/ContactInfoView';
 import RoomInputView from './views/customerFacing/RoomInputView';
 import EstimatorControlView from './views/adminFacing/EstimatorControlView';
@@ -61,13 +61,13 @@ const App = () => (
           path="/roominput"
           component={RoomInputView}
         />
-           <Route
+        <Route
           path="/roomcomponent"
           component={RoomComponent}
         />
         <Route
           path="/schedule"
-          component={AvailabilitySelectView}
+          component={ApptTimeSelectView}
         />
         <Route
           path="/contact"

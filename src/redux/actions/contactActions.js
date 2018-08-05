@@ -1,3 +1,0 @@
-export const CONTACT_ACTIONS = {
-    POST_CONTACT: 'POST_CONTACT'
-  };
