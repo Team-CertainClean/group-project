@@ -1,14 +1,14 @@
 import { put, takeLatest } from 'redux-saga/effects';
-import { CONTACT_ACTIONS } from '../actions/contactActions';
+import { CUSTOMER_ACTIONS } from '../actions/customerActions';
 
-function* postContact(action){
-    try{
-        yield callContact(action.payload);
-    }
-}
+// function* postContact(action){
+//     try{
+//         yield callContact(action.payload);
+//     }
+// }
 
-function* contactSaga() {
-    yield takeLatest(CONTACT_ACTIONS.POST_CONTACT, postContact);
-  }
+// function* contactSaga() {
+//     yield takeLatest(CONTACT_ACTIONS.POST_CONTACT, postContact);
+//   }
   
 export default contactSaga;

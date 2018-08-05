@@ -1,7 +1,7 @@
 export const ROOM_ACTIONS = {
     POST: 'POST_ROOM',
     FETCH: 'FETCH_ROOMS',
-    STORE: 'STORE_ROOMS',
+    STORE_OPTIONS: 'STORE_OPTIONS',
     REMOVE: 'REMOVE_ROOM',
     EDIT: 'EDIT_ROOM'
-  };
+};

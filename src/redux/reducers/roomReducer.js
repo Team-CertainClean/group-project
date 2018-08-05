@@ -3,11 +3,14 @@ import { ROOM_ACTIONS } from '../actions/roomActions';
 
 const roomOptions = (state = [], action) => {
     switch (action.type) {
-        case ROOM_ACTIONS.STORE:
+        case ROOM_ACTIONS.STORE_OPTIONS:
         return action.payload;
         default:
         return state;
     }
-}
+};
 
-export default roomOptions;
+
+export default combineReducers({
+    roomOptions,
+});

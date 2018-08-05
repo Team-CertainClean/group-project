@@ -7,7 +7,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Nav from '../../components/Nav/Nav';
 import Stepper from '../../components/Stepper/Stepper';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
-import { CONTACT_ACTIONS } from '../../redux/actions/contactActions';
+import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
+
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -23,7 +24,6 @@ const styles = theme => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        // backgroundColor: '#EF8902',
       },
       textField: {
         marginLeft: theme.spacing.unit,
@@ -55,7 +55,7 @@ class ContactInfoView extends Component {
                 email: '',
                 location_address: '',
                 phone_number: '',
-                cleaning_type: '',
+                cleaning_type_id: '',
             },
         }
       }
@@ -76,8 +76,6 @@ class ContactInfoView extends Component {
             contact: {
                 ...this.state.contact,
                 [contactInfo]: event.target.value,
-                // username: this.props.user.userName
-                // cleaning_type: event.target.value
             }
         })
         console.log(this.state.contact)
@@ -86,14 +84,13 @@ class ContactInfoView extends Component {
     submitContactInfo = (event) => {
         console.log(`in submitContactInfo`)
         event.preventDefault();
-        this.props.dispatch({ type: CONTACT_ACTIONS.POST_CONTACT,  payload: this.state.contact});
+        this.props.dispatch({ type: CUSTOMER_ACTIONS.CONTACT,  payload: this.state.contact});
     }// end submitContactInfo
 
   render() {
     let content = null;
     const { classes } = this.props;
 
-    if (this.props.user.userName) {
       content = (
         <div>
             <Paper>
@@ -139,16 +136,16 @@ class ContactInfoView extends Component {
                     margin="normal"
                 />
                 <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="cleaning_type">Cleaning Type</InputLabel>
+                    <InputLabel htmlFor="cleaning_type_id">Cleaning Type</InputLabel>
                     <Select
-                        value={this.state.cleaning_type}
-                        onChange={this.handleChange('cleaning_type')}
-                        input={<Input name="cleaning_type" id="cleaning_type" />}
+                        value={this.state.cleaning_type_id}
+                        onChange={this.handleChange('cleaning_type_id')}
+                        input={<Input name="cleaning_type_id" id="cleaning_type_id" />}
                     >
                         <MenuItem value=""><em>None</em></MenuItem>
-                        <MenuItem value={'House'}>House</MenuItem>
-                        <MenuItem value={'Airbnb'}>Airbnb</MenuItem>
-                        <MenuItem value={'Move Out'}>Move Out</MenuItem>
+                        <MenuItem value={3}>House</MenuItem>
+                        <MenuItem value={2}>Airbnb</MenuItem>
+                        <MenuItem value={1}>Move Out</MenuItem>
                     </Select>
                     {/* <FormHelperText>Some important helper text</FormHelperText> */}
                 </FormControl>
@@ -159,7 +156,6 @@ class ContactInfoView extends Component {
             </Paper>
         </div>
       );
-    }
 
     return (
       <div>
