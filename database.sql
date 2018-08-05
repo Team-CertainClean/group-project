@@ -35,8 +35,8 @@ create table Request(
     id serial primary key,
 	cleaning_type_id int references Cleaning_Type not null,
 	location_type_id int references Location_Type not null,
-    start_time Date,
-    end_time Date,
+    start_time timestamp [ (p) ] [ without time zone ],
+    end_time timestamp [ (p) ] [ without time zone ],
     est_duration float not null,
     status int default 0
 );
@@ -53,8 +53,8 @@ create table Cleaner(
 -- Storage of Big Calendar object data of Certain Clean Availability, entered manually through admin portal.
 create table "availability"(
     id serial primary key,
-    start_time Date, -- FORMAT: 'YYYY-MM-DD hh:mm:ss'
-    end_time Date -- FORMAT: 'YYYY-MM-DD hh:mm:ss'
+    start_time timestamp [ (p) ] [ without time zone ], -- FORMAT: 'YYYY-MM-DD hh:mm:ss'
+    end_time timestamp [ (p) ] [ without time zone ] -- FORMAT: 'YYYY-MM-DD hh:mm:ss'
 );
 
 -- Storage of Scheduled requests, connecting the Request to the chosen Cleaner
