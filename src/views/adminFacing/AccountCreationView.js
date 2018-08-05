@@ -128,6 +128,7 @@ class AccountCreationView extends React.Component{
                         />
                         <TextField
                             id="password"
+                            type="password"
                             placeholder="Password"
                             value={this.state.password}
                             className={classes.textField}
@@ -136,6 +137,7 @@ class AccountCreationView extends React.Component{
                         />
                         <TextField
                             id="confirmPassword"
+                            type="password"
                             placeholder="Confirm Password"
                             value={this.state.confirmPassword}
                             className={classes.textField}
