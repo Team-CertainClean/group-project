@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {compose} from 'redux';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
+import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -25,10 +26,10 @@ class ApptCalendar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            events: [
+            appt: [
                 {
-                start: new Date(),
-                end: new Date(moment().add(1, "hours")),
+                start: null,
+                end: null,
                 },
             ],
         }
@@ -41,11 +42,11 @@ class ApptCalendar extends Component {
     onSelect = (slotInfo) => {
         console.log('slotInfo:', slotInfo);
         this.setState({
-            events: [...this.state.events, {start: new Date(slotInfo.start), end: new Date(slotInfo.end)}],
+            appt: [...this.state.appt, {start: new Date(slotInfo.start), end: new Date(slotInfo.end)}],
         });
         console.log('this.state=', this.state);
         return true;
-    }    
+    }
 
     render() {
         const { classes } = this.props;
@@ -58,9 +59,9 @@ class ApptCalendar extends Component {
                 views={{
                     week: true,
                 }}
-                events={this.state.events}
-                selectable="true"
-                step="30"
+                events={this.state.appt}
+                selectable={true}
+                step={30}
                 min={new Date(2018, 7, 2, 5)}
                 max={new Date(2018, 7, 2, 20)}
                 onSelectSlot={this.onSelect}

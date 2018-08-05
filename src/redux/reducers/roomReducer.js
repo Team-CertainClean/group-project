@@ -10,16 +10,6 @@ const roomOptions = (state = [], action) => {
     }
 };
 
-const roomSelections = (state = [], action) => {
-    switch (action.type) {
-        case ROOM_ACTIONS.STORE_SELECTIONS:
-        return action.payload;
-        default:
-        return state;
-    }
-};
-
 export default combineReducers({
     roomOptions,
-    roomSelections,
 });
