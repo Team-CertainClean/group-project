@@ -149,7 +149,7 @@ class RequestsView extends React.Component{
     
         return(
             <div style={{'width': '100vw', 'position': 'relative', 'left': -8}}>
-                <Nav/>
+                <Nav history={this.props.history} />
                 <div>
                     { table }
                 </div>
