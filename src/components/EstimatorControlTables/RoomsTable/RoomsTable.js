@@ -11,7 +11,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import TablePagination from '@material-ui/core/TablePagination';
 import { withStyles } from '@material-ui/core/styles';
 import { EstimatorControlStyles } from '../styles';
 import Card from '@material-ui/core/Card';
@@ -23,7 +22,7 @@ import EditableTableRow from '../../EditableTableRow/EditableTableRow';
 
 const mapStateToProps = store => ({
     locations: store.locations,
-    rooms: store.rooms
+    rooms: store.rooms.roomOptions
 });
 
 class RoomControlTable extends React.Component{
@@ -35,9 +34,7 @@ class RoomControlTable extends React.Component{
                 location_type_id: 0,
                 duration_metric: ''
             },
-            anchor: null,
-            page: 0,
-            rowsPerPage: 5
+            anchor: null
         }
     }
 
@@ -70,14 +67,6 @@ class RoomControlTable extends React.Component{
         });
     }
 
-    handleChangePage = (event, page) => {
-        this.setState({ page });
-    }
-
-    handleChangeRowsPerPage = (event) => {
-        this.setState({ rowsPerPage: event.target.value });
-    }
-
     render(){
         const { page, rowsPerPage } = this.state;
         console.log(page, rowsPerPage);
@@ -97,7 +86,7 @@ class RoomControlTable extends React.Component{
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.rooms.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(room => {
+                        {this.props.rooms.map(room => {
                             return(
                                 <EditableTableRow rowData={room} remove={this.removeRoom} actions={ROOM_ACTIONS} />
                             );
@@ -113,20 +102,6 @@ class RoomControlTable extends React.Component{
                 <Card className={classes.tableCard}>
                     <CardContent>
                         {table}
-                        <TablePagination
-                            component="div"
-                            count={this.props.rooms.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            backIconButtonProps={{
-                                'aria-label': 'Previous Page',
-                            }}
-                            nextIconButtonProps={{
-                                'aria-label': 'Next Page',
-                            }}
-                            onChangePage={this.handleChangePage}
-                            onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                            />
                     </CardContent>
                 </Card>
             </div>
