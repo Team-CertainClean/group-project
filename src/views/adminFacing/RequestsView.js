@@ -36,7 +36,7 @@ const styles = theme => ({
 
 const mapStateToProps = state => ({
   user: state.user,
-  bigRequest: state.bigRequest,
+  request: state.request,
 
 });
 
