@@ -36,24 +36,50 @@ const mapStateToProps = state => ({
 });
 
 class RequestsView extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            res: true,
+        }
+    }
     
     componentDidMount() {
-        this.props.dispatch({ type: REQUEST_ACTIONS.FETCH });
+        // this.props.dispatch({ type: REQUEST_ACTIONS.FETCH });
       }
+
+    toggleRes = () => {
+        this.setState({
+            res: true
+        })
+    }
+
+    toggleCom = () => {
+        this.setState({
+            res: false
+        })
+    }
 
     render(){
         let content = null;
+        let buttons = null;
+        let nav = null;
         const { classes } = this.props;
     
         if (this.props.user.userName) {
+                buttons = (
+                    <div>
+                        <Button onClick={ this.toggleRes } className={classes.button}>Residential</Button>
+                        <Button onClick={ this.toggleCom } className={classes.button}>Commercial</Button>
+                    </div>
+                );
+                nav = (
+                <div><Nav /></div>
+                )
+                if (this.state.res === true){
                 content = (
                     <div>
                         <div>
-                            <Nav />
-                        </div>
-                        <br />
-                        <div>
-                            <Typography variant="display2">Request Things on this page</Typography>
+                            <Typography variant="display2">Residential Things on this page</Typography>
                             <Table className={classes.table}>
                                 <TableHead className={classes.tableHeader}>
                                     <TableRow>
@@ -80,11 +106,44 @@ class RequestsView extends React.Component{
                         <div></div>
                     </div>
                 );
+            } else {
+                content = (
+                    <div>
+                        <div>
+                            <Typography variant="display2">Commercial Things on this page</Typography>
+                            <Table className={classes.table}>
+                                <TableHead className={classes.tableHeader}>
+                                    <TableRow>
+                                        <TableCell>Request ID</TableCell>
+                                        <TableCell>Customer Name</TableCell>
+                                        <TableCell>Customer Email</TableCell>
+                                        <TableCell>Service Type</TableCell>
+                                        <TableCell>Room</TableCell>
+                                        <TableCell>Requested Time</TableCell>
+                                        <TableCell>Assigned Cleaner</TableCell>
+                                        <TableCell>Status</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {/* {this.props.cleaners.map(cleaner => {
+                                        return(
+                                            <EditableTableRow rowData={cleaner} remove={this.removeCleaner} actions={CLEANER_ACTIONS}/>
+                                        );
+                                    })} */}
+                                </TableBody>
+                            </Table>
+                        </div>
+                        <div></div>
+                    </div>
+                )
+            }
         }
     
         return(
             <Paper>
+                { nav }
                 { content }
+                { buttons }
             </Paper>
         );
     }
