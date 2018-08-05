@@ -1,37 +1,3 @@
-const RequestTable = require('./RequestTable.class');
-const pool = require('../../../modules/pool');
-
-// THIS WILL BE DEPRECATED ONCE WE COMPLETE getRequestData below
-function craftTable(){
-    // Instantiate a new RequestTable object with methods and a status (unscheduled vs. scheduled)
-    let table = new RequestTable();
-
-    /* 
-        Call getRequestAndContactData method to query database for all requests and corresponding 
-        contact info of requests with matching status
-    */
-    table.getRequestAndContactData();
-
-    /*
-        Call getRequestRoomData method to query database for all rooms of corresponding requests
-        and attach to request objects as an array, key: rooms.
-    */
-    table.getRequestRoomData();
-
-    /*
-        Call getAvailabilityData method to query database for all availability of corresponding requests
-        and attach to request objects as an array, key: availability.
-    */
-    table.getAvailabilityData();
-
-    /* 
-        Return table object containing an array, key: requests, of request objects, each containing 
-        information relevant to Request Tables on Admin facing GUIm including an array of rooms, key: rooms,
-        and calendar objects, key: availability.
-    */
-    return table;
-}
-
 /*
 This is the example provided by Mary for how to do these large queries.
 
@@ -79,15 +45,15 @@ function getRequestData(){
     return new Promise((resolve, reject)=>{
         try{
             const queryText = `
-            SELECT 
-	            json_build_object('request_id', request.id, 'start_time', request.start_time, 'end_time', request.end_time, 'est_duration', request.est_duration, 'status', request.status, 'cleanliness_score', request_room_junction.cleanliness_score) as request_info,
-	            json_build_object('contact_id', contact.id, 'first_name', contact.first_name, 'last_name', contact.last_name, 'email', contact.email, 'phone_number', contact.phone_number, 'address', contact.location_address) as contact_info,
-	            json_build_object('rooms', array_agg(room.*)) as room_info
+            SELECT
+            json_build_object('request_id', request.id, 'start_time', request.start_time, 'end_time', request.end_time, 'est_duration', request.est_duration, 'status', request.status, 'cleanliness_score', request_room_junction.cleanliness_score) as request_info,
+                json_build_object('contact_id', contact.id, 'first_name', contact.first_name, 'last_name', contact.last_name, 'email', contact.email, 'phone_number', contact.phone_number, 'address', contact.location_address) as contact_info,
+                json_build_object('rooms', array_agg(room.*)) as room_info
             from request_room_junction
             JOIN request on request.id = request_room_junction.request_id
             JOIN room on room.id = request_room_junction.room_id
             JOIN contact on contact.request_id = request_room_junction.request_id
-            GROUP BY request_room_junction.request_id, request.id, contact.id, request_room_junction.cleanliness_score 
+            GROUP BY request_room_junction.request_id, request.id, contact.id, request_room_junction.cleanliness_score
             ORDER BY request_room_junction.request.id;`;
             const result = pool.query(queryText).then(result => result.rows);
             resolve(result);
