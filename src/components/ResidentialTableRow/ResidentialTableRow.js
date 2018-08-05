@@ -13,34 +13,24 @@ import TextField from '@material-ui/core/TextField';
 const mapStateToProps = state => ({
   request: state.request,
 });
-class RequestViewTableRow extends Component {
+class ResidentialTableRow extends Component {
 
   render() {
-    let content = null;
-
-      content = (
-        <div>
-          {/* <pre>{JSON.stringify(this.props.rowData.request_info)}</pre> */}
-          <TableCell>{ this.props.rowData.request_info.request_id }</TableCell>
-          <TableCell>{ this.props.rowData.contact_info.first_name }</TableCell>
-          <TableCell>{ this.props.rowData.contact_info.email }</TableCell>
-          <TableCell>{ this.props.rowData.request_info.est_duration}</TableCell>
-          <TableCell>{ this.props.rowData.request_info.cleaning_type_id }</TableCell>
-          <TableCell>Button</TableCell>
-          <TableCell>{ this.props.rowData.request_info.start_time }</TableCell>
-          <TableCell>{ this.props.rowData.request_info.end_timme }</TableCell>
-          <TableCell>{ this.props.rowData.contact_info.status }</TableCell>
-        </div>
-      );
-    
-
     return (
       <TableRow>
-        { content }
+          {/* <pre>{JSON.stringify(this.props.rowData.request_info)}</pre> */}
+          <TableCell>{ this.props.rowData.request_info.request_id }</TableCell>
+          <TableCell>{ this.props.rowData.contact_info.first_name  } {this.props.rowData.contact_info.last_name}</TableCell>
+          <TableCell>{ this.props.rowData.contact_info.email }</TableCell>
+          <TableCell>{ this.props.rowData.request_info.est_duration}</TableCell>
+          <TableCell>{ this.props.rowData.request_info.service_type }</TableCell>
+          <TableCell><Button>Room</Button></TableCell>
+          <TableCell>{ this.props.rowData.request_info.start_time } { this.props.rowData.request_info.end_time }</TableCell>
+          <TableCell>{ this.props.rowData.request_info.status }</TableCell>
       </TableRow>
     );
   }
 }
 
 // this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(RequestViewTableRow);
+export default connect(mapStateToProps)(ResidentialTableRow);
