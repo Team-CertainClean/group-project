@@ -30,7 +30,11 @@ const Nav = () => (
             Create New Admin
           </Link>
         </li>
-
+        <li>
+          <Link to="/requests">
+            Requests
+          </Link>
+        </li>
       </ul>
     </div>
   </div>

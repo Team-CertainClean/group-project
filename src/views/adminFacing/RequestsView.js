@@ -13,6 +13,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 // Component Imports
 import { Link } from 'react-router-dom';
@@ -26,7 +28,10 @@ const styles = theme => ({
       button: {
           backgroundColor: '#EF8902',
       },
+      title: {
+          marginTop: '50px',
 
+      }
 });
 
 const mapStateToProps = state => ({
@@ -60,7 +65,7 @@ class RequestsView extends React.Component{
     }
 
     render(){
-        let content = null;
+        let table = null;
         let buttons = null;
         let nav = null;
         const { classes } = this.props;
@@ -72,14 +77,12 @@ class RequestsView extends React.Component{
                         <Button onClick={ this.toggleCom } className={classes.button}>Commercial</Button>
                     </div>
                 );
-                nav = (
-                <div><Nav /></div>
-                )
                 if (this.state.res === true){
-                content = (
+                table = (
                     <div>
-                        <div>
-                            <Typography variant="display2">Residential Things on this page</Typography>
+                        <Typography variant="display2" className={classes.title}>Residential Things on this page</Typography>
+                        <Card >
+                            <CardContent>
                             <Table className={classes.table}>
                                 <TableHead className={classes.tableHeader}>
                                     <TableRow>
@@ -102,36 +105,41 @@ class RequestsView extends React.Component{
                                     })} */}
                                 </TableBody>
                             </Table>
-                        </div>
+                            </CardContent>
+                        </Card>
                         <div></div>
                     </div>
                 );
             } else {
-                content = (
+                table = (
                     <div>
                         <div>
-                            <Typography variant="display2">Commercial Things on this page</Typography>
-                            <Table className={classes.table}>
-                                <TableHead className={classes.tableHeader}>
-                                    <TableRow>
-                                        <TableCell>Request ID</TableCell>
-                                        <TableCell>Customer Name</TableCell>
-                                        <TableCell>Customer Email</TableCell>
-                                        <TableCell>Service Type</TableCell>
-                                        <TableCell>Room</TableCell>
-                                        <TableCell>Requested Time</TableCell>
-                                        <TableCell>Assigned Cleaner</TableCell>
-                                        <TableCell>Status</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {/* {this.props.cleaners.map(cleaner => {
-                                        return(
-                                            <EditableTableRow rowData={cleaner} remove={this.removeCleaner} actions={CLEANER_ACTIONS}/>
-                                        );
-                                    })} */}
-                                </TableBody>
-                            </Table>
+                            <Typography variant="display2" className={classes.title}>Commercial Things on this page</Typography>
+                            <Card>
+                                <CardContent>
+                                    <Table className={classes.table}>
+                                        <TableHead className={classes.tableHeader}>
+                                            <TableRow>
+                                                <TableCell>Request ID</TableCell>
+                                                <TableCell>Customer Name</TableCell>
+                                                <TableCell>Customer Email</TableCell>
+                                                <TableCell>Service Type</TableCell>
+                                                <TableCell>Room</TableCell>
+                                                <TableCell>Requested Time</TableCell>
+                                                <TableCell>Assigned Cleaner</TableCell>
+                                                <TableCell>Status</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {/* {this.props.cleaners.map(cleaner => {
+                                                return(
+                                                    <EditableTableRow rowData={cleaner} remove={this.removeCleaner} actions={CLEANER_ACTIONS}/>
+                                                );
+                                            })} */}
+                                        </TableBody>
+                                    </Table>
+                                </CardContent>
+                            </Card>
                         </div>
                         <div></div>
                     </div>
@@ -140,11 +148,15 @@ class RequestsView extends React.Component{
         }
     
         return(
-            <Paper>
-                { nav }
-                { content }
-                { buttons }
-            </Paper>
+            <div style={{'width': '100vw', 'position': 'relative', 'left': -8}}>
+                <Nav/>
+                <div>
+                    { table }
+                </div>
+                <div>
+                    { buttons }
+                </div>
+            </div>
         );
     }
 }
