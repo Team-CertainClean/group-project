@@ -1,3 +1,5 @@
+const pool = require('../../pool');
+
 /*
 This is the example provided by Mary for how to do these large queries.
 
@@ -46,15 +48,14 @@ function getRequestData(){
         try{
             const queryText = `
             SELECT
-            json_build_object('request_id', request.id, 'start_time', request.start_time, 'end_time', request.end_time, 'est_duration', request.est_duration, 'status', request.status, 'cleanliness_score', request_room_junction.cleanliness_score) as request_info,
+            json_build_object('request_id', request.id, 'start_time', request.start_time, 'end_time', request.end_time, 'est_duration', request.est_duration, 'status', request.status) as request_info,
                 json_build_object('contact_id', contact.id, 'first_name', contact.first_name, 'last_name', contact.last_name, 'email', contact.email, 'phone_number', contact.phone_number, 'address', contact.location_address) as contact_info,
-                json_build_object('rooms', array_agg(room.*)) as room_info
+                json_build_object('rooms', array_agg(json_build_object('room_id', room.id, 'room_name', room.room_name, 'location_type_id', room.location_type_id, 'duration_metric', room.duration_metric, 'cleanliness_score', request_room_junction.cleanliness_score))) as room_info
             from request_room_junction
             JOIN request on request.id = request_room_junction.request_id
             JOIN room on room.id = request_room_junction.room_id
             JOIN contact on contact.request_id = request_room_junction.request_id
-            GROUP BY request_room_junction.request_id, request.id, contact.id, request_room_junction.cleanliness_score
-            ORDER BY request_room_junction.request.id;`;
+            GROUP BY request_room_junction.request_id, request.id, contact.id;`;
             const result = pool.query(queryText).then(result => result.rows);
             resolve(result);
         }catch(error){

@@ -36,7 +36,7 @@ const styles = theme => ({
 
 const mapStateToProps = state => ({
   user: state.user,
-  bigRequest: state.bigRequest,
+  request: state.request,
 
 });
 
@@ -49,7 +49,7 @@ class RequestsView extends React.Component{
     }
     
     componentDidMount() {
-        // this.props.dispatch({ type: REQUEST_ACTIONS.FETCH });
+        this.props.dispatch({ type: REQUEST_ACTIONS.FETCH });
       }
 
     toggleRes = () => {
