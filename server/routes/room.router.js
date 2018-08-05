@@ -14,7 +14,8 @@ router.get('/', (req, res)=>{
                         group by room.id, location_type.location_type
                         order by room.id;`;
     pool.query(queryText)
-        .then(result => res.send(result.rows))
+        .then(result => {
+            res.send(result.rows)})
         .catch(error=>{
             console.log("Error handling GET for rooms: ", error)
             res.sendStatus(404);

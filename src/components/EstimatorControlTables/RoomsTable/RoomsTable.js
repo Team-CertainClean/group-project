@@ -23,7 +23,7 @@ import EditableTableRow from '../../EditableTableRow/EditableTableRow';
 
 const mapStateToProps = store => ({
     locations: store.locations,
-    rooms: store.rooms
+    rooms: store.rooms.roomOptions
 });
 
 class RoomControlTable extends React.Component{
@@ -37,13 +37,20 @@ class RoomControlTable extends React.Component{
             },
             anchor: null,
             page: 0,
-            rowsPerPage: 5
+            rowsPerPage: 5,
+            rooms: []
         }
     }
 
     componentDidMount(){
         this.props.dispatch({type: LOCATION_ACTIONS.FETCH});
         this.props.dispatch({type: ROOM_ACTIONS.FETCH});
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.rooms){
+            this.setState({rooms: [...nextProps.rooms]});
+        }
     }
 
     submitRoom = () => {
@@ -78,12 +85,16 @@ class RoomControlTable extends React.Component{
         this.setState({ rowsPerPage: event.target.value });
     }
 
+    handleRowEdit = () => {
+
+    }
+
     render(){
         const { page, rowsPerPage } = this.state;
-        console.log(page, rowsPerPage);
         const { classes } = this.props;
         let table = null;
-        if(this.props.rooms){
+        console.log(this.state.rooms);
+        if(this.state.rooms){
             table = (
                 <Table className={classes.table}>
                     <TableHead className={classes.tableHeader}>
@@ -97,9 +108,9 @@ class RoomControlTable extends React.Component{
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.rooms.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(room => {
+                        {this.state.rooms.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(room=> {
                             return(
-                                <EditableTableRow rowData={room} remove={this.removeRoom} actions={ROOM_ACTIONS} />
+                                <EditableTableRow rowData={room} remove={this.removeRoom} actions={ROOM_ACTIONS}/>
                             );
                         })}
                     </TableBody>
@@ -115,7 +126,7 @@ class RoomControlTable extends React.Component{
                         {table}
                         <TablePagination
                             component="div"
-                            count={this.props.rooms.length}
+                            count={this.state.rooms.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             backIconButtonProps={{

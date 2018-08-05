@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { ROOM_ACTIONS } from '../actions/roomActions';
 
-const rooms = (state = [], action) => {
+const roomOptions = (state = [], action) => {
     switch (action.type) {
         case ROOM_ACTIONS.STORE:
         return action.payload;
@@ -10,4 +10,4 @@ const rooms = (state = [], action) => {
     }
 }
 
-export default rooms;
+export default roomOptions;
