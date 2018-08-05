@@ -1,0 +1,4 @@
+export const REQUEST_ACTIONS = {
+    FETCH: 'FETCH_REQUESTS',
+    STORE: 'STORE_REQUESTS',
+}
