@@ -13,6 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
+import Nav from '../../components/Nav/Nav';
 
 
 const styles = theme => ({
@@ -49,20 +50,16 @@ class AccountCreationView extends React.Component{
           password: '',
           confirmPassword: '',
           message: '',
-          cleaner: '',
-          first_name: '',
-          last_name: '',
-          photo_url: '',
         };
       }
 
 
     registerAdmin = (event) => {
         event.preventDefault();
-    
-        if (this.state.password === this.state.confirmPassword) {
+        const { password, confirmPassword } = this.state;
+        if (password !== confirmPassword) {
           this.setState({
-            message: 'Choose a username and password!',
+            message: `Passwords do not match!`,
           });
         } else {
           const body = {
@@ -75,7 +72,10 @@ class AccountCreationView extends React.Component{
             .then((response) => {
               if (response.status === 201) {
                 this.setState({
-                    message: 'That worked. If the passwords are not equal there is a problem'
+                    message: 'Success!',
+                    username: '',
+                    password: '',
+                    confirmPassword: ''
                 })
               } else {
                 this.setState({
@@ -100,82 +100,24 @@ class AccountCreationView extends React.Component{
     renderAlert() {
         if (this.state.message !== '') {
           return (
-            <h2
-              className="alert"
-              role="alert"
-            >
+            <h1>
               {this.state.message}
-            </h2>
+            </h1>
           );
         }
         return (<span />);
       }
 
-      toggleAdmin = () => {
-          this.setState({
-              cleaner: 'false',
-          })
-      }
-      toggleCleaner = () => {
-        this.setState({
-            cleaner: 'true',
-        })
-    }
 
     render(){
         let content = null;
-        let buttons = null;
+        let nav = null;
         const { classes } = this.props;
     
         if (this.props.user.userName) {
-            buttons = (
-                <div>
-             <Button onClick={ this.toggleAdmin } className={classes.button}>Admin</Button>
-             <Button onClick={ this.toggleCleaner } className={classes.button}>Cleaner</Button>
-             </div>
-            );
-            if (this.state.cleaner === 'true') {
-
-                content = (
-                    <div>
-                        <form>
-                            <Typography>Register New Cleaner</Typography>
-                            <div>
-                            <TextField
-                                id="first_name"
-                                placeholder="Cleaner's First Name"
-                                value={this.state.first_name}
-                                className={classes.textField}
-                                onChange={this.handleChange('first_name')}
-                                margin="normal"
-                            />
-                            <TextField
-                                id="last_name"
-                                placeholder="Cleaner's Last Name"
-                                value={this.state.last_name}
-                                className={classes.textField}
-                                onChange={this.handleChange('last_name')}
-                                margin="normal"
-                            />
-                            <TextField
-                                id="photo_url"
-                                placeholder="Image URL"
-                                value={this.state.photo_url}
-                                className={classes.textField}
-                                onChange={this.handleChange('photo_url')}
-                                margin="normal"
-                            />
-                            </div>
-                            <div>
-                        <Button variant="contained" onClick={this.registerAdmin} className={classes.button}>
-                            Submit
-                        </Button>
-                        <Link to="/home"><Typography>Cancel</Typography></Link>
-                    </div>
-                        </form>
-                    </div>
+                nav = (
+                  <Nav />
                 )
-            } else {
                 content = (
                     <div>
                     {this.renderAlert()}
@@ -192,6 +134,7 @@ class AccountCreationView extends React.Component{
                         />
                         <TextField
                             id="password"
+                            type="password"
                             placeholder="Password"
                             value={this.state.password}
                             className={classes.textField}
@@ -200,6 +143,7 @@ class AccountCreationView extends React.Component{
                         />
                         <TextField
                             id="confirmPassword"
+                            type="password"
                             placeholder="Confirm Password"
                             value={this.state.confirmPassword}
                             className={classes.textField}
@@ -217,11 +161,11 @@ class AccountCreationView extends React.Component{
                 </div>
                 );
         }
-    }
+    
     
         return(
             <Paper>
-                { buttons }
+                { nav }
                 { content }
             </Paper>
         );

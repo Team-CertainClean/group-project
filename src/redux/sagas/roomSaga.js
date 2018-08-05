@@ -4,8 +4,8 @@ import { fetchRooms, postRoom, removeRoom, editRoom } from '../requests/roomRequ
 
 function* fetch(){
     try{
-        const rooms = yield fetchRooms();
-        yield put({type: ROOM_ACTIONS.STORE, payload: rooms});
+        const roomOptions = yield fetchRooms();
+        yield put({type: ROOM_ACTIONS.STORE_OPTIONS, payload: roomOptions});
     }catch(error){
         alert('Error fetching rooms.')
     }

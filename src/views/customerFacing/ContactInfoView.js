@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Nav from '../../components/Nav/Nav';
 import Stepper from '../../components/Stepper/Stepper';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
-import { CONTACT_ACTIONS } from '../../redux/actions/contactActions';
+import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 
 
 import TextField from '@material-ui/core/TextField';
@@ -84,7 +84,7 @@ class ContactInfoView extends Component {
     submitContactInfo = (event) => {
         console.log(`in submitContactInfo`)
         event.preventDefault();
-        this.props.dispatch({ type: CONTACT_ACTIONS.POST_CONTACT,  payload: this.state.contact});
+        this.props.dispatch({ type: CUSTOMER_ACTIONS.CONTACT,  payload: this.state.contact});
     }// end submitContactInfo
 
   render() {

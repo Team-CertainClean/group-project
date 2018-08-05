@@ -13,18 +13,11 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = {
   card: {
-    width: '20%',
+    width: '250px',
   },
   title: {
     marginBottom: 16,
     fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  media: {
-    height: '100px',
-    maxWidth: '100%',
   },
 };
 
@@ -32,7 +25,7 @@ const mapStateToProps = state => ({
     user: state.user,
 });
 
-class RoomInfo extends Component {
+class TimeFinish extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -51,18 +44,12 @@ class RoomInfo extends Component {
                 <Card className={classes.card}>
                     <CardContent>
                         <Typography className={classes.title} color="textPrimary">
-                            TYPE:
-                        </Typography>
-                        <Typography className={classes.title} color="textPrimary">
-                            ROOMS:
-                        </Typography>
-                        <Typography className={classes.title} color="textPrimary">
-                            CLEANERS:
+                            ESTIMATE TIME:
                         </Typography>
                     </CardContent>
                     <CardActions>
                         <Button variant="contained" size="small">
-                            + ADD ROOM
+                            BOOK IT NOW
                         </Button>
                     </CardActions>
                 </Card>
@@ -71,9 +58,9 @@ class RoomInfo extends Component {
     }
 }
 
-RoomInfo.propTypes = {
+TimeFinish.propTypes = {
     classes: PropTypes.object.isRequired,
 };
   
 
-export default compose(withStyles(styles),connect(mapStateToProps))(RoomInfo);
+export default compose(withStyles(styles),connect(mapStateToProps))(TimeFinish);
