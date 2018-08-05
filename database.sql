@@ -96,7 +96,8 @@ values
 create table Request_Room_Junction(
 	id serial primary key,
 	request_id int references Request not null,
-	room_id int references Room not null
+	room_id int references Room not null,
+	cleanliness_score int
 );
 
 -- Storage of contact info once a Request is closed.

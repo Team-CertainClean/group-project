@@ -5,6 +5,7 @@ import customerInfo from './customerReducer';
 import locations from './locationReducer';
 import rooms from './roomReducer';
 import cleaners from './cleanerReducer';
+import request from './requestReducer';
 
 const store = combineReducers({
   user,
@@ -13,6 +14,8 @@ const store = combineReducers({
   locations,
   rooms,
   cleaners,
+  request,
+
 });
 
 export default store;

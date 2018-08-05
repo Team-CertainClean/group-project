@@ -5,15 +5,17 @@ import { ROOM_ACTIONS } from '../../../redux/actions/roomActions';
 import { LOCATION_ACTIONS } from '../../../redux/actions/locationActions';
 
 // Material UI Imports
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import IconButton from '@material-ui/core/IconButton';
-import Icon from '@material-ui/core/Icon';
+import TablePagination from '@material-ui/core/TablePagination';
+import { withStyles } from '@material-ui/core/styles';
+import { EstimatorControlStyles } from '../styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 // Component Imports 
 import AddRoomForm from './AddRoomForm';
@@ -31,9 +33,11 @@ class RoomControlTable extends React.Component{
             roomInfo: {
                 room_name: '',
                 location_type_id: 0,
-                duration_metric: 0
+                duration_metric: ''
             },
-            anchor: null
+            anchor: null,
+            page: 0,
+            rowsPerPage: 5
         }
     }
 
@@ -52,7 +56,7 @@ class RoomControlTable extends React.Component{
     }
 
     clearInputs = () => {
-        this.setState({roomInfo: {room_name: '', location_type_id: 0, duration_metric: 0}});
+        this.setState({roomInfo: {room_name: '', location_type_id: 0, duration_metric: ''}});
     }
 
     handleChangeFor = event => {
@@ -66,12 +70,23 @@ class RoomControlTable extends React.Component{
         });
     }
 
+    handleChangePage = (event, page) => {
+        this.setState({ page });
+    }
+
+    handleChangeRowsPerPage = (event) => {
+        this.setState({ rowsPerPage: event.target.value });
+    }
+
     render(){
+        const { page, rowsPerPage } = this.state;
+        console.log(page, rowsPerPage);
+        const { classes } = this.props;
         let table = null;
         if(this.props.rooms){
             table = (
-                <Table>
-                    <TableHead>
+                <Table className={classes.table}>
+                    <TableHead className={classes.tableHeader}>
                         <TableRow>
                             <TableCell>Room ID</TableCell>
                             <TableCell>Room Name</TableCell>
@@ -82,7 +97,7 @@ class RoomControlTable extends React.Component{
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.rooms.map(room => {
+                        {this.props.rooms.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(room => {
                             return(
                                 <EditableTableRow rowData={room} remove={this.removeRoom} actions={ROOM_ACTIONS} />
                             );
@@ -92,15 +107,34 @@ class RoomControlTable extends React.Component{
             );
         }
         return(
-            <Paper>
+            <div className={classes.estimatorControlComponent}>
                 <Typography variant="title">Add Rooms</Typography>
                 <AddRoomForm handleChangeFor={this.handleChangeFor} submitRoom={this.submitRoom} room={this.state.roomInfo.room_name} metric={this.state.roomInfo.duration_metric} anchor={this.state.anchor} locations={this.props.locations}/>
-                {table}
-            </Paper>
+                <Card className={classes.tableCard}>
+                    <CardContent>
+                        {table}
+                        <TablePagination
+                            component="div"
+                            count={this.props.rooms.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            backIconButtonProps={{
+                                'aria-label': 'Previous Page',
+                            }}
+                            nextIconButtonProps={{
+                                'aria-label': 'Next Page',
+                            }}
+                            onChangePage={this.handleChangePage}
+                            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                            />
+                    </CardContent>
+                </Card>
+            </div>
         );
     }
 }
 
 export default compose(
-    connect(mapStateToProps)
+    connect(mapStateToProps),
+    withStyles(EstimatorControlStyles)
 )(RoomControlTable);

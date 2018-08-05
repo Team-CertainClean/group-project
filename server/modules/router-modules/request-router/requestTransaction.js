@@ -3,6 +3,7 @@ const pool = require('../../pool');
 function requestTransaction(body){
     return new Promise((resolve, reject) => {
         // creates an isolated pool connection to allow the transaction to occur
+
         
         // anonymous async arrow function for carrying out asynchronous sql transaction queries
         ( async () => {
@@ -31,8 +32,8 @@ function requestTransaction(body){
             }finally{
                 // Releases isolated pool connection
                 client.release();
-            }});
-    });
+
+            }});});
 }
 
 module.exports = requestTransaction;

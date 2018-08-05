@@ -19,13 +19,16 @@ import ApptTimeSelectView from './views/customerFacing/ApptTimeSelectView';
 import ContactInfoView from './views/customerFacing/ContactInfoView';
 import RoomInputView from './views/customerFacing/RoomInputView';
 import EstimatorControlView from './views/adminFacing/EstimatorControlView';
+import RequestsView from './views/adminFacing/RequestsView';
 
 //Main view
 import LandingView from './views/customerFacing/LandingView';
 import './styles/main.css';
 
 // Admin views
+import AdminLoginView from './views/adminFacing/AdminLoginView';
 import AccountCreationView from './views/adminFacing/AccountCreationView';
+
 
 const App = () => (
   <div>
@@ -36,7 +39,7 @@ const App = () => (
         <Redirect exact from="/" to="/home" />
         <Route
           path="/home"
-          component={LoginPage}
+          component={LandingView}
         />
         <Route
           path="/register"
@@ -81,6 +84,14 @@ const App = () => (
         <Route 
           path="/accountCreation"
           component={AccountCreationView}
+        />
+        <Route
+          path="/requests"
+          component={RequestsView}
+        />
+        <Route
+          path="/login"
+          component={AdminLoginView}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />

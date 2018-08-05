@@ -13,6 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
+import Nav from '../../components/Nav/Nav';
 
 
 const styles = theme => ({
@@ -53,31 +54,12 @@ class AccountCreationView extends React.Component{
       }
 
 
-    //   const validate = values => {
-    //     const errors = {};
-    //     if (!values.username) {
-    //       errors.username = 'Required';
-    //     }
-    //     if (!values.password) {
-    //       errors.password = 'Required';
-    //     }
-    //     if (!values.confirmpassword ) {
-    //       errors.confirmpassword = 'Required' ;
-    //     } else if (values.confirmpassword !== values.password) {
-    //       errors.confirmpassword = 'Password mismatched' ;
-    //     }
-      
-    //      return errors;
-    //   };
-
-    validate
-
     registerAdmin = (event) => {
         event.preventDefault();
-    
-        if (this.state.password === this.state.confirmPassword && this.state.username !== '') {
+        const { password, confirmPassword } = this.state;
+        if (password !== confirmPassword) {
           this.setState({
-            message: 'Choose a username and password!',
+            message: `Passwords do not match!`,
           });
         } else {
           const body = {
@@ -90,7 +72,10 @@ class AccountCreationView extends React.Component{
             .then((response) => {
               if (response.status === 201) {
                 this.setState({
-                    message: 'That worked. If the passwords are not equal there is a problem'
+                    message: 'Success!',
+                    username: '',
+                    password: '',
+                    confirmPassword: ''
                 })
               } else {
                 this.setState({
@@ -115,67 +100,72 @@ class AccountCreationView extends React.Component{
     renderAlert() {
         if (this.state.message !== '') {
           return (
-            <h2
-              className="alert"
-              role="alert"
-            >
+            <h1>
               {this.state.message}
-            </h2>
+            </h1>
           );
         }
         return (<span />);
       }
 
+
     render(){
         let content = null;
+        let nav = null;
         const { classes } = this.props;
     
         if (this.props.user.userName) {
-          content = (
-
-            <div>
-            {this.renderAlert()}
-            <form >
-              <h1>Register New Admin</h1>
-              <div>
-                <TextField
-                    id="username"
-                    placeholder="Username"
-                    value={this.state.username}
-                    className={classes.textField}
-                    onChange={this.handleChange('username')}
-                    margin="normal"
-                />
-                <TextField
-                    id="password"
-                    placeholder="Password"
-                    value={this.state.password}
-                    className={classes.textField}
-                    onChange={this.handleChange('password')}
-                    margin="normal"
-                />
-                <TextField
-                    id="confirmPassword"
-                    placeholder="Confirm Password"
-                    value={this.state.confirmPassword}
-                    className={classes.textField}
-                    onChange={this.handleChange('confirmPassword')}
-                    margin="normal"
-                />
-              </div>
-              <div>
-                <Button variant="contained" onClick={this.registerAdmin} className={classes.button}>
-                    Submit
-                </Button>
-                <Link to="/home"><Typography>Cancel</Typography></Link>
-              </div>
-            </form>
-          </div>
-          );
+                nav = (
+                  <Nav />
+                )
+                content = (
+                    <div>
+                    {this.renderAlert()}
+                    <form >
+                    <Typography>Register New Admin</Typography>
+                    <div>
+                        <TextField
+                            id="username"
+                            placeholder="Username"
+                            value={this.state.username}
+                            className={classes.textField}
+                            onChange={this.handleChange('username')}
+                            margin="normal"
+                        />
+                        <TextField
+                            id="password"
+                            type="password"
+                            placeholder="Password"
+                            value={this.state.password}
+                            className={classes.textField}
+                            onChange={this.handleChange('password')}
+                            margin="normal"
+                        />
+                        <TextField
+                            id="confirmPassword"
+                            type="password"
+                            placeholder="Confirm Password"
+                            value={this.state.confirmPassword}
+                            className={classes.textField}
+                            onChange={this.handleChange('confirmPassword')}
+                            margin="normal"
+                        />
+                    </div>
+                    <div>
+                        <Button variant="contained" onClick={this.registerAdmin} className={classes.button}>
+                            Submit
+                        </Button>
+                        <Link to="/home"><Typography>Cancel</Typography></Link>
+                    </div>
+                    </form>
+                </div>
+                );
         }
+    
     
         return(
             <Paper>
+                { nav }
                 { content }
             </Paper>
         );
