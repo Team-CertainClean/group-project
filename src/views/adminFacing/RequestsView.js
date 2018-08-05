@@ -23,7 +23,8 @@ import {connect} from 'react-redux';
 import { compose } from 'redux';
 import Nav from '../../components/Nav/Nav';
 import { REQUEST_ACTIONS } from '../../redux/actions/requestActions';
-import RequestViewTableRow from '../../components/RequestsViewTableRow/RequestsViewTableRow';
+import ResidentialTableRow from '../../components/ResidentialTableRow/ResidentialTableRow';
+import CommercialTableRow from '../../components/CommercialTableRow/CommercialTableRow';
 
 
 const styles = theme => ({
@@ -101,7 +102,7 @@ class RequestsView extends React.Component{
                                 <TableBody>
                                     {this.props.request.map(request => {
                                         return(
-                                            <RequestViewTableRow rowData={request} />
+                                            <ResidentialTableRow rowData={request} />
                                         );
                                     })}
                                 </TableBody>
@@ -127,16 +128,16 @@ class RequestsView extends React.Component{
                                                 <TableCell>Service Type</TableCell>
                                                 <TableCell>Room</TableCell>
                                                 <TableCell>Requested Time</TableCell>
-                                                <TableCell>Assigned Cleaner</TableCell>
+                                                {/* <TableCell>Assigned Cleaner</TableCell> */}
                                                 <TableCell>Status</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {/* {this.props.cleaners.map(cleaner => {
+                                            {this.props.request.map(request => {
                                                 return(
-                                                    <EditableTableRow rowData={cleaner} remove={this.removeCleaner} actions={CLEANER_ACTIONS}/>
+                                                    <CommercialTableRow rowData={request} />
                                                 );
-                                            })} */}
+                                            })}
                                         </TableBody>
                                     </Table>
                                 </CardContent>
