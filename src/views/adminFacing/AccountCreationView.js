@@ -13,6 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
+import Nav from '../../components/Nav/Nav';
 
 
 const styles = theme => ({
@@ -55,10 +56,10 @@ class AccountCreationView extends React.Component{
 
     registerAdmin = (event) => {
         event.preventDefault();
-    
-        if (this.state.password === this.state.confirmPassword) {
+        const { password, confirmPassword } = this.state;
+        if (password !== confirmPassword) {
           this.setState({
-            message: 'Choose a username and password!',
+            message: `Passwords do not match!`,
           });
         } else {
           const body = {
@@ -71,7 +72,10 @@ class AccountCreationView extends React.Component{
             .then((response) => {
               if (response.status === 201) {
                 this.setState({
-                    message: 'That worked. If the passwords are not equal there is a problem'
+                    message: 'Success!',
+                    username: '',
+                    password: '',
+                    confirmPassword: ''
                 })
               } else {
                 this.setState({
@@ -96,22 +100,24 @@ class AccountCreationView extends React.Component{
     renderAlert() {
         if (this.state.message !== '') {
           return (
-            <h2
-              className="alert"
-              role="alert"
-            >
+            <h1>
               {this.state.message}
-            </h2>
+            </h1>
           );
         }
         return (<span />);
       }
 
+
     render(){
         let content = null;
+        let nav = null;
         const { classes } = this.props;
     
         if (this.props.user.userName) {
+                nav = (
+                  <Nav />
+                )
                 content = (
                     <div>
                     {this.renderAlert()}
@@ -159,6 +165,7 @@ class AccountCreationView extends React.Component{
     
         return(
             <Paper>
+                { nav }
                 { content }
             </Paper>
         );

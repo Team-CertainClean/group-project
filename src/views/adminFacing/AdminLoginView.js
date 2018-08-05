@@ -3,7 +3,34 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { triggerLogin, formError, clearError } from '../../redux/actions/loginActions';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
+// Material UI Imports
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import {withStyles} from '@material-ui/core/styles';
+import { Typography } from '../../../node_modules/@material-ui/core';
+import TextField from '@material-ui/core/TextField';
 
+import { compose } from 'redux';
+
+const styles = theme => ({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+      },
+      textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 230,
+      },
+      button: {
+          backgroundColor: '#EF8902',
+      },
+      formControl: {
+        margin: theme.spacing.unit,
+        minWidth: 120,
+      },
+
+});
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -27,7 +54,7 @@ class AdminLoginPage extends Component {
 
   componentDidUpdate() {
     if (!this.props.user.isLoading && this.props.user.userName !== null) {
-      this.props.history.push('user');
+      this.props.history.push('requests');
     }
   }
 
@@ -41,7 +68,7 @@ class AdminLoginPage extends Component {
     }
   }
 
-  handleInputChangeFor = propertyName => (event) => {
+  handleChange = propertyName => (event) => {
     this.setState({
       [propertyName]: event.target.value,
     });
@@ -62,45 +89,48 @@ class AdminLoginPage extends Component {
   }
 
   render() {
+    let content = null;
+    const { classes } = this.props;
+    content = (
+        <div>
+        {this.renderAlert()}
+        <form >
+        <Typography>Admin Login</Typography>
+        <div>
+            <TextField
+                id="username"
+                placeholder="Username"
+                value={this.state.username}
+                className={classes.textField}
+                onChange={this.handleChange('username')}
+                margin="normal"
+            />
+            <TextField
+                id="password"
+                type="password"
+                placeholder="Password"
+                value={this.state.password}
+                className={classes.textField}
+                onChange={this.handleChange('password')}
+                margin="normal"
+            />
+        </div>
+        <div>
+            <Button variant="contained" onClick={this.login} className={classes.button}>
+                Submit
+            </Button>
+            {/* <Link to="/home"><Typography>Cancel</Typography></Link> */}
+        </div>
+        </form>
+    </div>
+    );
     return (
       <div>
-        { this.renderAlert() }
-        <form onSubmit={this.login}>
-          <h1>Login</h1>
-          <div>
-            <label htmlFor="username">
-              Username:
-              <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              type="submit"
-              name="submit"
-              value="Log In"
-            />
-            <Link to="/register">Register</Link>
-          </div>
-        </form>
+        { content }
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps)(AdminLoginPage);
+// export default connect(mapStateToProps)(AdminLoginPage);
+export default compose(withStyles(styles), connect(mapStateToProps))(AdminLoginPage);
