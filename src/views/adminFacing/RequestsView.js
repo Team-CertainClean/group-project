@@ -89,7 +89,7 @@ class RequestsView extends React.Component{
                             <Table className={classes.table}>
                                 <TableHead className={classes.tableHeader}>
                                     <TableRow>
-                                        <TableCell>Request</TableCell>
+                                        <TableCell>Request ID</TableCell>
                                         <TableCell>Customer</TableCell>
                                         <TableCell>Customer Email</TableCell>
                                         <TableCell>Web Estimate</TableCell>
