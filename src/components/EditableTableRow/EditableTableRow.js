@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect } from '../../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react-redux';
 import { compose } from 'redux';
 
 // Material UI Imports
