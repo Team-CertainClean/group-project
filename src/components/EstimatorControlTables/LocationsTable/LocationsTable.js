@@ -10,7 +10,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import TablePagination from '@material-ui/core/TablePagination';
 import {withStyles} from '@material-ui/core/styles';
 import {EstimatorControlStyles} from '../styles';
 import Card from '@material-ui/core/Card';
@@ -64,7 +63,6 @@ class LocationControlTable extends React.Component{
 
     render(){
         const {classes} = this.props;
-        const { page, rowsPerPage } = this.state;
         let table = null;
         if(this.props.locations){
             table = (

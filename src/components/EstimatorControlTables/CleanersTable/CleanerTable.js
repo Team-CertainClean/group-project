@@ -4,17 +4,17 @@ import { connect } from 'react-redux';
 import { CLEANER_ACTIONS } from '../../../redux/actions/cleanerActions';
 
 // Material UI Imports
-import Typography from '@material-ui/core/Typography';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
+import {    Typography,
+            Table,
+            TableHead,
+            TableBody,
+            TableRow,
+            TableCell,
+            Card,
+            CardContent, 
+            TextField   } from '@material-ui/core/TextField';
 import {withStyles} from '@material-ui/core/styles';
 import {EstimatorControlStyles} from '../styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import TextField from '@material-ui/core/TextField';
 
 // Component Imports 
 import AddCleanerForm from './AddCleanerForm';
@@ -72,11 +72,14 @@ class CleanerControlTable extends React.Component{
     }
 
     searchForCleanerByProperlyAccountId = (event) => {
-
+        this.setState({search: event.target.value});
     }
 
     render(){
         const {classes} = this.props;
+
+        let cleaners = this.props.cleaners.filter(cleaner => String(cleaner.properly_account_id).includes(String(this.state.search)));
+
         let table = null;
         if(this.props.cleaners){
             table = (
@@ -84,10 +87,12 @@ class CleanerControlTable extends React.Component{
                     <TableHead className={classes.tableHeader}>
                         <TableRow>
                             <TableCell colSpan="6">
+                                <h3 style={{display: 'inline', fontWeight: 1, marginRight: 10}}>Search by Properly ID</h3>
                                 <TextField 
                                     value={this.state.search}
                                     type="number"
                                     onChange={this.searchForCleanerByProperlyAccountId}
+                                    style={{fontWeight: 1}}
                                 />
                             </TableCell>
                         </TableRow>
@@ -101,7 +106,7 @@ class CleanerControlTable extends React.Component{
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.cleaners.map(cleaner => {
+                        {cleaners.map(cleaner => {
                             return(
                                 <EditableTableRow rowData={cleaner} remove={this.removeCleaner} actions={CLEANER_ACTIONS}/>
                             );
