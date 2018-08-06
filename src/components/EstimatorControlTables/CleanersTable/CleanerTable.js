@@ -90,19 +90,19 @@ class CleanerControlTable extends React.Component{
         if(this.props.cleaners){
             table = (
                 <Table className={classes.table}>
-                    <TableHead className={classes.tableHeader}>
-                        <TableRow>
+                    <TableHead>
+                        <TableRow style={{backgroundColor: 'white'}}>
                             <TableCell colSpan="6">
-                                <h3 style={{display: 'inline', fontWeight: 1, marginRight: 10}}>Search by Properly ID</h3>
+                                <h3 style={{display: 'inline', fontWeight: 2, marginRight: 10, color: 'black'}}>Search by Properly ID</h3>
                                 <TextField 
                                     value={this.state.search}
                                     type="number"
                                     onChange={this.searchForCleanerByProperlyAccountId}
-                                    style={{fontWeight: 1}}
+                                    style={{fontWeight: 1, color: 'black'}}
                                 />
                             </TableCell>
                         </TableRow>
-                        <TableRow>
+                        <TableRow className={classes.tableHeader}>
                             <TableCell>ID</TableCell>
                             <TableCell>First Name</TableCell>
                             <TableCell>Last Name</TableCell>
