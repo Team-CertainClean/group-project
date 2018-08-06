@@ -1,6 +1,6 @@
 import React from 'react';
 import { compose } from 'redux';
-import { connect } from '../../../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react-redux';
+import { connect } from 'react-redux';
 import { CLEANER_ACTIONS } from '../../../redux/actions/cleanerActions';
 
 // Material UI Imports

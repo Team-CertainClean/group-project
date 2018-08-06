@@ -6,7 +6,11 @@ router.get('/', (req, res)=>{
     const queryText =   `select 
                             room.id as id, 
                             room.room_name, 
-                            room.duration_metric as duration_metric, 
+                            room.cleanliness_one_metric,
+                            room.cleanliness_two_metric,
+                            room.cleanliness_three_metric,
+                            room.cleanliness_four_metric,
+                            room.cleanliness_five_metric, 
                             location_type.location_type as location_type,
                             room.location_type_id as location_type_id
                         from room
@@ -24,9 +28,10 @@ router.get('/', (req, res)=>{
     
 router.post('/', (req, res)=>{
     const room = req.body;
+    const metrics = room.cleanliness_metrics;
     console.log(room);
-    const queryText = 'insert into room ("room_name", "location_type_id", "duration_metric") values ($1, $2, $3);';
-    pool.query(queryText, [room.room_name, room.location_type_id, room.duration_metric])
+    const queryText = 'insert into room ("room_name", "location_type_id", "cleanliness_one_metric", "cleanliness_two_metric", "cleanliness_three_metric", "cleanliness_four_metric", "cleanliness_five_metric") values ($1, $2, $3, $4, $5, $6, $7);';
+    pool.query(queryText, [room.room_name, room.location_type_id, metrics.one, metrics.two, metrics.three, metrics.four, metrics.five])
         .then(result => res.sendStatus(201))
         .catch(error => {
             console.log('Error handling POST for /api/room: ', error);

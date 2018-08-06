@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from '../../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react-redux';
+import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 // Material UI Imports
@@ -39,7 +39,6 @@ class EditableTableRow extends React.Component{
     }
 
     render(){
-        console.log(this.props.index);
         const { classes } = this.props;
         let row = [];
         if(this.props.rowData){

@@ -37,11 +37,11 @@ class RoomControlTable extends React.Component{
                 room_name: '',
                 location_type_id: 0,
                 cleanliness_metrics: {
-                    one: '',
-                    two: '',
-                    three: '',
-                    four: '',
-                    five: ''
+                    one: null,
+                    two: null,
+                    three: null,
+                    four: null,
+                    five: null
                 }
             },
             anchor: null,
@@ -77,7 +77,18 @@ class RoomControlTable extends React.Component{
     handleChangeFor = event => {
         return new Promise((resolve, reject)=>{
             try{
-                this.setState({roomInfo: {...this.state.roomInfo, cleanliness_metrics: {[event.target.id]: event.target.value}}, anchor: null});
+                switch(event.target.id){
+                    case 'one':
+                    case 'two':
+                    case 'three':
+                    case 'four':
+                    case 'five':
+                        this.setState({roomInfo: {...this.state.roomInfo, cleanliness_metrics: {...this.state.roomInfo.cleanliness_metrics, [event.target.id]: event.target.value}}, anchor: null});
+                        break;
+                    default:
+                        this.setState({roomInfo: {...this.state.roomInfo, [event.target.id]: event.target.value}});
+                        break;
+                    }
                 resolve();
             }catch(error){
                 reject();
@@ -105,6 +116,7 @@ class RoomControlTable extends React.Component{
     }
 
     render(){
+        console.log("Render Table");
         const { classes } = this.props;
         let table = null;
         console.log(this.state.rooms);
@@ -113,7 +125,7 @@ class RoomControlTable extends React.Component{
                 <Table className={classes.table}>
                     <TableHead className={classes.tableHeader}>
                         <TableRow>
-                            <TableCell colSpan="6">
+                            <TableCell colSpan="10">
                                     <h3 style={{marginRight: 10, display: 'inline', fontWeight: '1'}}>Filter</h3>
                                     <Select
                                         value={this.state.filter}
