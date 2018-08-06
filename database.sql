@@ -80,7 +80,11 @@ create table Room(
 	id serial primary key,
 	room_name varchar(80),
 	location_type_id int references Location_Type not null,
-	duration_metric float
+	cleanliness_one_metric float,
+	cleanliness_two_metric float,
+	cleanliness_three_metric float,
+	cleanliness_four_metric float,
+	cleanliness_five_metric float
 );
 
 -- Current offered rooms (default estimated metrics, replace when provided)

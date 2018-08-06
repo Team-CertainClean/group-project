@@ -22,9 +22,7 @@ class EditableTableRow extends React.Component{
         super(props);
         this.state = {
                         editing: false, 
-                        content: {
-                            ...this.props.rowData
-                        }
+                        content: {...this.props.rowData}
                     }
     }
 
@@ -39,13 +37,6 @@ class EditableTableRow extends React.Component{
     submitEdit = () => {
         this.props.dispatch({type: this.props.actions.EDIT, payload: this.state.content});
         this.closeEdit();
-    }
-
-    handleChangeFor = (event) => {
-        return new Promise((resolve) => {
-            this.setState({content: {...this.state.content, [event.target.id]: event.target.value}});
-            resolve();
-        });
     }
 
     render(){

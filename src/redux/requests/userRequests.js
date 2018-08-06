@@ -10,7 +10,3 @@ export function callUser() {
     .then(response => response.data)
     .catch((error) => { throw error.response || error; });
 }
-
-export function placeholder() {
-  console.log('hi');
-}
