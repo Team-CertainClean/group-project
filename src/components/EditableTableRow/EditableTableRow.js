@@ -22,6 +22,7 @@ class EditableTableRow extends React.Component{
         super(props);
         this.state = {
                         editing: false, 
+                        content: {...this.props.rowData}
                     }
     }
 

@@ -71,7 +71,7 @@ class RoomControlTable extends React.Component{
     }
 
     clearInputs = () => {
-        this.setState({roomInfo: {room_name: '', location_type_id: 0, duration_metric: ''}});
+        this.setState({roomInfo: {room_name: '', location_type_id: 0, cleanliness_metrics: {one: null, two: null, three: null, four: null, five: null}}});
     }
 
     handleChangeFor = event => {
