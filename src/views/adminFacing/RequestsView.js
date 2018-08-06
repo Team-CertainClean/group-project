@@ -47,7 +47,7 @@ class RequestsView extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            res: true,
+            main: 'residential',
         }
     }
     
@@ -57,18 +57,18 @@ class RequestsView extends React.Component{
 
     toggleRes = () => {
         this.setState({
-            res: true
+            main: 'residential'
         })
     }
 
     toggleCom = () => {
         this.setState({
-            res: false
+            main: 'commercial'
         })
     }
 
     render(){
-        let table = null;
+        let mainTable = null;
         let buttons = null;
         let nav = null;
         const { classes } = this.props;
@@ -80,8 +80,9 @@ class RequestsView extends React.Component{
                         <Button onClick={ this.toggleCom } className={classes.button}>Commercial</Button>
                     </div>
                 );
-                if (this.state.res === true){
-                table = (
+
+                if (this.state.main === true){
+                mainTable = (
                     <div>
                         <Typography variant="display2" className={classes.title}>Residential Things on this page</Typography>
                         <Card >
@@ -100,9 +101,9 @@ class RequestsView extends React.Component{
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {this.props.request.map(request => {
+                                    {this.props.request.map((request, i) => {
                                         return(
-                                            <ResidentialTableRow rowData={request} />
+                                            <ResidentialTableRow key={i} rowData={request} />
                                         );
                                     })}
                                 </TableBody>
@@ -113,7 +114,7 @@ class RequestsView extends React.Component{
                     </div>
                 );
             } else {
-                table = (
+                mainTable = (
                     <div>
                         <div>
                             <Typography variant="display2" className={classes.title}>Commercial Things on this page</Typography>
@@ -128,14 +129,14 @@ class RequestsView extends React.Component{
                                                 <TableCell>Service Type</TableCell>
                                                 <TableCell>Room</TableCell>
                                                 <TableCell>Requested Time</TableCell>
-                                                {/* <TableCell>Assigned Cleaner</TableCell> */}
                                                 <TableCell>Status</TableCell>
+                                                <TableCell></TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {this.props.request.map(request => {
+                                            {this.props.request.map((request, i) => {
                                                 return(
-                                                    <CommercialTableRow rowData={request} />
+                                                    <CommercialTableRow key={i} rowData={request} />
                                                 );
                                             })}
                                         </TableBody>
@@ -146,14 +147,14 @@ class RequestsView extends React.Component{
                         <div></div>
                     </div>
                 )
-            }
+            }// end of residential/commercial table
         }
     
         return(
             <div style={{'width': '100vw', 'position': 'relative', 'left': -8}}>
                 <Nav history={this.props.history} />
                 <div>
-                    { table }
+                    { mainTable }
                 </div>
                 <div>
                     { buttons }

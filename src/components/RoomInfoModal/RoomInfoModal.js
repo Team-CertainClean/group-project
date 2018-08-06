@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
+import RoomList from './RoomList';
 
 function getModalStyle() {
   const top = 50
@@ -29,14 +30,12 @@ const styles = theme => ({
 
 const mapStateToProps = state => ({
   user: state.user,
-  events: state,
 });
 class SimpleModal extends React.Component {
   state = {
     open: false,
 
   };
-
 
   handleOpen = (id) => {
     this.setState({ open: true });
@@ -55,6 +54,9 @@ class SimpleModal extends React.Component {
 
   render() {
     const { classes } = this.props;
+    let roomList = null;
+
+
 
     return (
       <div>
@@ -68,10 +70,17 @@ class SimpleModal extends React.Component {
           <div style={getModalStyle()} className={classes.paper}>
           {/* <pre>{JSON.stringify(this.props.updateId)}</pre> */}
             <Typography variant="title" id="modal-title">
-              Edit your water event:
+              Rooms and Cleanliness Score:
             </Typography>
+            <div>
+                {this.props.roomInfo.map((room, i) => {
+                    return(
+                        <RoomList key={i} roomInfo={room} />
+                    );
+                })}
+            </div>
+              <pre>{JSON.stringify(this.props.roominfo)}</pre>
             <Button onClick={this.handleClose}>Close</Button>
-            <SimpleModalWrapped />
           </div>
         </Modal>
       </div>

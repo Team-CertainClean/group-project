@@ -13,20 +13,20 @@ import RoomInfoModal from '../../components/RoomInfoModal/RoomInfoModal';
 
 
 const mapStateToProps = state => ({
-  request: state.request,
+  // request: state.request,
 });
 class ResidentialTableRow extends Component {
 
   render() {
     return (
       <TableRow>
-          {/* <pre>{JSON.stringify(this.props.rowData.request_info)}</pre> */}
+          {/* <pre>{JSON.stringify(this.props.rowData.room_info.rooms)}</pre> */}
           <TableCell>{ this.props.rowData.request_info.request_id }</TableCell>
           <TableCell>{ this.props.rowData.contact_info.first_name  } {this.props.rowData.contact_info.last_name}</TableCell>
           <TableCell>{ this.props.rowData.contact_info.email }</TableCell>
           <TableCell>{ this.props.rowData.request_info.est_duration}</TableCell>
           <TableCell>{ this.props.rowData.request_info.service_type }</TableCell>
-          <TableCell><RoomInfoModal/></TableCell>
+          <TableCell><RoomInfoModal roomInfo={this.props.rowData.room_info.rooms}/></TableCell>
           <TableCell>{ this.props.rowData.request_info.start_time } { this.props.rowData.request_info.end_time }</TableCell>
           <TableCell>{ this.props.rowData.request_info.status }</TableCell>
       </TableRow>
