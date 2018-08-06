@@ -36,7 +36,13 @@ class RoomControlTable extends React.Component{
             roomInfo: {
                 room_name: '',
                 location_type_id: 0,
-                duration_metric: ''
+                cleanliness_metrics: {
+                    one: '',
+                    two: '',
+                    three: '',
+                    four: '',
+                    five: ''
+                }
             },
             anchor: null,
             rooms: [],
@@ -71,7 +77,7 @@ class RoomControlTable extends React.Component{
     handleChangeFor = event => {
         return new Promise((resolve, reject)=>{
             try{
-                this.setState({roomInfo: {...this.state.roomInfo, [event.target.id]: event.target.value}, anchor: null});
+                this.setState({roomInfo: {...this.state.roomInfo, cleanliness_metrics: {[event.target.id]: event.target.value}}, anchor: null});
                 resolve();
             }catch(error){
                 reject();
@@ -125,7 +131,11 @@ class RoomControlTable extends React.Component{
                         <TableRow>
                             <TableCell>Room ID</TableCell>
                             <TableCell>Room Name</TableCell>
-                            <TableCell>Duration Metric</TableCell>
+                            <TableCell>Cleanliness Score 1</TableCell>
+                            <TableCell>Cleanliness Score 2</TableCell>
+                            <TableCell>Cleanliness Score 3</TableCell>
+                            <TableCell>Cleanliness Score 4</TableCell>
+                            <TableCell>Cleanliness Score 5</TableCell>
                             <TableCell>Location Type</TableCell>
                             <TableCell>Edit</TableCell>
                             <TableCell>Remove</TableCell>
@@ -144,7 +154,7 @@ class RoomControlTable extends React.Component{
         return(
             <div className={classes.estimatorControlComponent}>
                 <Typography variant="title">Add Rooms</Typography>
-                <AddRoomForm handleChangeFor={this.handleChangeFor} submitRoom={this.submitRoom} room={this.state.roomInfo.room_name} metric={this.state.roomInfo.duration_metric} anchor={this.state.anchor} locations={this.props.locations}/>
+                <AddRoomForm handleChangeFor={this.handleChangeFor} submitRoom={this.submitRoom} room={this.state.roomInfo.room_name} metric={this.state.roomInfo.cleanliness_metrics} anchor={this.state.anchor} locations={this.props.locations}/>
                 <Card className={classes.tableCard}>
                     <CardContent>
                         {table}
