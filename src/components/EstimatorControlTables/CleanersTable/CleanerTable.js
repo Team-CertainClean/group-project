@@ -32,9 +32,7 @@ class CleanerControlTable extends React.Component{
                 first_name: '',
                 last_name: '',
                 properly_account_id: ''
-            },
-            page: 0,
-            rowsPerPage: 5
+            }
         }
     }
 
@@ -65,14 +63,6 @@ class CleanerControlTable extends React.Component{
                 reject();
             }
         });
-    }
-
-    handleChangePage = (event, page) => {
-        this.setState({ page });
-    }
-
-    handleChangeRowsPerPage = (event) => {
-        this.setState({ rowsPerPage: event.target.value });
     }
 
     render(){
@@ -109,20 +99,6 @@ class CleanerControlTable extends React.Component{
                 <Card className={classes.tableCard}>
                     <CardContent>
                         {table}
-                        <TablePagination
-                            component="div"
-                            count={this.props.cleaners.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            backIconButtonProps={{
-                                'aria-label': 'Previous Page',
-                            }}
-                            nextIconButtonProps={{
-                                'aria-label': 'Next Page',
-                            }}
-                            onChangePage={this.handleChangePage}
-                            onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                        />
                     </CardContent>
                 </Card>
             </div>

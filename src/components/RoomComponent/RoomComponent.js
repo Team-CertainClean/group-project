@@ -8,7 +8,7 @@ import Rating from 'react-rating';
 
 const mapStateToProps = state => ({
     user: state.user,
-  
+   
   });
 
 
