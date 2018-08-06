@@ -15,10 +15,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { EstimatorControlStyles } from '../styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
 
 // Component Imports 
 import AddRoomForm from './AddRoomForm';
@@ -46,7 +45,8 @@ class RoomControlTable extends React.Component{
             },
             anchor: null,
             rooms: [],
-            filter: ''
+            filter: '',
+            sort: false
         }
     }
 
@@ -110,6 +110,69 @@ class RoomControlTable extends React.Component{
         }
     }
 
+    idAscendingSort(a, b){
+        console.log('Ascending');
+        console.log('A: ', a);
+        console.log('B: ', b);
+        return Number(a.id) - Number(b.id);
+    }
+
+    idDescendingSort(a, b){
+        console.log('Descending');
+        return Number(b.id) - Number(a.id);
+    }
+
+    alphabeticalSort(){
+        let roomNames = this.props.rooms.map(room => room.room_name);
+        let sortedByName = roomNames.sort();
+        for(let room of this.props.rooms){
+            let sortedIndex = sortedByName.indexOf(room.room_name);
+            sortedByName[sortedIndex] = room;
+        }
+        console.log('Alphabetical sort: ', sortedByName);
+        return sortedByName;
+    }
+
+    reverseAlphabeticalSort(){
+        let roomNames = this.props.rooms.map(room => room.room_name).sort();
+        let reverseSortedByName = [];
+        for(let name of roomNames){
+            reverseSortedByName.unshift(name);
+        }
+        for(let room of this.props.rooms){
+            let sortedIndex = reverseSortedByName.indexOf(room.room_name);
+            reverseSortedByName[sortedIndex] = room;
+        }
+        return reverseSortedByName;
+    }
+
+    locationSort(){
+        let residential = this.props.rooms.filter(room => Number(room.location_type_id) === 1);
+        let commercial = this.props.rooms.filter(room => Number(room.location_type_id) === 2);
+        if(this.state.sort){
+            return [...residential, ...commercial];
+        } else {
+            return [...commercial, ...residential];
+        }
+    }
+
+    sortRooms = (sort) => {
+        console.log(sort);
+        switch(sort){
+            case 'id':
+                this.state.sort ? this.setState({rooms: [...this.props.rooms.sort(this.idAscendingSort)], sort: !this.state.sort}) : this.setState({rooms: [...this.props.rooms.sort(this.idDescendingSort)], sort: !this.state.sort});
+                break;
+            case 'room_name':
+                this.state.sort ? this.setState({rooms: [...this.alphabeticalSort()], sort: !this.state.sort}) : this.setState({rooms: [...this.reverseAlphabeticalSort()], sort: !this.state.sort});
+                break;
+            case 'location_type_id':
+                this.state.sort ? this.setState({rooms: [...this.locationSort()], sort: !this.state.sort}) : this.setState({rooms: [...this.locationSort()], sort: !this.state.sort});
+                break;
+            default:
+                this.setState({rooms: [...this.props.rooms]});
+        }
+    }
+
     handleFilter = (event) => {
         this.setState({filter: event.target.value});
         this.filterRooms(event.target.value);
@@ -141,14 +204,14 @@ class RoomControlTable extends React.Component{
                             </TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell>Room ID</TableCell>
-                            <TableCell>Room Name</TableCell>
+                            <TableCell><Button onClick={() => this.sortRooms('id')}>Room ID</Button></TableCell>
+                            <TableCell><Button onClick={() => this.sortRooms('room_name')}>Room Name</Button></TableCell>
                             <TableCell>Cleanliness Score 1</TableCell>
                             <TableCell>Cleanliness Score 2</TableCell>
                             <TableCell>Cleanliness Score 3</TableCell>
                             <TableCell>Cleanliness Score 4</TableCell>
                             <TableCell>Cleanliness Score 5</TableCell>
-                            <TableCell>Location Type</TableCell>
+                            <TableCell><Button onClick={() => this.sortRooms('location_type_id')}>Location Type</Button></TableCell>
                             <TableCell>Edit</TableCell>
                             <TableCell>Remove</TableCell>
                         </TableRow>
