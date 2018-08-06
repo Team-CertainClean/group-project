@@ -244,14 +244,14 @@ class RoomControlTable extends React.Component{
         if(this.state.rooms){
             table = (
                 <Table className={classes.table}>
-                    <TableHead className={classes.tableHeader}>
-                        <TableRow>
+                    <TableHead>
+                        <TableRow style={{backgroundColor: 'white'}}>
                             <TableCell colSpan="10">
-                                    <h3 style={{marginRight: 10, display: 'inline', fontWeight: '1'}}>Filter</h3>
+                                    <h3 style={{marginRight: 10, display: 'inline', fontWeight: 2, color: 'black'}}>Filter Options</h3>
                                     <Select
                                         value={this.state.filter}
                                         onChange={this.handleFilter}
-                                        style={{fontWeight: '1'}}
+                                        style={{fontWeight: '1', '& *': {color: 'black'}}}
                                     >
                                         <MenuItem value={'None'}>
                                             None
@@ -261,7 +261,7 @@ class RoomControlTable extends React.Component{
                                     </Select>
                             </TableCell>
                         </TableRow>
-                        <TableRow>
+                        <TableRow  className={classes.tableHeader}>
                             <TableCell>Room ID<IconButton onClick={() => this.sortRooms('id')}><Icon>expand_more</Icon></IconButton></TableCell>
                             <TableCell>Room Name<IconButton onClick={() => this.sortRooms('room_name')}><Icon>expand_more</Icon></IconButton></TableCell>
                             <TableCell>Cleanliness Score 1</TableCell>
