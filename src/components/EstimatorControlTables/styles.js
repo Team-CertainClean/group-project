@@ -1,6 +1,6 @@
 export const EstimatorControlStyles = {
     tableCard: {
-        width: '85%',
+        width: '90%',
         margin: 'auto',
         marginTop: 25
     },
