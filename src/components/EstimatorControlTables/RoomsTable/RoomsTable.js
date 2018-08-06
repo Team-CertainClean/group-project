@@ -46,35 +46,61 @@ class RoomControlTable extends React.Component{
             },
             anchor: null,
             rooms: [],
-            filter: '',
+            filter: 'None',
             sort: false
         }
     }
-
+    /* 
+        When the component mounts react-redux will dispatch to Sagas to 
+        initiate the request for locations and rooms from the database.
+    */
     componentDidMount(){
         this.props.dispatch({type: LOCATION_ACTIONS.FETCH});
         this.props.dispatch({type: ROOM_ACTIONS.FETCH});
     }
+    /*
+        When the component receives updated properties, and if those props
+        are rooms from the database, we will set the local state property "rooms"
+        to be equal to those retrieved from the database.
 
+        This will provide us with an array of rooms we can manipulate through sorting,
+        and filtering.
+    */
     componentWillReceiveProps(nextProps){
         if(nextProps.rooms){
             this.setState({rooms: [...nextProps.rooms]});
         }
     }
+    /*
+        The submitRoom method runs on the click of the "ADD ROOM" button in the AddRoomForm component.
 
+        It will dispatch the form data and initiate the full-stack route for adding a room to the database, 
+        stored in local state, and then clear the inputs.
+    */
     submitRoom = () => {
         this.props.dispatch({type: ROOM_ACTIONS.POST, payload: this.state.roomInfo});
         this.clearInputs();
     }
+    /*
+        The removeRoom method runs on the click of any delete icon in the table rows.  The id of the room 
+        that is populating the row is passed to the method and attached to the dispatch as the payload.
 
+        This initiates the full-stack route for deleting a room from the database and updating the table.
+    */
     removeRoom = (id) => {
         this.props.dispatch({type: ROOM_ACTIONS.REMOVE, payload: id});
     }
-
+    /*
+        The clearInputs method runs as part of the submitRoom method, and clears the input fields of the form.
+    */
     clearInputs = () => {
         this.setState({roomInfo: {room_name: '', location_type_id: 0, cleanliness_metrics: {one: null, two: null, three: null, four: null, five: null}}});
     }
+    /*
+        The handleChangeFor method handles the changes for all of the input fields in the AddRoomForm.
 
+        The id of the input field must be the same as the key within local state being changed.
+    */
     handleChangeFor = event => {
         return new Promise((resolve, reject)=>{
             try{
@@ -96,7 +122,11 @@ class RoomControlTable extends React.Component{
             }
         });
     }
+    /*
+        The filterRooms method runs on change of the selection menu.
 
+        The method is passed a filter param, and the switch controls the behaviors.
+    */
     filterRooms = (filter) => {
         switch(filter){
             case 'Residential':
@@ -110,15 +140,27 @@ class RoomControlTable extends React.Component{
                 break;
         }
     }
-
+    /*
+        The idAscendingSort method is used to sort the table rows by room id in ascending order
+    */
     idAscendingSort(a, b){
         return Number(a.id) - Number(b.id);
     }
-
+    /*
+        The idDescendingSort method is used to sort the table rows by room id in descending order
+    */
     idDescendingSort(a, b){
         return Number(b.id) - Number(a.id);
     }
+    /*
+        The alphabeticalSort method is used to sort the table rows by room name.
 
+        First, we create an array of only room names, and then sort them alphabetically using .sort()
+
+        Then we iterate through the complete rooms array (this.props.rooms):
+            - we acquire a "sortedIndex" by calling .indexOf() on the sortedByName array
+            - Then we replace the room name at that index with the corresponding room object
+    */
     alphabeticalSort(){
         let roomNames = this.props.rooms.map(room => room.room_name);
         let sortedByName = roomNames.sort();
@@ -128,7 +170,11 @@ class RoomControlTable extends React.Component{
         }
         return sortedByName;
     }
+    /*
+        The reverseAlphabeticalSort method is used to sort the table rows in reverse order by room name.
 
+        The logic is very similar to that of alphabeticalSort, however we create the "sorted" array by unshifting
+    */
     reverseAlphabeticalSort(){
         let roomNames = this.props.rooms.map(room => room.room_name).sort();
         let reverseSortedByName = [];
@@ -141,7 +187,12 @@ class RoomControlTable extends React.Component{
         }
         return reverseSortedByName;
     }
+    /*
+        The locationSort method creates two arrays by filtering this.props.rooms for rooms with
+        appropriate location_type_ids.
 
+        Then, depending on the sort boolean in local state, we return a spread with residential first, or commerical first.
+    */
     locationSort(){
         let residential = this.props.rooms.filter(room => Number(room.location_type_id) === 1);
         let commercial = this.props.rooms.filter(room => Number(room.location_type_id) === 2);
@@ -151,7 +202,14 @@ class RoomControlTable extends React.Component{
             return [...commercial, ...residential];
         }
     }
+    /*
+        The sortRooms method takes a "sort" parameter and runs it through a switch statement.
 
+        Depending on the sort parameter, the sortRooms method will setState to adjust the rooms array in 
+        local state to reflect the desired sort.
+
+        This way when the table is rendered, we render the rows in a sorted order.
+    */
     sortRooms = (sort) => {
         switch(sort){
             case 'id':
@@ -167,15 +225,22 @@ class RoomControlTable extends React.Component{
                 this.setState({rooms: [...this.props.rooms]});
         }
     }
+    /*
+        The handleFilter method runs on change of the filter selection menu.
 
+        This method sets state to store the filter parameter and initiate the render method again.
+
+        Lastly, the method calls the filterRooms method.
+    */
     handleFilter = (event) => {
-        this.setState({filter: event.target.value});
         this.filterRooms(event.target.value);
+        this.setState({filter: event.target.value});
     }
 
     render(){
         const { classes } = this.props;
         let table = null;
+        // If this.state.rooms is existent, we render the table using this.state.rooms (sorted, filtered, or untouched)
         if(this.state.rooms){
             table = (
                 <Table className={classes.table}>
@@ -188,8 +253,8 @@ class RoomControlTable extends React.Component{
                                         onChange={this.handleFilter}
                                         style={{fontWeight: '1'}}
                                     >
-                                        <MenuItem value="">
-                                        <em>None</em>
+                                        <MenuItem value={'None'}>
+                                            None
                                         </MenuItem>
                                         <MenuItem value={'Residential'}>See Only Residential Rooms</MenuItem>
                                         <MenuItem value={'Commercial'}>See Only Commerical Rooms</MenuItem>
