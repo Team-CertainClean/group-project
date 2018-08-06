@@ -4,16 +4,16 @@ import { connect } from 'react-redux';
 import { LOCATION_ACTIONS } from '../../../redux/actions/locationActions';
 
 // Material UI Imports
-import Typography from '@material-ui/core/Typography';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
+import{ Typography,
+        Table,
+        TableHead,
+        TableBody,
+        TableRow,
+        TableCell,
+        Card,
+        CardContent } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 import {EstimatorControlStyles} from '../styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 
 // Component Imports 
 import AddLocationForm from './AddLocationForm';
