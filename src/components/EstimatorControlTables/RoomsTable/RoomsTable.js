@@ -15,6 +15,10 @@ import { withStyles } from '@material-ui/core/styles';
 import { EstimatorControlStyles } from '../styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 
 // Component Imports 
 import AddRoomForm from './AddRoomForm';
@@ -34,8 +38,9 @@ class RoomControlTable extends React.Component{
                 location_type_id: 0,
                 duration_metric: ''
             },
-
-            anchor: null
+            anchor: null,
+            rooms: [],
+            filter: ''
         }
     }
 
@@ -74,8 +79,26 @@ class RoomControlTable extends React.Component{
         });
     }
 
+    filterRooms = (filter) => {
+        switch(filter){
+            case 'Residential':
+                this.setState({rooms: [...this.props.rooms.filter(room => Number(room.location_type_id) === 1)]});
+                break;
+            case 'Commercial':
+                this.setState({rooms: [...this.props.rooms.filter(room => Number(room.location_type_id) === 2)]});
+                break;
+            default:
+                this.setState({rooms: [...this.props.rooms]});
+                break;
+        }
+    }
+
+    handleFilter = (event) => {
+        this.setState({filter: event.target.value});
+        this.filterRooms(event.target.value);
+    }
+
     render(){
-        const { page, rowsPerPage } = this.state;
         const { classes } = this.props;
         let table = null;
         console.log(this.state.rooms);
@@ -83,6 +106,22 @@ class RoomControlTable extends React.Component{
             table = (
                 <Table className={classes.table}>
                     <TableHead className={classes.tableHeader}>
+                        <TableRow>
+                            <TableCell colSpan="6">
+                                    <h3 style={{marginRight: 10, display: 'inline', fontWeight: '1'}}>Filter</h3>
+                                    <Select
+                                        value={this.state.filter}
+                                        onChange={this.handleFilter}
+                                        style={{fontWeight: '1'}}
+                                    >
+                                        <MenuItem value="">
+                                        <em>None</em>
+                                        </MenuItem>
+                                        <MenuItem value={'Residential'}>See Only Residential Rooms</MenuItem>
+                                        <MenuItem value={'Commercial'}>See Only Commerical Rooms</MenuItem>
+                                    </Select>
+                            </TableCell>
+                        </TableRow>
                         <TableRow>
                             <TableCell>Room ID</TableCell>
                             <TableCell>Room Name</TableCell>
@@ -93,7 +132,7 @@ class RoomControlTable extends React.Component{
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.rooms.map(room => {
+                        {this.state.rooms.map(room => {
                             return(
                                 <EditableTableRow rowData={room} remove={this.removeRoom} actions={ROOM_ACTIONS}/>
                             );

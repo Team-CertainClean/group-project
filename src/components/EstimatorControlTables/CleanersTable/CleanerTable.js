@@ -10,11 +10,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import TablePagination from '@material-ui/core/TablePagination';
 import {withStyles} from '@material-ui/core/styles';
 import {EstimatorControlStyles} from '../styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import TextField from '@material-ui/core/TextField';
 
 // Component Imports 
 import AddCleanerForm from './AddCleanerForm';
@@ -32,12 +32,18 @@ class CleanerControlTable extends React.Component{
                 first_name: '',
                 last_name: '',
                 properly_account_id: ''
-            }
+            },
+            search: '',
+            cleaners: []
         }
     }
 
     componentDidMount(){
         this.props.dispatch({type: CLEANER_ACTIONS.FETCH});
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({cleaners: [...nextProps.cleaners]});
     }
 
     submitCleaner = () => {
@@ -65,14 +71,26 @@ class CleanerControlTable extends React.Component{
         });
     }
 
+    searchForCleanerByProperlyAccountId = (event) => {
+
+    }
+
     render(){
         const {classes} = this.props;
-        const { page, rowsPerPage } = this.state;
         let table = null;
         if(this.props.cleaners){
             table = (
                 <Table className={classes.table}>
                     <TableHead className={classes.tableHeader}>
+                        <TableRow>
+                            <TableCell colSpan="6">
+                                <TextField 
+                                    value={this.state.search}
+                                    type="number"
+                                    onChange={this.searchForCleanerByProperlyAccountId}
+                                />
+                            </TableCell>
+                        </TableRow>
                         <TableRow>
                             <TableCell>ID</TableCell>
                             <TableCell>First Name</TableCell>
