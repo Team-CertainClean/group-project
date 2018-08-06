@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {compose} from 'redux';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
-// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -11,21 +10,22 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Icon from '@material-ui/core/Icon';
 
 const styles = {
   card: {
-    width: '20%',
+    width: '250px',
+  },
+  media: {
+    height: 'auto',
+    width: '80%',
+  },
+  contactButton: {
+      
   },
   title: {
     marginBottom: 16,
     fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  media: {
-    height: '100px',
-    width: '100%',
   },
 };
 
@@ -37,7 +37,6 @@ class ContactInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            url: 'http://certainclean.com/#contact',
         }
     }
 
@@ -56,21 +55,18 @@ class ContactInfo extends Component {
                         src="http://2z07ed4715q54iaau2dycc3r.wpengine.netdna-cdn.com/wp-content/uploads/2016/01/CC-Wordmark-Orange-Trans.png"
                         title="cctextlogo"
                     />
-                    <CardContent>
-                        <Typography className={classes.title} color="textPrimary">
-                            certainclean
-                        </Typography>
-                    </CardContent>
                     <CardActions>
-                        <Button variant="contained" size="small">
-                            <a href={this.state.url}>Contact Us</a>
+                        <Button className={classes.contactButton} variant="contained" size="small">
+                            <a href='http://certainclean.com/#contact'>Contact Us</a>
                         </Button>
                     </CardActions>
                     <CardContent>
                         <Typography className={classes.title} color="textSecondary">
+                            <Icon>phone</Icon>
                             (612) 306-9593
                         </Typography>
                         <Typography className={classes.title} color="textSecondary">
+                            <Icon>email</Icon>
                             bookings@certainclean.com
                         </Typography>
                     </CardContent>
