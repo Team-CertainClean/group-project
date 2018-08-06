@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+// import { combineReducers } from 'redux';
 import { CUSTOMER_ACTIONS } from '../actions/customerActions';
 
 const customerInfo = (state = {}, action) => {
