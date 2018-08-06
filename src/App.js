@@ -28,6 +28,7 @@ import './styles/main.css';
 // Admin views
 import AdminLoginView from './views/adminFacing/AdminLoginView';
 import AccountCreationView from './views/adminFacing/AccountCreationView';
+import AdminCalendarView from './views/adminFacing/AdminCalendarView'
 
 
 const App = () => (
@@ -92,6 +93,10 @@ const App = () => (
         <Route
           path="/login"
           component={AdminLoginView}
+        />
+        <Route
+          path="/calendar"
+          component={AdminCalendarView}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />
