@@ -75,7 +75,7 @@ class RequestsView extends React.Component{
                     </div>
                 );
 
-                if (this.state.main === true){
+                if (this.state.main === 'residential'){
                 mainTable = (
                     <div>
                         <Typography variant="display2" className={classes.title}>Residential Things on this page</Typography>
