@@ -157,7 +157,7 @@ class ContactInfoView extends Component {
 
     return (
       <div>
-        <Stepper />
+        <Stepper activeStep={2}/>
         { content }
       </div>
     );
