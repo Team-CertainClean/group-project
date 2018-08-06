@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import { CLEANER_ACTIONS } from '../../../redux/actions/cleanerActions';
 
 // Material UI Imports
-import {    Typography,
-            Table,
-            TableHead,
-            TableBody,
-            TableRow,
-            TableCell,
-            Card,
-            CardContent, 
-            TextField   } from '@material-ui/core/TextField';
+import{ Typography,
+        Table,
+        TableHead,
+        TableBody,
+        TableRow,
+        TableCell,
+        Card,
+        CardContent, 
+        TextField   } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 import {EstimatorControlStyles} from '../styles';
 
