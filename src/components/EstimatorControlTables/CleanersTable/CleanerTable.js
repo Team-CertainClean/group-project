@@ -70,7 +70,11 @@ class CleanerControlTable extends React.Component{
             }
         });
     }
+    /*
+        The searchForCleanerByProperlyAccountId method runs on change of the input field labeled as "search bar"
 
+        This method sets the local state property "search".
+    */
     searchForCleanerByProperlyAccountId = (event) => {
         this.setState({search: event.target.value});
     }
@@ -78,6 +82,8 @@ class CleanerControlTable extends React.Component{
     render(){
         const {classes} = this.props;
 
+        // Here we are filtering over the cleaners array from props to create an array populated 
+        // by cleaners with properly account ids that include the values of the input field
         let cleaners = this.props.cleaners.filter(cleaner => String(cleaner.properly_account_id).includes(String(this.state.search)));
 
         let table = null;
