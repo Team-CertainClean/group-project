@@ -1,13 +1,9 @@
 import React from 'react';
-import axios from 'axios';
-
 
 // Material UI Imports
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles';
 import { Typography } from '../../../node_modules/@material-ui/core';
-import TextField from '@material-ui/core/TextField';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
@@ -18,7 +14,6 @@ import CardContent from '@material-ui/core/CardContent';
 
 
 // Component Imports
-import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
 import Nav from '../../components/Nav/Nav';
@@ -70,7 +65,6 @@ class RequestsView extends React.Component{
     render(){
         let mainTable = null;
         let buttons = null;
-        let nav = null;
         const { classes } = this.props;
     
         if (this.props.user.userName) {
