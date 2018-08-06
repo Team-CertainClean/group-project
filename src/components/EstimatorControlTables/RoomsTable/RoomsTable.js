@@ -17,7 +17,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
 
 // Component Imports 
 import AddRoomForm from './AddRoomForm';
@@ -111,14 +112,10 @@ class RoomControlTable extends React.Component{
     }
 
     idAscendingSort(a, b){
-        console.log('Ascending');
-        console.log('A: ', a);
-        console.log('B: ', b);
         return Number(a.id) - Number(b.id);
     }
 
     idDescendingSort(a, b){
-        console.log('Descending');
         return Number(b.id) - Number(a.id);
     }
 
@@ -129,7 +126,6 @@ class RoomControlTable extends React.Component{
             let sortedIndex = sortedByName.indexOf(room.room_name);
             sortedByName[sortedIndex] = room;
         }
-        console.log('Alphabetical sort: ', sortedByName);
         return sortedByName;
     }
 
@@ -157,7 +153,6 @@ class RoomControlTable extends React.Component{
     }
 
     sortRooms = (sort) => {
-        console.log(sort);
         switch(sort){
             case 'id':
                 this.state.sort ? this.setState({rooms: [...this.props.rooms.sort(this.idAscendingSort)], sort: !this.state.sort}) : this.setState({rooms: [...this.props.rooms.sort(this.idDescendingSort)], sort: !this.state.sort});
@@ -179,10 +174,8 @@ class RoomControlTable extends React.Component{
     }
 
     render(){
-        console.log("Render Table");
         const { classes } = this.props;
         let table = null;
-        console.log(this.state.rooms);
         if(this.state.rooms){
             table = (
                 <Table className={classes.table}>
@@ -204,14 +197,14 @@ class RoomControlTable extends React.Component{
                             </TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell><Button onClick={() => this.sortRooms('id')}>Room ID</Button></TableCell>
-                            <TableCell><Button onClick={() => this.sortRooms('room_name')}>Room Name</Button></TableCell>
+                            <TableCell>Room ID<IconButton onClick={() => this.sortRooms('id')}><Icon>expand_more</Icon></IconButton></TableCell>
+                            <TableCell>Room Name<IconButton onClick={() => this.sortRooms('room_name')}><Icon>expand_more</Icon></IconButton></TableCell>
                             <TableCell>Cleanliness Score 1</TableCell>
                             <TableCell>Cleanliness Score 2</TableCell>
                             <TableCell>Cleanliness Score 3</TableCell>
                             <TableCell>Cleanliness Score 4</TableCell>
                             <TableCell>Cleanliness Score 5</TableCell>
-                            <TableCell><Button onClick={() => this.sortRooms('location_type_id')}>Location Type</Button></TableCell>
+                            <TableCell>Location Type<IconButton onClick={() => this.sortRooms('location_type_id')}><Icon>expand_more</Icon></IconButton></TableCell>
                             <TableCell>Edit</TableCell>
                             <TableCell>Remove</TableCell>
                         </TableRow>
