@@ -15,19 +15,19 @@ import { Link } from 'react-router-dom';
 class CustomerLandingView extends React.Component{
     constructor(){
         super();
-        this.state = {selection: null, path: '/addroom'}
+        this.state = {selection: null, path: '/roominput'}
     }
 
     selectLocationType = (type) => {
         if(this.state.selection === null){
             if(type === "residential"){
-                this.setState({selection: true, path: '/addroom'});
+                this.setState({selection: true, path: '/roominput'});
             } else {
                 this.setState({selection: false, path: '/contact'});
             }
         } else {
             if(type === "residential"){
-                this.setState({selection: true, path: '/addroom'});
+                this.setState({selection: true, path: '/roominput'});
             } else {
                 this.setState({selection: false, path: '/contact'});
             }
