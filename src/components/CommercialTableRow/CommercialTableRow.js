@@ -9,6 +9,8 @@ import { USER_ACTIONS } from '../../redux/actions/userActions';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TextField from '@material-ui/core/TextField';
+import RoomInfoModal from '../../components/RoomInfoModal/RoomInfoModal';
+
 
 const mapStateToProps = state => ({
   request: state.request,
@@ -23,7 +25,7 @@ class CommercialTableRow extends Component {
           <TableCell>{ this.props.rowData.contact_info.first_name } { this.props.rowData.contact_info.last_name }</TableCell>
           <TableCell>{ this.props.rowData.contact_info.email }</TableCell>
           <TableCell>{ this.props.rowData.request_info.location_type }</TableCell>
-          <TableCell><Button>Room</Button></TableCell>
+          <TableCell><RoomInfoModal/></TableCell>
           <TableCell>{ this.props.rowData.request_info.start_time } { this.props.rowData.request_info.end_time }</TableCell>
           <TableCell>{ this.props.rowData.request_info.status }</TableCell>
       </TableRow>
