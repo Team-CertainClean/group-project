@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 
 // Material UI Imports
 import Paper from '@material-ui/core/Paper';
@@ -115,8 +118,10 @@ class CustomerLandingView extends React.Component{
         if(this.state.selection === null){
             if(type === "residential"){
                 this.setState({selection: true, path: '/roominput'});
+                this.props.dispatch({type: CUSTOMER_ACTIONS.LOCATION, payload: 1});
             } else {
                 this.setState({selection: false, path: '/contact'});
+                this.props.dispatch({type: CUSTOMER_ACTIONS.LOCATION, payload: 2});
             }
         } else {
             if(type === "residential"){
@@ -239,4 +244,7 @@ class CustomerLandingView extends React.Component{
     }
 }
 
-export default withStyles(styles)(CustomerLandingView);
+export default compose(
+    withStyles(styles),
+    connect()
+)(CustomerLandingView);

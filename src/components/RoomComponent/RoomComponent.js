@@ -52,8 +52,11 @@ class RoomComponent extends Component {
 
 render() {
     const { classes } = this.props;
-    return (
-      <div>
+
+    let content = null;
+    if(this.props.rooms){
+      content = (
+        <div>
         {this.props.rooms.map(room => {
           return (
             <div className={classes.rate} key={room.room_id}>
@@ -72,7 +75,9 @@ render() {
 
         }
       </div>
-    );
+      );
+    }
+    return content;
   }
 }
 

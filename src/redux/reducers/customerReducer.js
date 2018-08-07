@@ -2,7 +2,6 @@
 import { CUSTOMER_ACTIONS } from '../actions/customerActions';
 
 const customer = (state = {contact: null, rooms: [], appt: {}, location: null, duration: 0}, action) => {
-    console.log(action.payload);
     switch (action.type) {
         case CUSTOMER_ACTIONS.CONTACT:
             return {...state, contact: action.payload};

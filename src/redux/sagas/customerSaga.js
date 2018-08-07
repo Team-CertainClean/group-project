@@ -6,6 +6,7 @@ import { postRequest } from '../requests/customerRequests';
 function* handleCustomerRequest(){
     try{
         const customerRequest = yield select(getRequest);
+        yield console.log(customerRequest);
         yield postRequest(customerRequest);
         yield put({type: CUSTOMER_ACTIONS.RESET});
     }catch(error){
