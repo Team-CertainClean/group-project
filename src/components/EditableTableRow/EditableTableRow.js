@@ -22,9 +22,7 @@ class EditableTableRow extends React.Component{
         super(props);
         this.state = {
                         editing: false, 
-                        content: {
-                            ...this.props.rowData
-                        }
+                        content: {...this.props.rowData}
                     }
     }
 
@@ -41,10 +39,25 @@ class EditableTableRow extends React.Component{
         this.closeEdit();
     }
 
-    handleChangeFor = (event) => {
-        return new Promise((resolve) => {
-            this.setState({content: {...this.state.content, [event.target.id]: event.target.value}});
-            resolve();
+    handleChangeFor = event => {
+        return new Promise((resolve, reject)=>{
+            try{
+                switch(event.target.id){
+                    case 'clealiness_one_metric':
+                    case 'clealiness_two_metric':
+                    case 'clealiness_three_metric':
+                    case 'clealiness_four_metric':
+                    case 'clealiness_five_metric':
+                        this.setState({content: {...this.state.content, [event.target.id]: event.target.value}});
+                        break;
+                    default:
+                        this.setState({content: {...this.state.content, [event.target.id]: event.target.value}});
+                        break;
+                    }
+                resolve();
+            }catch(error){
+                reject();
+            }
         });
     }
 
@@ -109,7 +122,7 @@ class EditableTableRow extends React.Component{
                         </IconButton>
                     </TableCell>
                     <TableCell>
-                        <IconButton onClick={() => {this.props.remove(this.state.content['id'])}}>
+                        <IconButton onClick={() => {this.props.remove(this.props.rowData['id'])}}>
                             <Icon>delete_outline</Icon>
                         </IconButton>
                     </TableCell>

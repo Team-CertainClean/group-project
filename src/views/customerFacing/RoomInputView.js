@@ -22,7 +22,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 const mapStateToProps = (state) => ({
-  rooms: state.rooms
+  rooms: state.rooms.roomOptions
 });
 
 const styles = (theme) => ({
@@ -136,7 +136,7 @@ class RoomInputView extends Component {
 		 
 			content = (
 				<center>
-					{/* <Stepper /> */}
+					<Stepper activeStep={0}/>
 					<RoomComponent />
 					<div>
 						<Typography gutterBottom>Click to add room!</Typography>
@@ -185,7 +185,11 @@ class RoomInputView extends Component {
 							</div>
 						</Modal>
 					</div>
-          
+					<div>
+						<Button onClick={() => this.props.history.push('schedule')}>
+							Next
+						</Button>
+					</div>
 				</center>
 			);
 		

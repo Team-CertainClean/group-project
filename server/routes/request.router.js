@@ -11,7 +11,8 @@ router.get('/requestTable', async (req, res) => {
     // Rename import, rename craftTable.js, and reassign module.exports in craftTable.js when getRequestData is completed
     // Replace with getRequestData from craftTable.js when completed and tested
     getRequestData()
-        .then(result => res.send(result))
+        .then(result => {
+            res.send(result)})
         .catch(error => {
             console.log('Error handling GET for /api/request/requestTable', error);
             res.sendStatus(404);

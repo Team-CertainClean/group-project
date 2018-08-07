@@ -33,7 +33,7 @@ insert into Location_Type("location_type") values ('Residential'), ('Commercial'
 -- "status" is an integer, either 0, 1, or 2.  0 = unscheduled, 1 = scheduled, 2 = closed.
 create table Request(
     id serial primary key,
-	cleaning_type_id int references Cleaning_Type not null,
+	cleaning_type_id int references Cleaning_Type,
 	location_type_id int references Location_Type not null,
     start_time timestamp,
     end_time timestamp,
@@ -80,7 +80,11 @@ create table Room(
 	id serial primary key,
 	room_name varchar(80),
 	location_type_id int references Location_Type not null,
-	duration_metric float
+	cleanliness_one_metric float,
+	cleanliness_two_metric float,
+	cleanliness_three_metric float,
+	cleanliness_four_metric float,
+	cleanliness_five_metric float
 );
 
 -- Current offered rooms (default estimated metrics, replace when provided)
