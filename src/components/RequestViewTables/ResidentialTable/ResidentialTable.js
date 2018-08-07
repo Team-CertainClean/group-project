@@ -226,7 +226,7 @@ class ResidentialTable extends React.Component{
             );
         }
         return(
-            <div style={{'width': '100vw', 'position': 'relative', 'left': -8}}>
+            <div >
                 <div>
                     <Typography variant="title" style={{textAlign: 'center'}}>Residential</Typography>
                 </div>
