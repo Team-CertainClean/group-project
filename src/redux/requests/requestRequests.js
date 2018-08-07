@@ -8,3 +8,30 @@ export function fetchRequestData(){
             throw error.response || error;
         });
 }
+
+export function closeRequest(payload){
+    return axios.delete(`/api/request/${payload}`)
+        .then(response => response)
+        .catch(error =>{
+            alert("Failed to remove request");
+            throw error.response || error;
+        });
+}
+
+export function postRequest(payload){
+    return axios.post('/api/historical', payload)
+        .then(response => response)
+        .catch(error=>{
+            alert("Failed to post to historical_contact_data");
+            throw error.response || error;
+        });
+}
+
+export function updateRequest(payload){
+    return axios.put(`/api/room/${payload.id}`, payload)
+        .then(response => response)
+        .catch(error =>{
+            alert("Failed to edit room");
+            throw error.response || error;
+        });
+}

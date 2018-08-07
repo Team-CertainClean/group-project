@@ -4,7 +4,6 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import Nav from '../../components/Nav/Nav';
 import Stepper from '../../components/Stepper/Stepper';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
@@ -17,7 +16,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 
 const styles = theme => ({
@@ -81,10 +79,12 @@ class ContactInfoView extends Component {
         console.log(this.state.contact)
     }// end handle change
 
-    submitContactInfo = (event) => {
+    submitContactInfo = async (event) => {
         console.log(`in submitContactInfo`)
         event.preventDefault();
-        this.props.dispatch({ type: CUSTOMER_ACTIONS.CONTACT,  payload: this.state.contact});
+        await this.props.dispatch({ type: CUSTOMER_ACTIONS.CONTACT,  payload: this.state.contact});
+        await alert('Success!');
+        this.props.history.push('home');
     }// end submitContactInfo
 
   render() {
@@ -159,7 +159,7 @@ class ContactInfoView extends Component {
 
     return (
       <div>
-        <Stepper />
+        <Stepper activeStep={2}/>
         { content }
       </div>
     );

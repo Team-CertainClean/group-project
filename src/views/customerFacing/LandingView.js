@@ -6,28 +6,64 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles';
-import styles from '../../styles/LandingViewStyles';
 import { Typography } from '../../../node_modules/@material-ui/core';
 
 // Component Imports
 import { Link } from 'react-router-dom';
 
+//Parallax
+import { Parallax, ParallaxLayer } from 'react-spring'
+
+const styles = {
+    fontFamily: 'Menlo-Regular, Menlo, monospace',
+    fontSize: 14,
+    lineHeight: '10px',
+    color: 'white',
+    display: 'flex', 
+    alignItems: 'center', 
+    justifyContent: 'center',
+
+    selectedLocationType: {
+        display: 'flex', 
+        color: 'white',
+        backgroundColor: '#ef8902',
+        '&:hover':{
+            backgroundColor: '#ef8902'
+        }
+    },
+    unselectedLocationType: {
+        backgroundColo: 'grey'
+    },
+    getStartedButton: {
+        display: 'flex', 
+        backgroundColor: '#ef8902'
+    },
+    getStartedLink: {
+        textDecorationLine: 'none'
+    },
+    locationTypeChoices: {
+        color: 'pink'
+    }
+}
+
+
+
 class CustomerLandingView extends React.Component{
     constructor(){
         super();
-        this.state = {selection: null, path: '/addroom'}
+        this.state = {selection: null, path: '/roominput'}
     }
 
     selectLocationType = (type) => {
         if(this.state.selection === null){
             if(type === "residential"){
-                this.setState({selection: true, path: '/addroom'});
+                this.setState({selection: true, path: '/roominput'});
             } else {
                 this.setState({selection: false, path: '/contact'});
             }
         } else {
             if(type === "residential"){
-                this.setState({selection: true, path: '/addroom'});
+                this.setState({selection: true, path: '/roominput'});
             } else {
                 this.setState({selection: false, path: '/contact'});
             }
@@ -47,7 +83,7 @@ class CustomerLandingView extends React.Component{
             );
             locationTypeContent = (
                 <Typography>
-                    Choose Residential for cleaning a home, or an airbnb.
+                    Choose Residential or Commercial
                 </Typography>
             );
             locationTypeChoices = (
@@ -89,16 +125,55 @@ class CustomerLandingView extends React.Component{
         }
 
         return(
-            <Paper>
-                {locationTypeChoices}
-                <Card>
-                    <CardContent>
-                        {locationTypeTitle}
-                        {locationTypeContent}
-                    </CardContent>
-                </Card>
-                <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
-            </Paper>
+            <Parallax ref="parallax" pages={3}>
+
+            <Parallax.Layer offset={0} speed={1} style={{ backgroundColor: 'white' }} />
+            <Parallax.Layer offset={1} speed={1} style={{  backgroundColor: '#EF8901'}} />
+            <Parallax.Layer offset={2} speed={1} style={{ backgroundColor: '#87BCDE' }} />
+            
+
+        
+            <Parallax.Layer
+                offset={0}
+                speed={5}
+                style={styles}
+                onClick={() => this.refs.parallax.scrollTo(1)}>
+                <center  className='firstFade'>
+                <img src='/LOGO-01.png' width='1000px'></img>
+                <div className='firstButton'>
+                <Button  className={classes.selectedLocationType} onClick={() => this.refs.parallax.scrollTo(0)}>BOOK NOW</Button>
+                </div>
+                </center>
+           
+            </Parallax.Layer>
+
+            <Parallax.Layer
+                offset={1}
+                speed={-0.1}
+                style={styles}>
+                <div className='choises'>
+                        {locationTypeChoices}
+                </div>
+                
+                            
+                                {locationTypeTitle}
+                                {locationTypeContent}
+                           
+                        <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
+                
+                    
+            </Parallax.Layer>
+
+            <Parallax.Layer
+                offset={2}
+                speed={0.5}
+                style={styles}
+                onClick={() => this.refs.parallax.scrollTo(0)}>
+                
+            </Parallax.Layer>
+
+        </Parallax>
+            
         );
     }
 }

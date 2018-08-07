@@ -22,7 +22,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 const mapStateToProps = (state) => ({
-	user: state.user
+  rooms: state.rooms.roomOptions
 });
 
 const styles = (theme) => ({
@@ -104,14 +104,10 @@ class RoomInputView extends Component {
 	};
 
 	componentDidMount() {
-		this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+    console.log(this.props.rooms);
+    this.props.dispatch({ type: ROOM_ACTIONS.FETCH });
 	} // end componentDidMount
 
-	componentDidUpdate() {
-		if (!this.props.user.isLoading && this.props.user.userName === null) {
-			this.props.history.push('home');
-		}
-	} // end componentDidUpdate
 
 	handleChange = (contactInfo) => (event) => {
 		console.log(`in handleChange`);
@@ -137,10 +133,10 @@ class RoomInputView extends Component {
 		let content = null;
 		const { classes } = this.props;
 
-		if (this.props.user.userName) {
+		 
 			content = (
 				<center>
-					{/* <Stepper /> */}
+					<Stepper activeStep={0}/>
 					<RoomComponent />
 					<div>
 						<Typography gutterBottom>Click to add room!</Typography>
@@ -169,9 +165,9 @@ class RoomInputView extends Component {
             <MenuItem value="" disabled>
               ROOM
             </MenuItem>
-            <MenuItem value={10}>KITCHEN</MenuItem>
-            <MenuItem value={20}>BATHROOM</MenuItem>
-            <MenuItem value={30}>LIVING ROOM</MenuItem>
+          {this.props.rooms.map(room =>
+                        <MenuItem key={room.id} value={room.id}>{room.room_name}</MenuItem>
+                    )};
           </Select>
           <FormHelperText>Select room that needs to be cleaned</FormHelperText>
         </FormControl>
@@ -189,10 +185,14 @@ class RoomInputView extends Component {
 							</div>
 						</Modal>
 					</div>
-          
+					<div>
+						<Button onClick={() => this.props.history.push('schedule')}>
+							Next
+						</Button>
+					</div>
 				</center>
 			);
-		}
+		
 
 		return <div>{content}</div>;
 	}
