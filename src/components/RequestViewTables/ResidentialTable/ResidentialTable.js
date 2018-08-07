@@ -167,6 +167,11 @@ class ResidentialTable extends React.Component{
         this.filterRooms(event.target.value);
     }
 
+    closeRequest = (id) => {
+        console.log(`in closeRequest`, id)
+        this.props.dispatch({type: REQUEST_ACTIONS.CLOSE, payload: id})
+      }
+
     render(){
         console.log("Render Table");
         const { classes } = this.props;
@@ -194,7 +199,7 @@ class ResidentialTable extends React.Component{
                             <TableBody>
                                 {this.props.residential.map((request, i) => {
                                     return(
-                                        <ResidentialTableRow key={i} rowData={request} closeEvent={this.closeEvent} />
+                                        <ResidentialTableRow key={i} rowData={request} closeRequest={this.closeRequest} />
                                     );
                                 })}
                             </TableBody>
@@ -225,6 +230,3 @@ export default compose(
 )(ResidentialTable);
 
 
-{/* <Button onClick={() => this.sortRooms('id')}></Button>
-<Button onClick={() => this.sortRooms('serviceType')}>Cleaning Type</Button>
-<Button onClick={() => this.sortRooms('status')}>Status</Button> */}

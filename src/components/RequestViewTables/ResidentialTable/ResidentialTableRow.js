@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import { TableRow, TableCell, Button } from '@material-ui/core';
 
 import RoomInfoModal from '../../RoomInfoModal/RoomInfoModal';
 import { REQUEST_ACTIONS } from '../../../redux/actions/requestActions';
 
-
+const mapStateToProps = state => ({
+  request: state.request,
+});
 class ResidentialTableRow extends Component {
 
-  closeRequest = (id) => {
-    this.props.dispatch({type: REQUEST_ACTIONS.CLOSE, payload: id})
-  }
+  constructor(props){
+    super(props);
+    this.state = {
+                    editing: false, 
+                    content: {...this.props.rowData}
+                }
+}
+
   updateRequest = (id) => {
     this.props.dispatch({type: REQUEST_ACTIONS.UPDATE, payload: id})
   }
@@ -25,7 +33,7 @@ class ResidentialTableRow extends Component {
       status = (<Button onClick={this.updateRequest}>Mark Scheduled</Button>)
       scheduled = ('Unscheduled')
     } else if (this.props.rowData.request_info.status === 1) {
-      status = (<Button onClick={this.closeRequest}>Close Event</Button>)
+      status = (<Button onClick={()=>this.props.closeRequest(this.props.rowData.request_info.request_id)}>Close Event</Button>)
       scheduled = ('Scheduled')
     }
 
@@ -48,4 +56,4 @@ class ResidentialTableRow extends Component {
 }
 
 // this allows us to use <App /> in index.js
-export default ResidentialTableRow;
+export default connect(mapStateToProps)(ResidentialTableRow);
