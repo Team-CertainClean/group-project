@@ -44,12 +44,12 @@ margin-top: 10%;
 
 
 form {
-    background-color: #dbd5d5;
+    
     width: 30%;
     height: 250px;
     margin: 20px auto;
     padding: 25px;
-    border-radius: 2px;
+    border-radius: 100px;
 }
 
 input {

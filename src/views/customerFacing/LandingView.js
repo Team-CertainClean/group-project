@@ -58,11 +58,10 @@ const styles = {
         color: 'white',
     },
     getStartedButton: {
-        borderRadius: '60px',
+        borderRadius: '100px',
         display: 'flex', 
-        fontSize: 48,
         backgroundColor: '#ef8902',
-        marginTop: '10%',
+        marginTop: '5%',
         padding: '2.5%',
         paddingLeft: '4%',
         paddingRight: '4%',
@@ -94,7 +93,6 @@ const styles = {
 
     },
     center: {
-        overflow:'hidden',
         width: '100%',
         height: '80%',
     },
@@ -156,8 +154,9 @@ class CustomerLandingView extends React.Component{
                 <Typography variant="title">Residential</Typography>
             );
             locationTypeContent = (
+                
                 <Typography className={classes.locationTypeContent}>
-                    What to expect: You'll fill out our estimator to receive an estimated duration your cleaning will take and then we'll contact you when we've confirmed.
+                     What to expect: You'll fill out our estimator to receive an estimated duration your cleaning will take and then we'll contact you when we've confirmed.
                     <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
                 </Typography>
             );
