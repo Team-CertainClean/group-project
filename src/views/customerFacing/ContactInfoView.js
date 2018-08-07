@@ -27,9 +27,16 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
         width: 230,
+        margin: '1%',
+        padding: '2.5%',
+        paddingLeft: '4%',
+        paddingRight: '4%',
+        borderRadius: '100px',
+        backgroundColor: '#EF8902',
+        color: 'white'
       },
       button: {
-          backgroundColor: '#EF8902',
+        backgroundColor: '#EF8902'
       },
       formControl: {
         margin: theme.spacing.unit,

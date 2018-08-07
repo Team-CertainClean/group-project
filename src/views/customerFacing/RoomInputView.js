@@ -90,6 +90,7 @@ class RoomInputView extends Component {
 			open: false,
 			room: {
 				room_id: '',
+				room_name: '',
 				cleanliness_score: ''
 			}
 		};
@@ -109,7 +110,7 @@ class RoomInputView extends Component {
 	} // end componentDidMount
 
 
-	handleChange = (contactInfo) => (event) => {
+	handleChange = (event) => {
 		console.log(`in handleChange`);
 		// this.setState({
 		// 	contact: {
@@ -119,8 +120,9 @@ class RoomInputView extends Component {
 		// 		cleaning_type: event.target.value
 		// 	}
 		// });
-    // console.log(this.state.contact);
-    this.setState({ [event.target.name]: event.target.value });
+	// console.log(this.state.contact);
+	console.log(event.target.value);
+    this.setState({room: {...this.state.room, room_id: event.target.value.id, room_name: event.target.value.room_name} });
 	}; // end handle change
 
 	submitContactInfo = (event) => {
@@ -132,7 +134,7 @@ class RoomInputView extends Component {
 	render() {
 		let content = null;
 		const { classes } = this.props;
-
+		console.log(this.state.room);
 		 
 			content = (
 				<center>
@@ -157,16 +159,15 @@ class RoomInputView extends Component {
 
                   <FormControl className={classes.formControl}>
           <Select
-            value={this.state.room.room_id}
+            value={this.state.room.room_name}
             onChange={this.handleChange}
-            name="Room"
             className={classes.roomDropDown}
           >
-            <MenuItem value="" disabled>
+            {/* <MenuItem value="" disabled>
               ROOM
-            </MenuItem>
+            </MenuItem> */}
           {this.props.rooms.map(room =>
-                        <MenuItem key={room.id} value={room.id}>{room.room_name}</MenuItem>
+                        <MenuItem key={room.id} value={room}>{room.room_name}</MenuItem>
                     )};
           </Select>
           <FormHelperText>Select room that needs to be cleaned</FormHelperText>
@@ -181,7 +182,7 @@ class RoomInputView extends Component {
 									placeholderSymbol={<img src="/RatingIconOrange.png" className={classes.iconModal} />}
 									fullSymbol={<img src="/RatingIconOrange.png" className={classes.iconModal} />}
 								/>
-                <center><Button>Add room</Button><Button>Close</Button></center>
+                <center><Button >Add room</Button><Button>Close</Button></center>
 							</div>
 						</Modal>
 					</div>
