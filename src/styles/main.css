@@ -2,6 +2,9 @@ body {
     
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
+img {
+    pointer-events: none;
+}
 
 .instructions h1 {
     font-size: 24px;
@@ -16,6 +19,7 @@ body {
 
 /* Landing page features */
 .firstFade{
+margin-top: 10%;
 
     -webkit-animation: fadein 4s; /* Safari, Chrome and Opera > 12.1 */
        -moz-animation: fadein 4s; /* Firefox < 16 */
@@ -36,10 +40,6 @@ body {
     margin-top: 5%;
 }
 
-.choises{
-    color: white;
-    font-size: 5%;
-}
 /* End of Landing Page css */
 
 
