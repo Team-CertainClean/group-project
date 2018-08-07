@@ -22,41 +22,11 @@ import { REQUEST_ACTIONS } from '../../redux/actions/requestActions';
 // import CommercialTableRow from '../../components/CommercialTableRow/CommercialTableRow';
 import CommercialTable from '../../components/RequestViewTables/CommercialTable/CommercialTable';
 import ResidentialTable from '../../components/RequestViewTables/ResidentialTable/ResidentialTable';
-import MenuBar from '../../components/MenuBar/MenuBar';
+import RequestMenuBar from '../../components/RequestMenuBar/RequestMenuBar';
 
 
 const styles = theme => ({
-      button: {
-          backgroundColor: '#EF8902',
-      },
-      title: {
-          marginTop: '50px',
 
-      },
-      tableCard: {
-        width: '90%',
-        margin: 'auto',
-        marginTop: 25
-    },
-    estimatorControlComponent: {
-        textAlign: 'center',
-        padding: 15,
-        paddingBottom: 0
-    },
-    tableHeader: {
-        backgroundColor: 'rgba(77, 71, 66)',
-        '& *': {
-            color: 'white'
-        }
-    },
-    row: {
-        '&:nth-of-type(even)': {
-            backgroundColor: 'rgba(160, 156, 153)'
-        },
-        '&:nth-of-type(odd)': {
-            backgroundColor: 'rgba(255, 255, 255, 1)'
-        }
-    }
 });
 
 const mapStateToProps = state => ({
@@ -71,8 +41,6 @@ class RequestsView extends React.Component{
         this.state = {
             filter: '',
             requests: [],
-            // residential: [],
-            // commercial: [],
             sort: false,
             selectedTable: 0
         }
@@ -149,7 +117,6 @@ class RequestsView extends React.Component{
     //     }
     // }
 
-
     selectOption = (index) => {
         this.setState({selectedTable: index});
     }
@@ -162,7 +129,7 @@ class RequestsView extends React.Component{
         
         if (this.props.user.userName) {
             menuBar = (
-                <MenuBar menuOptions={menuOptions} selectOption={this.selectOption} />
+                <RequestMenuBar menuOptions={menuOptions} selectOption={this.selectOption} />
             )
 
             let residential = this.props.requests.filter(request => request.request_info.location_type === 1)
@@ -170,7 +137,7 @@ class RequestsView extends React.Component{
 
             // determine which table to render based on menuBar click
             if(this.state.selectedTable == 0) {
-                table = <ResidentialTable residential={ residential }/>
+                table = <ResidentialTable residential={ residential } />
             } 
             else if(this.state.selectedTable == 1) {
                 table = <CommercialTable commercial={ commercial } />
@@ -180,13 +147,10 @@ class RequestsView extends React.Component{
         return(
             <div style={{'width': '100vw', 'position': 'relative', 'left': -8}}>
                 <Nav history={this.props.history} />
-                <div>
-                    { menuBar }
-                </div>
+                { menuBar }
                 <br />
-                <div>
-                    { table }
-                </div>
+                { table }
+
             </div>
         );
     }

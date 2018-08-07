@@ -31,7 +31,7 @@ const styles = theme => ({
         width: 'auto',
     },
     tableCard: {
-        marginTop: 25
+        marginTop: '25px',
     },
     estimatorControlComponent: {
         textAlign: 'center',
@@ -235,7 +235,7 @@ class CommercialTable extends React.Component{
             )
         }
         return(
-            <div className={classes.estimatorControlComponent}>
+            <div>
                 <Typography variant="title">Commercial</Typography>
                 <Card className={classes.tableCard}>
                     <CardContent>

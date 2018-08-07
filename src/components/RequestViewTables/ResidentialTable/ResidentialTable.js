@@ -215,7 +215,7 @@ class ResidentialTable extends React.Component{
                             <TableBody>
                                 {this.props.residential.map((request, i) => {
                                     return(
-                                        <ResidentialTableRow key={i} rowData={request} />
+                                        <ResidentialTableRow key={i} rowData={request} closeEvent={this.closeEvent} />
                                     );
                                 })}
                             </TableBody>
@@ -226,7 +226,7 @@ class ResidentialTable extends React.Component{
             );
         }
         return(
-            <div style={{'width': '100vw', 'position': 'relative', 'left': -8}}>
+            <div >
                 <div>
                     <Typography variant="title" style={{textAlign: 'center'}}>Residential</Typography>
                 </div>
