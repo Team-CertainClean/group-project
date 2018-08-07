@@ -21,46 +21,47 @@ const styles = theme => ({
 });
 
 function getSteps() {
-    return ['Select your rooms', 'Choose time that works for you', 'Done!'];
+    return ['Select your rooms', 'Choose time that works for you', 'Provide Contact Info'];
   }
   
-  function getStepContent(stepIndex) {
-    switch (stepIndex) {
-      case 0:
-        return 'Select your rooms...';
-      case 1:
-        return 'What time works for you?';
-      case 2:
-        return 'This is the bit I really care about!';
-      default:
-        return 'Uknown stepIndex';
-    }
-  }
+  // function getStepContent(stepIndex) {
+  //   switch (stepIndex) {
+  //     case 0:
+  //       return 'Select your rooms...';
+  //     case 1:
+  //       return 'What time works for you?';
+  //     case 2:
+  //       return 'This is the bit I really care about!';
+  //     default:
+  //       return 'Uknown stepIndex';
+  //   }
+  // }
 
 class HorizontalLabelPositionBelowStepper extends React.Component {
-  state = {
-    activeStep: 0,
-  };
+  constructor(props){
+    super(props);
+    this.state = {activeStep: this.props.activeStep}
+  }
 
-  handleNext = () => {
-    const { activeStep } = this.state;
-    this.setState({
-      activeStep: activeStep + 1,
-    });
-  };
+  // handleNext = () => {
+  //   const { activeStep } = this.state;
+  //   this.setState({
+  //     activeStep: activeStep + 1,
+  //   });
+  // };
 
-  handleBack = () => {
-    const { activeStep } = this.state;
-    this.setState({
-      activeStep: activeStep - 1,
-    });
-  };
+  // handleBack = () => {
+  //   const { activeStep } = this.state;
+  //   this.setState({
+  //     activeStep: activeStep - 1,
+  //   });
+  // };
 
-  handleReset = () => {
-    this.setState({
-      activeStep: 0,
-    });
-  };
+  // handleReset = () => {
+  //   this.setState({
+  //     activeStep: 0,
+  //   });
+  // };
 
   render() {
     const { classes } = this.props;
@@ -79,7 +80,7 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
           })}
         </Stepper>
         <div>
-          {this.state.activeStep === steps.length ? (
+          {/* {this.state.activeStep === steps.length ? (
             <div>
               <Typography className={classes.instructions}>
                 All steps completed - you&quot;re finished
@@ -102,7 +103,7 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
                 </Button>
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     );

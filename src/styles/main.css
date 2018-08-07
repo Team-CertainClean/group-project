@@ -1,5 +1,9 @@
 body {
+    
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+img {
+    pointer-events: none;
 }
 
 .instructions h1 {
@@ -12,6 +16,32 @@ body {
     padding: 5px;
     color: #ece7e7;
 }
+
+/* Landing page features */
+.firstFade{
+margin-top: 10%;
+
+    -webkit-animation: fadein 4s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 4s; /* Firefox < 16 */
+        -ms-animation: fadein 4s; /* Internet Explorer */
+         -o-animation: fadein 4s; /* Opera < 12.1 */
+            animation: fadein 4s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.firstButton{
+    -webkit-animation: fadein 6s;
+    display: flex; 
+    justify-content: center;
+    margin-top: 5%;
+}
+
+/* End of Landing Page css */
+
 
 form {
     background-color: #dbd5d5;
@@ -81,3 +111,4 @@ li a:hover {
     text-decoration: underline;
     color: black;
 }
+

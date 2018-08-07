@@ -29,7 +29,7 @@ class AddRoomForm extends React.Component{
                     type="number"
                     // className={classes.textField}
                     margin="normal"
-                    value={this.props.metric.one}
+                    value={this.props.metrics.one}
                     onChange={this.props.handleChangeFor}
                 />
                 <TextField
@@ -38,7 +38,7 @@ class AddRoomForm extends React.Component{
                     type="number"
                     // className={classes.textField}
                     margin="normal"
-                    value={this.props.metric.two}
+                    value={this.props.metrics.two}
                     onChange={this.props.handleChangeFor}
                 />
                 <TextField
@@ -47,7 +47,7 @@ class AddRoomForm extends React.Component{
                     type="number"
                     // className={classes.textField}
                     margin="normal"
-                    value={this.props.metric.three}
+                    value={this.props.metrics.three}
                     onChange={this.props.handleChangeFor}
                 />
                 <TextField
@@ -56,7 +56,7 @@ class AddRoomForm extends React.Component{
                     type="number"
                     // className={classes.textField}
                     margin="normal"
-                    value={this.props.metric.four}
+                    value={this.props.metrics.four}
                     onChange={this.props.handleChangeFor}
                 />
                 <TextField
@@ -65,7 +65,7 @@ class AddRoomForm extends React.Component{
                     type="number"
                     // className={classes.textField}
                     margin="normal"
-                    value={this.props.metric.five}
+                    value={this.props.metrics.five}
                     onChange={this.props.handleChangeFor}
                 />
                 <LocationSelectionMenu locations={this.props.locations} handleChangeFor={this.props.handleChangeFor} anchor={this.props.anchor} />

@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { triggerLogout } from '../../redux/actions/loginActions';
-import { Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 
-import { USER_ACTIONS } from '../../redux/actions/userActions';
+import { TableRow, Button, TableCell } from '@material-ui/core';
+import RoomInfoModal from '../../RoomInfoModal/RoomInfoModal';
 
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import TextField from '@material-ui/core/TextField';
-import RoomInfoModal from '../../components/RoomInfoModal/RoomInfoModal';
+import { REQUEST_ACTIONS } from '../../../redux/actions/requestActions';
 
 
 const mapStateToProps = state => ({
@@ -17,7 +12,25 @@ const mapStateToProps = state => ({
 });
 class CommercialTableRow extends Component {
 
+  closeRequest = (id) => {
+    this.props.dispatch({type: REQUEST_ACTIONS.CLOSE, payload: id})
+  }
+  updateRequest = (id) => {
+    this.props.dispatch({type: REQUEST_ACTIONS.UPDATE, payload: id})
+  }
+
   render() {
+    let status = null;
+    let scheduled = null;
+
+    if(this.props.rowData.request_info.status === 0){
+      status = (<Button onClick={this.updateRequest}>Mark Scheduled</Button>)
+      scheduled = ('Unscheduled')
+    } else if (this.props.rowData.request_info.status === 1) {
+      status = (<Button onClick={this.closeRequest}>Close Event</Button>)
+      scheduled = ('Scheduled')
+    }
+
     return (
       <TableRow>
           {/* <pre>{JSON.stringify(this.props.rowData.room_info)}</pre> */}
@@ -27,7 +40,8 @@ class CommercialTableRow extends Component {
           <TableCell>{ this.props.rowData.request_info.location_type }</TableCell>
           <TableCell><RoomInfoModal roomInfo={this.props.rowData.room_info.rooms} /></TableCell>
           <TableCell>{ this.props.rowData.request_info.start_time } { this.props.rowData.request_info.end_time }</TableCell>
-          <TableCell>{ this.props.rowData.request_info.status }</TableCell>
+          <TableCell>{ scheduled }</TableCell>
+          <TableCell>{ status }</TableCell>
       </TableRow>
     );
   }
