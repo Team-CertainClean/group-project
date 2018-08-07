@@ -51,8 +51,8 @@ router.delete('/:id', (req, res)=>{
 
 router.put('/:id', (req, res)=>{
     const room = req.body;
-    const queryText = 'update room set room_name = $1, location_type_id = $2, duration_metric = $3 where id = $4;';
-    pool.query(queryText, [room.room_name, room.location_type_id, room.duration_metric, req.params.id])
+    const queryText = 'update room set room_name = $1, location_type_id = $2, cleanliness_one_metric = $3, cleanliness_two_metric = $4, cleanliness_three_metric = $5, cleanliness_four_metric = $6, cleanliness_five_metric = $7 where id = $8;';
+    pool.query(queryText, [room.room_name, room.location_type_id, room.cleanliness_one_metric, room.cleanliness_two_metric, room.cleanliness_three_metric, room.cleanliness_four_metric, room.cleanliness_five_metric, req.params.id])
         .then(result => res.sendStatus(200))
         .catch(error=>{
             console.log('Error handling PUT for /api/room: ', error);
