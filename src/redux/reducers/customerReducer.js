@@ -1,12 +1,13 @@
 // import { combineReducers } from 'redux';
 import { CUSTOMER_ACTIONS } from '../actions/customerActions';
 
-const customer = (state = {}, action) => {
+const customer = (state = {contact: null, rooms: [], appt: {}, location: null, duration: 0}, action) => {
+    console.log(action.payload);
     switch (action.type) {
         case CUSTOMER_ACTIONS.CONTACT:
             return {...state, contact: action.payload};
         case CUSTOMER_ACTIONS.ROOMS:
-            return {...state, rooms: [...action.payload]};
+            return {...state, rooms: [...state.rooms, action.payload]};
         case CUSTOMER_ACTIONS.APPT:
             return {...state, appt: action.payload};
         case CUSTOMER_ACTIONS.LOCATION:

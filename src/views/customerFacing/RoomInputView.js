@@ -4,12 +4,11 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Rating from 'react-rating';
+import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 //Components
 import RoomComponent from '../../components/RoomComponent/RoomComponent';
-import Nav from '../../components/Nav/Nav';
 import Stepper from '../../components/Stepper/Stepper';
 
-import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { ROOM_ACTIONS } from '../../redux/actions/roomActions';
 
 // //Material UI
@@ -22,7 +21,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 const mapStateToProps = (state) => ({
-  rooms: state.rooms.roomOptions
+  rooms: state.rooms.roomOptions,
+  selectedRooms: state.customer.rooms
 });
 
 const styles = (theme) => ({
@@ -68,9 +68,6 @@ const styles = (theme) => ({
     marginTop: '30px',
   }
 });
-function rand() {
-	return Math.round(Math.random() * 20) - 10;
-}
 
 function getModalStyle() {
 	const top = 50;
@@ -91,8 +88,9 @@ class RoomInputView extends Component {
 			room: {
 				room_id: '',
 				room_name: '',
-				cleanliness_score: ''
-			}
+				cleanliness_score: 3
+			},
+			roomName: ''
 		};
 	}
 
@@ -105,37 +103,31 @@ class RoomInputView extends Component {
 	};
 
 	componentDidMount() {
-    console.log(this.props.rooms);
     this.props.dispatch({ type: ROOM_ACTIONS.FETCH });
 	} // end componentDidMount
 
 
 	handleChange = (event) => {
-		console.log(`in handleChange`);
-		// this.setState({
-		// 	contact: {
-		// 		...this.state.contact,
-		// 		[contactInfo]: event.target.value,
-		// 		// username: this.props.user.userName
-		// 		cleaning_type: event.target.value
-		// 	}
-		// });
-	// console.log(this.state.contact);
-	console.log(event.target.value);
-    this.setState({room: {...this.state.room, room_id: event.target.value.id, room_name: event.target.value.room_name} });
+   		this.setState({room: {...this.state.room, room_id: event.target.value.id, room_name: event.target.value.room_name}, roomName: event.target.value.room_name });
 	}; // end handle change
 
-	submitContactInfo = (event) => {
-		console.log(`in submitContactInfo`);
-		event.preventDefault();
-		this.props.dispatch({ type: ROOM_ACTIONS.POST_ROOM, payload: this.state.contact });
-	}; // end submitContactInfo
+	setScore = (rate) => {
+		this.setState({room: {...this.state.room, cleanliness_score: rate}});
+	}
+
+	addRoomToReducer = () => {
+		this.props.dispatch({type: CUSTOMER_ACTIONS.ROOMS, payload: this.state.room});
+		this.handleClose();
+		this.clearState();
+	}
+
+	clearState = () => {
+		this.setState({room: {room_id: '', room_name: '', cleanliness_score: 3}, roomName: ''});
+	}
 
 	render() {
 		let content = null;
-		const { classes } = this.props;
-		console.log(this.state.room);
-		 
+		const { classes } = this.props;		 
 			content = (
 				<center>
 					<Stepper activeStep={0}/>
@@ -159,13 +151,13 @@ class RoomInputView extends Component {
 
                   <FormControl className={classes.formControl}>
           <Select
-            value={this.state.room.room_name}
             onChange={this.handleChange}
             className={classes.roomDropDown}
+            value={this.state.roomName}
           >
-            {/* <MenuItem value="" disabled>
-              ROOM
-            </MenuItem> */}
+            <MenuItem value={this.state.roomName} disabled>
+              {this.state.roomName}
+            </MenuItem>
           {this.props.rooms.map(room =>
                         <MenuItem key={room.id} value={room}>{room.room_name}</MenuItem>
                     )};
@@ -175,14 +167,14 @@ class RoomInputView extends Component {
 
 								<Rating
 									className={classes.circlesModal}
-									onChange={(rate) => alert(rate)}
-									initialRating={this.state.value}
+									onChange={(rate) => this.setScore(rate)}
+									initialRating={this.state.room.cleanliness_score}
 									placeholderRating={3.0}
 									emptySymbol={<img src="/RatingIconGrey.png" className={classes.iconModal} />}
 									placeholderSymbol={<img src="/RatingIconOrange.png" className={classes.iconModal} />}
 									fullSymbol={<img src="/RatingIconOrange.png" className={classes.iconModal} />}
 								/>
-                <center><Button >Add room</Button><Button>Close</Button></center>
+                <center><Button onClick={this.addRoomToReducer}>Add room</Button><Button onClick={this.handleClose}>Close</Button></center>
 							</div>
 						</Modal>
 					</div>
