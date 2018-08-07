@@ -9,6 +9,7 @@ import RoomInfo from '../../components/RoomInfo/RoomInfo';
 import TimeFinish from '../../components/TimeFinish/TimeFinish';
 import ApptCalendar from '../../components/ApptCalendar/ApptCalendar';
 import Stepper from '../../components/Stepper/Stepper';
+import Button from '@material-ui/core/Button';
 
 const mapStateToProps = state => ({
     user: state.user,
@@ -38,6 +39,7 @@ class ApptTimeSelectView extends Component {
                 {/* <RoomInfo className={classes.room} /> */}
                 <TimeFinish className={classes.time} />
                 <ApptCalendar className={classes.calendar} />
+                <Button onClick={() => this.props.history.push('contact')}>Next</Button>
             </div>
         );
     }

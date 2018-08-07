@@ -185,7 +185,11 @@ class RoomInputView extends Component {
 							</div>
 						</Modal>
 					</div>
-          
+					<div>
+						<Button onClick={() => this.props.history.push('schedule')}>
+							Next
+						</Button>
+					</div>
 				</center>
 			);
 		
