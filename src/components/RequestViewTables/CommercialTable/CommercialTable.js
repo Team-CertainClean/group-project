@@ -4,17 +4,11 @@ import { connect } from 'react-redux';
 
 // Material UI Imports
 import Typography from '@material-ui/core/Typography';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
+import { Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core';
+import { Icon, IconButton } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-// import Select from '@material-ui/core/Select';
-// import MenuItem from '@material-ui/core/MenuItem';
-// import Button from '@material-ui/core/Button';
+import { Card, CardContent } from '@material-ui/core';
+
 
 // Component Imports 
 import CommercialTableRow from './CommercialTableRow';
@@ -77,40 +71,6 @@ class CommercialTable extends React.Component{
         }
     }
 
-    // submitRoom = () => {
-    //     this.props.dispatch({type: ROOM_ACTIONS.POST, payload: this.state.roomInfo});
-    //     this.clearInputs();
-    // }
-
-    // removeRoom = (id) => {
-    //     this.props.dispatch({type: ROOM_ACTIONS.REMOVE, payload: id});
-    // }
-
-    // clearInputs = () => {
-    //     this.setState({roomInfo: {room_name: '', location_type_id: 0, cleanliness_metrics: {one: null, two: null, three: null, four: null, five: null}}});
-    // }
-
-    // handleChangeFor = event => {
-    //     return new Promise((resolve, reject)=>{
-    //         try{
-    //             switch(event.target.id){
-    //                 case 'one':
-    //                 case 'two':
-    //                 case 'three':
-    //                 case 'four':
-    //                 case 'five':
-    //                     this.setState({roomInfo: {...this.state.roomInfo, cleanliness_metrics: {...this.state.roomInfo.cleanliness_metrics, [event.target.id]: event.target.value}}, anchor: null});
-    //                     break;
-    //                 default:
-    //                     this.setState({roomInfo: {...this.state.roomInfo, [event.target.id]: event.target.value}});
-    //                     break;
-    //                 }
-    //             resolve();
-    //         }catch(error){
-    //             reject();
-    //         }
-    //     });
-    // }
 
     // filterRooms = (filter) => {
     //     switch(filter){
@@ -209,13 +169,13 @@ class CommercialTable extends React.Component{
                                 <Table className={classes.table}>
                                     <TableHead className={classes.tableHeader}>
                                         <TableRow>
-                                            <TableCell>Request ID</TableCell>
+                                            <TableCell>Request ID<IconButton onClick={() => this.sortRooms('id')}><Icon>sort</Icon></IconButton></TableCell>
                                             <TableCell>Customer Name</TableCell>
                                             <TableCell>Customer Email</TableCell>
                                             <TableCell>Cleaning Type</TableCell>
                                             <TableCell>Room</TableCell>
                                             <TableCell>Requested Time</TableCell>
-                                            <TableCell>Status</TableCell>
+                                            <TableCell>Status<IconButton onClick={() => this.sortRooms('id')}><Icon>sort</Icon></IconButton></TableCell>
                                             <TableCell></TableCell>
                                         </TableRow>
                                     </TableHead>
