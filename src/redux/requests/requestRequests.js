@@ -19,7 +19,7 @@ export function closeRequest(payload){
 }
 
 export function postRequest(payload){
-    return axios.post('/api/historical', payload)
+    return axios.post('/api/request/historical', payload)
         .then(response => response)
         .catch(error=>{
             alert("Failed to post to historical_contact_data");
