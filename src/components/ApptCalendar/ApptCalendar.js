@@ -7,14 +7,14 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { USER_ACTIONS } from '../../redux/actions/userActions';
-import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
+// import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
+import { AVAILABILITY_ACTIONS } from '../../redux/actions/availabilityActions';
 
 Calendar.setLocalizer(Calendar.momentLocalizer(moment));
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 const mapStateToProps = state => ({
-    user: state.user,
+    availabilityEvents: state.availability
 });
 
 class ApptCalendar extends Component {
@@ -27,11 +27,29 @@ class ApptCalendar extends Component {
                 end: null,
                 },
             ],
+            newEvent: {
+                start: null,
+                end: null,
+            }
         }
-    } 
+    }
 
     componentDidMount() {
-        this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+        this.props.dispatch({ type: AVAILABILITY_ACTIONS.FETCH });
+    }
+
+    componentDidUpdate(prevProps) {
+        console.log('this.props.availabilityEvents', this.props.availabilityEvents);
+        if(this.props.availabilityEvents !== prevProps.availabilityEvents) {
+            let eventsArr = [];
+            for (let event of this.props.availabilityEvents){
+                eventsArr.push({ start: new Date(event.start), end: new Date(event.end) })
+            }
+            this.setState({
+                events: [...eventsArr],
+            });
+        }
+        console.log('this.state.events = ', this.state.events);
     }
 
     moveEvent = ({ event, start, end }) => {
@@ -79,19 +97,19 @@ class ApptCalendar extends Component {
     onSelect = (slotInfo) => {
         console.log('slotInfo:', slotInfo);
         this.setState({
-            events: [...this.state.events, {start: new Date(slotInfo.start), end: new Date(slotInfo.end)}],
+            newEvent: {start: new Date(slotInfo.start), end: new Date(slotInfo.end)},
         });
-        console.log('this.state=', this.state);
         this.dispatchAppt();
         return true;
     }
 
     dispatchAppt() {
-        this.props.dispatch({ type: CUSTOMER_ACTIONS.APPT, payload: this.state.events });
+        this.props.dispatch({ type: AVAILABILITY_ACTIONS.POST, payload: this.state.newEvent });
     }
 
     render() {
         // const { classes } = this.props;
+        console.log(this.state);
         return (
             <div>
                 <DragAndDropCalendar 
