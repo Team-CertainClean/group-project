@@ -10,7 +10,8 @@ export function fetchRequestData(){
 }
 
 export function closeRequest(payload){
-    return axios.delete(`/api/request/${payload}`)
+    console.log(`this is requestRouter payload`, payload)
+    return axios.delete(`/api/request/${payload.request_info.request_id}`, payload.request_info.request_id)
         .then(response => response)
         .catch(error =>{
             alert("Failed to remove request");
@@ -31,7 +32,7 @@ export function updateRequest(payload){
     return axios.put(`/api/room/${payload.id}`, payload)
         .then(response => response)
         .catch(error =>{
-            alert("Failed to edit room");
+            alert("Failed to edit request");
             throw error.response || error;
         });
 }
