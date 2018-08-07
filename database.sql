@@ -32,7 +32,8 @@ insert into Location_Type("location_type") values ('Residential'), ('Commercial'
 -- Storage of Request information.  start_time and end_time represent the requested start and end time for cleaning.
 -- "status" is an integer, either 0, 1, or 2.  0 = unscheduled, 1 = scheduled, 2 = closed.
 create table Request(
-    id serial primary key,
+
+    id serial primary key ON DELETE CASCADE,
 	cleaning_type_id int references Cleaning_Type,
 	location_type_id int references Location_Type not null,
     "start" timestamp with time zone,

@@ -15,7 +15,6 @@ function* fetch(){
 function* close(action){
     console.log(`close function reqSaga`, action.payload)
     try{
-        
         yield put({type: REQUEST_ACTIONS.POST, payload: action.payload})
         yield closeRequest(action.payload);
         yield put({type: REQUEST_ACTIONS.FETCH});
