@@ -90,7 +90,7 @@ class ContactInfoView extends Component {
         console.log(`in submitContactInfo`)
         event.preventDefault();
         await this.props.dispatch({ type: CUSTOMER_ACTIONS.CONTACT,  payload: this.state.contact});
-        await alert('Success!');
+        await this.props.dispatch({type: CUSTOMER_ACTIONS.POST});
         this.props.history.push('home');
     }// end submitContactInfo
 
