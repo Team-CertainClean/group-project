@@ -122,7 +122,7 @@ class EditableTableRow extends React.Component{
                         </IconButton>
                     </TableCell>
                     <TableCell>
-                        <IconButton onClick={() => {this.props.remove(this.state.content['id'])}}>
+                        <IconButton onClick={() => {this.props.remove(this.props.rowData['id'])}}>
                             <Icon>delete_outline</Icon>
                         </IconButton>
                     </TableCell>
