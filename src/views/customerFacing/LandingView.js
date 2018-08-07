@@ -29,7 +29,7 @@ const styles = {
         backgroundColor: '#ef8902',
         '&:hover':{
             color: '#ef8902',
-            backgroundColor: 'white',
+            backgroundColor: '#C2C2C2',
             borderRadius: '60px',
 
         }
@@ -61,10 +61,19 @@ const styles = {
         borderRadius: '60px',
         display: 'flex', 
         fontSize: 48,
-        backgroundColor: '#ef8902'
+        backgroundColor: '#ef8902',
+        marginTop: '10%',
+        padding: '2.5%',
+        paddingLeft: '4%',
+        paddingRight: '4%',
+        fontSize: 48,
+        color: 'white !important'
+        
     },
     getStartedLink: {
-        textDecorationLine: 'none'
+        color: 'white !important',
+        textDecorationLine: 'none',
+       
     },
     typeOfProperty: {
         alignItems: 'center', 
@@ -133,7 +142,7 @@ class CustomerLandingView extends React.Component{
             );
             locationTypeContent = (
                 <Typography className={classes.locationTypeContent}>
-                    Choose Residential or Commercial
+                    Please choose type of your property.
                 </Typography>
             );
             locationTypeChoices = (
@@ -149,6 +158,7 @@ class CustomerLandingView extends React.Component{
             locationTypeContent = (
                 <Typography className={classes.locationTypeContent}>
                     What to expect: You'll fill out our estimator to receive an estimated duration your cleaning will take and then we'll contact you when we've confirmed.
+                    <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
                 </Typography>
             );
             locationTypeChoices = (
@@ -164,6 +174,7 @@ class CustomerLandingView extends React.Component{
             locationTypeContent = (
                 <Typography className={classes.locationTypeContent}>
                     What to expect: You'll be navigated to our contact form, and then we will get in touch to discuss the cleaning in further detail.
+                    <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
                 </Typography>
             );
             locationTypeChoices = (
@@ -208,7 +219,7 @@ class CustomerLandingView extends React.Component{
                 
                 <div className={classes.typeOfPropertyContent}>
                                 {locationTypeContent}
-                                <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
+                              
                 </div>
                       
                 </center>
