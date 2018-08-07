@@ -36,13 +36,11 @@ class RoomControlTable extends React.Component{
             roomInfo: {
                 room_name: '',
                 location_type_id: 0,
-                cleanliness_metrics: {
-                    one: null,
-                    two: null,
-                    three: null,
-                    four: null,
-                    five: null
-                }
+                cleanliness_one_metric: null,
+                cleanliness_two_metric: null,
+                cleanliness_three_metric: null,
+                cleanliness_four_metric: null,
+                cleanliness_five_metric: null,
             },
             anchor: null,
             rooms: [],
@@ -105,12 +103,12 @@ class RoomControlTable extends React.Component{
         return new Promise((resolve, reject)=>{
             try{
                 switch(event.target.id){
-                    case 'one':
-                    case 'two':
-                    case 'three':
-                    case 'four':
-                    case 'five':
-                        this.setState({roomInfo: {...this.state.roomInfo, cleanliness_metrics: {...this.state.roomInfo.cleanliness_metrics, [event.target.id]: event.target.value}}, anchor: null});
+                    case 'clealiness_one_metric':
+                    case 'clealiness_two_metric':
+                    case 'clealiness_three_metric':
+                    case 'clealiness_four_metric':
+                    case 'clealiness_five_metric':
+                        this.setState({roomInfo: {...this.state.roomInfo, [event.target.id]: event.target.value, anchor: null}});
                         break;
                     default:
                         this.setState({roomInfo: {...this.state.roomInfo, [event.target.id]: event.target.value}});
@@ -277,17 +275,20 @@ class RoomControlTable extends React.Component{
                     <TableBody>
                         {this.state.rooms.map(room => {
                             return(
-                                <EditableTableRow rowData={room} remove={this.removeRoom} actions={ROOM_ACTIONS}/>
+                                <EditableTableRow rowData={room} remove={this.removeRoom} actions={ROOM_ACTIONS} handleChangeFor={this.handleChangeFor}/>
                             );
                         })}
                     </TableBody>
                 </Table>
             );
         }
+
+        const metrics = {one: this.state.cleanliness_one_metric, two: this.state.cleanliness_two_metric, three: this.state.cleanliness_three_metric, four: this.state.cleanliness_four_metric, five: this.state.cleanliness_five_metric}
+
         return(
             <div className={classes.estimatorControlComponent}>
                 <Typography variant="title">Add Rooms</Typography>
-                <AddRoomForm handleChangeFor={this.handleChangeFor} submitRoom={this.submitRoom} room={this.state.roomInfo.room_name} metric={this.state.roomInfo.cleanliness_metrics} anchor={this.state.anchor} locations={this.props.locations}/>
+                <AddRoomForm handleChangeFor={this.handleChangeFor} submitRoom={this.submitRoom} room={this.state.roomInfo.room_name} metrics={metrics} anchor={this.state.anchor} locations={this.props.locations}/>
                 <Card className={classes.tableCard}>
                     <CardContent>
                         {table}
