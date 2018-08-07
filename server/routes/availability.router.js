@@ -5,9 +5,8 @@ const pool = require('../modules/pool');
 router.post('/', (req, res)=>{
     console.log('in POST of availabilityRouter');
     const availability = req.body;
-    availability.shift();
-    const queryText = 'insert into availability ("start_time", "end_time") values ($1, $2);'; // Stretch, insert a media_key as well from AWS for accessing photos
-    pool.query(queryText, [availability[0].start, availability[0].end])
+    const queryText = 'insert into availability (start, "end") values ($1, $2);'; // Stretch, insert a media_key as well from AWS for accessing photos
+    pool.query(queryText, [availability.start, availability.end])
         .then(result => res.sendStatus(201))
         .catch(error=>{
             console.log('Error handling POST for /api/availability: ', error);
@@ -16,7 +15,7 @@ router.post('/', (req, res)=>{
 });
 
 router.get('/', (req, res)=>{
-    const queryText = 'select id, start_time, end_time from availability;';
+    const queryText = 'select id, start, "end" from availability;';
     pool.query(queryText)
         .then(result => res.send(result.rows))
         .catch(error => {
@@ -36,7 +35,7 @@ router.delete('/:id', (req, res)=>{
 
 router.put('/:id', (req, res)=>{
     const availability = req.body;
-    const queryText = 'update availability set start_time = $1, end_time = $2 where id = $3;';
+    const queryText = 'update availability set start = $1, "end" = $2 where id = $3;';
     pool.query(queryText, [availability.start_time, availability.end_time, req.params.id])
         .then(result => res.sendStatus(200))
         .catch(error=>{
