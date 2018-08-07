@@ -27,9 +27,7 @@ router.get('/requestTable', async (req, res) => {
 router.post('/', (req, res) => {
     // Module that performs SQL transaction to post customer provided information into the DB
     requestTransaction(req.body)
-        .then(result => {
-            console.log("body after resolve: ", result);
-            res.sendStatus(201)})
+        .then(result => res.sendStatus(201))
         .catch(error=>console.log('Error handling POST for /api/request ', error));
 });
 

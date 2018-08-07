@@ -44,7 +44,7 @@ This is the example provided by Mary for how to do these large queries.
 */
 function getRequestData(){
     // See explanation in above multi-line comments
-    return new Promise((resolve, reject)=>{
+    return new Promise(async (resolve, reject)=>{
         try{
             const queryText = `
             SELECT
@@ -55,9 +55,10 @@ function getRequestData(){
             JOIN request on request.id = request_room_junction.request_id
             JOIN room on room.id = request_room_junction.room_id
             JOIN contact on contact.request_id = request_room_junction.request_id
-            JOIN cleaning_type on cleaning_type.id = request.cleaning_type_id
-            GROUP BY request_room_junction.request_id, request.id, contact.id, cleaning_type.cleaning_type;`;
-            const result = pool.query(queryText).then(result => {return result.rows});
+            JOIN cleaning_type ON cleaning_type.id = request.cleaning_type_id
+            GROUP BY request_room_junction.request_id, request.id, contact.id, cleaning_type;`;
+            const result = await pool.query(queryText).then(result => {console.log(result.rows); return result.rows});
+            console.log(`result.rows`, result)
             resolve(result);
         }catch(error){
             console.log('Error in getRequestData: ', error);
