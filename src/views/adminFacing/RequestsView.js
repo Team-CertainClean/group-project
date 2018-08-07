@@ -18,8 +18,11 @@ import {connect} from 'react-redux';
 import { compose } from 'redux';
 import Nav from '../../components/Nav/Nav';
 import { REQUEST_ACTIONS } from '../../redux/actions/requestActions';
-import ResidentialTableRow from '../../components/ResidentialTableRow/ResidentialTableRow';
-import CommercialTableRow from '../../components/CommercialTableRow/CommercialTableRow';
+// import ResidentialTableRow from '../../components/ResidentialTableRow/ResidentialTableRow';
+// import CommercialTableRow from '../../components/CommercialTableRow/CommercialTableRow';
+import CommercialTable from '../../components/RequestViewTables/CommercialTable/CommercialTable';
+import ResidentialTable from '../../components/RequestViewTables/ResidentialTable/ResidentialTable';
+import MenuBar from '../../components/MenuBar/MenuBar';
 
 
 const styles = theme => ({
@@ -29,12 +32,36 @@ const styles = theme => ({
       title: {
           marginTop: '50px',
 
-      }
+      },
+      tableCard: {
+        width: '90%',
+        margin: 'auto',
+        marginTop: 25
+    },
+    estimatorControlComponent: {
+        textAlign: 'center',
+        padding: 15,
+        paddingBottom: 0
+    },
+    tableHeader: {
+        backgroundColor: 'rgba(77, 71, 66)',
+        '& *': {
+            color: 'white'
+        }
+    },
+    row: {
+        '&:nth-of-type(even)': {
+            backgroundColor: 'rgba(160, 156, 153)'
+        },
+        '&:nth-of-type(odd)': {
+            backgroundColor: 'rgba(255, 255, 255, 1)'
+        }
+    }
 });
 
 const mapStateToProps = state => ({
   user: state.user,
-  request: state.request,
+  requests: state.request,
 
 });
 
@@ -42,116 +69,123 @@ class RequestsView extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            main: 'residential',
+            filter: '',
+            requests: [],
+            // residential: [],
+            // commercial: [],
+            sort: false,
+            selectedTable: 0
         }
     }
-    
+
     componentDidMount() {
         this.props.dispatch({ type: REQUEST_ACTIONS.FETCH });
-      }
-
-    toggleRes = () => {
-        this.setState({
-            main: 'residential'
-        })
     }
+    
+    // idAscendingSort(a, b){
+    //     console.log('Ascending');
+    //     console.log('A: ', a);
+    //     console.log('B: ', b);
+    //     return Number(a.id) - Number(b.id);
+    // }
 
-    toggleCom = () => {
-        this.setState({
-            main: 'commercial'
-        })
+    // idDescendingSort(a, b){
+    //     console.log('Descending');
+    //     return Number(b.id) - Number(a.id);
+    // }
+
+    // componentWillReceiveProps(nextProps){
+    //     console.log(nextProps);
+    //     if(nextProps.request){
+    //         this.setState({requests: [...nextProps.request]});
+    //     }
+    // }
+
+    // alphabeticalSort(){
+    //     let requestNames = this.props.requests.map(request => request.room_name);
+    //     let sortedByName = requestNames.sort();
+    //     for(let room of this.props.requests){
+    //         let sortedIndex = sortedByName.indexOf(room.room_name);
+    //         sortedByName[sortedIndex] = room;
+    //     }
+    //     console.log('Alphabetical sort: ', sortedByName);
+    //     return sortedByName;
+    // }
+
+    // reverseAlphabeticalSort(){
+    //     let requestNames = this.props.requests.map(room => room.room_name).sort();
+    //     let reverseSortedByName = [];
+    //     for(let name of requestNames){
+    //         reverseSortedByName.unshift(name);
+    //     }
+    //     for(let room of this.props.rooms){
+    //         let sortedIndex = reverseSortedByName.indexOf(room.room_name);
+    //         reverseSortedByName[sortedIndex] = room;
+    //     }
+    //     return reverseSortedByName;
+    // }
+
+    // sortRooms = (sort) => {
+    //     console.log(sort);
+    //     switch(sort){
+    //         case 'id':
+    //             console.log(this.state);
+    //             this.state.sort ? this.setState({requests: [...this.props.request.sort(this.idAscendingSort)], sort: !this.state.sort}) : this.setState({rooms: [...this.props.request.sort(this.idDescendingSort)], sort: !this.state.sort});
+    //             break;
+    //         // case 'name':
+    //         //     this.state.sort ? this.setState({requests: [...this.alphabeticalSort()], sort: !this.state.sort}) : this.setState({requests: [...this.reverseAlphabeticalSort()], sort: !this.state.sort});
+    //         //     break;
+    //         // case 'email':
+    //         //     this.state.sort ? this.setState({requests: [...this.alphabeticalSort()], sort: !this.state.sort}) : this.setState({requests: [...this.reverseAlphabeticalSort()], sort: !this.state.sort});
+    //         //     break;
+    //         case 'serviceType':
+    //             this.state.sort ? this.setState({requests: [...this.alphabeticalSort()], sort: !this.state.sort}) : this.setState({requests: [...this.reverseAlphabeticalSort()], sort: !this.state.sort});
+    //             break;
+    //         case 'status':
+    //             this.state.sort ? this.setState({requests: [...this.alphabeticalSort()], sort: !this.state.sort}) : this.setState({requests: [...this.reverseAlphabeticalSort()], sort: !this.state.sort});
+    //             break;
+    //         default:
+    //             this.setState({requests: [...this.props.rooms]});
+    //     }
+    // }
+
+
+    selectOption = (index) => {
+        this.setState({selectedTable: index});
     }
 
     render(){
-        let mainTable = null;
-        let buttons = null;
+        let menuBar = null;
+        let table = null;
+        const menuOptions=["Residential", "Commercial"];
         const { classes } = this.props;
-    
+        
         if (this.props.user.userName) {
-                buttons = (
-                    <div>
-                        <Button onClick={ this.toggleRes } className={classes.button}>Residential</Button>
-                        <Button onClick={ this.toggleCom } className={classes.button}>Commercial</Button>
-                    </div>
-                );
+            menuBar = (
+                <MenuBar menuOptions={menuOptions} selectOption={this.selectOption} />
+            )
 
-                if (this.state.main === 'residential'){
-                mainTable = (
-                    <div>
-                        <Typography variant="display2" className={classes.title}>Residential Things on this page</Typography>
-                        <Card >
-                            <CardContent>
-                            <Table className={classes.table}>
-                                <TableHead className={classes.tableHeader}>
-                                    <TableRow>
-                                        <TableCell>Request ID</TableCell>
-                                        <TableCell>Customer</TableCell>
-                                        <TableCell>Customer Email</TableCell>
-                                        <TableCell>Web Estimate</TableCell>
-                                        <TableCell>Service Type</TableCell>
-                                        <TableCell>Room</TableCell>
-                                        <TableCell>Requested Time</TableCell>
-                                        <TableCell>Status</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {this.props.request.map((request, i) => {
-                                        return(
-                                            <ResidentialTableRow key={i} rowData={request} />
-                                        );
-                                    })}
-                                </TableBody>
-                            </Table>
-                            </CardContent>
-                        </Card>
-                        <div></div>
-                    </div>
-                );
-            } else {
-                mainTable = (
-                    <div>
-                        <div>
-                            <Typography variant="display2" className={classes.title}>Commercial Things on this page</Typography>
-                            <Card>
-                                <CardContent>
-                                    <Table className={classes.table}>
-                                        <TableHead className={classes.tableHeader}>
-                                            <TableRow>
-                                                <TableCell>Request ID</TableCell>
-                                                <TableCell>Customer Name</TableCell>
-                                                <TableCell>Customer Email</TableCell>
-                                                <TableCell>Service Type</TableCell>
-                                                <TableCell>Room</TableCell>
-                                                <TableCell>Requested Time</TableCell>
-                                                <TableCell>Status</TableCell>
-                                                <TableCell></TableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            {this.props.request.map((request, i) => {
-                                                return(
-                                                    <CommercialTableRow key={i} rowData={request} />
-                                                );
-                                            })}
-                                        </TableBody>
-                                    </Table>
-                                </CardContent>
-                            </Card>
-                        </div>
-                        <div></div>
-                    </div>
-                )
-            }// end of residential/commercial table
+            let residential = this.props.requests.filter(request => request.request_info.location_type === 1)
+            let commercial = this.props.requests.filter(request => request.request_info.location_type === 2)
+
+            // determine which table to render based on menuBar click
+            if(this.state.selectedTable == 0) {
+                table = <ResidentialTable residential={ residential }/>
+            } 
+            else if(this.state.selectedTable == 1) {
+                table = <CommercialTable commercial={ commercial } />
+            }
         }
     
         return(
             <div style={{'width': '100vw', 'position': 'relative', 'left': -8}}>
                 <Nav history={this.props.history} />
                 <div>
-                    { mainTable }
+                    { menuBar }
                 </div>
+                <br />
                 <div>
-                    { buttons }
+                    { table }
                 </div>
             </div>
         );
