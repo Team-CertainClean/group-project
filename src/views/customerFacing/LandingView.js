@@ -19,31 +19,90 @@ const styles = {
     fontSize: 14,
     lineHeight: '10px',
     color: 'white',
-    display: 'flex', 
     alignItems: 'center', 
     justifyContent: 'center',
-
-    selectedLocationType: {
+    bookNow:{
+        padding: '1%',
+        borderRadius: '60px',
         display: 'flex', 
         color: 'white',
         backgroundColor: '#ef8902',
         '&:hover':{
-            backgroundColor: '#ef8902'
+            color: '#ef8902',
+            backgroundColor: '#C2C2C2',
+            borderRadius: '60px',
+
+        }
+    },
+    selectedLocationType: {
+        margin: '1%',
+        padding: '2.5%',
+        paddingLeft: '4%',
+        paddingRight: '4%',
+       borderRadius: '100px',
+        color: '#ef8902',
+        fontSize: 51,
+        backgroundColor: 'white',
+        '&:hover':{
+            color: '#ef8902',
+            backgroundColor: 'white'
         }
     },
     unselectedLocationType: {
-        backgroundColo: 'grey'
+        margin: '1%',
+        padding: '2.5%',
+        paddingLeft: '4%',
+        paddingRight: '4%',
+        borderRadius: '100px',
+        fontSize: 48,
+        color: 'white',
     },
     getStartedButton: {
+        borderRadius: '60px',
         display: 'flex', 
-        backgroundColor: '#ef8902'
+        fontSize: 48,
+        backgroundColor: '#ef8902',
+        marginTop: '10%',
+        padding: '2.5%',
+        paddingLeft: '4%',
+        paddingRight: '4%',
+        fontSize: 48,
+        color: 'white !important'
+        
     },
     getStartedLink: {
-        textDecorationLine: 'none'
+        color: 'white !important',
+        textDecorationLine: 'none',
+       
     },
-    locationTypeChoices: {
-        color: 'pink'
+    typeOfProperty: {
+        alignItems: 'center', 
+        justifyContent: 'center',
+        marginTop: '10%',
+        width: '80%',
+        height: '20%',
+        
+       
+    },
+    typeOfPropertyContent: {
+        marginTop: '10%',
+        fontSize: 25,
+        color: 'white',
+        width: '80%',
+        height: '40%',
+       
+
+    },
+    center: {
+        overflow:'hidden',
+        width: '100%',
+        height: '80%',
+    },
+    locationTypeContent: {
+        fontSize: 25,
+        color: 'white !important',
     }
+  
 }
 
 
@@ -82,8 +141,8 @@ class CustomerLandingView extends React.Component{
                 <Typography variant="title">Choose a location type</Typography>
             );
             locationTypeContent = (
-                <Typography>
-                    Choose Residential or Commercial
+                <Typography className={classes.locationTypeContent}>
+                    Please choose type of your property.
                 </Typography>
             );
             locationTypeChoices = (
@@ -97,8 +156,9 @@ class CustomerLandingView extends React.Component{
                 <Typography variant="title">Residential</Typography>
             );
             locationTypeContent = (
-                <Typography>
+                <Typography className={classes.locationTypeContent}>
                     What to expect: You'll fill out our estimator to receive an estimated duration your cleaning will take and then we'll contact you when we've confirmed.
+                    <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
                 </Typography>
             );
             locationTypeChoices = (
@@ -112,8 +172,9 @@ class CustomerLandingView extends React.Component{
                 <Typography variant="title">Commercial</Typography>
             );
             locationTypeContent = (
-                <Typography>
+                <Typography className={classes.locationTypeContent}>
                     What to expect: You'll be navigated to our contact form, and then we will get in touch to discuss the cleaning in further detail.
+                    <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
                 </Typography>
             );
             locationTypeChoices = (
@@ -139,9 +200,9 @@ class CustomerLandingView extends React.Component{
                 style={styles}
                 onClick={() => this.refs.parallax.scrollTo(1)}>
                 <center  className='firstFade'>
-                <img src='/LOGO-01.png' width='1000px'></img>
+                <img src='/LOGO-01.png' width='80%'></img>
                 <div className='firstButton'>
-                <Button  className={classes.selectedLocationType} onClick={() => this.refs.parallax.scrollTo(0)}>BOOK NOW</Button>
+                <Button  className={classes.bookNow} onClick={() => this.refs.parallax.scrollTo(1)}>BOOK NOW</Button>
                 </div>
                 </center>
            
@@ -149,24 +210,25 @@ class CustomerLandingView extends React.Component{
 
             <Parallax.Layer
                 offset={1}
-                speed={-0.1}
+                speed={2}
                 style={styles}>
-                <div className='choises'>
-                        {locationTypeChoices}
+                <center className={classes.center}>
+                <div className={classes.typeOfProperty}>
+                       <center> {locationTypeChoices} </center>
                 </div>
                 
-                            
-                                {locationTypeTitle}
+                <div className={classes.typeOfPropertyContent}>
                                 {locationTypeContent}
-                           
-                        <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
-                
+                              
+                </div>
+                      
+                </center>
                     
             </Parallax.Layer>
 
             <Parallax.Layer
                 offset={2}
-                speed={0.5}
+                speed={2}
                 style={styles}
                 onClick={() => this.refs.parallax.scrollTo(0)}>
                 
