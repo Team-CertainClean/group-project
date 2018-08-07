@@ -76,7 +76,6 @@ class ResidentialTable extends React.Component{
     }
 
 
-
     handleChangeFor = event => {
         return new Promise((resolve, reject)=>{
             try{
@@ -86,20 +85,6 @@ class ResidentialTable extends React.Component{
             }
         });
     }
-
-    // filterRooms = (filter) => {
-    //     switch(filter){
-    //         case 'Residential':
-    //             this.setState({rooms: [...this.props.rooms.filter(room => Number(room.location_type_id) === 1)]});
-    //             break;
-    //         case 'Commercial':
-    //             this.setState({rooms: [...this.props.rooms.filter(room => Number(room.location_type_id) === 2)]});
-    //             break;
-    //         default:
-    //             this.setState({rooms: [...this.props.rooms]});
-    //             break;
-    //     }
-    // }
 
     idAscendingSort(a, b){
         console.log('Ascending');
