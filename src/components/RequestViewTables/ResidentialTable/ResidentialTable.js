@@ -6,18 +6,10 @@ import { REQUEST_ACTIONS } from '../../../redux/actions/requestActions';
 
 // Material UI Imports
 import Typography from '@material-ui/core/Typography';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
+import { Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
+import { Icon, IconButton } from '@material-ui/core';
+import { Card, CardContent} from '@material-ui/core';
 
 // Component Imports 
 import ResidentialTableRow from './ResidentialTableRow';
@@ -83,18 +75,7 @@ class ResidentialTable extends React.Component{
         }
     }
 
-    submitRoom = () => {
-        this.props.dispatch({type: ROOM_ACTIONS.POST, payload: this.state.roomInfo});
-        this.clearInputs();
-    }
 
-    removeRoom = (id) => {
-        this.props.dispatch({type: ROOM_ACTIONS.REMOVE, payload: id});
-    }
-
-    clearInputs = () => {
-        this.setState({roomInfo: {room_name: '', location_type_id: 0, cleanliness_metrics: {one: null, two: null, three: null, four: null, five: null}}});
-    }
 
     handleChangeFor = event => {
         return new Promise((resolve, reject)=>{
@@ -120,17 +101,17 @@ class ResidentialTable extends React.Component{
     //     }
     // }
 
-    // idAscendingSort(a, b){
-    //     console.log('Ascending');
-    //     console.log('A: ', a);
-    //     console.log('B: ', b);
-    //     return Number(a.id) - Number(b.id);
-    // }
+    idAscendingSort(a, b){
+        console.log('Ascending');
+        console.log('A: ', a.request_info.request_id);
+        console.log('B: ', b.request_info.request_id);
+        return Number(a.request_id) - Number(b.request_id);
+    }
 
-    // idDescendingSort(a, b){
-    //     console.log('Descending');
-    //     return Number(b.id) - Number(a.id);
-    // }
+    idDescendingSort(a, b){
+        console.log('Descending');
+        return Number(b.request_id) - Number(a.request_id);
+    }
 
     // alphabeticalSort(){
     //     let roomNames = this.props.rooms.map(room => room.room_name);
@@ -166,22 +147,20 @@ class ResidentialTable extends React.Component{
     //     }
     // }
 
-    // sortRooms = (sort) => {
-    //     console.log(sort);
-    //     switch(sort){
-    //         case 'id':
-    //             this.state.sort ? this.setState({rooms: [...this.props.rooms.sort(this.idAscendingSort)], sort: !this.state.sort}) : this.setState({rooms: [...this.props.rooms.sort(this.idDescendingSort)], sort: !this.state.sort});
-    //             break;
-    //         case 'room_name':
-    //             this.state.sort ? this.setState({rooms: [...this.alphabeticalSort()], sort: !this.state.sort}) : this.setState({rooms: [...this.reverseAlphabeticalSort()], sort: !this.state.sort});
-    //             break;
-    //         case 'location_type_id':
-    //             this.state.sort ? this.setState({rooms: [...this.locationSort()], sort: !this.state.sort}) : this.setState({rooms: [...this.locationSort()], sort: !this.state.sort});
-    //             break;
-    //         default:
-    //             this.setState({rooms: [...this.props.rooms]});
-    //     }
-    // }
+    sortRooms = (sort) => {
+        console.log(sort);
+        console.log(`blah`, this.props.requests)
+        switch(sort){
+            case 'id':
+                this.state.sort ? this.setState({requests: [...this.props.requests.sort(this.idAscendingSort)], sort: !this.state.sort}) : this.setState({rrequests: [...this.props.requests.sort(this.idDescendingSort)], sort: !this.state.sort});
+                break;
+            case 'status':
+                this.state.sort ? this.setState({requests: [...this.alphabeticalSort()], sort: !this.state.sort}) : this.setState({requests: [...this.reverseAlphabeticalSort()], sort: !this.state.sort});
+                break;
+            default:
+                this.setState({rooms: [...this.props.rooms]});
+        }
+    }
 
     handleFilter = (event) => {
         this.setState({filter: event.target.value});
@@ -201,14 +180,14 @@ class ResidentialTable extends React.Component{
                         <Table >
                             <TableHead className={classes.tableHeader}>
                                 <TableRow>
-                                    <TableCell className={classes.tableCell}>Request ID</TableCell>
+                                    <TableCell className={classes.tableCell}>Request ID<IconButton onClick={() => this.sortRooms('id')}><Icon>sort</Icon></IconButton></TableCell>
                                     <TableCell>Customer</TableCell>
                                     <TableCell>Customer Email</TableCell>
                                     <TableCell>Web Estimate</TableCell>
                                     <TableCell className={classes.tableCell}>Cleaning Type</TableCell>
                                     <TableCell>Room</TableCell>
                                     <TableCell>Requested Time</TableCell>
-                                    <TableCell>Status</TableCell>
+                                    <TableCell>Status<IconButton onClick={() => this.sortRooms('status')}><Icon>sort</Icon></IconButton></TableCell>
                                     <TableCell></TableCell>
                                 </TableRow>
                             </TableHead>

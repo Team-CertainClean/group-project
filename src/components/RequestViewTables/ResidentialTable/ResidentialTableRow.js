@@ -8,8 +8,11 @@ import { REQUEST_ACTIONS } from '../../../redux/actions/requestActions';
 
 class ResidentialTableRow extends Component {
 
-  closeEvent = (id) => {
+  closeRequest = (id) => {
     this.props.dispatch({type: REQUEST_ACTIONS.CLOSE, payload: id})
+  }
+  updateRequest = (id) => {
+    this.props.dispatch({type: REQUEST_ACTIONS.UPDATE, payload: id})
   }
 
   render() {
@@ -19,10 +22,10 @@ class ResidentialTableRow extends Component {
 
     //creates buttons to mark as scheduled and close/delete event
     if(this.props.rowData.request_info.status === 0){
-      status = (<Button>Mark Scheduled</Button>)
+      status = (<Button onClick={this.updateRequest}>Mark Scheduled</Button>)
       scheduled = ('Unscheduled')
     } else if (this.props.rowData.request_info.status === 1) {
-      status = (<Button onClick={this.closeEvent}>Close Event</Button>)
+      status = (<Button onClick={this.closeRequest}>Close Event</Button>)
       scheduled = ('Scheduled')
     }
 
