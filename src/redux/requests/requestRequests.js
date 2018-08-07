@@ -10,8 +10,8 @@ export function fetchRequestData(){
 }
 
 export function closeRequest(payload){
-    console.log(`this is requestRouter payload`, payload)
-    return axios.delete(`/api/request/${payload.request_info.request_id}`, payload.request_info.request_id)
+    console.log(`this is requestRouter payload`, payload.request_info.request_id)
+    return axios.delete(`/api/request/${payload.request_info.request_id}`)
         .then(response => response)
         .catch(error =>{
             alert("Failed to remove request");
