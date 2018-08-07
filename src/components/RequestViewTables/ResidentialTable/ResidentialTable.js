@@ -215,7 +215,7 @@ class ResidentialTable extends React.Component{
                             <TableBody>
                                 {this.props.residential.map((request, i) => {
                                     return(
-                                        <ResidentialTableRow key={i} rowData={request} />
+                                        <ResidentialTableRow key={i} rowData={request} closeEvent={this.closeEvent} />
                                     );
                                 })}
                             </TableBody>
