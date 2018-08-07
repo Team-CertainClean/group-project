@@ -6,10 +6,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Rating from 'react-rating';
 //Components
 import RoomComponent from '../../components/RoomComponent/RoomComponent';
-import Nav from '../../components/Nav/Nav';
 import Stepper from '../../components/Stepper/Stepper';
 
-import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { ROOM_ACTIONS } from '../../redux/actions/roomActions';
 
 // //Material UI
@@ -68,9 +66,6 @@ const styles = (theme) => ({
     marginTop: '30px',
   }
 });
-function rand() {
-	return Math.round(Math.random() * 20) - 10;
-}
 
 function getModalStyle() {
 	const top = 50;
@@ -92,7 +87,8 @@ class RoomInputView extends Component {
 				room_id: '',
 				room_name: '',
 				cleanliness_score: ''
-			}
+			},
+			roomName: ''
 		};
 	}
 
@@ -105,28 +101,15 @@ class RoomInputView extends Component {
 	};
 
 	componentDidMount() {
-    console.log(this.props.rooms);
     this.props.dispatch({ type: ROOM_ACTIONS.FETCH });
 	} // end componentDidMount
 
 
 	handleChange = (event) => {
-		console.log(`in handleChange`);
-		// this.setState({
-		// 	contact: {
-		// 		...this.state.contact,
-		// 		[contactInfo]: event.target.value,
-		// 		// username: this.props.user.userName
-		// 		cleaning_type: event.target.value
-		// 	}
-		// });
-	// console.log(this.state.contact);
-	console.log(event.target.value);
-    this.setState({room: {...this.state.room, room_id: event.target.value.id, room_name: event.target.value.room_name} });
+   		this.setState({room: { room_id: event.target.value.id, room_name: event.target.value.room_name}, roomName: event.target.value.room_name });
 	}; // end handle change
 
 	submitContactInfo = (event) => {
-		console.log(`in submitContactInfo`);
 		event.preventDefault();
 		this.props.dispatch({ type: ROOM_ACTIONS.POST_ROOM, payload: this.state.contact });
 	}; // end submitContactInfo
@@ -134,7 +117,7 @@ class RoomInputView extends Component {
 	render() {
 		let content = null;
 		const { classes } = this.props;
-		console.log(this.state.room);
+		console.log(this.state);
 		 
 			content = (
 				<center>
@@ -159,13 +142,13 @@ class RoomInputView extends Component {
 
                   <FormControl className={classes.formControl}>
           <Select
-            value={this.state.room.room_name}
             onChange={this.handleChange}
             className={classes.roomDropDown}
+            value={this.state.roomName}
           >
-            {/* <MenuItem value="" disabled>
-              ROOM
-            </MenuItem> */}
+            <MenuItem value={this.state.roomName} disabled>
+              {this.state.roomName}
+            </MenuItem>
           {this.props.rooms.map(room =>
                         <MenuItem key={room.id} value={room}>{room.room_name}</MenuItem>
                     )};
