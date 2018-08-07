@@ -79,10 +79,12 @@ class ContactInfoView extends Component {
         console.log(this.state.contact)
     }// end handle change
 
-    submitContactInfo = (event) => {
+    submitContactInfo = async (event) => {
         console.log(`in submitContactInfo`)
         event.preventDefault();
-        this.props.dispatch({ type: CUSTOMER_ACTIONS.CONTACT,  payload: this.state.contact});
+        await this.props.dispatch({ type: CUSTOMER_ACTIONS.CONTACT,  payload: this.state.contact});
+        await alert('Success!');
+        this.props.history.push('home');
     }// end submitContactInfo
 
   render() {
@@ -157,7 +159,7 @@ class ContactInfoView extends Component {
 
     return (
       <div>
-        <Stepper />
+        <Stepper activeStep={2}/>
         { content }
       </div>
     );
