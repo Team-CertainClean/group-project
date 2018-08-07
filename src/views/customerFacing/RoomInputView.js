@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Rating from 'react-rating';
+import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 //Components
 import RoomComponent from '../../components/RoomComponent/RoomComponent';
 import Stepper from '../../components/Stepper/Stepper';
@@ -20,7 +21,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 const mapStateToProps = (state) => ({
-  rooms: state.rooms.roomOptions
+  rooms: state.rooms.roomOptions,
+  selectedRooms: state.customer.rooms
 });
 
 const styles = (theme) => ({
@@ -86,7 +88,7 @@ class RoomInputView extends Component {
 			room: {
 				room_id: '',
 				room_name: '',
-				cleanliness_score: ''
+				cleanliness_score: 3
 			},
 			roomName: ''
 		};
@@ -106,19 +108,26 @@ class RoomInputView extends Component {
 
 
 	handleChange = (event) => {
-   		this.setState({room: { room_id: event.target.value.id, room_name: event.target.value.room_name}, roomName: event.target.value.room_name });
+   		this.setState({room: {...this.state.room, room_id: event.target.value.id, room_name: event.target.value.room_name}, roomName: event.target.value.room_name });
 	}; // end handle change
 
-	submitContactInfo = (event) => {
-		event.preventDefault();
-		this.props.dispatch({ type: ROOM_ACTIONS.POST_ROOM, payload: this.state.contact });
-	}; // end submitContactInfo
+	setScore = (rate) => {
+		this.setState({room: {...this.state.room, cleanliness_score: rate}});
+	}
+
+	addRoomToReducer = () => {
+		this.props.dispatch({type: CUSTOMER_ACTIONS.ROOMS, payload: this.state.room});
+		this.handleClose();
+		this.clearState();
+	}
+
+	clearState = () => {
+		this.setState({room: {room_id: '', room_name: '', cleanliness_score: 3}, roomName: ''});
+	}
 
 	render() {
 		let content = null;
-		const { classes } = this.props;
-		console.log(this.state);
-		 
+		const { classes } = this.props;		 
 			content = (
 				<center>
 					<Stepper activeStep={0}/>
@@ -158,14 +167,14 @@ class RoomInputView extends Component {
 
 								<Rating
 									className={classes.circlesModal}
-									onChange={(rate) => alert(rate)}
-									initialRating={this.state.value}
+									onChange={(rate) => this.setScore(rate)}
+									initialRating={this.state.room.cleanliness_score}
 									placeholderRating={3.0}
 									emptySymbol={<img src="/RatingIconGrey.png" className={classes.iconModal} />}
 									placeholderSymbol={<img src="/RatingIconOrange.png" className={classes.iconModal} />}
 									fullSymbol={<img src="/RatingIconOrange.png" className={classes.iconModal} />}
 								/>
-                <center><Button >Add room</Button><Button>Close</Button></center>
+                <center><Button onClick={this.addRoomToReducer}>Add room</Button><Button onClick={this.handleClose}>Close</Button></center>
 							</div>
 						</Modal>
 					</div>
