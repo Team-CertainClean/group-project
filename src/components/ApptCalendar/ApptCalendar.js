@@ -7,14 +7,14 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
+import { AVAILABILITY_ACTIONS } from '../../redux/actions/availabilityActions';
 
 Calendar.setLocalizer(Calendar.momentLocalizer(moment));
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 const mapStateToProps = state => ({
-    user: state.user,
+    availabilityEvents: state.availability.availability
 });
 
 class ApptCalendar extends Component {
@@ -28,10 +28,20 @@ class ApptCalendar extends Component {
                 },
             ],
         }
-    } 
+    }
 
     componentDidMount() {
-        this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+        this.props.dispatch({ type: AVAILABILITY_ACTIONS.FETCH });
+    }
+
+    componentWillReceiveProps() {
+        if(this.props.availabilityEvents != []) {
+            for (let event of this.props.availabilityEvents){
+                this.setState({
+                    events: [...this.state.events, {start: new Date(event.start_time), end: new Date(event.end_time)}],
+                });
+            }
+        }
     }
 
     moveEvent = ({ event, start, end }) => {
@@ -87,7 +97,7 @@ class ApptCalendar extends Component {
     }
 
     dispatchAppt() {
-        this.props.dispatch({ type: CUSTOMER_ACTIONS.APPT, payload: this.state.events });
+        this.props.dispatch({ type: AVAILABILITY_ACTIONS.POST, payload: this.state.events });
     }
 
     render() {

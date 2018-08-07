@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {compose} from 'redux';
-import { USER_ACTIONS } from '../../redux/actions/userActions';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -30,7 +29,7 @@ const styles = {
 };
 
 const mapStateToProps = state => ({
-    user: state.user,
+
 });
 
 class ContactInfo extends Component {
@@ -40,9 +39,9 @@ class ContactInfo extends Component {
         }
     }
 
-    componentDidMount() {
-        this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
-    }
+    // componentDidMount() {
+        
+    // }
 
     render() {
         const { classes } = this.props;
