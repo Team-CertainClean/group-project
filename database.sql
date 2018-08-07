@@ -33,7 +33,7 @@ insert into Location_Type("location_type") values ('Residential'), ('Commercial'
 -- "status" is an integer, either 0, 1, or 2.  0 = unscheduled, 1 = scheduled, 2 = closed.
 create table Request(
 
-    id serial primary key ON DELETE CASCADE,
+    id serial primary key,
 	cleaning_type_id int references Cleaning_Type,
 	location_type_id int references Location_Type not null,
     "start" timestamp with time zone,
@@ -67,13 +67,13 @@ create table Schedule(
 
 -- Storage of Customer contact information while request remains open.  Once closed, moved to Historical_Contact_Data
 create table Contact(
-	id serial primary key,
-	request_id int references Request not null,
-	first_name varchar(80),
-	last_name varchar(80),
-	email varchar(120) not null,
-	phone_number varchar(12),
-	location_address varchar(200)
+    id serial primary key,
+    request_id int references Request ON DELETE CASCADE not null ,
+    first_name varchar(80),
+    last_name varchar(80),
+    email varchar(120) not null,
+    phone_number varchar(12),
+    location_address varchar(200)
 );
 
 -- Storage of cleanable rooms with relevant duration metrics, connected to a location type.
