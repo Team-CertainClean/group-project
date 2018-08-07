@@ -25,6 +25,7 @@ function* close(action){
 }
 
 function* post(action){
+    console.log(`this is requestSaga`, action.payload)
     try{
         yield postRequest(action.payload);
     }catch(error){

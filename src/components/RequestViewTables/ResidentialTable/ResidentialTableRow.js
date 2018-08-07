@@ -19,8 +19,8 @@ class ResidentialTableRow extends Component {
                 }
 }
 
-  updateRequest = (id) => {
-    this.props.dispatch({type: REQUEST_ACTIONS.UPDATE, payload: id})
+  updateRequest = (rowData) => {
+    this.props.dispatch({type: REQUEST_ACTIONS.UPDATE, payload: rowData})
   }
 
   render() {
@@ -33,7 +33,7 @@ class ResidentialTableRow extends Component {
       status = (<Button onClick={this.updateRequest}>Mark Scheduled</Button>)
       scheduled = ('Unscheduled')
     } else if (this.props.rowData.request_info.status === 1) {
-      status = (<Button onClick={()=>this.props.closeRequest(this.props.rowData.request_info.request_id)}>Close Event</Button>)
+      status = (<Button onClick={()=>this.props.closeRequest(this.props.rowData)}>Close Event</Button>)
       scheduled = ('Scheduled')
     }
 

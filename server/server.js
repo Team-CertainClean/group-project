@@ -13,6 +13,7 @@ const adminRouter = require('./routes/admin.router');
 const requestRouter = require('./routes/request.router');
 const roomRouter = require('./routes/room.router');
 const cleanerRouter = require('./routes/cleaner.router');
+const availabilityRouter = require('./routes/availability.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -30,6 +31,7 @@ app.use('/api/admin', adminRouter);
 app.use('/api/request', requestRouter);
 app.use('/api/room', roomRouter);
 app.use('/api/cleaner', cleanerRouter);
+app.use('/api/availability', availabilityRouter);
 
 // Serve static files
 app.use(express.static('build'));
