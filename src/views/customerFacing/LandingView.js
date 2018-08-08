@@ -10,7 +10,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles';
-import { Typography } from '../../../node_modules/@material-ui/core';
+import { Typography } from '@material-ui/core';
 // Component Imports
 import { Link } from 'react-router-dom';
 
@@ -150,38 +150,22 @@ class CustomerLandingView extends React.Component{
     }
 
     selectLocationType = (type) => {
-        if(this.state.selection === null){
-            if(type === "residential"){
-                this.setState({selection: true , propertytype: 'residential'});
-                this.props.dispatch({type: CUSTOMER_ACTIONS.LOCATION, payload: 1});
-            } else {
-                this.setState({selection: false, propertytype: 'commercial' });
-                this.props.dispatch({type: CUSTOMER_ACTIONS.LOCATION, payload: 2});
-            }
-        // } else {
-        //     console.log('ELSE');
-        //     if(type === "residential"){
-        //         this.setState({selection: true, propertytype: 'residential'});
-        //     } else {
-        //         this.setState({selection: false, propertytype: 'commercial'});
-        //     }
+        if(type === 'residential'){
+            this.setState({selection: true , propertytype: 'residential'});
+            this.props.dispatch({type: CUSTOMER_ACTIONS.LOCATION, payload: 1});
+        } else {
+            this.setState({selection: false, propertytype: 'commercial' });
+            this.props.dispatch({type: CUSTOMER_ACTIONS.LOCATION, payload: 2});
         }
     }
 
     render(){
-        let content = null;
-        let layer = null;
-        let numberofpages = 2;
-
-
         const { classes } = this.props;
-
-        let locationTypeChoices = null;
-        let locationTypeTitle = null;
-        let locationTypeContent = null;
+        let content, layer, locationTypeChoices, locationTypeTitle, locationTypeContent = null;
+        let numberofpages = 2;
         if(this.state.selection === null){
             locationTypeTitle = (
-                <Typography variant="title">Choose a location type</Typography>
+                <Typography variant="title" style={{color: 'white'}}>Choose a location type</Typography>
             );
             locationTypeContent = (
                 <Typography className={classes.locationTypeContent}>
@@ -196,12 +180,12 @@ class CustomerLandingView extends React.Component{
             );
         } else if(this.state.selection){
             locationTypeTitle = (
-                <Typography variant="title">Residential</Typography>
+                <Typography variant="title" style={{color: 'white'}}>Residential</Typography>
             );
             locationTypeContent = (
                 
                 <Typography className={classes.locationTypeContent}>
-                 <img src='/Home.jpg' width='100%' className={classes.propertypics}></img>
+                 <img src='/Home.jpg' width='100%' className={classes.propertypics}/>
                      What to expect: You'll fill out our estimator to receive an estimated duration your cleaning will take and then we'll contact you when we've confirmed.
                     <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
                 </Typography>
@@ -214,11 +198,11 @@ class CustomerLandingView extends React.Component{
             );
         } else {
             locationTypeTitle = (
-                <Typography variant="title">Commercial</Typography>
+                <Typography variant="title" style={{color: 'white'}}>Commercial</Typography>
             );
             locationTypeContent = (
                 <Typography className={classes.locationTypeContent}>
-                <img src='/Office.jpg' width='100%' className={classes.propertypics}></img>
+                <img src='/Office.jpg' width='100%' className={classes.propertypics}/>
                     What to expect: You'll be navigated to our contact form, and then we will get in touch to discuss the cleaning in further detail.
                     {/* <Link to={this.state.path} className={classes.getStartedLink}> */}
                     <Button className={classes.getStartedButton} onClick={() => this.refs.parallax.scrollTo(2)}>Get Started</Button>
@@ -298,54 +282,40 @@ class CustomerLandingView extends React.Component{
 
         return(
             <Parallax ref="parallax" pages={numberofpages}>
-
-            <Parallax.Layer  offset={0} speed={1} style={{backgroundColor: 'white'}} />
-            <Parallax.Layer offset={1} speed={1} style={{ backgroundColor: 'rgba(255, 139, 0, 1)' }} />
-           {layer}
-            
-
-        
-            <Parallax.Layer
-                offset={0}
-                speed={5}
-                style={styles}
-                
-                onClick={() => this.refs.parallax.scrollTo(1)}>
-                <img src='/giphy.gif' width='100%' className={classes.water}></img>
-                <center  className='firstFade' className={classes.logo}>
-
-                <img src='/LOGO-01.png' width='70%' ></img>
-                <div className='firstButton'>
-                <Button  className={classes.bookNow} onClick={() => this.refs.parallax.scrollTo(1)}>BOOK NOW</Button>
-                </div>
-                </center>
-           
-            </Parallax.Layer>
-       
-            <Parallax.Layer
-                offset={1}
-                speed={2}
-                
-                // style={{ backgroundImage: '', backgroundSize: 'cover' }}>
+                <Parallax.Layer  offset={0} speed={1} style={{backgroundColor: 'white'}} />
+                <Parallax.Layer offset={1} speed={1} style={{ backgroundColor: 'rgba(255, 139, 0, 1)' }} />
+                {layer}
+                <Parallax.Layer
+                    offset={0}
+                    speed={5}
+                    style={styles}
+                    onClick={() => this.refs.parallax.scrollTo(1)}
                 >
-                <center className={classes.center}>
-                <div className={classes.typeOfProperty}>
-                       <center> {locationTypeChoices} </center>
-                </div>
-                
-                <div className={classes.typeOfPropertyContent}>
-                                {locationTypeContent}
-                              
-                </div>
-                      
-                </center>
-                    
-            </Parallax.Layer>
-            
-           {content}
-
-        </Parallax>
-            
+                    <img src='/giphy.gif' width='100%' className={classes.water}/>
+                    <center  className='firstFade' className={classes.logo}>
+                        <img src='/LOGO-01.png' width='70%' />
+                        <div className='firstButton'>
+                            <Button  className={classes.bookNow} onClick={() => this.refs.parallax.scrollTo(1)}>BOOK NOW</Button>
+                        </div>
+                    </center>
+                </Parallax.Layer>
+                <Parallax.Layer
+                    offset={1}
+                    speed={2}
+                    // style={{ backgroundImage: '', backgroundSize: 'cover' }}>
+                >
+                    <center className={classes.center}>
+                        <div className={classes.typeOfProperty}>
+                            <center>{locationTypeTitle}</center>
+                            <center> {locationTypeChoices} </center>
+                        </div>
+                        <div className={classes.typeOfPropertyContent}>
+                            {locationTypeContent}         
+                        </div>  
+                    </center>    
+                </Parallax.Layer>
+            {content}
+            </Parallax>  
         );
     }
 }
