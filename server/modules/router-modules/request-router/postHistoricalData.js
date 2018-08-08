@@ -3,7 +3,7 @@ const pool = require('../../pool');
 function postHistoricalData(body){
     
     return new Promise((resolve, reject)=>{
-        console.log(`this is body`, body)
+        // console.log(`this is body`, body)
 
         try{
             const queryText = `
