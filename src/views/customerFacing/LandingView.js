@@ -1,6 +1,9 @@
 import React from 'react';
-import Animated from 'animated/lib/targets/react-dom'
-import Easing from 'animated/lib/Easing'
+
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
+
 // Material UI Imports
 import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
@@ -13,6 +16,9 @@ import { Link } from 'react-router-dom';
 
 //Parallax
 import { Parallax, ParallaxLayer } from 'react-spring'
+import ContactInfoView from './ContactInfoView';
+import ApptTimeSelectView from './ApptTimeSelectView';
+import RoomInputView from './RoomInputView';
 
 // const url = (name, wrap = false) => `${wrap ? 'url(' : ''}public/${name}.jpg${wrap ? ')' : ''}`
 const styles = {
@@ -132,31 +138,41 @@ const styles = {
   
 }
 
-
+const mapStateToProps = state => ({
+    user: state.user,
+    state
+  });
 
 class CustomerLandingView extends React.Component{
     constructor(){
         super();
-        this.state = {selection: null, path: '/roominput'}
+        this.state = {selection: null, path: '/roominput', propertytype: null}
     }
 
     selectLocationType = (type) => {
         if(this.state.selection === null){
             if(type === "residential"){
-                this.setState({selection: true, path: '/roominput'});
+                this.setState({selection: true , propertytype: 'residential'});
+                this.props.dispatch({type: CUSTOMER_ACTIONS.LOCATION, payload: 1});
             } else {
-                this.setState({selection: false, path: '/contact'});
+                this.setState({selection: false, propertytype: 'commercial' });
+                this.props.dispatch({type: CUSTOMER_ACTIONS.LOCATION, payload: 2});
             }
-        } else {
-            if(type === "residential"){
-                this.setState({selection: true, path: '/roominput'});
-            } else {
-                this.setState({selection: false, path: '/contact'});
-            }
+        // } else {
+        //     console.log('ELSE');
+        //     if(type === "residential"){
+        //         this.setState({selection: true, propertytype: 'residential'});
+        //     } else {
+        //         this.setState({selection: false, propertytype: 'commercial'});
+        //     }
         }
     }
 
     render(){
+        let content = null;
+        let layer = null;
+        let numberofpages = 2;
+
 
         const { classes } = this.props;
 
@@ -204,7 +220,9 @@ class CustomerLandingView extends React.Component{
                 <Typography className={classes.locationTypeContent}>
                 <img src='/Office.jpg' width='100%' className={classes.propertypics}></img>
                     What to expect: You'll be navigated to our contact form, and then we will get in touch to discuss the cleaning in further detail.
-                    <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
+                    {/* <Link to={this.state.path} className={classes.getStartedLink}> */}
+                    <Button className={classes.getStartedButton} onClick={() => this.refs.parallax.scrollTo(2)}>Get Started</Button>
+                    {/* </Link> */}
                 </Typography>
             );
             locationTypeChoices = (
@@ -214,13 +232,76 @@ class CustomerLandingView extends React.Component{
                 </div>
             );
         }
+        switch (this.state.propertytype) {
+            case 'commercial':
+            
+            layer = (
+                <Parallax.Layer offset={2} speed={1} style={{ backgroundColor: '#87BCDE' }} />
+            );
+            numberofpages = 3;
+            content = (
+                <Parallax.Layer
+                    offset={2}
+                    speed={1}
+                    style={styles}
+                    onClick={() => this.refs.parallax.scrollTo(0)}>
+                    <ContactInfoView />
+                </Parallax.Layer>);
+        
+                break;
+                
+            case 'residential':
+            
+            layer = (
+                <div>
+                <Parallax.Layer offset={2} speed={1} style={{ backgroundColor: '#87BCDE' }} />
+                <Parallax.Layer offset={3} speed={1} style={{ backgroundColor: 'red' }} />
+                <Parallax.Layer offset={4} speed={1} style={{ backgroundColor: 'blue' }} />  
+                </div>
+            );
+            numberofpages = 5;
+            content = (
+                <div>
+                <Parallax.Layer
+                    offset={2}
+                    speed={1}
+                    style={styles}>
+                    <RoomInputView />
+                </Parallax.Layer>
+
+                <Parallax.Layer
+                offset={3}
+                speed={1}
+                style={styles}
+                >
+                <ApptTimeSelectView />
+            </Parallax.Layer>
+
+                <Parallax.Layer
+                    offset={4}
+                    speed={1}
+                    style={styles}
+                >
+                    <ContactInfoView />
+                </Parallax.Layer>
+                </div>
+            );
+				break;
+            
+                
+
+			default:
+				break;
+		}
+	
+      
 
         return(
-            <Parallax ref="parallax" pages={3}>
+            <Parallax ref="parallax" pages={numberofpages}>
 
             <Parallax.Layer  offset={0} speed={1} style={{backgroundColor: 'white'}} />
             <Parallax.Layer offset={1} speed={1} style={{ backgroundColor: 'rgba(255, 139, 0, 1)' }} />
-            <Parallax.Layer offset={2} speed={1} style={{ backgroundColor: '#87BCDE' }} />
+           {layer}
             
 
         
@@ -261,13 +342,7 @@ class CustomerLandingView extends React.Component{
                     
             </Parallax.Layer>
             
-            <Parallax.Layer
-                offset={2}
-                speed={1}
-                style={styles}
-                onClick={() => this.refs.parallax.scrollTo(0)}>
-                
-            </Parallax.Layer>
+           {content}
 
         </Parallax>
             
@@ -275,4 +350,5 @@ class CustomerLandingView extends React.Component{
     }
 }
 
-export default withStyles(styles)(CustomerLandingView);
+export default compose(withStyles(styles), connect(mapStateToProps))(CustomerLandingView);
+

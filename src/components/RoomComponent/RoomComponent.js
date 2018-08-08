@@ -8,7 +8,7 @@ import Rating from 'react-rating';
 
 const mapStateToProps = state => ({
     user: state.user,
-   
+    rooms: state.customer.rooms
   });
 
 
@@ -46,37 +46,38 @@ const styles = {
 
 class RoomComponent extends Component {
 
-constructor(props){
-    super(props);
-    this.state = {
-        room: {
-            room_id:'KITCHEN',
-            cleanliness_score:'',
-            value: 0
-        }
-    }
-  }
-
   handleClick = (event) => {
     this.setState({value: 3});
   }
 
 render() {
     const { classes } = this.props;
-    return (
-      <div className={classes.rate}>
-     <p className={classes.roomname}>{this.state.room.room_id}</p>
-      <Rating 
-      className={classes.circles}
-      onChange={(rate) => alert(rate)}
-      initialRating={this.state.value}
-  placeholderRating={3.0}
-  emptySymbol={<img src="/RatingIconGrey.png" className={classes.icon}/>}
-  placeholderSymbol={<img src="/RatingIconOrange.png" className={classes.icon} />}
-  fullSymbol={<img src="/RatingIconOrange.png" className={classes.icon} />}
-/>
+
+    let content = null;
+    if(this.props.rooms){
+      content = (
+        <div>
+        {this.props.rooms.map(room => {
+          return (
+            <div className={classes.rate} key={room.room_id}>
+              <p className={classes.roomname}>{room.room_name}</p>
+              <Rating 
+                className={classes.circles}
+                initialRating={room.cleanliness_score}
+                placeholderRating={Number(room.cleanliness_score)}
+                emptySymbol={<img src="/RatingIconGrey.png" className={classes.icon}/>}
+                placeholderSymbol={<img src="/RatingIconOrange.png" className={classes.icon} />}
+                fullSymbol={<img src="/RatingIconOrange.png" className={classes.icon} />}
+              />
+            </div>
+          );
+        })
+
+        }
       </div>
-    );
+      );
+    }
+    return content;
   }
 }
 

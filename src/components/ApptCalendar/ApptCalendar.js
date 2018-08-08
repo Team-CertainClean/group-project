@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 import { AVAILABILITY_ACTIONS } from '../../redux/actions/availabilityActions';
+import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 
 Calendar.setLocalizer(Calendar.momentLocalizer(moment));
 const DragAndDropCalendar = withDragAndDrop(Calendar);
@@ -104,7 +105,7 @@ class ApptCalendar extends Component {
     }
 
     dispatchAppt() {
-        this.props.dispatch({ type: AVAILABILITY_ACTIONS.POST, payload: this.state.newEvent });
+        this.props.dispatch({ type: CUSTOMER_ACTIONS.APPT, payload: this.state.newEvent });
     }
 
     render() {

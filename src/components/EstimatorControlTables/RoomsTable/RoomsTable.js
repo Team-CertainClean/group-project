@@ -260,14 +260,14 @@ class RoomControlTable extends React.Component{
                             </TableCell>
                         </TableRow>
                         <TableRow  className={classes.tableHeader}>
-                            <TableCell>Room ID<IconButton onClick={() => this.sortRooms('id')}><Icon>expand_more</Icon></IconButton></TableCell>
-                            <TableCell>Room Name<IconButton onClick={() => this.sortRooms('room_name')}><Icon>expand_more</Icon></IconButton></TableCell>
+                            <TableCell>Room ID<IconButton onClick={() => this.sortRooms('id')}><Icon>sort</Icon></IconButton></TableCell>
+                            <TableCell>Room Name<IconButton onClick={() => this.sortRooms('room_name')}><Icon>sort</Icon></IconButton></TableCell>
                             <TableCell>Cleanliness Score 1</TableCell>
                             <TableCell>Cleanliness Score 2</TableCell>
                             <TableCell>Cleanliness Score 3</TableCell>
                             <TableCell>Cleanliness Score 4</TableCell>
                             <TableCell>Cleanliness Score 5</TableCell>
-                            <TableCell>Location Type<IconButton onClick={() => this.sortRooms('location_type_id')}><Icon>expand_more</Icon></IconButton></TableCell>
+                            <TableCell>Location Type<IconButton onClick={() => this.sortRooms('location_type_id')}><Icon>sort</Icon></IconButton></TableCell>
                             <TableCell>Edit</TableCell>
                             <TableCell>Remove</TableCell>
                         </TableRow>

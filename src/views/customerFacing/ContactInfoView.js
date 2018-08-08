@@ -69,12 +69,6 @@ class ContactInfoView extends Component {
         this.props.dispatch({type: USER_ACTIONS.FETCH_USER});
     }// end componentDidMount
 
-    componentDidUpdate() {
-        if (!this.props.user.isLoading && this.props.user.userName === null) {
-        this.props.history.push('home');
-        }
-    } // end componentDidUpdate
-
     handleChange = (contactInfo) => (event) => {
         console.log(`in handleChange`)
         this.setState({
@@ -90,7 +84,7 @@ class ContactInfoView extends Component {
         console.log(`in submitContactInfo`)
         event.preventDefault();
         await this.props.dispatch({ type: CUSTOMER_ACTIONS.CONTACT,  payload: this.state.contact});
-        await alert('Success!');
+        await this.props.dispatch({type: CUSTOMER_ACTIONS.POST});
         this.props.history.push('home');
     }// end submitContactInfo
 

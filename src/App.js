@@ -12,8 +12,6 @@ import UserPage from './components/UserPage/UserPage';
 import InfoPage from './components/InfoPage/InfoPage';
 
 //Stepper views
-import ParentStepper from './views/customerFacing/ParentStepper';
-import Stepper from './components/Stepper/Stepper';
 import RoomComponent from './components/RoomComponent/RoomComponent';
 import ApptTimeSelectView from './views/customerFacing/ApptTimeSelectView';
 import ContactInfoView from './views/customerFacing/ContactInfoView';
@@ -22,7 +20,7 @@ import EstimatorControlView from './views/adminFacing/EstimatorControlView';
 import RequestsView from './views/adminFacing/RequestsView';
 
 //Main view
-import LandingView from './views/customerFacing/LandingView';
+import CustomerLandingView from './views/customerFacing/LandingView';
 import './styles/main.css';
 
 // Admin views
@@ -40,7 +38,7 @@ const App = () => (
         <Redirect exact from="/" to="/home" />
         <Route
           path="/home"
-          component={LandingView}
+          component={CustomerLandingView}
         />
         <Route
           path="/register"
@@ -55,10 +53,6 @@ const App = () => (
           component={InfoPage}
         />
         <Route
-          path="/stepper"
-          component={Stepper}
-        />
-        <Route
           path="/roominput"
           component={RoomInputView}
         />
@@ -71,17 +65,13 @@ const App = () => (
           component={ApptTimeSelectView}
         />
         <Route
-          path="/parentStepper"
-          component={ParentStepper}
-        />
-        <Route
           path="/contact"
           component={ContactInfoView}
         />
-        <Route
+        {/* <Route
           path="/landing"
           component={LandingView}
-        />
+        /> */}
         <Route 
           path="/estimator"
           component={EstimatorControlView}

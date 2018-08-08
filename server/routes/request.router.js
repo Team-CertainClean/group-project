@@ -24,12 +24,12 @@ router.get('/requestTable', async (req, res) => {
 /**
  * POST route template
  */
-// router.post('/', (req, res) => {
-//     // Module that performs SQL transaction to post customer provided information into the DB
-//     requestTransaction(req.body)
-//         .then(result => res.sendStatus(201))
-//         .catch(error=>console.log('Error handling POST for /api/request ', error));
-// });
+router.post('/', (req, res) => {
+    // Module that performs SQL transaction to post customer provided information into the DB
+    requestTransaction(req.body)
+        .then(result => res.sendStatus(201))
+        .catch(error=>console.log('Error handling POST for /api/request ', error));
+});
 
 // POST route to historical_contact_data
 router.post('/historical', (req, res) => {
@@ -44,8 +44,8 @@ router.post('/historical', (req, res) => {
 router.delete('/:id', (req, res) => {
     // Module that performs SQL transaction to post completed customer information into the DB
     console.log(`this is request.router req.body`, req.body)
-    deleteRequestData(req.body)
+    deleteRequestData(req.params.id)
         .then(result => res.sendStatus(201))
-        .catch(error=>console.log('Error handling POST for /api/request/: ', error));
+        .catch(error=>console.log('Error handling DELETE for /api/request/: ', error));
 });
 module.exports = router;
