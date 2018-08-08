@@ -111,8 +111,8 @@ class CommercialTable extends React.Component{
                                     <TableHead className={classes.tableHeader}>
                                         <TableRow>
                                             <TableCell>Request ID<IconButton onClick={() => this.sort('request.id')}><Icon>sort</Icon></IconButton></TableCell>
-                                            <TableCell>Customer Name</TableCell>
-                                            <TableCell>Customer Email</TableCell>
+                                            <TableCell>Customer Name<IconButton onClick={() => this.sort('last_name')}><Icon>sort</Icon></IconButton></TableCell>
+                                            <TableCell>Customer Email<IconButton onClick={() => this.sort('email')}><Icon>sort</Icon></IconButton></TableCell>
                                             <TableCell>Room</TableCell>
                                             <TableCell>Requested Time</TableCell>
                                             <TableCell>Status<IconButton onClick={() => this.sort('status')}><Icon>sort</Icon></IconButton></TableCell>

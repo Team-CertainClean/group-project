@@ -115,8 +115,8 @@ class ResidentialTable extends React.Component{
                             <TableHead className={classes.tableHeader}>
                                 <TableRow>
                                     <TableCell className={classes.tableCell}>Request ID<IconButton onClick={() => this.sort('request.id')}><Icon>sort</Icon></IconButton></TableCell>
-                                    <TableCell>Customer</TableCell>
-                                    <TableCell>Customer Email</TableCell>
+                                    <TableCell>Customer<IconButton onClick={() => this.sort('last_name')}><Icon>sort</Icon></IconButton></TableCell>
+                                    <TableCell>Customer Email<IconButton onClick={() => this.sort('email')}><Icon>sort</Icon></IconButton></TableCell>
                                     <TableCell>Web Estimate</TableCell>
                                     <TableCell className={classes.tableCell}>Cleaning Type</TableCell>
                                     <TableCell>Room</TableCell>
