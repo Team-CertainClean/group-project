@@ -1,5 +1,6 @@
 import React from 'react';
-
+import Animated from 'animated/lib/targets/react-dom'
+import Easing from 'animated/lib/Easing'
 // Material UI Imports
 import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
@@ -7,13 +8,13 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles';
 import { Typography } from '../../../node_modules/@material-ui/core';
-
 // Component Imports
 import { Link } from 'react-router-dom';
 
 //Parallax
 import { Parallax, ParallaxLayer } from 'react-spring'
 
+// const url = (name, wrap = false) => `${wrap ? 'url(' : ''}public/${name}.jpg${wrap ? ')' : ''}`
 const styles = {
     fontFamily: 'Menlo-Regular, Menlo, monospace',
     fontSize: 14,
@@ -22,16 +23,17 @@ const styles = {
     alignItems: 'center', 
     justifyContent: 'center',
     bookNow:{
-        padding: '1%',
+        
+        paddingLeft: '2%',
+        paddingRight: '2%',
         borderRadius: '60px',
-        display: 'flex', 
+        display: 'absolute', 
         color: 'white',
         backgroundColor: '#ef8902',
         '&:hover':{
             color: '#ef8902',
-            backgroundColor: '#C2C2C2',
-            borderRadius: '60px',
-
+            backgroundColor: '#E8E8E8',
+           
         }
     },
     selectedLocationType: {
@@ -75,6 +77,7 @@ const styles = {
        
     },
     typeOfProperty: {
+        zIndex: '2',
         alignItems: 'center', 
         justifyContent: 'center',
         marginTop: '10%',
@@ -99,6 +102,32 @@ const styles = {
     locationTypeContent: {
         fontSize: 25,
         color: 'white !important',
+    
+    },
+    water: {
+        opacity: '0.1',
+        zIndex: '-1',
+        position: 'absolute',
+        '-webkit-mask-image':'-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))',
+        maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))'
+        
+    },
+    logo: {
+        marginTop: '10%',
+        position: 'absolute',
+
+    '-webkit-animation': 'fadein 4s',
+       '-moz-animation': 'fadein 4s',
+        '-ms-animation': 'fadein 4s',
+         '-o-animation': 'fadein 4s',
+            'animation': 'fadein 4s'
+    },
+    propertypics: {
+        opacity: '0.5',
+        zIndex: '-1',
+        marginTop:'-20%',
+        width: '20%',
+        height: 'auto',
     }
   
 }
@@ -156,6 +185,7 @@ class CustomerLandingView extends React.Component{
             locationTypeContent = (
                 
                 <Typography className={classes.locationTypeContent}>
+                 <img src='/Home.jpg' width='100%' className={classes.propertypics}></img>
                      What to expect: You'll fill out our estimator to receive an estimated duration your cleaning will take and then we'll contact you when we've confirmed.
                     <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
                 </Typography>
@@ -172,6 +202,7 @@ class CustomerLandingView extends React.Component{
             );
             locationTypeContent = (
                 <Typography className={classes.locationTypeContent}>
+                <img src='/Office.jpg' width='100%' className={classes.propertypics}></img>
                     What to expect: You'll be navigated to our contact form, and then we will get in touch to discuss the cleaning in further detail.
                     <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
                 </Typography>
@@ -187,8 +218,8 @@ class CustomerLandingView extends React.Component{
         return(
             <Parallax ref="parallax" pages={3}>
 
-            <Parallax.Layer offset={0} speed={1} style={{ backgroundColor: 'white' }} />
-            <Parallax.Layer offset={1} speed={1} style={{  backgroundColor: '#EF8901'}} />
+            <Parallax.Layer  offset={0} speed={1} style={{backgroundColor: 'white'}} />
+            <Parallax.Layer offset={1} speed={1} style={{ backgroundColor: 'rgba(255, 139, 0, 1)' }} />
             <Parallax.Layer offset={2} speed={1} style={{ backgroundColor: '#87BCDE' }} />
             
 
@@ -197,20 +228,25 @@ class CustomerLandingView extends React.Component{
                 offset={0}
                 speed={5}
                 style={styles}
+                
                 onClick={() => this.refs.parallax.scrollTo(1)}>
-                <center  className='firstFade'>
-                <img src='/LOGO-01.png' width='80%'></img>
+                <img src='/giphy.gif' width='100%' className={classes.water}></img>
+                <center  className='firstFade' className={classes.logo}>
+
+                <img src='/LOGO-01.png' width='70%' ></img>
                 <div className='firstButton'>
                 <Button  className={classes.bookNow} onClick={() => this.refs.parallax.scrollTo(1)}>BOOK NOW</Button>
                 </div>
                 </center>
            
             </Parallax.Layer>
-
+       
             <Parallax.Layer
                 offset={1}
                 speed={2}
-                style={styles}>
+                
+                // style={{ backgroundImage: '', backgroundSize: 'cover' }}>
+                >
                 <center className={classes.center}>
                 <div className={classes.typeOfProperty}>
                        <center> {locationTypeChoices} </center>
@@ -224,10 +260,10 @@ class CustomerLandingView extends React.Component{
                 </center>
                     
             </Parallax.Layer>
-
+            
             <Parallax.Layer
                 offset={2}
-                speed={2}
+                speed={1}
                 style={styles}
                 onClick={() => this.refs.parallax.scrollTo(0)}>
                 

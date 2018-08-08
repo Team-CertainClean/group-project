@@ -12,6 +12,7 @@ import UserPage from './components/UserPage/UserPage';
 import InfoPage from './components/InfoPage/InfoPage';
 
 //Stepper views
+import ParentStepper from './views/customerFacing/ParentStepper';
 import Stepper from './components/Stepper/Stepper';
 import RoomComponent from './components/RoomComponent/RoomComponent';
 import ApptTimeSelectView from './views/customerFacing/ApptTimeSelectView';
@@ -68,6 +69,10 @@ const App = () => (
         <Route
           path="/schedule"
           component={ApptTimeSelectView}
+        />
+        <Route
+          path="/parentStepper"
+          component={ParentStepper}
         />
         <Route
           path="/contact"
