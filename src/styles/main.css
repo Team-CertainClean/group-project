@@ -18,15 +18,6 @@ img {
 }
 
 /* Landing page features */
-.firstFade{
-margin-top: 10%;
-
-    -webkit-animation: fadein 4s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 4s; /* Firefox < 16 */
-        -ms-animation: fadein 4s; /* Internet Explorer */
-         -o-animation: fadein 4s; /* Opera < 12.1 */
-            animation: fadein 4s;
-}
 
 @keyframes fadein {
     from { opacity: 0; }
@@ -35,9 +26,9 @@ margin-top: 10%;
 
 .firstButton{
     -webkit-animation: fadein 6s;
-    display: flex; 
-    justify-content: center;
-    margin-top: 5%;
+
+   
+    margin-top: 10%;
 }
 
 /* End of Landing Page css */
@@ -112,3 +103,6 @@ li a:hover {
     color: black;
 }
 
+.inProgress svg {
+    fill: rgba(255, 139, 0, 1);
+  }

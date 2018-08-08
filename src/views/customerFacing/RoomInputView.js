@@ -20,6 +20,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+
 const mapStateToProps = (state) => ({
   rooms: state.rooms.roomOptions,
   selectedRooms: state.customer.rooms
@@ -130,7 +131,7 @@ class RoomInputView extends Component {
 		const { classes } = this.props;		 
 			content = (
 				<center>
-					<Stepper activeStep={0}/>
+					<Stepper activeStep={0} />
 					<RoomComponent />
 					<div>
 						<Typography gutterBottom>Click to add room!</Typography>

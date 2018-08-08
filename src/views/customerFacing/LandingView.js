@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
@@ -10,13 +11,16 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles';
 import { Typography } from '../../../node_modules/@material-ui/core';
-
 // Component Imports
 import { Link } from 'react-router-dom';
 
 //Parallax
 import { Parallax, ParallaxLayer } from 'react-spring'
+import ContactInfoView from './ContactInfoView';
+import ApptTimeSelectView from './ApptTimeSelectView';
+import RoomInputView from './RoomInputView';
 
+// const url = (name, wrap = false) => `${wrap ? 'url(' : ''}public/${name}.jpg${wrap ? ')' : ''}`
 const styles = {
     fontFamily: 'Menlo-Regular, Menlo, monospace',
     fontSize: 14,
@@ -25,16 +29,17 @@ const styles = {
     alignItems: 'center', 
     justifyContent: 'center',
     bookNow:{
-        padding: '1%',
+        
+        paddingLeft: '2%',
+        paddingRight: '2%',
         borderRadius: '60px',
-        display: 'flex', 
+        display: 'absolute', 
         color: 'white',
         backgroundColor: '#ef8902',
         '&:hover':{
             color: '#ef8902',
-            backgroundColor: '#C2C2C2',
-            borderRadius: '60px',
-
+            backgroundColor: '#E8E8E8',
+           
         }
     },
     selectedLocationType: {
@@ -78,6 +83,7 @@ const styles = {
        
     },
     typeOfProperty: {
+        zIndex: '2',
         alignItems: 'center', 
         justifyContent: 'center',
         marginTop: '10%',
@@ -102,37 +108,71 @@ const styles = {
     locationTypeContent: {
         fontSize: 25,
         color: 'white !important',
+    
+    },
+    water: {
+        opacity: '0.1',
+        zIndex: '-1',
+        position: 'absolute',
+        '-webkit-mask-image':'-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))',
+        maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))'
+        
+    },
+    logo: {
+        marginTop: '10%',
+        position: 'absolute',
+
+    '-webkit-animation': 'fadein 4s',
+       '-moz-animation': 'fadein 4s',
+        '-ms-animation': 'fadein 4s',
+         '-o-animation': 'fadein 4s',
+            'animation': 'fadein 4s'
+    },
+    propertypics: {
+        opacity: '0.5',
+        zIndex: '-1',
+        marginTop:'-20%',
+        width: '20%',
+        height: 'auto',
     }
   
 }
 
-
+const mapStateToProps = state => ({
+    user: state.user,
+    state
+  });
 
 class CustomerLandingView extends React.Component{
     constructor(){
         super();
-        this.state = {selection: null, path: '/roominput'}
+        this.state = {selection: null, path: '/roominput', propertytype: null}
     }
 
     selectLocationType = (type) => {
         if(this.state.selection === null){
             if(type === "residential"){
-                this.setState({selection: true, path: '/roominput'});
+                this.setState({selection: true , propertytype: 'residential'});
                 this.props.dispatch({type: CUSTOMER_ACTIONS.LOCATION, payload: 1});
             } else {
-                this.setState({selection: false, path: '/contact'});
+                this.setState({selection: false, propertytype: 'commercial' });
                 this.props.dispatch({type: CUSTOMER_ACTIONS.LOCATION, payload: 2});
             }
-        } else {
-            if(type === "residential"){
-                this.setState({selection: true, path: '/roominput'});
-            } else {
-                this.setState({selection: false, path: '/contact'});
-            }
+        // } else {
+        //     console.log('ELSE');
+        //     if(type === "residential"){
+        //         this.setState({selection: true, propertytype: 'residential'});
+        //     } else {
+        //         this.setState({selection: false, propertytype: 'commercial'});
+        //     }
         }
     }
 
     render(){
+        let content = null;
+        let layer = null;
+        let numberofpages = 2;
+
 
         const { classes } = this.props;
 
@@ -161,6 +201,7 @@ class CustomerLandingView extends React.Component{
             locationTypeContent = (
                 
                 <Typography className={classes.locationTypeContent}>
+                 <img src='/Home.jpg' width='100%' className={classes.propertypics}></img>
                      What to expect: You'll fill out our estimator to receive an estimated duration your cleaning will take and then we'll contact you when we've confirmed.
                     <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
                 </Typography>
@@ -177,8 +218,11 @@ class CustomerLandingView extends React.Component{
             );
             locationTypeContent = (
                 <Typography className={classes.locationTypeContent}>
+                <img src='/Office.jpg' width='100%' className={classes.propertypics}></img>
                     What to expect: You'll be navigated to our contact form, and then we will get in touch to discuss the cleaning in further detail.
-                    <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
+                    {/* <Link to={this.state.path} className={classes.getStartedLink}> */}
+                    <Button className={classes.getStartedButton} onClick={() => this.refs.parallax.scrollTo(2)}>Get Started</Button>
+                    {/* </Link> */}
                 </Typography>
             );
             locationTypeChoices = (
@@ -188,13 +232,76 @@ class CustomerLandingView extends React.Component{
                 </div>
             );
         }
+        switch (this.state.propertytype) {
+            case 'commercial':
+            
+            layer = (
+                <Parallax.Layer offset={2} speed={1} style={{ backgroundColor: '#87BCDE' }} />
+            );
+            numberofpages = 3;
+            content = (
+                <Parallax.Layer
+                    offset={2}
+                    speed={1}
+                    style={styles}
+                    onClick={() => this.refs.parallax.scrollTo(0)}>
+                    <ContactInfoView />
+                </Parallax.Layer>);
+        
+                break;
+                
+            case 'residential':
+            
+            layer = (
+                <div>
+                <Parallax.Layer offset={2} speed={1} style={{ backgroundColor: '#87BCDE' }} />
+                <Parallax.Layer offset={3} speed={1} style={{ backgroundColor: 'red' }} />
+                <Parallax.Layer offset={4} speed={1} style={{ backgroundColor: 'blue' }} />  
+                </div>
+            );
+            numberofpages = 5;
+            content = (
+                <div>
+                <Parallax.Layer
+                    offset={2}
+                    speed={1}
+                    style={styles}>
+                    <RoomInputView />
+                </Parallax.Layer>
+
+                <Parallax.Layer
+                offset={3}
+                speed={1}
+                style={styles}
+                >
+                <ApptTimeSelectView />
+            </Parallax.Layer>
+
+                <Parallax.Layer
+                    offset={4}
+                    speed={1}
+                    style={styles}
+                >
+                    <ContactInfoView />
+                </Parallax.Layer>
+                </div>
+            );
+				break;
+            
+                
+
+			default:
+				break;
+		}
+	
+      
 
         return(
-            <Parallax ref="parallax" pages={3}>
+            <Parallax ref="parallax" pages={numberofpages}>
 
-            <Parallax.Layer offset={0} speed={1} style={{ backgroundColor: 'white' }} />
-            <Parallax.Layer offset={1} speed={1} style={{  backgroundColor: '#EF8901'}} />
-            <Parallax.Layer offset={2} speed={1} style={{ backgroundColor: '#87BCDE' }} />
+            <Parallax.Layer  offset={0} speed={1} style={{backgroundColor: 'white'}} />
+            <Parallax.Layer offset={1} speed={1} style={{ backgroundColor: 'rgba(255, 139, 0, 1)' }} />
+           {layer}
             
 
         
@@ -202,20 +309,25 @@ class CustomerLandingView extends React.Component{
                 offset={0}
                 speed={5}
                 style={styles}
+                
                 onClick={() => this.refs.parallax.scrollTo(1)}>
-                <center  className='firstFade'>
-                <img src='/LOGO-01.png' width='80%'></img>
+                <img src='/giphy.gif' width='100%' className={classes.water}></img>
+                <center  className='firstFade' className={classes.logo}>
+
+                <img src='/LOGO-01.png' width='70%' ></img>
                 <div className='firstButton'>
                 <Button  className={classes.bookNow} onClick={() => this.refs.parallax.scrollTo(1)}>BOOK NOW</Button>
                 </div>
                 </center>
            
             </Parallax.Layer>
-
+       
             <Parallax.Layer
                 offset={1}
                 speed={2}
-                style={styles}>
+                
+                // style={{ backgroundImage: '', backgroundSize: 'cover' }}>
+                >
                 <center className={classes.center}>
                 <div className={classes.typeOfProperty}>
                        <center> {locationTypeChoices} </center>
@@ -229,14 +341,8 @@ class CustomerLandingView extends React.Component{
                 </center>
                     
             </Parallax.Layer>
-
-            <Parallax.Layer
-                offset={2}
-                speed={2}
-                style={styles}
-                onClick={() => this.refs.parallax.scrollTo(0)}>
-                
-            </Parallax.Layer>
+            
+           {content}
 
         </Parallax>
             
@@ -244,7 +350,5 @@ class CustomerLandingView extends React.Component{
     }
 }
 
-export default compose(
-    withStyles(styles),
-    connect()
-)(CustomerLandingView);
+export default compose(withStyles(styles), connect(mapStateToProps))(CustomerLandingView);
+
