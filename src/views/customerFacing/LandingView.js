@@ -163,6 +163,19 @@ class CustomerLandingView extends React.Component{
         const { classes } = this.props;
         let content, layer, locationTypeChoices, locationTypeTitle, locationTypeContent = null;
         let numberofpages = 2;
+        // Create layerBackground object to store continuous styles
+        let layerBackground = {
+            opacity: '0.5'
+        }
+        // Conditional check to apply either a background color or background image based on state
+        if(this.state.propertytype === 'residential'){
+            layerBackground.backgroundImage = "url('/Home.jpg')";
+        } else if(this.state.propertytype === 'commercial'){
+            layerBackground.backgroundImage = "url('/Office.jpg')";
+        } else {
+            layerBackground.backgroundColor = 'rgba(255, 139, 0, 1)';
+        }
+
         if(this.state.selection === null){
             locationTypeTitle = (
                 <Typography variant="title" style={{color: 'white'}}>Choose a location type</Typography>
@@ -283,7 +296,7 @@ class CustomerLandingView extends React.Component{
         return(
             <Parallax ref="parallax" pages={numberofpages}>
                 <Parallax.Layer  offset={0} speed={1} style={{backgroundColor: 'white'}} />
-                <Parallax.Layer offset={1} speed={1} style={{ backgroundColor: 'rgba(255, 139, 0, 1)' }} />
+                <Parallax.Layer offset={1} speed={1} style={layerBackground}/>
                 {layer}
                 <Parallax.Layer
                     offset={0}
