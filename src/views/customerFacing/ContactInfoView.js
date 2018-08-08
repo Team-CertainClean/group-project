@@ -15,6 +15,7 @@ import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const styles = theme => ({
     container: {
@@ -152,7 +153,9 @@ class ContactInfoView extends Component {
                         <MenuItem value={3}>House</MenuItem>
                         <MenuItem value={2}>Airbnb</MenuItem>
                         <MenuItem value={1}>Move Out</MenuItem>
+
                     </Select>
+                    <FormHelperText>Please select your cleaning type:</FormHelperText>
                 </FormControl>
             </form>
             <Button variant="contained" onClick={this.submitContactInfo} className={classes.button}>
