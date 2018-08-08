@@ -263,7 +263,7 @@ class CustomerLandingView extends React.Component{
                     offset={2}
                     speed={1}
                     style={styles}>
-                    <RoomInputView />
+                    <RoomInputView history={this.props.history}/>
                 </Parallax.Layer>
 
                 <Parallax.Layer
@@ -271,7 +271,7 @@ class CustomerLandingView extends React.Component{
                 speed={1}
                 style={styles}
                 >
-                <ApptTimeSelectView />
+                <ApptTimeSelectView history={this.props.history}/>
             </Parallax.Layer>
 
                 <Parallax.Layer
@@ -279,7 +279,7 @@ class CustomerLandingView extends React.Component{
                     speed={1}
                     style={styles}
                 >
-                    <ContactInfoView />
+                    <ContactInfoView history={this.props.history}/>
                 </Parallax.Layer>
                 </div>
             );
