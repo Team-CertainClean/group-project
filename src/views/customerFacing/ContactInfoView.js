@@ -4,7 +4,6 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import Stepper from '../../components/Stepper/Stepper';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 
@@ -160,7 +159,6 @@ class ContactInfoView extends Component {
 
     return (
       <div>
-        <Stepper activeStep={2}/>
         { content }
       </div>
     );

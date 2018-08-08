@@ -7,7 +7,6 @@ import Rating from 'react-rating';
 import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 //Components
 import RoomComponent from '../../components/RoomComponent/RoomComponent';
-import Stepper from '../../components/Stepper/Stepper';
 
 import { ROOM_ACTIONS } from '../../redux/actions/roomActions';
 
@@ -131,7 +130,6 @@ class RoomInputView extends Component {
 		const { classes } = this.props;		 
 			content = (
 				<center>
-					<Stepper activeStep={0} />
 					<RoomComponent />
 					<div>
 						<Typography gutterBottom>Click to add room!</Typography>

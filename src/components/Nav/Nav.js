@@ -35,7 +35,7 @@ class Nav extends Component {
         <div>
           <ul>
           <li>
-            <Link to="/landing">
+            <Link to="/home">
                 Landing
               </Link>
             </li>

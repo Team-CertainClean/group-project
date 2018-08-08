@@ -6,7 +6,6 @@ import ContactInfo from '../../components/ContactInfo/ContactInfo';
 import RoomInfo from '../../components/RoomInfo/RoomInfo';
 import TimeFinish from '../../components/TimeFinish/TimeFinish';
 import ApptCalendar from '../../components/ApptCalendar/ApptCalendar';
-import Stepper from '../../components/Stepper/Stepper';
 import Button from '@material-ui/core/Button';
 
 const styles = {
@@ -24,7 +23,6 @@ class ApptTimeSelectView extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.view}>
-                <Stepper activeStep={1}/>
                 <ContactInfo className={classes.contact} />
                 {/* <RoomInfo className={classes.room} /> */}
                 <TimeFinish className={classes.time} />
