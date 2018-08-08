@@ -62,7 +62,6 @@ class CommercialTable extends React.Component{
 
     };
 
-
     componentWillReceiveProps(nextProps){
         if(nextProps.rooms){
             this.setState({rooms: [...nextProps.rooms]});

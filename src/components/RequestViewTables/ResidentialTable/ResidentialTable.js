@@ -58,55 +58,16 @@ class ResidentialTable extends React.Component{
         this.state = {
             requests: [],
             filter: '',
-            sort: false
-            
+            sort: {
+                orderParam: '',
+                sortBy: '',
+            },
         }
-    }
-
-    componentDidMount(){
-        this.props.dispatch({ type: REQUEST_ACTIONS.FETCH });
     }
 
     componentWillReceiveProps(nextProps){
         if(nextProps.requests){
             this.setState({requests: [...nextProps.requests]});
-        }
-    }
-
-
-    handleChangeFor = event => {
-        return new Promise((resolve, reject)=>{
-            try{
-
-            }catch(error){
-                reject();
-            }
-        });
-    }
-
-    idAscendingSort(a, b){
-        console.log('Ascending');
-        console.log('A: ', a.request_info.request_id);
-        console.log('B: ', b.request_info.request_id);
-        return Number(a.request_id) - Number(b.request_id);
-    }
-
-    idDescendingSort(a, b){
-        console.log('Descending');
-        return Number(b.request_id) - Number(a.request_id);
-    }
-
-    sortRooms = (sort) => {
-        console.log(sort);
-        switch(sort){
-            case 'id':
-                this.state.sort ? this.setState({requests: [...this.props.requests.sort(this.idAscendingSort)], sort: !this.state.sort}) : this.setState({requests: [...this.props.requests.sort(this.idDescendingSort)], sort: !this.state.sort});
-                break;
-            case 'status':
-                this.state.sort ? this.setState({requests: [...this.alphabeticalSort()], sort: !this.state.sort}) : this.setState({requests: [...this.reverseAlphabeticalSort()], sort: !this.state.sort});
-                break;
-            default:
-                this.setState({rooms: [...this.props.rooms]});
         }
     }
 
@@ -129,6 +90,17 @@ class ResidentialTable extends React.Component{
         this.props.dispatch({type: REQUEST_ACTIONS.UPDATE, payload: newPayload})
     }
 
+  async sort(thing){
+        await this.setState({
+            sort: {
+                orderParam: thing,
+                sortBy: 'ASC'
+            }
+        })
+        console.log(`this.state.sort`, thing)
+        await this.props.dispatch({type: REQUEST_ACTIONS.FETCH, payload: this.state.sort})
+    }
+
     render(){
         console.log("Render Table");
         const { classes } = this.props;
@@ -142,14 +114,14 @@ class ResidentialTable extends React.Component{
                         <Table >
                             <TableHead className={classes.tableHeader}>
                                 <TableRow>
-                                    <TableCell className={classes.tableCell}>Request ID<IconButton onClick={() => this.sortRooms('id')}><Icon>sort</Icon></IconButton></TableCell>
+                                    <TableCell className={classes.tableCell}>Request ID<IconButton onClick={() => this.sort('request.id')}><Icon>sort</Icon></IconButton></TableCell>
                                     <TableCell>Customer</TableCell>
                                     <TableCell>Customer Email</TableCell>
                                     <TableCell>Web Estimate</TableCell>
                                     <TableCell className={classes.tableCell}>Cleaning Type</TableCell>
                                     <TableCell>Room</TableCell>
                                     <TableCell>Requested Time</TableCell>
-                                    <TableCell>Status<IconButton onClick={() => this.sortRooms('status')}><Icon>sort</Icon></IconButton></TableCell>
+                                    <TableCell>Status<IconButton onClick={() => this.sort('status')}><Icon>sort</Icon></IconButton></TableCell>
                                     <TableCell></TableCell>
                                 </TableRow>
                             </TableHead>
