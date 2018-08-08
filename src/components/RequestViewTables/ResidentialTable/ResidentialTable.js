@@ -117,10 +117,10 @@ class ResidentialTable extends React.Component{
                                     <TableCell className={classes.tableCell}>Request ID<IconButton onClick={() => this.sort('request.id')}><Icon>sort</Icon></IconButton></TableCell>
                                     <TableCell>Customer<IconButton onClick={() => this.sort('last_name')}><Icon>sort</Icon></IconButton></TableCell>
                                     <TableCell>Customer Email<IconButton onClick={() => this.sort('email')}><Icon>sort</Icon></IconButton></TableCell>
-                                    <TableCell>Web Estimate</TableCell>
-                                    <TableCell className={classes.tableCell}>Cleaning Type</TableCell>
-                                    <TableCell>Room</TableCell>
-                                    <TableCell>Requested Time</TableCell>
+                                    <TableCell>Web Estimate<IconButton onClick={() => this.sort('est_duration')}><Icon>sort</Icon></IconButton></TableCell>
+                                    <TableCell className={classes.tableCell}>Cleaning Type<IconButton onClick={() => this.sort('cleaning_type')}><Icon>sort</Icon></IconButton></TableCell>
+                                    <TableCell>Cleanliness</TableCell>
+                                    <TableCell>Requested Time<IconButton onClick={() => this.sort('start')}><Icon>sort</Icon></IconButton></TableCell>
                                     <TableCell>Status<IconButton onClick={() => this.sort('status')}><Icon>sort</Icon></IconButton></TableCell>
                                     <TableCell></TableCell>
                                 </TableRow>
