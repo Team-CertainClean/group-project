@@ -16,12 +16,10 @@ import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const styles = theme => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-      },
+
       textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
@@ -41,6 +39,24 @@ const styles = theme => ({
         margin: theme.spacing.unit,
         minWidth: 120,
       },
+      input: {
+        paddingLeft: '4%',
+        paddingRight: '4%',
+        borderRadius: '100px',
+          color: 'white'
+      },
+      getStartedButton: {
+        borderRadius: '100px',
+        display: 'flex', 
+        backgroundColor: '#ef8902',
+        marginTop: '5%',
+        padding: '2.5%',
+        paddingLeft: '4%',
+        paddingRight: '4%',
+        fontSize: 48,
+        color: 'white !important'
+        
+    },
 
 });
 
@@ -92,16 +108,16 @@ class ContactInfoView extends Component {
     const { classes } = this.props;
 
       content = (
-        <div>
-            <Paper>
-            <form className={classes.container} noValidate autoComplete="off">
+        
+           
+            <form  noValidate autoComplete="off">
                 <TextField
                     id="first_name"
                     placeholder="First Name"
                     value={this.state.first_name}
                     className={classes.textField}
                     onChange={this.handleChange('first_name')}
-                    margin="normal"
+                    InputProps={{ className: classes.input }}
                 />
                 <TextField
                     id="last_name"
@@ -109,15 +125,15 @@ class ContactInfoView extends Component {
                     value={this.state.last_name}
                     className={classes.textField}
                     onChange={this.handleChange('last_name')}
-                    margin="normal"
-                />
+                    InputProps={{ className: classes.input }}
+                /> 
                 <TextField
                     id="email"
                     placeholder="Email"
                     value={this.state.email}
                     className={classes.textField}
                     onChange={this.handleChange('email')}
-                    margin="normal"
+                    InputProps={{ className: classes.input }}
                 />
                 <TextField
                     id="location_address"
@@ -125,7 +141,7 @@ class ContactInfoView extends Component {
                     value={this.state.location_address}
                     className={classes.textField}
                     onChange={this.handleChange('location_address')}
-                    margin="normal"
+                    InputProps={{ className: classes.input }}
                 />
                 <TextField
                     id="phone_number"
@@ -133,11 +149,12 @@ class ContactInfoView extends Component {
                     value={this.state.phone_number}
                     className={classes.textField}
                     onChange={this.handleChange('phone_number')}
-                    margin="normal"
+                    InputProps={{ className: classes.input }}
                 />
                 <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="cleaning_type_id">Cleaning Type</InputLabel>
+                    <InputLabel htmlFor="cleaning_type_id"> Cleaning Type</InputLabel>
                     <Select
+                        className={classes.input}
                         value={this.state.cleaning_type_id}
                         onChange={this.handleChange('cleaning_type_id')}
                         input={<Input name="cleaning_type_id" id="cleaning_type_id" />}
@@ -146,15 +163,16 @@ class ContactInfoView extends Component {
                         <MenuItem value={3}>House</MenuItem>
                         <MenuItem value={2}>Airbnb</MenuItem>
                         <MenuItem value={1}>Move Out</MenuItem>
+
                     </Select>
-                    {/* <FormHelperText>Some important helper text</FormHelperText> */}
+                    <FormHelperText>Please select your cleaning type:</FormHelperText>
                 </FormControl>
-            </form>
-            <Button variant="contained" onClick={this.submitContactInfo} className={classes.button}>
+                <Button variant="contained" onClick={this.submitContactInfo} className={classes.getStartedButton}>
                 Submit
             </Button>
-            </Paper>
-        </div>
+            </form>
+           
+            
       );
 
     return (

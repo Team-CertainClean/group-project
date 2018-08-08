@@ -165,7 +165,15 @@ class CustomerLandingView extends React.Component{
         let numberofpages = 2;
         // Create layerBackground object to store continuous styles
         let layerBackground = {
-            opacity: '0.5'
+            position: 'relative',
+            float: 'left',
+            width:  '100vw',
+            maxHeight: '50vw',
+            backgroundPosition: '50% 50%',
+            backgroundRepeat:   'no-repeat',
+            backgroundSize:     'cover',
+            
+
         }
         // Conditional check to apply either a background color or background image based on state
         if(this.state.propertytype === 'residential'){
@@ -177,9 +185,7 @@ class CustomerLandingView extends React.Component{
         }
 
         if(this.state.selection === null){
-            locationTypeTitle = (
-                <Typography variant="title" style={{color: 'white'}}>Choose a location type</Typography>
-            );
+            
             locationTypeContent = (
                 <Typography className={classes.locationTypeContent}>
                     Please choose type of your property.
@@ -192,15 +198,13 @@ class CustomerLandingView extends React.Component{
                 </div>
             );
         } else if(this.state.selection){
-            locationTypeTitle = (
-                <Typography variant="title" style={{color: 'white'}}>Residential</Typography>
-            );
+   
             locationTypeContent = (
                 
                 <Typography className={classes.locationTypeContent}>
-                 <img src='/Home.jpg' width='100%' className={classes.propertypics}/>
+                
                      What to expect: You'll fill out our estimator to receive an estimated duration your cleaning will take and then we'll contact you when we've confirmed.
-                    <Link to={this.state.path} className={classes.getStartedLink}><Button className={classes.getStartedButton}>Get Started</Button></Link>
+                   <Button className={classes.getStartedButton} onClick={() => this.refs.parallax.scrollTo(2)}>Get Started</Button>
                 </Typography>
             );
             locationTypeChoices = (
@@ -210,12 +214,9 @@ class CustomerLandingView extends React.Component{
                 </div>
             );
         } else {
-            locationTypeTitle = (
-                <Typography variant="title" style={{color: 'white'}}>Commercial</Typography>
-            );
+            
             locationTypeContent = (
                 <Typography className={classes.locationTypeContent}>
-                <img src='/Office.jpg' width='100%' className={classes.propertypics}/>
                     What to expect: You'll be navigated to our contact form, and then we will get in touch to discuss the cleaning in further detail.
                     {/* <Link to={this.state.path} className={classes.getStartedLink}> */}
                     <Button className={classes.getStartedButton} onClick={() => this.refs.parallax.scrollTo(2)}>Get Started</Button>
@@ -238,10 +239,9 @@ class CustomerLandingView extends React.Component{
             numberofpages = 3;
             content = (
                 <Parallax.Layer
-                    offset={2}
+                    offset={2.2}
                     speed={1}
-                    style={styles}
-                    onClick={() => this.refs.parallax.scrollTo(0)}>
+                    style={styles}>
                     <ContactInfoView />
                 </Parallax.Layer>);
         
@@ -296,7 +296,7 @@ class CustomerLandingView extends React.Component{
         return(
             <Parallax ref="parallax" pages={numberofpages}>
                 <Parallax.Layer  offset={0} speed={1} style={{backgroundColor: 'white'}} />
-                <Parallax.Layer offset={1} speed={1} style={layerBackground}/>
+                <Parallax.Layer offset={1} speed={1} style={layerBackground} className='fadeIn'/>
                 {layer}
                 <Parallax.Layer
                     offset={0}
