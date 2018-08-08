@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 
@@ -18,10 +19,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 const styles = theme => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-      },
+
       textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
@@ -46,7 +44,19 @@ const styles = theme => ({
         paddingRight: '4%',
         borderRadius: '100px',
           color: 'white'
-      }
+      },
+      getStartedButton: {
+        borderRadius: '100px',
+        display: 'flex', 
+        backgroundColor: '#ef8902',
+        marginTop: '5%',
+        padding: '2.5%',
+        paddingLeft: '4%',
+        paddingRight: '4%',
+        fontSize: 48,
+        color: 'white !important'
+        
+    },
 
 });
 
@@ -98,9 +108,9 @@ class ContactInfoView extends Component {
     const { classes } = this.props;
 
       content = (
-        <div>
-            <Paper>
-            <form className={classes.container} noValidate autoComplete="off">
+        
+           
+            <form  noValidate autoComplete="off">
                 <TextField
                     id="first_name"
                     placeholder="First Name"
@@ -157,12 +167,12 @@ class ContactInfoView extends Component {
                     </Select>
                     <FormHelperText>Please select your cleaning type:</FormHelperText>
                 </FormControl>
-            </form>
-            <Button variant="contained" onClick={this.submitContactInfo} className={classes.button}>
+                <Button variant="contained" onClick={this.submitContactInfo} className={classes.getStartedButton}>
                 Submit
             </Button>
-            </Paper>
-        </div>
+            </form>
+           
+            
       );
 
     return (

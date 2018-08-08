@@ -23,7 +23,7 @@ class ApptTimeSelectView extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.view}>
-               
+
                 <ContactInfo className={classes.contact} />
                 {/* <RoomInfo className={classes.room} /> */}
                 <TimeFinish className={classes.time} />

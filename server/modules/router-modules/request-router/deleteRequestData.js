@@ -1,7 +1,7 @@
 const pool = require('../../pool');
 
 function deleteRequestData(body){
-    console.log(`this is deleteRequestData body`, body)
+    // console.log(`this is deleteRequestData body`, body)
     return new Promise((resolve, reject)=>{
         try{
             const queryText = `DELETE FROM request WHERE id = $1`;

@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
 // POST route to historical_contact_data
 router.post('/historical', (req, res) => {
     // Module that performs SQL transaction to post completed customer information into the DB
-    console.log(`this is requestRouter`, req.body)
+    // console.log(`this is requestRouter`, req.body)
     postHistoricalData(req.body)
         .then(result => res.sendStatus(201))
         .catch(error=>console.log('Error handling POST for /api/request/historical ', error));
@@ -43,9 +43,27 @@ router.post('/historical', (req, res) => {
 // POST route to historical_contact_data
 router.delete('/:id', (req, res) => {
     // Module that performs SQL transaction to post completed customer information into the DB
-    console.log(`this is request.router req.body`, req.body)
+    // console.log(`this is request.router req.body`, req.body)
     deleteRequestData(req.params.id)
         .then(result => res.sendStatus(201))
         .catch(error=>console.log('Error handling DELETE for /api/request/: ', error));
 });
+
+router.put('/:id', (req, res) => {
+    console.log(`in UPDATE on device.router`, req.params.id);
+    console.log(`in UPDATE on device.router - BODY`, req.body)
+    let id = req.params.id;
+    let status = req.body.newStatus;
+    let location_type = req.body.payload.location_type;
+    let est_duration = req.body.payload.est_duration;
+    let queryText = `UPDATE request SET status = $1, location_type_id = $2, est_duration = $3 
+    WHERE id = $4;`;
+    pool.query(queryText, [status, location_type, est_duration, id])
+    .then((result) => {
+        res.sendStatus(200);
+    }).catch((error) => {
+        console.log(`error UPDATing request from DB`, error);
+        res.sendStatus(500);
+    });
+  }); // end update device PUT
 module.exports = router;
