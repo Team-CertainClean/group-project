@@ -10,9 +10,10 @@ const deleteRequestData = require('../modules/router-modules/request-router/dele
  * GET route template
  */
 router.get('/requestTable', async (req, res) => {
+    console.log(`req.query`, req.query.sort)
     // Rename import, rename craftTable.js, and reassign module.exports in craftTable.js when getRequestData is completed
     // Replace with getRequestData from craftTable.js when completed and tested
-    getRequestData()
+    getRequestData(req.query)
         .then(result => {
             res.send(result)})
         .catch(error => {

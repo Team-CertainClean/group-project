@@ -1,13 +1,22 @@
 import axios from 'axios';
 
-export function fetchRequestData(){
-    return axios.get('/api/request/requestTable')
+export function fetchRequestData(payload){
+    return axios.get(`/api/request/requestTable?sort=${payload.orderParam}&order=${payload.sortBy}`)
         .then(response => response.data)
         .catch(error=>{
             alert("Error fetching requests");
             throw error.response || error;
         });
 }
+
+// export function sortRequestData(payload){
+//     return axios.get(`/api/request/requestTable?sort=${payload.sort.orderParam}`)
+//         .then(response => response.data)
+//         .catch(error=>{
+//             alert("Error fetching requests");
+//             throw error.response || error;
+//         });
+// }
 
 export function closeRequest(payload){
     // console.log(`this is requestRouter payload`, payload.request_info.request_id)
