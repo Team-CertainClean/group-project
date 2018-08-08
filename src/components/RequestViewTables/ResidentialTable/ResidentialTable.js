@@ -1,7 +1,6 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { ROOM_ACTIONS } from '../../../redux/actions/roomActions';
 import { REQUEST_ACTIONS } from '../../../redux/actions/requestActions';
 
 // Material UI Imports
@@ -13,7 +12,6 @@ import { Card, CardContent} from '@material-ui/core';
 
 // Component Imports 
 import ResidentialTableRow from './ResidentialTableRow';
-// import { EstimatorControlStyles } from '../../EstimatorControlTables/styles';
 
 const styles = theme => ({
     button: {
@@ -58,10 +56,10 @@ class ResidentialTable extends React.Component{
     constructor(){
         super();
         this.state = {
-            anchor: null,
             requests: [],
             filter: '',
             sort: false
+            
         }
     }
 
@@ -98,46 +96,11 @@ class ResidentialTable extends React.Component{
         return Number(b.request_id) - Number(a.request_id);
     }
 
-    // alphabeticalSort(){
-    //     let roomNames = this.props.rooms.map(room => room.room_name);
-    //     let sortedByName = roomNames.sort();
-    //     for(let room of this.props.rooms){
-    //         let sortedIndex = sortedByName.indexOf(room.room_name);
-    //         sortedByName[sortedIndex] = room;
-    //     }
-    //     console.log('Alphabetical sort: ', sortedByName);
-    //     return sortedByName;
-    // }
-
-    // reverseAlphabeticalSort(){
-    //     let roomNames = this.props.rooms.map(room => room.room_name).sort();
-    //     let reverseSortedByName = [];
-    //     for(let name of roomNames){
-    //         reverseSortedByName.unshift(name);
-    //     }
-    //     for(let room of this.props.rooms){
-    //         let sortedIndex = reverseSortedByName.indexOf(room.room_name);
-    //         reverseSortedByName[sortedIndex] = room;
-    //     }
-    //     return reverseSortedByName;
-    // }
-
-    // locationSort(){
-    //     let residential = this.props.rooms.filter(room => Number(room.location_type_id) === 1);
-    //     let commercial = this.props.rooms.filter(room => Number(room.location_type_id) === 2);
-    //     if(this.state.sort){
-    //         return [...residential, ...commercial];
-    //     } else {
-    //         return [...commercial, ...residential];
-    //     }
-    // }
-
     sortRooms = (sort) => {
         console.log(sort);
-        console.log(`blah`, this.props.requests)
         switch(sort){
             case 'id':
-                this.state.sort ? this.setState({requests: [...this.props.requests.sort(this.idAscendingSort)], sort: !this.state.sort}) : this.setState({rrequests: [...this.props.requests.sort(this.idDescendingSort)], sort: !this.state.sort});
+                this.state.sort ? this.setState({requests: [...this.props.requests.sort(this.idAscendingSort)], sort: !this.state.sort}) : this.setState({requests: [...this.props.requests.sort(this.idDescendingSort)], sort: !this.state.sort});
                 break;
             case 'status':
                 this.state.sort ? this.setState({requests: [...this.alphabeticalSort()], sort: !this.state.sort}) : this.setState({requests: [...this.reverseAlphabeticalSort()], sort: !this.state.sort});
@@ -155,7 +118,16 @@ class ResidentialTable extends React.Component{
     closeRequest = (id) => {
         console.log(`in closeRequest`, id)
         this.props.dispatch({type: REQUEST_ACTIONS.CLOSE, payload: id})
-      }
+    }
+    
+    updateRequest = (payload) => {
+        console.log(`update payload`, payload)
+        let newStatus = payload.status 
+        newStatus++
+        let newPayload = { newStatus: newStatus, payload }
+        console.log(`newPayload`, newPayload)
+        this.props.dispatch({type: REQUEST_ACTIONS.UPDATE, payload: newPayload})
+    }
 
     render(){
         console.log("Render Table");
@@ -184,7 +156,7 @@ class ResidentialTable extends React.Component{
                             <TableBody>
                                 {this.props.residential.map((request, i) => {
                                     return(
-                                        <ResidentialTableRow key={i} rowData={request} closeRequest={this.closeRequest} />
+                                        <ResidentialTableRow key={i} rowData={request} closeRequest={this.closeRequest} updateRequest={this.updateRequest} />
                                     );
                                 })}
                             </TableBody>
