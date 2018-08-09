@@ -29,13 +29,14 @@ const styles = {
     alignItems: 'center', 
     justifyContent: 'center',
     bookNow:{
-        
+        marginTop: '5%',
         paddingLeft: '2%',
         paddingRight: '2%',
         borderRadius: '60px',
         display: 'absolute', 
         color: 'white',
-        backgroundColor: '#ef8902',
+        // backgroundColor: '#ef8902',
+        backgroundColor: 'black',
         '&:hover':{
             color: '#ef8902',
             backgroundColor: '#E8E8E8',
@@ -119,7 +120,7 @@ const styles = {
         
     },
     logo: {
-        marginTop: '10%',
+        marginTop: '5%',
         position: 'absolute',
 
     '-webkit-animation': 'fadein 4s',
@@ -159,6 +160,10 @@ class CustomerLandingView extends React.Component{
         }
     }
 
+    scroll = () => {
+        this.refs.parallax.scrollTo(3)
+    }
+
     render(){
         const { classes } = this.props;
         let content, layer, locationTypeChoices, locationTypeTitle, locationTypeContent = null;
@@ -172,8 +177,6 @@ class CustomerLandingView extends React.Component{
             backgroundPosition: '50% 50%',
             backgroundRepeat:   'no-repeat',
             backgroundSize:     'cover',
-            
-
         }
         // Conditional check to apply either a background color or background image based on state
         if(this.state.propertytype === 'residential'){
@@ -263,14 +266,14 @@ class CustomerLandingView extends React.Component{
                     offset={2}
                     speed={1}
                     style={styles}>
-                    <RoomInputView history={this.props.history}/>
+                    <RoomInputView history={this.props.history} scroll={this.scroll}/>
                 </Parallax.Layer>
 
                 <Parallax.Layer
                     offset={3}
                     speed={1}
                     style={styles}>
-                    <ApptTimeSelectView history={this.props.history}/>
+                    <ApptTimeSelectView history={this.props.history} />
                 </Parallax.Layer>
 
                 <Parallax.Layer
@@ -295,7 +298,7 @@ class CustomerLandingView extends React.Component{
         return(
             <Parallax ref="parallax" pages={numberofpages}>
                 <Parallax.Layer  offset={0} speed={1} style={{backgroundColor: 'white'}} />
-                <Parallax.Layer offset={1} speed={1} style={layerBackground} className='fadeIn'/>
+                <Parallax.Layer offset={1} speed={1} style={layerBackground} />
                 {layer}
                 <Parallax.Layer
                     offset={0}

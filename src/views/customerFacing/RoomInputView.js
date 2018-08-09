@@ -175,7 +175,8 @@ class RoomInputView extends Component {
 	calcEstAndScrollToSchedule = () => {
 		const estimate = estimateCalculator(this.props.selectedRooms);
 		this.props.dispatch({type: CUSTOMER_ACTIONS.DURATION, payload: estimate});
-		this.props.history.push('schedule');
+		this.props.scroll();
+		// this.props.history.push('schedule');
 	}
 
 	render() {
@@ -237,15 +238,16 @@ class RoomInputView extends Component {
 						</div>
 					</Modal>
 				</div>
-			</center>
-					<div>
+				<div>
 						{/* <Button onClick={() => this.props.history.push('schedule')}>
 							Next
 						</Button> */}
-						<Button onClick={this.calcEstAndScrollToSchedule}>
+						<Button onClick={this.calcEstAndScrollToSchedule} >
 							Next
 						</Button>
 					</div>
+			</center>
+		)
 
 		return <div>{content}</div>;
 	}
