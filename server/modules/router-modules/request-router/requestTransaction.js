@@ -13,7 +13,7 @@ function requestTransaction(body){
                 // Initiates the transaction
                 await client.query('BEGIN;');
                 // Inserts the request data and returns the id for use in other queries
-                const req_id = await client.query(`INSERT INTO request ("cleaning_type_id", "location_type_id", "start_time", "end_time", "est_duration") values ($1, $2, $3, $4, $5) returning id;`, [body.contact.cleaning_type_id, body.location, body.appt.start, body.appt.end, body.duration]).then(result => result.rows[0].id);
+                const req_id = await client.query(`INSERT INTO request ("cleaning_type_id", "location_type_id", "start", "end", "est_duration") values ($1, $2, $3, $4, $5) returning id;`, [body.contact.cleaning_type_id, body.location, body.appt.start, body.appt.end, body.duration]).then(result => result.rows[0].id);
                 console.log("Request ID: ", req_id);
                 // Inserts rooms and their cleanliness scores into a junction table
                 for(let room of body.rooms){
