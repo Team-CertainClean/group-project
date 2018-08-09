@@ -89,13 +89,13 @@ create table Room(
 );
 
 -- Current offered rooms (default estimated metrics, replace when provided)
-insert into Room ("room_name", "location_type_id", "duration_metric") 
+insert into Room ("room_name", "location_type_id", "cleanliness_one_metric", "cleanliness_two_metric", "cleanliness_three_metric", "cleanliness_four_metric", "cleanliness_five_metric") 
 values
-('Bathroom', 1, 1.0),
-('Kitchen', 1, 0.75),
-('Living room', 1, 1.0),
-('Bedroom', 1, 0.5),
-('Dining room', 1, 0.5); -- Etc. 
+('Bathroom', 1, 1.75, 1.6, 1.3, 1.15, 1.0),
+('Kitchen', 1, 2.625, 2.4, 1.95, 1.725, 1.5),
+('Living room', 1, 0.875, 0.8, 0.65, 0.575, 0.5),
+('Bedroom', 1, 0.875, 0.8, 0.65, 0.575, 0.5),
+('Dining room', 1, 0.875, 0.8, 0.65, 0.575, 0.5); -- Etc. 
 
 -- Storage of rooms chosen per Request.
 create table Request_Room_Junction(
