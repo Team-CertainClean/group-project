@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Nav from '../../components/Nav/Nav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 
+import { Typography } from '@material-ui/core';
+
 const mapStateToProps = state => ({
   user: state.user,
 });
@@ -25,9 +27,18 @@ class InfoPage extends Component {
     if (this.props.user.userName) {
       content = (
         <div>
-          <p>
-            Info Page
-          </p>
+          <Typography variant="title">
+            Technologies Used:
+          </Typography>
+          <ul>
+            <Typography variant="body1">ReactJS</Typography>
+            <Typography variant="body1">Redux</Typography>
+            <Typography variant="body1">NodeJS</Typography>
+            <Typography variant="body1">Big Calendar</Typography>
+            <Typography variant="body1">MomentJS</Typography>
+            <Typography variant="body1">Passport</Typography>
+            <Typography variant="body1">Material UI</Typography>
+          </ul>
         </div>
       );
     }

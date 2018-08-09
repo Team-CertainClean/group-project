@@ -60,7 +60,7 @@ class ResidentialTable extends React.Component{
             filter: '',
             sort: {
                 orderParam: '',
-                sortBy: '',
+                sortBy: 'ASC',
             },
         }
     }
@@ -91,13 +91,22 @@ class ResidentialTable extends React.Component{
     }
 
   async sort(thing){
+      if (this.state.sort.sortBy === 'ASC'){
+        await this.setState({
+            sort: {
+                orderParam: thing,
+                sortBy: 'DESC'
+            }
+        })
+    } else if(this.state.sort.sortBy === 'DESC') {
         await this.setState({
             sort: {
                 orderParam: thing,
                 sortBy: 'ASC'
             }
         })
-        console.log(`this.state.sort`, thing)
+    }
+        console.log(`this.state.sort`, this.state.sort)
         await this.props.dispatch({type: REQUEST_ACTIONS.FETCH, payload: this.state.sort})
     }
 
