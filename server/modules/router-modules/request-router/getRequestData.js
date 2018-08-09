@@ -57,7 +57,7 @@ function getRequestData(sort){
             JOIN contact on contact.request_id = request_room_junction.request_id
             JOIN cleaning_type ON cleaning_type.id = request.cleaning_type_id
             GROUP BY request_room_junction.request_id, request.id, contact.id, cleaning_type
-            ORDER BY ${sort.sort};`;
+            ORDER BY ${sort.sort} ${sort.order};`;
             const result = await pool.query(queryText).then(result => { return result.rows});
             // console.log(`result.rows`, result)
             resolve(result);
