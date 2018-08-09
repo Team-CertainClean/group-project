@@ -16,16 +16,17 @@ const mapStateToProps = state => ({
 const styles = {
     icon: {
       float: 'left',
-      height: '16px',
-      margin: '3px',
-      marginTop: '7px'
+      height: '6vh',
+      marginLeft: '0.5vw'
     },
     rate: {
-      borderRadius: '15px',
+      borderRadius: '40vw',
       position:'relative',
       backgroundColor: '#A8A8A8',
-      width: '260px',
-      height: '30px',
+      width: '60vw',
+      height: '10vh',
+      border: '1px solid red',
+      marginTop: '1vh',
       
     },
     roomname: {
@@ -33,13 +34,23 @@ const styles = {
       color: 'white',
       position: 'absolute',
       float: 'left',
-      marginTop: '7px',
-      marginLeft: '13px',
+      fontSize: '6vh',
+      marginTop: '4.5vh',
+      marginLeft: '3vw',
+      
+
     },
     circles: {
       float:'right',
-      marginRight:'5px',
-      paddingBottom: '10px'
+      marginTop: '2vh',
+      marginRight: '3vw',
+    },
+    RoomList: {
+      border: '1px solid yellow',
+      marginTop: '10%'
+    },
+    fakerate: {
+     opacity: '0.5'
     }
   };
 
@@ -56,12 +67,14 @@ render() {
     let content = null;
     if(this.props.rooms){
       content = (
-        <div>
+        <div className={classes.RoomList}>
+        
         {this.props.rooms.map(room => {
+          
           return (
             <div className={classes.rate} key={room.room_id}>
               <p className={classes.roomname}>{room.room_name}</p>
-              <Rating 
+              <Rating readonly
                 className={classes.circles}
                 initialRating={room.cleanliness_score}
                 placeholderRating={Number(room.cleanliness_score)}
