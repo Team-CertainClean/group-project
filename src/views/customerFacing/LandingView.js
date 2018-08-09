@@ -168,7 +168,7 @@ class CustomerLandingView extends React.Component{
             position: 'relative',
             float: 'left',
             width:  '100vw',
-            maxHeight: '50vw',
+            maxHeight: '75vw',
             backgroundPosition: '50% 50%',
             backgroundRepeat:   'no-repeat',
             backgroundSize:     'cover',
@@ -234,7 +234,7 @@ class CustomerLandingView extends React.Component{
             case 'commercial':
             
             layer = (
-                <Parallax.Layer offset={2} speed={1} style={{ backgroundColor: '#87BCDE' }} />
+                <Parallax.Layer offset={2} speed={1} style={{ backgroundColor: 'grey' }} />
             );
             numberofpages = 3;
             content = (
@@ -251,9 +251,9 @@ class CustomerLandingView extends React.Component{
             
             layer = (
                 <div>
-                <Parallax.Layer offset={2} speed={1} style={{ backgroundColor: '#87BCDE' }} />
-                <Parallax.Layer offset={3} speed={1} style={{ backgroundColor: 'red' }} />
-                <Parallax.Layer offset={4} speed={1} style={{ backgroundColor: 'blue' }} />  
+                <Parallax.Layer offset={2} speed={1} style={{ backgroundColor: 'grey' }} />
+                <Parallax.Layer offset={3} speed={1} style={{ backgroundColor: 'grey' }} />
+                <Parallax.Layer offset={4} speed={1} style={{ backgroundColor: 'grey' }} />  
                 </div>
             );
             numberofpages = 5;
