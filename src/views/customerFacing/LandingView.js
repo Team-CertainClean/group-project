@@ -242,7 +242,7 @@ class CustomerLandingView extends React.Component{
                     offset={2.2}
                     speed={1}
                     style={styles}>
-                    <ContactInfoView />
+                    <ContactInfoView history={this.props.history}/>
                 </Parallax.Layer>);
         
                 break;
