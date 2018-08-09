@@ -239,7 +239,7 @@ class CustomerLandingView extends React.Component{
             numberofpages = 3;
             content = (
                 <Parallax.Layer
-                    offset={2.2}
+                    offset={2}
                     speed={1}
                     style={styles}>
                     <ContactInfoView history={this.props.history}/>
@@ -267,12 +267,11 @@ class CustomerLandingView extends React.Component{
                 </Parallax.Layer>
 
                 <Parallax.Layer
-                offset={3}
-                speed={1}
-                style={styles}
-                >
-                <ApptTimeSelectView history={this.props.history}/>
-            </Parallax.Layer>
+                    offset={3}
+                    speed={1}
+                    style={styles}>
+                    <ApptTimeSelectView history={this.props.history}/>
+                </Parallax.Layer>
 
                 <Parallax.Layer
                     offset={4}
