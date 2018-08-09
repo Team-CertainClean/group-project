@@ -19,10 +19,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-
 const mapStateToProps = (state) => ({
-  rooms: state.rooms.roomOptions,
-  selectedRooms: state.customer.rooms
+	rooms: state.rooms.roomOptions,
+	selectedRooms: state.customer.rooms
 });
 
 const styles = (theme) => ({
@@ -34,6 +33,29 @@ const styles = (theme) => ({
 		padding: theme.spacing.unit * 6,
 		borderRadius: '200px'
 	},
+	selectedLocationType: {
+        margin: '1%',
+        padding: '2.5%',
+        paddingLeft: '4%',
+        paddingRight: '4%',
+       borderRadius: '100px',
+        color: '#ef8902',
+        fontSize: 51,
+        backgroundColor: 'white',
+        '&:hover':{
+            color: '#ef8902',
+            backgroundColor: 'white'
+        }
+    },
+    unselectedLocationType: {
+        margin: '1%',
+        padding: '2.5%',
+        paddingLeft: '4%',
+        paddingRight: '4%',
+        borderRadius: '100px',
+        fontSize: 48,
+        color: 'white',
+    },
 	card: {
 		minWidth: 275
 	},
@@ -43,13 +65,13 @@ const styles = (theme) => ({
 		transform: 'scale(0.8)'
 	},
 	title: {
-    margin: '30px',
+		margin: '30px',
 		marginBottom: 16,
 		fontSize: 10
-  },
-  subheading: {
-    fontSize: 6
-  },
+	},
+	subheading: {
+		fontSize: 6
+	},
 	pos: {
 		marginBottom: 12
 	},
@@ -63,10 +85,29 @@ const styles = (theme) => ({
 		float: 'right',
 		marginRight: '5px',
 		paddingBottom: '10px'
-  },
-  roomDropDown: {
-    marginTop: '30px',
-  }
+	},
+	roomDropDown: {
+		marginTop: '30px'
+	},
+	whole: {
+		border: '1px solid green'
+	},
+	titles: {
+		color: 'white',
+		fontSize: '5vh'
+	},
+	getStartedButton: {
+        borderRadius: '100px',
+        display: 'flex', 
+        backgroundColor: '#ef8902',
+        marginTop: '5%',
+        padding: '2.5%',
+        paddingLeft: '4%',
+        paddingRight: '4%',
+        fontSize: 48,
+        color: 'white !important'
+        
+    },
 });
 
 function getModalStyle() {
@@ -103,88 +144,93 @@ class RoomInputView extends Component {
 	};
 
 	componentDidMount() {
-    this.props.dispatch({ type: ROOM_ACTIONS.FETCH });
+		this.props.dispatch({ type: ROOM_ACTIONS.FETCH });
 	} // end componentDidMount
 
-
 	handleChange = (event) => {
-   		this.setState({room: {...this.state.room, room_id: event.target.value.id, room_name: event.target.value.room_name}, roomName: event.target.value.room_name });
+		this.setState({
+			room: { ...this.state.room, room_id: event.target.value.id, room_name: event.target.value.room_name },
+			roomName: event.target.value.room_name
+		});
 	}; // end handle change
 
 	setScore = (rate) => {
-		this.setState({room: {...this.state.room, cleanliness_score: rate}});
-	}
+		this.setState({ room: { ...this.state.room, cleanliness_score: rate } });
+	};
 
 	addRoomToReducer = () => {
-		this.props.dispatch({type: CUSTOMER_ACTIONS.ROOMS, payload: this.state.room});
+		this.props.dispatch({ type: CUSTOMER_ACTIONS.ROOMS, payload: this.state.room });
 		this.handleClose();
 		this.clearState();
-	}
+	};
 
 	clearState = () => {
-		this.setState({room: {room_id: '', room_name: '', cleanliness_score: 3}, roomName: ''});
-	}
+		this.setState({ room: { room_id: '', room_name: '', cleanliness_score: 3 }, roomName: '' });
+	};
 
 	render() {
 		let content = null;
-		const { classes } = this.props;		 
-			content = (
-				<center>
-					<RoomComponent />
-					<div>
-						<Typography gutterBottom>Click to add room!</Typography>
-						<Button onClick={this.handleOpen}>Add room</Button>
-						<Modal
-							aria-labelledby="simple-modal-title"
-							aria-describedby="simple-modal-description"
-							open={this.state.open}
-							onClose={this.handleClose}
-						>
-							<div style={getModalStyle()} className={classes.paper}>
-								<Typography variant="title" id="modal-title">
-									Add kind of room and how dirty it is.
-								</Typography>
-								<Typography variant="subheading" id="simple-modal-description">
-									To prevent misestiamting please, input real information.
-								</Typography>
+		const { classes } = this.props;
+		content = (
+			<center className={classes.whole}>
+			<Typography gutterBottom className={classes.titles}>Select room that needs to be cleaned! 😇</Typography>
+				<RoomComponent />
+				<div>
+					
+					<Button onClick={this.handleOpen} className={classes.getStartedButton}>Add room</Button>
+					<Modal
+						aria-labelledby="simple-modal-title"
+						aria-describedby="simple-modal-description"
+						open={this.state.open}
+						onClose={this.handleClose}
+					>
+						<div style={getModalStyle()} className={classes.paper}>
+							<Typography variant="title" id="modal-title">
+								Add kind of room and how dirty it is.
+							</Typography>
+							<Typography variant="subheading" id="simple-modal-description">
+								To prevent misestiamting please, input real information.
+							</Typography>
 
-                  <FormControl className={classes.formControl}>
-          <Select
-            onChange={this.handleChange}
-            className={classes.roomDropDown}
-            value={this.state.roomName}
-          >
-            <MenuItem value={this.state.roomName} disabled>
-              {this.state.roomName}
-            </MenuItem>
-          {this.props.rooms.map(room =>
-                        <MenuItem key={room.id} value={room}>{room.room_name}</MenuItem>
-                    )};
-          </Select>
-          <FormHelperText>Select room that needs to be cleaned</FormHelperText>
-        </FormControl>
+							<FormControl className={classes.formControl}>
+								<Select
+									onChange={this.handleChange}
+									className={classes.roomDropDown}
+									value={this.state.roomName}
+								>
+									<MenuItem value={this.state.roomName} disabled>
+										{this.state.roomName}
+									</MenuItem>
+									{this.props.rooms.map((room) => (
+										<MenuItem key={room.id} value={room}>
+											{room.room_name}
+										</MenuItem>
+									))};
+								</Select>
+								<FormHelperText>Select room that needs to be cleaned</FormHelperText>
+							</FormControl>
 
-								<Rating
-									className={classes.circlesModal}
-									onChange={(rate) => this.setScore(rate)}
-									initialRating={this.state.room.cleanliness_score}
-									placeholderRating={3.0}
-									emptySymbol={<img src="/RatingIconGrey.png" className={classes.iconModal} />}
-									placeholderSymbol={<img src="/RatingIconOrange.png" className={classes.iconModal} />}
-									fullSymbol={<img src="/RatingIconOrange.png" className={classes.iconModal} />}
-								/>
-                <center><Button onClick={this.addRoomToReducer}>Add room</Button><Button onClick={this.handleClose}>Close</Button></center>
-							</div>
-						</Modal>
-					</div>
-					<div>
-						<Button onClick={() => this.props.history.push('schedule')}>
-							Next
-						</Button>
-					</div>
-				</center>
-			);
-		
+							<Rating
+								className={classes.circlesModal}
+								onChange={(rate) => this.setScore(rate)}
+								initialRating={this.state.room.cleanliness_score}
+								placeholderRating={3.0}
+								emptySymbol={<img src="/RatingIconGrey.png" className={classes.iconModal} />}
+								placeholderSymbol={<img src="/RatingIconOrange.png" className={classes.iconModal} />}
+								fullSymbol={<img src="/RatingIconOrange.png" className={classes.iconModal} />}
+							/>
+							<center>
+								<Button onClick={this.addRoomToReducer}>Add room</Button>
+								<Button onClick={this.handleClose}>Close</Button>
+							</center>
+						</div>
+					</Modal>
+				</div>
+				<div>
+					<Button onClick={() => this.props.history.push('schedule')}>Next</Button>
+				</div>
+			</center>
+		);
 
 		return <div>{content}</div>;
 	}
