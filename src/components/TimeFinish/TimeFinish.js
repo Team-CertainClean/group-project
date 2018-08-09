@@ -20,7 +20,7 @@ const styles = {
 };
 
 const mapStateToProps = state => ({
-    
+    estimate: state.customer.duration
 });
 
 class TimeFinish extends Component {
@@ -42,7 +42,7 @@ class TimeFinish extends Component {
                 <Card className={classes.card}>
                     <CardContent>
                         <Typography className={classes.title} color="textPrimary">
-                            ESTIMATE TIME:
+                            ESTIMATE TIME: {this.props.estimate}
                         </Typography>
                     </CardContent>
                     <CardActions>
