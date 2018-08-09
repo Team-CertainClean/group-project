@@ -8,7 +8,11 @@ import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 //Components
 import RoomComponent from '../../components/RoomComponent/RoomComponent';
 
+//Actions
 import { ROOM_ACTIONS } from '../../redux/actions/roomActions';
+
+//Modules
+import estimateCalculator from '../../redux/modules/estimateCalculator';
 
 // //Material UI
 import Typography from '@material-ui/core/Typography';
@@ -168,8 +172,15 @@ class RoomInputView extends Component {
 		this.setState({ room: { room_id: '', room_name: '', cleanliness_score: 3 }, roomName: '' });
 	};
 
+	calcEstAndScrollToSchedule = () => {
+		const estimate = estimateCalculator(this.props.selectedRooms);
+		this.props.dispatch({type: CUSTOMER_ACTIONS.DURATION, payload: estimate});
+		this.props.history.push('schedule');
+	}
+
 	render() {
 		let content = null;
+
 		const { classes } = this.props;
 		content = (
 			<center className={classes.whole}>
@@ -226,11 +237,15 @@ class RoomInputView extends Component {
 						</div>
 					</Modal>
 				</div>
-				<div>
-					<Button onClick={() => this.props.history.push('schedule')}>Next</Button>
-				</div>
 			</center>
-		);
+					<div>
+						{/* <Button onClick={() => this.props.history.push('schedule')}>
+							Next
+						</Button> */}
+						<Button onClick={this.calcEstAndScrollToSchedule}>
+							Next
+						</Button>
+					</div>
 
 		return <div>{content}</div>;
 	}

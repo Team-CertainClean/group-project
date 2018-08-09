@@ -10,9 +10,10 @@ const deleteRequestData = require('../modules/router-modules/request-router/dele
  * GET route template
  */
 router.get('/requestTable', async (req, res) => {
+    console.log(`req.query`, req.query.sort)
     // Rename import, rename craftTable.js, and reassign module.exports in craftTable.js when getRequestData is completed
     // Replace with getRequestData from craftTable.js when completed and tested
-    getRequestData()
+    getRequestData(req.query)
         .then(result => {
             res.send(result)})
         .catch(error => {
@@ -50,8 +51,8 @@ router.delete('/:id', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-    console.log(`in UPDATE on device.router`, req.params.id);
-    console.log(`in UPDATE on device.router - BODY`, req.body)
+    console.log(`in UPDATE on request.router`, req.params.id);
+    console.log(`in UPDATE on request.router - BODY`, req.body)
     let id = req.params.id;
     let status = req.body.newStatus;
     let location_type = req.body.payload.location_type;

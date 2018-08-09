@@ -239,10 +239,10 @@ class CustomerLandingView extends React.Component{
             numberofpages = 3;
             content = (
                 <Parallax.Layer
-                    offset={2.2}
+                    offset={2}
                     speed={1}
                     style={styles}>
-                    <ContactInfoView histo/>
+                    <ContactInfoView history={this.props.history}/>
                 </Parallax.Layer>);
         
                 break;
@@ -263,23 +263,22 @@ class CustomerLandingView extends React.Component{
                     offset={2}
                     speed={1}
                     style={styles}>
-                    <RoomInputView />
+                    <RoomInputView history={this.props.history}/>
                 </Parallax.Layer>
 
                 <Parallax.Layer
-                offset={3}
-                speed={1}
-                style={styles}
-                >
-                <ApptTimeSelectView />
-            </Parallax.Layer>
+                    offset={3}
+                    speed={1}
+                    style={styles}>
+                    <ApptTimeSelectView history={this.props.history}/>
+                </Parallax.Layer>
 
                 <Parallax.Layer
                     offset={4}
                     speed={1}
                     style={styles}
                 >
-                    <ContactInfoView />
+                    <ContactInfoView history={this.props.history}/>
                 </Parallax.Layer>
                 </div>
             );

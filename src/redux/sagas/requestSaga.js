@@ -2,9 +2,11 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { REQUEST_ACTIONS } from '../actions/requestActions';
 import { fetchRequestData, closeRequest, postRequest, updateRequest } from '../requests/requestRequests';
 
-function* fetch(){
+function* fetch(action){
+    let sort = action.payload
+    console.log(`fetch action.payload`, sort)
     try{
-        const request = yield fetchRequestData();
+        const request = yield fetchRequestData(sort);
         // console.log(`in request saga`, request)
         yield put({type: REQUEST_ACTIONS.STORE, payload: request});
     }catch(error){

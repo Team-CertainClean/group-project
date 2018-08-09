@@ -59,7 +59,7 @@ class SimpleModal extends React.Component {
 
     return (
       <div>
-        <div onClick={() => this.handleOpen(this.props.updateId)}><Button>Room</Button></div>
+        <div onClick={() => this.handleOpen(this.props.updateId)}><Button>Rooms</Button></div>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"

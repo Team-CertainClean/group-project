@@ -15,7 +15,8 @@ Calendar.setLocalizer(Calendar.momentLocalizer(moment));
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 const mapStateToProps = state => ({
-    availabilityEvents: state.availability
+    availabilityEvents: state.availability,
+    estimate: state.customer.duration,
 });
 
 class ApptCalendar extends Component {
@@ -96,12 +97,19 @@ class ApptCalendar extends Component {
     // }
 
     onSelect = (slotInfo) => {
-        console.log('slotInfo:', slotInfo);
-        this.setState({
-            newEvent: {start: new Date(slotInfo.start), end: new Date(slotInfo.end)},
-        });
-        this.dispatchAppt();
-        return true;
+        if (this.props.estimate < (slotInfo.end - slotInfo.start)){
+            console.log('slotInfo:', slotInfo);
+            this.setState({
+                newEvent: {start: new Date(slotInfo.start), end: new Date(slotInfo.end)},
+            });
+            this.setState({
+                events: [...this.state.events, this.state.newEvent]
+            })
+            this.dispatchAppt();
+            return true;
+        } else {
+            alert(`The time you selected is not sufficient for your estimated service duration. Please select another time`);
+        }
     }
 
     dispatchAppt() {
@@ -125,6 +133,7 @@ class ApptCalendar extends Component {
                 onEventDrop={this.moveEvent}
                 selectable
                 resizable
+                showMultiDayTimes
                 step={30}
                 min={new Date(2018, 7, 2, 5)}
                 max={new Date(2018, 7, 2, 20)}

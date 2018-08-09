@@ -151,7 +151,7 @@ class ContactInfoView extends Component {
                     onChange={this.handleChange('phone_number')}
                     InputProps={{ className: classes.input }}
                 />
-                <FormControl className={classes.formControl}>
+                {/* <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="cleaning_type_id"> Cleaning Type</InputLabel>
                     <Select
                         className={classes.input}
@@ -166,7 +166,7 @@ class ContactInfoView extends Component {
 
                     </Select>
                     <FormHelperText>Please select your cleaning type:</FormHelperText>
-                </FormControl>
+                </FormControl> */}
                 <Button variant="contained" onClick={this.submitContactInfo} className={classes.getStartedButton}>
                 Submit
             </Button>

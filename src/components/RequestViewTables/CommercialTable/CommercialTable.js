@@ -58,10 +58,13 @@ class CommercialTable extends React.Component{
         super();
         this.state = {
             requests: [],
+            sort: {
+                orderParam: '',
+                sortBy: '',
+            },
         };
 
     };
-
 
     componentWillReceiveProps(nextProps){
         if(nextProps.rooms){
@@ -82,6 +85,17 @@ class CommercialTable extends React.Component{
         this.props.dispatch({type: REQUEST_ACTIONS.UPDATE, payload: newPayload})
     }
 
+    async sort(thing){
+        await this.setState({
+            sort: {
+                orderParam: thing,
+                sortBy: 'ASC'
+            }
+        })
+        console.log(`this.state.sort`, thing)
+        await this.props.dispatch({type: REQUEST_ACTIONS.FETCH, payload: this.state.sort})
+    }
+
     render(){
         console.log("Render Table");
         const { classes } = this.props;
@@ -96,12 +110,12 @@ class CommercialTable extends React.Component{
                                 <Table className={classes.table}>
                                     <TableHead className={classes.tableHeader}>
                                         <TableRow>
-                                            <TableCell>Request ID<IconButton onClick={() => this.sortRooms('id')}><Icon>sort</Icon></IconButton></TableCell>
-                                            <TableCell>Customer Name</TableCell>
-                                            <TableCell>Customer Email</TableCell>
-                                            <TableCell>Room</TableCell>
-                                            <TableCell>Requested Time</TableCell>
-                                            <TableCell>Status<IconButton onClick={() => this.sortRooms('id')}><Icon>sort</Icon></IconButton></TableCell>
+                                            <TableCell>Request ID<IconButton onClick={() => this.sort('request.id')}><Icon>sort</Icon></IconButton></TableCell>
+                                            <TableCell>Customer Name<IconButton onClick={() => this.sort('last_name')}><Icon>sort</Icon></IconButton></TableCell>
+                                            <TableCell>Customer Email<IconButton onClick={() => this.sort('email')}><Icon>sort</Icon></IconButton></TableCell>
+                                            <TableCell>Cleanliness <IconButton onClick={() => this.sort('est_duration')}><Icon>sort</Icon></IconButton></TableCell>
+                                            <TableCell>Requested Time<IconButton onClick={() => this.sort('start')}><Icon>sort</Icon></IconButton></TableCell>
+                                            <TableCell>Status<IconButton onClick={() => this.sort('status')}><Icon>sort</Icon></IconButton></TableCell>
                                             <TableCell></TableCell>
                                         </TableRow>
                                     </TableHead>

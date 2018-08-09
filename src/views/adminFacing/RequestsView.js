@@ -33,13 +33,16 @@ class RequestsView extends React.Component{
         this.state = {
             filter: '',
             requests: [],
-            sort: false,
+            sort: {
+                orderParam: 'status',
+                sortBy: 'DESC',
+            },
             selectedTable: 0
         }
     }
 
     componentDidMount() {
-        this.props.dispatch({ type: REQUEST_ACTIONS.FETCH });
+        this.props.dispatch({ type: REQUEST_ACTIONS.FETCH, payload: this.state.sort});
     }
 
     selectOption = (index) => {

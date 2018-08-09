@@ -20,7 +20,7 @@ class CommercialTableRow extends Component {
       status = (<Button onClick={()=>this.props.updateRequest(this.props.rowData.request_info)}>Mark Scheduled</Button>)
       scheduled = ('Unscheduled')
     } else if (this.props.rowData.request_info.status === 1) {
-      status = (<Button onClick={()=>this.props.closeRequest(this.props.rowData)}>Close Event</Button>)
+      status = (<Button onClick={()=>this.props.closeRequest(this.props.rowData)}>Close Request</Button>)
       scheduled = ('Scheduled')
     }
 
