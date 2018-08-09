@@ -51,8 +51,8 @@ router.delete('/:id', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-    console.log(`in UPDATE on device.router`, req.params.id);
-    console.log(`in UPDATE on device.router - BODY`, req.body)
+    console.log(`in UPDATE on request.router`, req.params.id);
+    console.log(`in UPDATE on request.router - BODY`, req.body)
     let id = req.params.id;
     let status = req.body.newStatus;
     let location_type = req.body.payload.location_type;
