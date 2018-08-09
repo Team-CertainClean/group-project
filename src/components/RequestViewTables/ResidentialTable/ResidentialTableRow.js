@@ -15,13 +15,11 @@ class ResidentialTableRow extends Component {
     super(props);
     this.state = {
                     editing: false, 
-                    content: {...this.props.rowData}
+                    content: {...this.props.rowData},
                 }
 }
 
-  updateRequest = (id) => {
-    this.props.dispatch({type: REQUEST_ACTIONS.UPDATE, payload: id})
-  }
+
 
   render() {
     let status = null;
@@ -30,10 +28,10 @@ class ResidentialTableRow extends Component {
 
     //creates buttons to mark as scheduled and close/delete event
     if(this.props.rowData.request_info.status === 0){
-      status = (<Button onClick={this.updateRequest}>Mark Scheduled</Button>)
+      status = (<Button onClick={()=>this.props.updateRequest(this.props.rowData.request_info)}>Mark Scheduled</Button>)
       scheduled = ('Unscheduled')
     } else if (this.props.rowData.request_info.status === 1) {
-      status = (<Button onClick={()=>this.props.closeRequest(this.props.rowData.request_info.request_id)}>Close Event</Button>)
+      status = (<Button onClick={()=>this.props.closeRequest(this.props.rowData)}>Close Request</Button>)
       scheduled = ('Scheduled')
     }
 

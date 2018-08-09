@@ -12,6 +12,7 @@ import { Card, CardContent } from '@material-ui/core';
 
 // Component Imports 
 import CommercialTableRow from './CommercialTableRow';
+import { REQUEST_ACTIONS } from '../../../redux/actions/requestActions';
 
 const styles = theme => ({
     button: {
@@ -57,13 +58,13 @@ class CommercialTable extends React.Component{
         super();
         this.state = {
             requests: [],
+            sort: {
+                orderParam: '',
+                sortBy: '',
+            },
         };
 
     };
-
-    componentDidMount(){
-
-    }
 
     componentWillReceiveProps(nextProps){
         if(nextProps.rooms){
@@ -71,88 +72,29 @@ class CommercialTable extends React.Component{
         }
     }
 
+    closeRequest = (id) => {
+        this.props.dispatch({type: REQUEST_ACTIONS.CLOSE, payload: id})
+    }
 
-    // filterRooms = (filter) => {
-    //     switch(filter){
-    //         case 'Residential':
-    //             this.setState({rooms: [...this.props.rooms.filter(room => Number(room.location_type_id) === 1)]});
-    //             break;
-    //         case 'Commercial':
-    //             this.setState({rooms: [...this.props.rooms.filter(room => Number(room.location_type_id) === 2)]});
-    //             break;
-    //         default:
-    //             this.setState({rooms: [...this.props.rooms]});
-    //             break;
-    //     }
-    // }
+    updateRequest = (payload) => {
+        console.log(`update payload`, payload)
+        let newStatus = payload.status 
+        newStatus++
+        let newPayload = { newStatus: newStatus, payload }
+        console.log(`newPayload`, newPayload)
+        this.props.dispatch({type: REQUEST_ACTIONS.UPDATE, payload: newPayload})
+    }
 
-    // idAscendingSort(a, b){
-    //     console.log('Ascending');
-    //     console.log('A: ', a);
-    //     console.log('B: ', b);
-    //     return Number(a.id) - Number(b.id);
-    // }
-
-    // idDescendingSort(a, b){
-    //     console.log('Descending');
-    //     return Number(b.id) - Number(a.id);
-    // }
-
-    // alphabeticalSort(){
-    //     let roomNames = this.props.rooms.map(room => room.room_name);
-    //     let sortedByName = roomNames.sort();
-    //     for(let room of this.props.rooms){
-    //         let sortedIndex = sortedByName.indexOf(room.room_name);
-    //         sortedByName[sortedIndex] = room;
-    //     }
-    //     console.log('Alphabetical sort: ', sortedByName);
-    //     return sortedByName;
-    // }
-
-    // reverseAlphabeticalSort(){
-    //     let roomNames = this.props.rooms.map(room => room.room_name).sort();
-    //     let reverseSortedByName = [];
-    //     for(let name of roomNames){
-    //         reverseSortedByName.unshift(name);
-    //     }
-    //     for(let room of this.props.rooms){
-    //         let sortedIndex = reverseSortedByName.indexOf(room.room_name);
-    //         reverseSortedByName[sortedIndex] = room;
-    //     }
-    //     return reverseSortedByName;
-    // }
-
-    // locationSort(){
-    //     let residential = this.props.rooms.filter(room => Number(room.location_type_id) === 1);
-    //     let commercial = this.props.rooms.filter(room => Number(room.location_type_id) === 2);
-    //     if(this.state.sort){
-    //         return [...residential, ...commercial];
-    //     } else {
-    //         return [...commercial, ...residential];
-    //     }
-    // }
-
-    // sortRooms = (sort) => {
-    //     console.log(sort);
-    //     switch(sort){
-    //         case 'id':
-    //             this.state.sort ? this.setState({rooms: [...this.props.rooms.sort(this.idAscendingSort)], sort: !this.state.sort}) : this.setState({rooms: [...this.props.rooms.sort(this.idDescendingSort)], sort: !this.state.sort});
-    //             break;
-    //         case 'room_name':
-    //             this.state.sort ? this.setState({rooms: [...this.alphabeticalSort()], sort: !this.state.sort}) : this.setState({rooms: [...this.reverseAlphabeticalSort()], sort: !this.state.sort});
-    //             break;
-    //         case 'location_type_id':
-    //             this.state.sort ? this.setState({rooms: [...this.locationSort()], sort: !this.state.sort}) : this.setState({rooms: [...this.locationSort()], sort: !this.state.sort});
-    //             break;
-    //         default:
-    //             this.setState({rooms: [...this.props.rooms]});
-    //     }
-    // }
-
-    // handleFilter = (event) => {
-    //     this.setState({filter: event.target.value});
-    //     this.filterRooms(event.target.value);
-    // }
+    async sort(thing){
+        await this.setState({
+            sort: {
+                orderParam: thing,
+                sortBy: 'ASC'
+            }
+        })
+        console.log(`this.state.sort`, thing)
+        await this.props.dispatch({type: REQUEST_ACTIONS.FETCH, payload: this.state.sort})
+    }
 
     render(){
         console.log("Render Table");
@@ -163,26 +105,24 @@ class CommercialTable extends React.Component{
             table = (
                 <div>
                     <div>
-                        {/* <Typography variant="display2" className={classes.title}>Commercial Things on this page</Typography> */}
                         <Card>
                             <CardContent>
                                 <Table className={classes.table}>
                                     <TableHead className={classes.tableHeader}>
                                         <TableRow>
-                                            <TableCell>Request ID<IconButton onClick={() => this.sortRooms('id')}><Icon>sort</Icon></IconButton></TableCell>
-                                            <TableCell>Customer Name</TableCell>
-                                            <TableCell>Customer Email</TableCell>
-                                            <TableCell>Cleaning Type</TableCell>
-                                            <TableCell>Room</TableCell>
-                                            <TableCell>Requested Time</TableCell>
-                                            <TableCell>Status<IconButton onClick={() => this.sortRooms('id')}><Icon>sort</Icon></IconButton></TableCell>
+                                            <TableCell>Request ID<IconButton onClick={() => this.sort('request.id')}><Icon>sort</Icon></IconButton></TableCell>
+                                            <TableCell>Customer Name<IconButton onClick={() => this.sort('last_name')}><Icon>sort</Icon></IconButton></TableCell>
+                                            <TableCell>Customer Email<IconButton onClick={() => this.sort('email')}><Icon>sort</Icon></IconButton></TableCell>
+                                            <TableCell>Cleanliness <IconButton onClick={() => this.sort('est_duration')}><Icon>sort</Icon></IconButton></TableCell>
+                                            <TableCell>Requested Time<IconButton onClick={() => this.sort('start')}><Icon>sort</Icon></IconButton></TableCell>
+                                            <TableCell>Status<IconButton onClick={() => this.sort('status')}><Icon>sort</Icon></IconButton></TableCell>
                                             <TableCell></TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
                                         {this.props.commercial.map((request, i) => {
                                             return(
-                                                <CommercialTableRow key={i} rowData={request} />
+                                                <CommercialTableRow key={i} rowData={request} closeRequest={this.closeRequest} updateRequest={this.updateRequest} />
                                             );
                                         })}
                                     </TableBody>
@@ -196,7 +136,7 @@ class CommercialTable extends React.Component{
         }
         return(
             <div>
-                <Typography variant="title">Commercial</Typography>
+                <Typography variant="title" style={{textAlign: 'center'}}>Commercial</Typography>
                 <Card className={classes.tableCard}>
                     <CardContent>
                         {table}

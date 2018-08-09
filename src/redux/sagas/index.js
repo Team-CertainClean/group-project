@@ -6,6 +6,7 @@ import roomSaga from './roomSaga';
 import cleanerSaga from './cleanerSaga';
 import requestSaga from './requestSaga';
 import availabilitySaga from './availabilitySaga';
+import customerSaga from './customerSaga';
 
 export default function* rootSaga() {
   yield all([
@@ -16,6 +17,7 @@ export default function* rootSaga() {
     cleanerSaga(),
     requestSaga(),
     availabilitySaga(),
+    customerSaga()
     // watchIncrementAsync()
   ]);
 }

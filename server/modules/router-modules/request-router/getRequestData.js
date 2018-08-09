@@ -42,22 +42,24 @@ This is the example provided by Mary for how to do these large queries.
     etc.
 ]
 */
-function getRequestData(){
+function getRequestData(sort){
     // See explanation in above multi-line comments
-    return new Promise((resolve, reject)=>{
+    return new Promise(async (resolve, reject)=>{
         try{
             const queryText = `
             SELECT
-            json_build_object('request_id', request.id, 'start_time', request.start_time, 'end_time', request.end_time, 'est_duration', request.est_duration, 'status', request.status, 'location_type', request.location_type_id, 'cleaning_type', cleaning_type.cleaning_type) as request_info,
+            json_build_object('request_id', request.id, 'start_time', request.start, 'end_time', request.end, 'est_duration', request.est_duration, 'status', request.status, 'location_type', request.location_type_id, 'cleaning_type', cleaning_type.cleaning_type) as request_info,
                 json_build_object('contact_id', contact.id, 'first_name', contact.first_name, 'last_name', contact.last_name, 'email', contact.email, 'phone_number', contact.phone_number, 'address', contact.location_address) as contact_info,
                 json_build_object('rooms', array_agg(json_build_object('room_id', room.id, 'room_name', room.room_name, 'location_type_id', room.location_type_id, 'cleanliness_score', request_room_junction.cleanliness_score))) as room_info
             from request_room_junction
             JOIN request on request.id = request_room_junction.request_id
             JOIN room on room.id = request_room_junction.room_id
             JOIN contact on contact.request_id = request_room_junction.request_id
-            JOIN cleaning_type on cleaning_type.id = request.cleaning_type_id
-            GROUP BY request_room_junction.request_id, request.id, contact.id, cleaning_type.cleaning_type;`;
-            const result = pool.query(queryText).then(result => {return result.rows});
+            JOIN cleaning_type ON cleaning_type.id = request.cleaning_type_id
+            GROUP BY request_room_junction.request_id, request.id, contact.id, cleaning_type
+            ORDER BY ${sort.sort};`;
+            const result = await pool.query(queryText).then(result => { return result.rows});
+            // console.log(`result.rows`, result)
             resolve(result);
         }catch(error){
             console.log('Error in getRequestData: ', error);

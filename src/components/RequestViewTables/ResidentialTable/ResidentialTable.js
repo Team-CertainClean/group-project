@@ -1,7 +1,6 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { ROOM_ACTIONS } from '../../../redux/actions/roomActions';
 import { REQUEST_ACTIONS } from '../../../redux/actions/requestActions';
 
 // Material UI Imports
@@ -13,7 +12,6 @@ import { Card, CardContent} from '@material-ui/core';
 
 // Component Imports 
 import ResidentialTableRow from './ResidentialTableRow';
-// import { EstimatorControlStyles } from '../../EstimatorControlTables/styles';
 
 const styles = theme => ({
     button: {
@@ -58,107 +56,18 @@ class ResidentialTable extends React.Component{
     constructor(){
         super();
         this.state = {
-            anchor: null,
             requests: [],
             filter: '',
-            sort: false
+            sort: {
+                orderParam: '',
+                sortBy: '',
+            },
         }
-    }
-
-    componentDidMount(){
-        this.props.dispatch({ type: REQUEST_ACTIONS.FETCH });
     }
 
     componentWillReceiveProps(nextProps){
         if(nextProps.requests){
             this.setState({requests: [...nextProps.requests]});
-        }
-    }
-
-
-
-    handleChangeFor = event => {
-        return new Promise((resolve, reject)=>{
-            try{
-
-            }catch(error){
-                reject();
-            }
-        });
-    }
-
-    // filterRooms = (filter) => {
-    //     switch(filter){
-    //         case 'Residential':
-    //             this.setState({rooms: [...this.props.rooms.filter(room => Number(room.location_type_id) === 1)]});
-    //             break;
-    //         case 'Commercial':
-    //             this.setState({rooms: [...this.props.rooms.filter(room => Number(room.location_type_id) === 2)]});
-    //             break;
-    //         default:
-    //             this.setState({rooms: [...this.props.rooms]});
-    //             break;
-    //     }
-    // }
-
-    idAscendingSort(a, b){
-        console.log('Ascending');
-        console.log('A: ', a.request_info.request_id);
-        console.log('B: ', b.request_info.request_id);
-        return Number(a.request_id) - Number(b.request_id);
-    }
-
-    idDescendingSort(a, b){
-        console.log('Descending');
-        return Number(b.request_id) - Number(a.request_id);
-    }
-
-    // alphabeticalSort(){
-    //     let roomNames = this.props.rooms.map(room => room.room_name);
-    //     let sortedByName = roomNames.sort();
-    //     for(let room of this.props.rooms){
-    //         let sortedIndex = sortedByName.indexOf(room.room_name);
-    //         sortedByName[sortedIndex] = room;
-    //     }
-    //     console.log('Alphabetical sort: ', sortedByName);
-    //     return sortedByName;
-    // }
-
-    // reverseAlphabeticalSort(){
-    //     let roomNames = this.props.rooms.map(room => room.room_name).sort();
-    //     let reverseSortedByName = [];
-    //     for(let name of roomNames){
-    //         reverseSortedByName.unshift(name);
-    //     }
-    //     for(let room of this.props.rooms){
-    //         let sortedIndex = reverseSortedByName.indexOf(room.room_name);
-    //         reverseSortedByName[sortedIndex] = room;
-    //     }
-    //     return reverseSortedByName;
-    // }
-
-    // locationSort(){
-    //     let residential = this.props.rooms.filter(room => Number(room.location_type_id) === 1);
-    //     let commercial = this.props.rooms.filter(room => Number(room.location_type_id) === 2);
-    //     if(this.state.sort){
-    //         return [...residential, ...commercial];
-    //     } else {
-    //         return [...commercial, ...residential];
-    //     }
-    // }
-
-    sortRooms = (sort) => {
-        console.log(sort);
-        console.log(`blah`, this.props.requests)
-        switch(sort){
-            case 'id':
-                this.state.sort ? this.setState({requests: [...this.props.requests.sort(this.idAscendingSort)], sort: !this.state.sort}) : this.setState({rrequests: [...this.props.requests.sort(this.idDescendingSort)], sort: !this.state.sort});
-                break;
-            case 'status':
-                this.state.sort ? this.setState({requests: [...this.alphabeticalSort()], sort: !this.state.sort}) : this.setState({requests: [...this.reverseAlphabeticalSort()], sort: !this.state.sort});
-                break;
-            default:
-                this.setState({rooms: [...this.props.rooms]});
         }
     }
 
@@ -170,7 +79,27 @@ class ResidentialTable extends React.Component{
     closeRequest = (id) => {
         console.log(`in closeRequest`, id)
         this.props.dispatch({type: REQUEST_ACTIONS.CLOSE, payload: id})
-      }
+    }
+    
+    updateRequest = (payload) => {
+        console.log(`update payload`, payload)
+        let newStatus = payload.status 
+        newStatus++
+        let newPayload = { newStatus: newStatus, payload }
+        console.log(`newPayload`, newPayload)
+        this.props.dispatch({type: REQUEST_ACTIONS.UPDATE, payload: newPayload})
+    }
+
+  async sort(thing){
+        await this.setState({
+            sort: {
+                orderParam: thing,
+                sortBy: 'ASC'
+            }
+        })
+        console.log(`this.state.sort`, thing)
+        await this.props.dispatch({type: REQUEST_ACTIONS.FETCH, payload: this.state.sort})
+    }
 
     render(){
         console.log("Render Table");
@@ -185,21 +114,21 @@ class ResidentialTable extends React.Component{
                         <Table >
                             <TableHead className={classes.tableHeader}>
                                 <TableRow>
-                                    <TableCell className={classes.tableCell}>Request ID<IconButton onClick={() => this.sortRooms('id')}><Icon>sort</Icon></IconButton></TableCell>
-                                    <TableCell>Customer</TableCell>
-                                    <TableCell>Customer Email</TableCell>
-                                    <TableCell>Web Estimate</TableCell>
-                                    <TableCell className={classes.tableCell}>Cleaning Type</TableCell>
-                                    <TableCell>Room</TableCell>
-                                    <TableCell>Requested Time</TableCell>
-                                    <TableCell>Status<IconButton onClick={() => this.sortRooms('status')}><Icon>sort</Icon></IconButton></TableCell>
+                                    <TableCell className={classes.tableCell}>Request ID<IconButton onClick={() => this.sort('request.id')}><Icon>sort</Icon></IconButton></TableCell>
+                                    <TableCell>Customer<IconButton onClick={() => this.sort('last_name')}><Icon>sort</Icon></IconButton></TableCell>
+                                    <TableCell>Customer Email<IconButton onClick={() => this.sort('email')}><Icon>sort</Icon></IconButton></TableCell>
+                                    <TableCell>Web Estimate<IconButton onClick={() => this.sort('est_duration')}><Icon>sort</Icon></IconButton></TableCell>
+                                    <TableCell className={classes.tableCell}>Cleaning Type<IconButton onClick={() => this.sort('cleaning_type')}><Icon>sort</Icon></IconButton></TableCell>
+                                    <TableCell>Cleanliness</TableCell>
+                                    <TableCell>Requested Time<IconButton onClick={() => this.sort('start')}><Icon>sort</Icon></IconButton></TableCell>
+                                    <TableCell>Status<IconButton onClick={() => this.sort('status')}><Icon>sort</Icon></IconButton></TableCell>
                                     <TableCell></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {this.props.residential.map((request, i) => {
                                     return(
-                                        <ResidentialTableRow key={i} rowData={request} closeRequest={this.closeRequest} />
+                                        <ResidentialTableRow key={i} rowData={request} closeRequest={this.closeRequest} updateRequest={this.updateRequest} />
                                     );
                                 })}
                             </TableBody>

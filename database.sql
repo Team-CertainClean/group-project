@@ -32,11 +32,12 @@ insert into Location_Type("location_type") values ('Residential'), ('Commercial'
 -- Storage of Request information.  start_time and end_time represent the requested start and end time for cleaning.
 -- "status" is an integer, either 0, 1, or 2.  0 = unscheduled, 1 = scheduled, 2 = closed.
 create table Request(
+
     id serial primary key,
 	cleaning_type_id int references Cleaning_Type,
 	location_type_id int references Location_Type not null,
-    start_time timestamp,
-    end_time timestamp,
+    "start" timestamp with time zone,
+    "end" timestamp with time zone,
     est_duration float not null,
     status int default 0
 );
@@ -53,8 +54,8 @@ create table Cleaner(
 -- Storage of Big Calendar object data of Certain Clean Availability, entered manually through admin portal.
 create table "availability"(
     id serial primary key,
-    start_time timestamp, -- FORMAT: 'YYYY-MM-DD hh:mm:ss'
-    end_time timestamp  -- FORMAT: 'YYYY-MM-DD hh:mm:ss'
+    "start" timestamp with time zone, -- FORMAT: 'YYYY-MM-DD hh:mm:ss'
+    "end" timestamp with time zone -- FORMAT: 'YYYY-MM-DD hh:mm:ss'
 );
 
 -- Storage of Scheduled requests, connecting the Request to the chosen Cleaner
@@ -66,13 +67,13 @@ create table Schedule(
 
 -- Storage of Customer contact information while request remains open.  Once closed, moved to Historical_Contact_Data
 create table Contact(
-	id serial primary key,
-	request_id int references Request not null,
-	first_name varchar(80),
-	last_name varchar(80),
-	email varchar(120) not null,
-	phone_number varchar(12),
-	location_address varchar(200)
+    id serial primary key,
+    request_id int references Request ON DELETE CASCADE not null ,
+    first_name varchar(80),
+    last_name varchar(80),
+    email varchar(120) not null,
+    phone_number varchar(12),
+    location_address varchar(200)
 );
 
 -- Storage of cleanable rooms with relevant duration metrics, connected to a location type.

@@ -2,10 +2,12 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { REQUEST_ACTIONS } from '../actions/requestActions';
 import { fetchRequestData, closeRequest, postRequest, updateRequest } from '../requests/requestRequests';
 
-function* fetch(){
+function* fetch(action){
+    let sort = action.payload
+    console.log(`fetch action.payload`, sort)
     try{
-        const request = yield fetchRequestData();
-        console.log(`in request saga`, request)
+        const request = yield fetchRequestData(sort);
+        // console.log(`in request saga`, request)
         yield put({type: REQUEST_ACTIONS.STORE, payload: request});
     }catch(error){
         alert("Failed to fetch request blob", error);
@@ -13,9 +15,8 @@ function* fetch(){
 }
 
 function* close(action){
-    console.log(`close function reqSaga`, action.payload)
+    // console.log(`close function reqSaga`, action.payload)
     try{
-        
         yield put({type: REQUEST_ACTIONS.POST, payload: action.payload})
         yield closeRequest(action.payload);
         yield put({type: REQUEST_ACTIONS.FETCH});
@@ -25,6 +26,7 @@ function* close(action){
 }
 
 function* post(action){
+    // console.log(`this is requestSaga`, action.payload)
     try{
         yield postRequest(action.payload);
     }catch(error){
@@ -35,6 +37,7 @@ function* post(action){
 function* update(action){
     try{
         yield updateRequest(action.payload);
+        yield put({type: REQUEST_ACTIONS.FETCH});
     } catch(error){
         alert('Error updating this request', error);
     }

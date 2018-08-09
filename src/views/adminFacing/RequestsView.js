@@ -4,13 +4,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import {withStyles} from '@material-ui/core/styles';
 import { Typography } from '../../../node_modules/@material-ui/core';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+
 
 
 // Component Imports
@@ -18,8 +12,6 @@ import {connect} from 'react-redux';
 import { compose } from 'redux';
 import Nav from '../../components/Nav/Nav';
 import { REQUEST_ACTIONS } from '../../redux/actions/requestActions';
-// import ResidentialTableRow from '../../components/ResidentialTableRow/ResidentialTableRow';
-// import CommercialTableRow from '../../components/CommercialTableRow/CommercialTableRow';
 import CommercialTable from '../../components/RequestViewTables/CommercialTable/CommercialTable';
 import ResidentialTable from '../../components/RequestViewTables/ResidentialTable/ResidentialTable';
 import RequestMenuBar from '../../components/RequestMenuBar/RequestMenuBar';
@@ -41,81 +33,17 @@ class RequestsView extends React.Component{
         this.state = {
             filter: '',
             requests: [],
-            sort: false,
+            sort: {
+                orderParam: 'status',
+                sortBy: 'DESC',
+            },
             selectedTable: 0
         }
     }
 
     componentDidMount() {
-        this.props.dispatch({ type: REQUEST_ACTIONS.FETCH });
+        this.props.dispatch({ type: REQUEST_ACTIONS.FETCH, payload: this.state.sort});
     }
-    
-    // idAscendingSort(a, b){
-    //     console.log('Ascending');
-    //     console.log('A: ', a);
-    //     console.log('B: ', b);
-    //     return Number(a.id) - Number(b.id);
-    // }
-
-    // idDescendingSort(a, b){
-    //     console.log('Descending');
-    //     return Number(b.id) - Number(a.id);
-    // }
-
-    // componentWillReceiveProps(nextProps){
-    //     console.log(nextProps);
-    //     if(nextProps.request){
-    //         this.setState({requests: [...nextProps.request]});
-    //     }
-    // }
-
-    // alphabeticalSort(){
-    //     let requestNames = this.props.requests.map(request => request.room_name);
-    //     let sortedByName = requestNames.sort();
-    //     for(let room of this.props.requests){
-    //         let sortedIndex = sortedByName.indexOf(room.room_name);
-    //         sortedByName[sortedIndex] = room;
-    //     }
-    //     console.log('Alphabetical sort: ', sortedByName);
-    //     return sortedByName;
-    // }
-
-    // reverseAlphabeticalSort(){
-    //     let requestNames = this.props.requests.map(room => room.room_name).sort();
-    //     let reverseSortedByName = [];
-    //     for(let name of requestNames){
-    //         reverseSortedByName.unshift(name);
-    //     }
-    //     for(let room of this.props.rooms){
-    //         let sortedIndex = reverseSortedByName.indexOf(room.room_name);
-    //         reverseSortedByName[sortedIndex] = room;
-    //     }
-    //     return reverseSortedByName;
-    // }
-
-    // sortRooms = (sort) => {
-    //     console.log(sort);
-    //     switch(sort){
-    //         case 'id':
-    //             console.log(this.state);
-    //             this.state.sort ? this.setState({requests: [...this.props.request.sort(this.idAscendingSort)], sort: !this.state.sort}) : this.setState({rooms: [...this.props.request.sort(this.idDescendingSort)], sort: !this.state.sort});
-    //             break;
-    //         // case 'name':
-    //         //     this.state.sort ? this.setState({requests: [...this.alphabeticalSort()], sort: !this.state.sort}) : this.setState({requests: [...this.reverseAlphabeticalSort()], sort: !this.state.sort});
-    //         //     break;
-    //         // case 'email':
-    //         //     this.state.sort ? this.setState({requests: [...this.alphabeticalSort()], sort: !this.state.sort}) : this.setState({requests: [...this.reverseAlphabeticalSort()], sort: !this.state.sort});
-    //         //     break;
-    //         case 'serviceType':
-    //             this.state.sort ? this.setState({requests: [...this.alphabeticalSort()], sort: !this.state.sort}) : this.setState({requests: [...this.reverseAlphabeticalSort()], sort: !this.state.sort});
-    //             break;
-    //         case 'status':
-    //             this.state.sort ? this.setState({requests: [...this.alphabeticalSort()], sort: !this.state.sort}) : this.setState({requests: [...this.reverseAlphabeticalSort()], sort: !this.state.sort});
-    //             break;
-    //         default:
-    //             this.setState({requests: [...this.props.rooms]});
-    //     }
-    // }
 
     selectOption = (index) => {
         this.setState({selectedTable: index});
@@ -131,7 +59,7 @@ class RequestsView extends React.Component{
             menuBar = (
                 <RequestMenuBar menuOptions={menuOptions} selectOption={this.selectOption} />
             )
-
+            // console.log(`this is this.props.requests in RequestsView`, this.props.requests)
             let residential = this.props.requests.filter(request => request.request_info.location_type === 1)
             let commercial = this.props.requests.filter(request => request.request_info.location_type === 2)
 
