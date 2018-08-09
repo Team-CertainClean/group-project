@@ -19,7 +19,7 @@ create table Cleaning_Type(
 	cleaning_type varchar(80)
 );
 -- Inserts move out and airbnb options into cleaning_type table
-insert into Cleaning_Type ("cleaning_type") values ('Move Out'), ('AirBnB');
+insert into Cleaning_Type ("cleaning_type") values ('Move Out'), ('AirBnB'), ('Home');
 
 -- Storage of cleaning locations offered
 create table Location_Type(

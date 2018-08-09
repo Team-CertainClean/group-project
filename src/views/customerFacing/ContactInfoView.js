@@ -160,7 +160,7 @@ class ContactInfoView extends Component {
                         input={<Input name="cleaning_type_id" id="cleaning_type_id" />}
                     >
                         <MenuItem value=""><em>None</em></MenuItem>
-                        <MenuItem value={3}>House</MenuItem>
+                        <MenuItem value={3}>Home</MenuItem>
                         <MenuItem value={2}>Airbnb</MenuItem>
                         <MenuItem value={1}>Move Out</MenuItem>
 
