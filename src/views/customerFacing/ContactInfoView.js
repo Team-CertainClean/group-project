@@ -18,6 +18,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
+import swal from 'sweetalert';
+
 const styles = theme => ({
 
       textField: {
@@ -109,7 +111,6 @@ class ContactInfoView extends Component {
 
       content = (
         
-           
             <form  noValidate autoComplete="off">
                 <TextField
                     id="first_name"
