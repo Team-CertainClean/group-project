@@ -175,7 +175,7 @@ class RoomInputView extends Component {
 	calcEstAndScrollToSchedule = () => {
 		const estimate = estimateCalculator(this.props.selectedRooms);
 		this.props.dispatch({type: CUSTOMER_ACTIONS.DURATION, payload: estimate});
-		this.props.scroll();
+		this.props.scroll(3);
 		// this.props.history.push('schedule');
 	}
 
