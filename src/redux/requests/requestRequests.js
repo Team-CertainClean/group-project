@@ -1,22 +1,24 @@
 import axios from 'axios';
 
 export function fetchRequestData(payload){
-    return axios.get(`/api/request/requestTable?sort=${payload.orderParam}&order=${payload.sortBy}`)
-        .then(response => response.data)
+    console.log(`this is fetchRequestData on requestRequests`, );
+    let url;
+    if(payload){
+        url = `/api/request/requestTable?sort=${payload.orderParam}&order=${payload.sortBy}`;
+    } else {
+        url = '/api/request/requestTable';
+    }
+    console.log(`url`, url)
+    return axios.get(url)
+        .then(response => {
+            console.log(`response`, response)
+            return response.data})
         .catch(error=>{
             alert("Error fetching requests");
-            throw error.response || error;
+            console.log(`reqREQ`, error);
         });
 }
 
-// export function sortRequestData(payload){
-//     return axios.get(`/api/request/requestTable?sort=${payload.sort.orderParam}`)
-//         .then(response => response.data)
-//         .catch(error=>{
-//             alert("Error fetching requests");
-//             throw error.response || error;
-//         });
-// }
 
 export function closeRequest(payload){
     // console.log(`this is requestRouter payload`, payload.request_info.request_id)

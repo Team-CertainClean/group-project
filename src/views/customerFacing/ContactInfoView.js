@@ -75,7 +75,7 @@ class ContactInfoView extends Component {
                 email: '',
                 location_address: '',
                 phone_number: '',
-                cleaning_type_id: '',
+                cleaning_type_id: null,
             },
         }
       }
@@ -97,10 +97,10 @@ class ContactInfoView extends Component {
 
     submitContactInfo = async (event) => {
         console.log(`in submitContactInfo`)
-        event.preventDefault();
+        // event.preventDefault();
         await this.props.dispatch({ type: CUSTOMER_ACTIONS.CONTACT,  payload: this.state.contact});
         await this.props.dispatch({type: CUSTOMER_ACTIONS.POST});
-        this.props.history.push('home');
+        window.location.reload();
     }// end submitContactInfo
 
   render() {
@@ -151,6 +151,7 @@ class ContactInfoView extends Component {
                     onChange={this.handleChange('phone_number')}
                     InputProps={{ className: classes.input }}
                 />
+                {this.props.selection ? 
                 <FormControl className={classes.formControl}>
                     <InputLabel htmlFor="cleaning_type_id"> Cleaning Type</InputLabel>
                     <Select
@@ -167,11 +168,12 @@ class ContactInfoView extends Component {
                     </Select>
                     <FormHelperText>Please select your cleaning type:</FormHelperText>
                 </FormControl>
+                : null } 
                 <Button variant="contained" onClick={this.submitContactInfo} className={classes.getStartedButton}>
                 Submit
             </Button>
             </form>
-           
+                
             
       );
 
