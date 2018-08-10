@@ -160,8 +160,8 @@ class CustomerLandingView extends React.Component{
         }
     }
 
-    scroll = () => {
-        this.refs.parallax.scrollTo(3)
+    scroll = (n) => {
+        this.refs.parallax.scrollTo(n);
     }
 
     render(){
@@ -245,7 +245,7 @@ class CustomerLandingView extends React.Component{
                     offset={2}
                     speed={1}
                     style={styles}>
-                    <ContactInfoView history={this.props.history}/>
+                    <ContactInfoView pScroll={this.refs.parallax.scrollTo} selection={this.state.selection} history={this.props.history}/>
                 </Parallax.Layer>);
         
                 break;
@@ -273,7 +273,7 @@ class CustomerLandingView extends React.Component{
                     offset={3}
                     speed={1}
                     style={styles}>
-                    <ApptTimeSelectView history={this.props.history} />
+                    <ApptTimeSelectView scroll={this.scroll} history={this.props.history} />
                 </Parallax.Layer>
 
                 <Parallax.Layer
@@ -281,7 +281,7 @@ class CustomerLandingView extends React.Component{
                     speed={1}
                     style={styles}
                 >
-                    <ContactInfoView history={this.props.history}/>
+                    <ContactInfoView scroll={this.scroll} selection={this.state.selection} history={this.props.history}/>
                 </Parallax.Layer>
                 </div>
             );
