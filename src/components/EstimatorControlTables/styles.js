@@ -21,6 +21,13 @@ export const EstimatorControlStyles = {
         },
         '&:nth-of-type(odd)': {
             backgroundColor: 'rgba(255, 255, 255, 1)'
-        }
+        },
+        maxWidth: '90%'
+    },
+    textField: {
+        width: 60
+    },
+    textFieldFont: {
+        fontSize: 12
     }
 }

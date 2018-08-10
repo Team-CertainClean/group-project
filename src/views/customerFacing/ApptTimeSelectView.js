@@ -7,6 +7,7 @@ import RoomInfo from '../../components/RoomInfo/RoomInfo';
 import TimeFinish from '../../components/TimeFinish/TimeFinish';
 import ApptCalendar from '../../components/ApptCalendar/ApptCalendar';
 import Button from '@material-ui/core/Button';
+import BackButton from '../../components/BackButton/BackButton';
 
 const styles = {
     view: {
@@ -29,9 +30,10 @@ class ApptTimeSelectView extends Component {
 
                 {/* <ContactInfo className={classes.contact} /> */}
                 {/* <RoomInfo className={classes.room} /> */}
-                <TimeFinish className={classes.time} handleClick={() => this.props.scroll(4)}/>
-                <ApptCalendar className={classes.calendar} userType={'customer'}/>
-                {/* <Button onClick={() => this.props.scroll(4)}>Next</Button> */}
+                <TimeFinish className={classes.time} />
+                <ApptCalendar className={classes.calendar} />
+                <BackButton scroll={this.props.scroll} offset={2}/>
+                <Button onClick={() => this.props.scroll(4)}>Next</Button>
             </div>
         );
     }
