@@ -72,7 +72,7 @@ class AccountCreationView extends React.Component{
             .then((response) => {
               if (response.status === 201) {
                 this.setState({
-                    message: 'Success!',
+                    message: 'The admin has been created!',
                     username: '',
                     password: '',
                     confirmPassword: ''
@@ -99,14 +99,16 @@ class AccountCreationView extends React.Component{
 
     renderAlert() {
         if (this.state.message !== '') {
-          return (
-            <h1>
-              {this.state.message}
-            </h1>
-          );
-        }
-        return (<span />);
+          sweetAlertSuccess(this.state.message)
+        //   return (
+        //     <h1>
+        //       {this.state.message}
+        //     </h1>
+        //   );
+        // }
+        // return (<span />);
       }
+    }
 
 
     render(){
