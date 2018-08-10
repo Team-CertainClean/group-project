@@ -18,7 +18,11 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
+
 import swal from 'sweetalert';
+
+import BackButton from '../../components/BackButton/BackButton';
+
 
 const styles = theme => ({
 
@@ -171,8 +175,9 @@ class ContactInfoView extends Component {
                 </FormControl>
                 : null } 
                 <Button variant="contained" onClick={this.submitContactInfo} className={classes.getStartedButton}>
-                Submit
+                Get Quote
             </Button>
+            <BackButton scroll={this.props.scroll} offset={3}/>
             </form>
                 
             
