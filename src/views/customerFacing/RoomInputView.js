@@ -185,7 +185,7 @@ class RoomInputView extends Component {
 		const { classes } = this.props;
 		content = (
 			<center className={classes.whole}>
-			<Typography gutterBottom className={classes.titles}>Select room that needs to be cleaned! 😇</Typography>
+			<Typography gutterBottom className={classes.titles}>Select room that needs to be cleaned! </Typography>
 				<RoomComponent />
 				<div>
 					
