@@ -175,7 +175,7 @@ class RoomInputView extends Component {
 	calcEstAndScrollToSchedule = () => {
 		const estimate = estimateCalculator(this.props.selectedRooms);
 		this.props.dispatch({type: CUSTOMER_ACTIONS.DURATION, payload: estimate});
-		this.props.scroll();
+		this.props.scroll(3);
 		// this.props.history.push('schedule');
 	}
 
@@ -185,7 +185,7 @@ class RoomInputView extends Component {
 		const { classes } = this.props;
 		content = (
 			<center className={classes.whole}>
-			<Typography gutterBottom className={classes.titles}>Select room that needs to be cleaned! 😇</Typography>
+			<Typography gutterBottom className={classes.titles}>Select room that needs to be cleaned! </Typography>
 				<RoomComponent />
 				<div>
 					

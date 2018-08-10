@@ -7,10 +7,10 @@ function* fetch(action){
     console.log(`fetch action.payload`, sort)
     try{
         const request = yield fetchRequestData(sort);
-        // console.log(`in request saga`, request)
+        yield console.log(`in request saga`, request)
         yield put({type: REQUEST_ACTIONS.STORE, payload: request});
     }catch(error){
-        alert("Failed to fetch request blob", error);
+        console.log("Failed to fetch big request blob on requestSaga", error);
     }
 }
 

@@ -28,7 +28,7 @@ class ApptTimeSelectView extends Component {
                 {/* <RoomInfo className={classes.room} /> */}
                 <TimeFinish className={classes.time} />
                 <ApptCalendar className={classes.calendar} />
-                <Button onClick={() => this.props.history.push('contact')}>Next</Button>
+                <Button onClick={() => this.props.scroll(4)}>Next</Button>
             </div>
         );
     }

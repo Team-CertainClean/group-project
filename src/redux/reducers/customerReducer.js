@@ -14,7 +14,7 @@ const customer = (state = {contact: null, rooms: [], appt: {}, location: null, d
         case CUSTOMER_ACTIONS.DURATION:
             return {...state, duration: action.payload};
         case CUSTOMER_ACTIONS.RESET:
-            return {};
+            return {contact: null, rooms: [], appt: {}, location: null, duration: 0};
         default:
             return state;
     }
