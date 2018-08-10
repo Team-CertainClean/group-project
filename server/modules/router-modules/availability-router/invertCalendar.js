@@ -4,24 +4,26 @@
     the admin has placed a calendar object.
 */
 async function invertCalendar(calendarArray){
-    let unavailableArray = [];
-    for(let i = 0; i < calendarArray.length; i++){
-        let currentIndex = i;
-        let previousIndex = currentIndex - 1;
-        if(currentIndex === 0){
-            unavailableArray[i] = await fillInCalendar(calendarArray[currentIndex], "undefined", currentIndex, calendarArray.length - 1);
-        } else {
-            result = await fillInCalendar(calendarArray[currentIndex], calendarArray[previousIndex], currentIndex, calendarArray.length - 1);
-            if(Array.isArray(result)){
-                for(let object of result){
-                    unavailableArray[unavailableArray.length] = object;
-                }
+    return new Promise((resolve) => {
+        let unavailableArray = [];
+        for(let i = 0; i < calendarArray.length; i++){
+            let currentIndex = i;
+            let previousIndex = currentIndex - 1;
+            if(currentIndex === 0){
+                unavailableArray[i] = await fillInCalendar(calendarArray[currentIndex], "undefined", currentIndex, calendarArray.length - 1);
             } else {
-                unavailableArray[unavailableArray.length] = result;
+                result = await fillInCalendar(calendarArray[currentIndex], calendarArray[previousIndex], currentIndex, calendarArray.length - 1);
+                if(Array.isArray(result)){
+                    for(let object of result){
+                        unavailableArray[unavailableArray.length] = object;
+                    }
+                } else {
+                    unavailableArray[unavailableArray.length] = result;
+                }
             }
         }
-    }
-    return unavailableArray;
+        resolve(unavailableArray);
+    });
 }
 
 function fillInCalendar(currentDate, prevDate, currentIndex, maxIndex){
@@ -71,16 +73,5 @@ function fillInCalendar(currentDate, prevDate, currentIndex, maxIndex){
     }
     );
 }
-
-testArray = [
-    {
-        start: new Date("2018-08-10 11:30:00-05Z"),
-        end: new Date("2018-08-10 12:30:00-05Z")
-    },
-    {
-        start: new Date("2018-08-11 12:00:00-05Z"),
-        end: new Date("2018-08-11 14:30:00-05Z")
-    }
-];
 
 module.exports = invertCalendar;
