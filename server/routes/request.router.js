@@ -5,6 +5,7 @@ const getRequestData = require('../modules/router-modules/request-router/getRequ
 const requestTransaction = require('../modules/router-modules/request-router/requestTransaction');
 const postHistoricalData = require('../modules/router-modules/request-router/postHistoricalData');
 const deleteRequestData = require('../modules/router-modules/request-router/deleteRequestData');
+const getCommercialData = require('../modules/router-modules/request-router/getCommercialData');
 
 /**
  * GET route template
@@ -18,6 +19,15 @@ router.get('/requestTable', async (req, res) => {
             res.send(result)})
         .catch(error => {
             console.log('Error handling GET for /api/request/requestTable', error);
+            res.sendStatus(404);
+        });
+});
+
+router.get('/commercialTable', (req, res)=> {
+    getCommercialData(req.query)
+        .then(result => res.send(result))
+        .catch(error => {
+            console.log('Error handling GET for /commercialTable: ', error);
             res.sendStatus(404);
         });
 });
