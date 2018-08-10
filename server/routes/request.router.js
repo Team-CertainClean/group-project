@@ -5,7 +5,6 @@ const getRequestData = require('../modules/router-modules/request-router/getRequ
 const requestTransaction = require('../modules/router-modules/request-router/requestTransaction');
 const postHistoricalData = require('../modules/router-modules/request-router/postHistoricalData');
 const deleteRequestData = require('../modules/router-modules/request-router/deleteRequestData');
-const getCommercialData = require('../modules/router-modules/request-router/getCommercialData');
 
 /**
  * GET route template
