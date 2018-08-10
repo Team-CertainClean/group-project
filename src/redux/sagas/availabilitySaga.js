@@ -1,6 +1,7 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { select, put, takeLatest } from 'redux-saga/effects';
 import { AVAILABILITY_ACTIONS } from '../actions/availabilityActions';
 import { fetchAvailability, postAvailability, removeAvailability, editAvailability } from '../requests/availabilityRequests';
+import { getAvailability } from '../selectors/availabilitySelector';
 
 console.log('SAGA');
 
@@ -9,17 +10,18 @@ function* fetch(){
         const availability = yield fetchAvailability();
         yield put({type: AVAILABILITY_ACTIONS.STORE, payload: availability});
     }catch(error){
-        alert("Failed to fetch cleaners");
+        alert("Failed to fetch availability");
     }
 }
 
-function* post(action){
+function* post(){
     try{
+        const availabilityStore = yield select(getAvailability);
         console.log('posting in availability saga');
-        yield postAvailability(action.payload);
+        yield postAvailability(availabilityStore);
         yield put({type: AVAILABILITY_ACTIONS.FETCH});
     }catch(error){
-        alert("Failed to post cleaner");
+        alert("Failed to post availability");
     }
 }
 
@@ -28,7 +30,7 @@ function* remove(action){
         yield removeAvailability(action.payload);
         yield put({type: AVAILABILITY_ACTIONS.FETCH});
     }catch(error){
-        alert("Failed to delete cleaner");
+        alert("Failed to delete availability");
     }
 }
 
@@ -37,7 +39,7 @@ function* edit(action){
         yield editAvailability(action.payload);
         yield put({type: AVAILABILITY_ACTIONS.FETCH});
     }catch(error){
-        alert("Failed to edit cleaner")
+        alert("Failed to edit availability")
     }
 }
 

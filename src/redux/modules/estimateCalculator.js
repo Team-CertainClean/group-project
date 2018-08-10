@@ -86,4 +86,4 @@ function getSum(total, num) {
     return total + num;
 }
 
-module.exports = estimateCalculator;
+export default estimateCalculator;

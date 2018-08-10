@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = {
   card: {
-    width: '250px',
+    width: '100vw',
   },
   title: {
     marginBottom: 16,
@@ -46,9 +46,10 @@ class TimeFinish extends Component {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button variant="contained" size="small">
+                        <Button onClick={this.props.handleClick}>Next</Button>
+                        {/* <Button variant="contained" size="small">
                             BOOK IT NOW
-                        </Button>
+                        </Button> */}
                     </CardActions>
                 </Card>
             </div>

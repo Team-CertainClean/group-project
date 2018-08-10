@@ -4,7 +4,7 @@ import { AVAILABILITY_ACTIONS } from '../actions/availabilityActions';
 const availability = (state = [], action) => {
     switch (action.type) {
         case AVAILABILITY_ACTIONS.STORE:
-        return action.payload;
+        return [...state, action.payload];
         default:
         return state;
     }

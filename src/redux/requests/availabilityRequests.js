@@ -9,8 +9,8 @@ export function fetchAvailability(){
         });
 }
 
-export function postAvailability(payload){
-    return axios.post('/api/availability', payload)
+export function postAvailability(availabilityStore){
+    return axios.post('/api/availability', availabilityStore)
         .then(response => response)
         .catch(error=>{
             alert('Error posting availability');

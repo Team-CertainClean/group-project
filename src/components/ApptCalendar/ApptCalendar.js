@@ -7,6 +7,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+// import { compose } from 'redux';
 // import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 import { AVAILABILITY_ACTIONS } from '../../redux/actions/availabilityActions';
 import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
@@ -54,30 +55,30 @@ class ApptCalendar extends Component {
         console.log('this.state.events = ', this.state.events);
     }
 
-    moveEvent = ({ event, start, end }) => {
-        const { events } = this.state;
-        console.log('in moveevent');
-        const idx = events.indexOf(event);
-        console.log('idx:', idx);
-        // let allDay = event.allDay
+    // moveEvent = ({ event, start, end }) => {
+    //     const { events } = this.state;
+    //     console.log('in moveevent');
+    //     const idx = events.indexOf(event);
+    //     console.log('idx:', idx);
+    //     // let allDay = event.allDay
     
-        // if (!event.allDay && droppedOnAllDaySlot) {
-        //   allDay = true
-        // } else if (event.allDay && !droppedOnAllDaySlot) {
-        //   allDay = false
-        // }
+    //     // if (!event.allDay && droppedOnAllDaySlot) {
+    //     //   allDay = true
+    //     // } else if (event.allDay && !droppedOnAllDaySlot) {
+    //     //   allDay = false
+    //     // }
     
-        const updatedEvent = { ...event, start, end}
+    //     const updatedEvent = { ...event, start, end}
     
-        const nextEvents = [...events]
-        nextEvents.splice(idx, 1, updatedEvent)
+    //     const nextEvents = [...events]
+    //     nextEvents.splice(idx, 1, updatedEvent)
     
-        this.setState({
-          events: nextEvents,
-        })
-        console.log('this.state=', this.state)
-        alert(`the event was dropped onto ${updatedEvent.start}`)
-    }
+    //     this.setState({
+    //       events: nextEvents,
+    //     })
+    //     console.log('this.state=', this.state)
+    //     alert(`the event was dropped onto ${updatedEvent.start}`)
+    // }
 
     // resizeEvent = ({ event, start, end }) => {
     //     console.log('in resizeEvent');
@@ -97,23 +98,44 @@ class ApptCalendar extends Component {
     // }
 
     onSelect = (slotInfo) => {
-        if (this.props.estimate < (slotInfo.end - slotInfo.start)){
-            console.log('slotInfo:', slotInfo);
+        if (this.props.userType === 'customer'){
+            // console.log(slotInfo.start.getHours(), slotInfo.end.getHours());
+            // console.log(this.props.estimate);
+            let diff = slotInfo.end.getHours() - slotInfo.start.getHours();
+            if (this.props.estimate === diff){
+                // console.log('slotInfo:', slotInfo);
+                this.setState({
+                    newEvent: {start: new Date(slotInfo.start), end: new Date(slotInfo.end)},
+                });
+                this.setState({
+                    events: [...this.state.events, this.state.newEvent]
+                })
+                this.dispatchAppt();
+                return true;
+            } else {
+                alert(`The time you selected is not sufficient for your estimated service duration. Please select another time`);
+            }
+        } else if (this.props.userType === 'admin'){
             this.setState({
                 newEvent: {start: new Date(slotInfo.start), end: new Date(slotInfo.end)},
             });
             this.setState({
                 events: [...this.state.events, this.state.newEvent]
             })
-            this.dispatchAppt();
+            this.dispatchAvailability();
             return true;
-        } else {
-            alert(`The time you selected is not sufficient for your estimated service duration. Please select another time`);
         }
     }
 
     dispatchAppt() {
         this.props.dispatch({ type: CUSTOMER_ACTIONS.APPT, payload: this.state.newEvent });
+    }
+
+    dispatchAvailability() {
+        this.props.dispatch({ type: AVAILABILITY_ACTIONS.STORE, payload: this.state.newEvent });
+        this.setState({
+            newEvent: { start: null, end: null }
+        })
     }
 
     render() {
