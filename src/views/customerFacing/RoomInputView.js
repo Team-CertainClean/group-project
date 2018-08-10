@@ -7,6 +7,7 @@ import Rating from 'react-rating';
 import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 //Components
 import RoomComponent from '../../components/RoomComponent/RoomComponent';
+import BackButton from '../../components/BackButton/BackButton';
 
 //Actions
 import { ROOM_ACTIONS } from '../../redux/actions/roomActions';
@@ -242,9 +243,14 @@ class RoomInputView extends Component {
 						{/* <Button onClick={() => this.props.history.push('schedule')}>
 							Next
 						</Button> */}
-						<Button onClick={this.calcEstAndScrollToSchedule} >
-							Next
-						</Button>
+						<BackButton scroll={this.props.scroll} offset={1}/>
+						{this.props.selectedRooms.length > 0 ? 
+							<Button onClick={this.calcEstAndScrollToSchedule} >
+								Next
+							</Button>
+							: 
+							null
+						}
 					</div>
 			</center>
 		)
