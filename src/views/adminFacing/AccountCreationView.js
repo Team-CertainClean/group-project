@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-
 // Material UI Imports
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
@@ -14,6 +13,7 @@ import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
 import Nav from '../../components/Nav/Nav';
+import sweetAlertSuccess from '../../redux/modules/sweetAlertSuccess';
 
 
 const styles = theme => ({
