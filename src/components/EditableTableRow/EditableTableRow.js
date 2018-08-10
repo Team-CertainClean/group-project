@@ -87,6 +87,12 @@ class EditableTableRow extends React.Component{
                                     id={cell} 
                                     value={this.state.content[cell]}
                                     onChange={this.handleChangeFor}
+                                    className={classes.textField}
+                                    InputProps={{
+                                        classes: {
+                                            input: classes.textFieldFont
+                                        }
+                                    }}
                                 /> 
                                 :
                                 this.state.content[cell]

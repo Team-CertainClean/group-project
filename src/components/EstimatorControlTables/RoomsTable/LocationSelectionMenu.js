@@ -29,8 +29,8 @@ class LocationSelectionMenu extends React.Component{
     render(){
         const {anchor} = this.state;
         return(
-            <div style={{display: 'inline'}}>
-                <Button onClick={this.openMenu}>Location Type</Button>
+            <div style={{display: 'inline', margin: 10}}>
+                <Button onClick={this.openMenu} style={{width: 50, height: 50}}>Location Type</Button>
                 <Menu
                     id="location-menu"
                     anchorEl={anchor}
@@ -43,6 +43,7 @@ class LocationSelectionMenu extends React.Component{
                                     id="location_type_id"
                                     value={location.id}
                                     onClick={this.handleMenuSelect}
+                                    style={{display: 'block'}}
                                     >
                                         {location.location_type}
                                 </MenuItem>
