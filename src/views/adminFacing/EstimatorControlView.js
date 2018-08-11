@@ -5,6 +5,7 @@ import MenuBar from '../../components/MenuBar/MenuBar';
 import RoomControlTable from '../../components/EstimatorControlTables/RoomsTable/RoomsTable';
 import CleanerControlTable from '../../components/EstimatorControlTables/CleanersTable/CleanerTable';
 import LocationControlTable from '../../components/EstimatorControlTables/LocationsTable/LocationsTable';
+import CleaningTypeTable from '../../components/EstimatorControlTables/CleaningTypeTable/CleaningTypeTable';
 import Nav from '../../components/Nav/Nav';
 
 class EstimatorControlView extends React.Component{
@@ -27,10 +28,13 @@ class EstimatorControlView extends React.Component{
             table = <CleanerControlTable />
         } 
         else if(this.state.selectedTable == 0){
-            table = <RoomControlTable />;
+            table = <RoomControlTable />
+        }
+        else if(this.state.selectedTable == 3){
+            table = <CleaningTypeTable />;
         }
 
-        const menuOptions=["Rooms", "Locations", "Cleaners"];
+        const menuOptions=["Rooms", "Locations", "Cleaners", "Cleaning Type"];
         return(
             <div style={{'width': '100vw', 'position': 'relative', 'left': -8}}>
                 <Nav />
