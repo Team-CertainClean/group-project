@@ -127,8 +127,8 @@ class ContactInfoView extends Component {
         console.log(`in submitContactInfo`)
         await this.props.dispatch({ type: CUSTOMER_ACTIONS.CONTACT,  payload: this.state.contact});
         await this.props.dispatch({type: CUSTOMER_ACTIONS.POST});
-        await window.location.reload();
-        SweetAlertSuccess("stellar!");
+        await swal("Thank you! We will contact you soon with your estimate.");
+        window.location.reload();
     }// end submitContactInfo
 
   render() {
