@@ -21,6 +21,7 @@ const styles = {
     },
     rate: {
       // padding: '6vw',
+      marginTop: '1vw',
       borderRadius: '40vw',
       position:'relative',
       backgroundColor: '#A8A8A8',
@@ -33,7 +34,7 @@ const styles = {
       position: 'absolute',
       float: 'left',
       fontSize: '3vw',
-      marginTop: '5.5`vw',
+      marginTop: '5.5vw',
       marginLeft: '4vw'
       
 
@@ -44,8 +45,8 @@ const styles = {
       marginRight: '3vw',
     },
     RoomList: {
-      border: '1px solid yellow',
-      marginTop: '10%'
+      marginTop: '10%',
+      marginBottom: '10%'
     }
   };
 

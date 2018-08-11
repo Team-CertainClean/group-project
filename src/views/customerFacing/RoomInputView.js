@@ -100,7 +100,11 @@ const styles = (theme) => ({
 		marginTop: '30px'
 	},
 	whole: {
-		border: '1px solid green'
+		display:'block',
+		overflow:'auto',
+		height: '100%',
+		backgroundColor: '#c2c2c2',
+		paddingBottom: '10vw'
 	},
 	getStartedButton: {
         backgroundSize: '200% auto',
