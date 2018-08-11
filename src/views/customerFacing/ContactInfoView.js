@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
-
+import { REQUEST_ACTIONS } from '../../redux/actions/requestActions';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -68,7 +68,7 @@ const styles = theme => ({
 
 const mapStateToProps = state => ({
   user: state.user,
-
+  requests: state.request,
 });
 class ContactInfoView extends Component {
     
@@ -88,6 +88,7 @@ class ContactInfoView extends Component {
 
     componentDidMount() {
         this.props.dispatch({type: USER_ACTIONS.FETCH_USER});
+        this.props.dispatch({type: REQUEST_ACTIONS.FETCH})
     }// end componentDidMount
 
     handleChange = (contactInfo) => (event) => {
@@ -100,6 +101,8 @@ class ContactInfoView extends Component {
         })
         console.log(this.state.contact)
     }// end handle change
+
+
     runSweet(){
         swal({
         title: "Does this all look correct?",
@@ -110,7 +113,7 @@ class ContactInfoView extends Component {
       })
       .then((willSubmit) => {
         if (willSubmit) {
-            this.submitContactInfo
+            this.submitContactInfo();
             swal("Great! Your request file has been submitted!", {
                 icon: "success",
             });
@@ -120,7 +123,7 @@ class ContactInfoView extends Component {
       });
     }
 
-    async submitContactInfo(){
+     submitContactInfo = async () => {
         console.log(`in submitContactInfo`)
         await this.props.dispatch({ type: CUSTOMER_ACTIONS.CONTACT,  payload: this.state.contact});
         await this.props.dispatch({type: CUSTOMER_ACTIONS.POST});
@@ -133,7 +136,7 @@ class ContactInfoView extends Component {
     const { classes } = this.props;
 
       content = (
-        
+            
             <form  noValidate autoComplete="off">
                 <TextField
                     id="first_name"
@@ -184,6 +187,13 @@ class ContactInfoView extends Component {
                         onChange={this.handleChange('cleaning_type_id')}
                         input={<Input name="cleaning_type_id" id="cleaning_type_id" />}
                     >
+                    {/* {this.props.requests.map((option, i) => {
+                        return (
+                                <MenuItem key={i}>{option.request_info.cleaning_type}</MenuItem> 
+                                );
+                            }
+                        )
+                    } */}
                         <MenuItem value=""><em>None</em></MenuItem>
                         <MenuItem value={3}>Home</MenuItem>
                         <MenuItem value={2}>Airbnb</MenuItem>
@@ -204,6 +214,8 @@ class ContactInfoView extends Component {
 
     return (
       <div>
+        <pre>{JSON.stringify(this.props.requests)}</pre>
+
         { content }
       </div>
     );
