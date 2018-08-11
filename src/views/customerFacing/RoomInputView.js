@@ -14,6 +14,8 @@ import { ROOM_ACTIONS } from '../../redux/actions/roomActions';
 
 //Modules
 import estimateCalculator from '../../redux/modules/estimateCalculator';
+import sweetAlertFailure from '../../redux/modules/sweetAlertFailure';
+import sweetAlertSuccess from '../../redux/modules/sweetAlertSuccess';
 
 // //Material UI
 import Typography from '@material-ui/core/Typography';
@@ -184,9 +186,14 @@ class RoomInputView extends Component {
 	};
 
 	addRoomToReducer = () => {
-		this.props.dispatch({ type: CUSTOMER_ACTIONS.ROOMS, payload: this.state.room });
-		this.handleClose();
-		this.clearState();
+		if(this.state.roomName != ''){
+			this.props.dispatch({ type: CUSTOMER_ACTIONS.ROOMS, payload: this.state.room });
+			this.handleClose();
+			sweetAlertSuccess(`You've added the ${this.state.roomName} with a cleanliness rating of ${this.state.room.cleanliness_score}!`);
+			this.clearState();
+		} else {
+			sweetAlertFailure("You didn't choose a room! Please pick a room and rate it before adding.");
+		}
 	};
 
 	clearState = () => {

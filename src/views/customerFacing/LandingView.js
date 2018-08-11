@@ -312,7 +312,7 @@ class CustomerLandingView extends React.Component {
 				content = (
 					<Parallax.Layer offset={2} speed={1} style={styles}>
 						<ContactInfoView
-							pScroll={this.refs.parallax.scrollTo}
+							scroll={this.scroll}
 							selection={this.state.selection}
 							history={this.props.history}
 						/>
