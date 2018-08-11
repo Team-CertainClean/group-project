@@ -14,6 +14,7 @@ const requestRouter = require('./routes/request.router');
 const roomRouter = require('./routes/room.router');
 const cleanerRouter = require('./routes/cleaner.router');
 const availabilityRouter = require('./routes/availability.router');
+const cleaningTypeRouter = require('./routes/cleaningType.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -32,6 +33,7 @@ app.use('/api/request', requestRouter);
 app.use('/api/room', roomRouter);
 app.use('/api/cleaner', cleanerRouter);
 app.use('/api/availability', availabilityRouter);
+app.use('/api/cleaningtype', cleaningTypeRouter);
 
 // Serve static files
 app.use(express.static('build'));

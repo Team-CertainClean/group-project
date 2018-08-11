@@ -7,10 +7,11 @@ import { withStyles } from '@material-ui/core/styles';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 import { REQUEST_ACTIONS } from '../../redux/actions/requestActions';
+import { CLEANING_TYPE_ACTIONS } from '../../redux/actions/cleaningTypeActions';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
+// import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
@@ -69,6 +70,7 @@ const styles = theme => ({
 const mapStateToProps = state => ({
   user: state.user,
   requests: state.request,
+  cleaningTypes: state.cleaningTypes
 });
 class ContactInfoView extends Component {
     
@@ -81,14 +83,16 @@ class ContactInfoView extends Component {
                 email: '',
                 location_address: '',
                 phone_number: '',
-                cleaning_type_id: null,
+                cleaning_type_id: '',
             },
+            cleaning_type: null,
         }
       }
 
     componentDidMount() {
         this.props.dispatch({type: USER_ACTIONS.FETCH_USER});
-        this.props.dispatch({type: REQUEST_ACTIONS.FETCH})
+        this.props.dispatch({type: REQUEST_ACTIONS.FETCH});
+        this.props.dispatch({type: CLEANING_TYPE_ACTIONS.FETCH})
     }// end componentDidMount
 
     handleChange = (contactInfo) => (event) => {
@@ -185,20 +189,14 @@ class ContactInfoView extends Component {
                         className={classes.input}
                         value={this.state.cleaning_type_id}
                         onChange={this.handleChange('cleaning_type_id')}
-                        input={<Input name="cleaning_type_id" id="cleaning_type_id" />}
                     >
-                    {/* {this.props.requests.map((option, i) => {
-                        return (
-                                <MenuItem key={i}>{option.request_info.cleaning_type}</MenuItem> 
-                                );
-                            }
-                        )
-                    } */}
-                        <MenuItem value=""><em>None</em></MenuItem>
-                        <MenuItem value={3}>Home</MenuItem>
-                        <MenuItem value={2}>Airbnb</MenuItem>
-                        <MenuItem value={1}>Move Out</MenuItem>
-
+                        <MenuItem value={this.state.contact.cleaning_type_id}>{this.state.cleaning_type}</MenuItem>
+                        {this.props.cleaningTypes.map((option, i) => {
+                            return (
+                                    <MenuItem key={i} value={option.id}>{option.cleaning_type}</MenuItem> 
+                                    );    
+                            })
+                        }
                     </Select>
                     <FormHelperText>Please select your cleaning type:</FormHelperText>
                 </FormControl>
@@ -214,8 +212,6 @@ class ContactInfoView extends Component {
 
     return (
       <div>
-        <pre>{JSON.stringify(this.props.requests)}</pre>
-
         { content }
       </div>
     );

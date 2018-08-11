@@ -1,0 +1,14 @@
+const express = require('express');
+const router = express.Router();
+const pool = require('../modules/pool');
+
+router.get('/', (req, res)=>{
+    const queryText = 'select * from cleaning_type;';
+    pool.query(queryText)
+        .then(result => res.send(result.rows))
+        .catch(error => {
+            console.log('Error handling GET for /api/cleaningtype', error);
+        });
+});
+
+module.exports = router;
