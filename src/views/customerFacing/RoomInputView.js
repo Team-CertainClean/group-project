@@ -189,7 +189,6 @@ class RoomInputView extends Component {
 		if(this.state.roomName != ''){
 			this.props.dispatch({ type: CUSTOMER_ACTIONS.ROOMS, payload: this.state.room });
 			this.handleClose();
-			sweetAlertSuccess(`You've added the ${this.state.roomName} with a cleanliness rating of ${this.state.room.cleanliness_score}!`);
 			this.clearState();
 		} else {
 			sweetAlertFailure("You didn't choose a room! Please pick a room and rate it before adding.");
