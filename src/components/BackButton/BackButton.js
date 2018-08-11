@@ -5,15 +5,18 @@ import PropTypes from 'prop-types';
 
 const styles = {
     backButton: {
-        borderRadius: '100px',
-        display: 'flex', 
-        backgroundColor: 'grey',
-        marginTop: '5%',
-        padding: '2.5%',
-        paddingLeft: '4%',
-        paddingRight: '4%',
-        fontSize: 48,
-        color: 'white !important'
+        margin: '1%',
+		padding: '2.5%',
+		paddingLeft: '4%',
+		paddingRight: '4%',
+		borderRadius: '100px',
+		fontSize: '3vw',
+        color: 'white',
+        border: '0.2vw solid white' ,
+        '&:hover': {
+            border: '0.2vw solid rgba(255,255,255,0.5)'
+
+		}
     }
 }
 
