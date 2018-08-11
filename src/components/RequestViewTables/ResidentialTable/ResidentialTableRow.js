@@ -45,7 +45,7 @@ class ResidentialTableRow extends Component {
           <TableCell>{ this.props.rowData.request_info.est_duration} hours</TableCell>
           <TableCell>{ this.props.rowData.request_info.cleaning_type }</TableCell>
           <TableCell><RoomInfoModal roomInfo={this.props.rowData.room_info.rooms}/></TableCell>
-          <TableCell>{ this.props.rowData.request_info.start_time } { this.props.rowData.request_info.end_time }</TableCell>
+          <TableCell><strong>Start:</strong> { new Date(this.props.rowData.request_info.start_time).toLocaleString()}<br/><br/> <strong>End:</strong> { new Date(this.props.rowData.request_info.end_time).toLocaleString() }</TableCell>
           <TableCell>{ scheduled }</TableCell>
           <TableCell>{ status }</TableCell>
       </TableRow>
