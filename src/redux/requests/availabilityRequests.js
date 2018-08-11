@@ -37,10 +37,11 @@ export function editAvailability(payload){
 }
 
 export function fetchUnavailability(){
-    return axios.get('/api/availability/unavailability')
+    return axios.get('/api/availability/unavailable')
         .then(response => response.data)
         .catch(error => {
-            alert("Error fetching unavailability")
+            alert("Error fetching unavailability");
+            console.log(error);
             throw error.response || error;
         });
 }

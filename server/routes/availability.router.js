@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
 const availabilityTransaction = require('../modules/router-modules/availability-router/availabilityTransaction');
+const invertCalendar = require('../modules/router-modules/availability-router/invertCalendar');
 
 // router.post('/', (req, res)=>{
 //     console.log('in POST of availabilityRouter');
@@ -32,9 +33,9 @@ router.get('/', (req, res)=>{
 });
 
 router.get('/unavailable', (req, res)=>{
-    const queryText = 'select start, end from availability;';
+    const queryText = 'select start, "end" from availability;';
     pool.query(queryText)
-        .then(async (result) => {
+        .then( async (result) => {
             const unavailability = await invertCalendar(result.rows);
             res.send(unavailability);
         })

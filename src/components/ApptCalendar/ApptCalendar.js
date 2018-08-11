@@ -47,22 +47,12 @@ class ApptCalendar extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        // console.log('this.props.availabilityEvents', this.props.availabilityEvents);
-        // if(this.props.availabilityEvents !== prevProps.availabilityEvents) {
-        //     let eventsArr = [];
-        //     for (let event of this.props.availabilityEvents){
-        //         eventsArr.push({ start: new Date(event.start), end: new Date(event.end) })
-        //     }
-        //     this.setState({
-        //         events: eventsArr,
-        //     });
-        // }
-        // console.log('events after availability:', this.eventsArr)
-        // console.log('this.state.events = ', this.state.events);
-        if (this.props.userType === 'customer'){
-            this.setState({events: [...this.state.events, ...this.props.unavailable]});
-        }else if (this.props.userType === 'admin'){
-            this.setState({events: this.props.available});
+        if(this.props.availabilityEvents !== prevProps.availabilityEvents) {
+            if (this.props.userType === 'customer'){
+                this.setState({events: [...this.state.events, ...this.props.unavailable]});
+            }else if (this.props.userType === 'admin'){
+                this.setState({events: this.props.available});
+            }
         }
     }
 

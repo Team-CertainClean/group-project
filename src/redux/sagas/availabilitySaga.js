@@ -1,5 +1,6 @@
 import { select, put, takeLatest } from 'redux-saga/effects';
 import { AVAILABILITY_ACTIONS } from '../actions/availabilityActions';
+import {getAvailability} from '../selectors/availabilitySelector';
 import { fetchAvailability, postAvailability, removeAvailability, editAvailability, fetchUnavailability } from '../requests/availabilityRequests';
 
 console.log('SAGA');
