@@ -34,37 +34,35 @@ class Nav extends Component {
         <div className="navbar">
         <div>
           <ul>
-          <li>
-            <Link to="/home">
-                Landing
+            <li>
+              <Link to="/requests" style={{textDecorationLine: 'none'}}>
+                <Button>
+                  Requests
+                </Button>
               </Link>
             </li>
             <li>
-              <Link to="/user">
-                User Home
+              <Link to="/estimator" style={{textDecorationLine: 'none'}}>
+                <Button>
+                  Estimator Controller
+                </Button>
               </Link>
             </li>
             <li>
-              <Link to="/info">
-                Info Page
+              <Link to="/accountCreation" style={{textDecorationLine: 'none'}}>
+                <Button>
+                  Create New Admin
+                </Button>
               </Link>
             </li>
             <li>
-              <Link to="/estimator">
-                Estimator Controller
-              </Link>
+              <Link to="/home" style={{textDecorationLine: 'none'}}>
+                <Button>
+                  View Customer Facing Estimator
+                </Button>
+                </Link>
             </li>
-            <li>
-              <Link to="/accountCreation">
-                Create New Admin
-              </Link>
-            </li>
-            <li>
-              <Link to="/requests">
-                Requests
-              </Link>
-            </li>
-            <li>
+            <li style={{position: 'fixed', right: '10px', top: '14px'}}>
               <Button onClick={this.logout}>
                 Log Out
               </Button>
