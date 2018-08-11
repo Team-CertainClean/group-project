@@ -20,7 +20,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 
 
 import swal from 'sweetalert';
-
+import SweetAlertSuccess from '../../redux/modules/sweetAlertSuccess';
 import BackButton from '../../components/BackButton/BackButton';
 
 
@@ -100,13 +100,32 @@ class ContactInfoView extends Component {
         })
         console.log(this.state.contact)
     }// end handle change
+    runSweet(){
+        swal({
+        title: "Does this all look correct?",
+        text: "Figure out a way to insert the things!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willSubmit) => {
+        if (willSubmit) {
+            this.submitContactInfo
+            swal("Great! Your request file has been submitted!", {
+                icon: "success",
+            });
+        } else {
+          swal("Press back and make your edits!");
+        }
+      });
+    }
 
-    submitContactInfo = async (event) => {
+    async submitContactInfo(){
         console.log(`in submitContactInfo`)
-        // event.preventDefault();
         await this.props.dispatch({ type: CUSTOMER_ACTIONS.CONTACT,  payload: this.state.contact});
         await this.props.dispatch({type: CUSTOMER_ACTIONS.POST});
-        window.location.reload();
+        await window.location.reload();
+        SweetAlertSuccess("stellar!");
     }// end submitContactInfo
 
   render() {
