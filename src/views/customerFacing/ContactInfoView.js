@@ -69,7 +69,6 @@ const styles = theme => ({
 
 const mapStateToProps = state => ({
   user: state.user,
-  requests: state.request,
   cleaningTypes: state.cleaningTypes
 });
 class ContactInfoView extends Component {
@@ -91,7 +90,6 @@ class ContactInfoView extends Component {
 
     componentDidMount() {
         this.props.dispatch({type: USER_ACTIONS.FETCH_USER});
-        this.props.dispatch({type: REQUEST_ACTIONS.FETCH});
         this.props.dispatch({type: CLEANING_TYPE_ACTIONS.FETCH})
     }// end componentDidMount
 
@@ -129,10 +127,25 @@ class ContactInfoView extends Component {
 
      submitContactInfo = async () => {
         console.log(`in submitContactInfo`)
-        await this.props.dispatch({ type: CUSTOMER_ACTIONS.CONTACT,  payload: this.state.contact});
-        await this.props.dispatch({type: CUSTOMER_ACTIONS.POST});
-        await swal("Thank you! We will contact you soon with your estimate.");
-        window.location.reload();
+        await swal({
+            title: "Are you sure?",
+            text: "Thank you! We will contact you soon with your estimate.",
+            icon: "success",
+            buttons: ["No", "Confirm"],
+            dangerMode: true,
+          }).then( async (willSubmit)=>{
+            if (willSubmit) {
+                await this.props.dispatch({ type: CUSTOMER_ACTIONS.CONTACT,  payload: this.state.contact});
+                await this.props.dispatch({type: CUSTOMER_ACTIONS.POST});
+                await swal("Great! Your request file has been submitted!", {
+                    icon: "success",
+                });
+                window.location.reload();
+            } else {
+              swal("Press back and make your edits!");
+            }
+          });
+
     }// end submitContactInfo
 
   render() {
