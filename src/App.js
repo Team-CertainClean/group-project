@@ -26,8 +26,7 @@ import './styles/main.css';
 // Admin views
 import AdminLoginView from './views/adminFacing/AdminLoginView';
 import AccountCreationView from './views/adminFacing/AccountCreationView';
-import AdminCalendarView from './views/adminFacing/AdminCalendarView'
-
+import AdminCalendarView from './views/adminFacing/AdminCalendarView';
 
 const App = () => (
   <div>
@@ -35,6 +34,7 @@ const App = () => (
 
     <Router>
       <Switch>
+
         <Redirect exact from="/" to="/home" />
         <Route
           path="/home"
