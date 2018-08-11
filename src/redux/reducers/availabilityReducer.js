@@ -10,7 +10,7 @@ const available = (state = [], action) => {
     }
 }
 
-const unavailable = () => {
+const unavailable = (state = [], action) => {
     switch(action.type){
         case AVAILABILITY_ACTIONS.STORE_UN:
             return action.payload;
