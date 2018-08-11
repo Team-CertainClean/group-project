@@ -1,5 +1,6 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { select, put, takeLatest } from 'redux-saga/effects';
 import { AVAILABILITY_ACTIONS } from '../actions/availabilityActions';
+import {getAvailability} from '../selectors/availabilitySelector';
 import { fetchAvailability, postAvailability, removeAvailability, editAvailability, fetchUnavailability } from '../requests/availabilityRequests';
 
 console.log('SAGA');
@@ -22,13 +23,14 @@ function* getUn(action){
     }
 }
 
-function* post(action){
+function* post(){
     try{
+        const availabilityStore = yield select(getAvailability);
         console.log('posting in availability saga');
-        yield postAvailability(action.payload);
+        yield postAvailability(availabilityStore);
         yield put({type: AVAILABILITY_ACTIONS.FETCH});
     }catch(error){
-        alert("Failed to post cleaner");
+        alert("Failed to post availability");
     }
 }
 
@@ -37,7 +39,7 @@ function* remove(action){
         yield removeAvailability(action.payload);
         yield put({type: AVAILABILITY_ACTIONS.FETCH});
     }catch(error){
-        alert("Failed to delete cleaner");
+        alert("Failed to delete availability");
     }
 }
 
@@ -46,7 +48,7 @@ function* edit(action){
         yield editAvailability(action.payload);
         yield put({type: AVAILABILITY_ACTIONS.FETCH});
     }catch(error){
-        alert("Failed to edit cleaner")
+        alert("Failed to edit availability")
     }
 }
 

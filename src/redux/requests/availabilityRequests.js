@@ -9,8 +9,8 @@ export function fetchAvailability(){
         });
 }
 
-export function postAvailability(payload){
-    return axios.post('/api/availability', payload)
+export function postAvailability(availabilityStore){
+    return axios.post('/api/availability', availabilityStore)
         .then(response => response)
         .catch(error=>{
             alert('Error posting availability');
@@ -37,10 +37,11 @@ export function editAvailability(payload){
 }
 
 export function fetchUnavailability(){
-    return axios.get('/api/availability/unavailability')
+    return axios.get('/api/availability/unavailable')
         .then(response => response.data)
         .catch(error => {
-            alert("Error fetching unavailability")
+            alert("Error fetching unavailability");
+            console.log(error);
             throw error.response || error;
         });
 }

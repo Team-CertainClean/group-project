@@ -4,7 +4,7 @@
     the admin has placed a calendar object.
 */
 async function invertCalendar(calendarArray){
-    return new Promise((resolve) => {
+    return new Promise( async (resolve) => {
         let unavailableArray = [];
         for(let i = 0; i < calendarArray.length; i++){
             let currentIndex = i;
