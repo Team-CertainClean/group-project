@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
-
+import { REQUEST_ACTIONS } from '../../redux/actions/requestActions';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -20,7 +20,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 
 
 import swal from 'sweetalert';
-
+import SweetAlertSuccess from '../../redux/modules/sweetAlertSuccess';
 import BackButton from '../../components/BackButton/BackButton';
 
 
@@ -68,7 +68,7 @@ const styles = theme => ({
 
 const mapStateToProps = state => ({
   user: state.user,
-
+  requests: state.request,
 });
 class ContactInfoView extends Component {
     
@@ -88,6 +88,7 @@ class ContactInfoView extends Component {
 
     componentDidMount() {
         this.props.dispatch({type: USER_ACTIONS.FETCH_USER});
+        this.props.dispatch({type: REQUEST_ACTIONS.FETCH})
     }// end componentDidMount
 
     handleChange = (contactInfo) => (event) => {
@@ -101,12 +102,33 @@ class ContactInfoView extends Component {
         console.log(this.state.contact)
     }// end handle change
 
-    submitContactInfo = async (event) => {
+
+    runSweet(){
+        swal({
+        title: "Does this all look correct?",
+        text: "Figure out a way to insert the things!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willSubmit) => {
+        if (willSubmit) {
+            this.submitContactInfo();
+            swal("Great! Your request file has been submitted!", {
+                icon: "success",
+            });
+        } else {
+          swal("Press back and make your edits!");
+        }
+      });
+    }
+
+     submitContactInfo = async () => {
         console.log(`in submitContactInfo`)
-        // event.preventDefault();
         await this.props.dispatch({ type: CUSTOMER_ACTIONS.CONTACT,  payload: this.state.contact});
         await this.props.dispatch({type: CUSTOMER_ACTIONS.POST});
-        window.location.reload();
+        await window.location.reload();
+        SweetAlertSuccess("stellar!");
     }// end submitContactInfo
 
   render() {
@@ -114,7 +136,7 @@ class ContactInfoView extends Component {
     const { classes } = this.props;
 
       content = (
-        
+            
             <form  noValidate autoComplete="off">
                 <TextField
                     id="first_name"
@@ -165,6 +187,13 @@ class ContactInfoView extends Component {
                         onChange={this.handleChange('cleaning_type_id')}
                         input={<Input name="cleaning_type_id" id="cleaning_type_id" />}
                     >
+                    {/* {this.props.requests.map((option, i) => {
+                        return (
+                                <MenuItem key={i}>{option.request_info.cleaning_type}</MenuItem> 
+                                );
+                            }
+                        )
+                    } */}
                         <MenuItem value=""><em>None</em></MenuItem>
                         <MenuItem value={3}>Home</MenuItem>
                         <MenuItem value={2}>Airbnb</MenuItem>
@@ -177,7 +206,7 @@ class ContactInfoView extends Component {
                 <Button variant="contained" onClick={this.submitContactInfo} className={classes.getStartedButton}>
                 Get Quote
             </Button>
-            <BackButton scroll={this.props.scroll} offset={3}/>
+            <BackButton scroll={this.props.scroll} offset={this.props.selection ? 3 : 1}/>
             </form>
                 
             
@@ -185,6 +214,8 @@ class ContactInfoView extends Component {
 
     return (
       <div>
+        <pre>{JSON.stringify(this.props.requests)}</pre>
+
         { content }
       </div>
     );

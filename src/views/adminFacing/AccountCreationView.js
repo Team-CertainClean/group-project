@@ -13,7 +13,8 @@ import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
 import Nav from '../../components/Nav/Nav';
-import sweetAlertSuccess from '../../redux/modules/sweetAlertSuccess';
+import SweetAlertSuccess from '../../redux/modules/sweetAlertSuccess';
+import SweetAlertFailure from '../../redux/modules/sweetAlertFailure';
 
 
 const styles = theme => ({
@@ -53,14 +54,18 @@ class AccountCreationView extends React.Component{
         };
       }
 
+    async passwordError(){
+      await this.setState({
+        message: 'Passwords do not match!',
+      });
+      await SweetAlertFailure(this.state.message)
+    }
 
     registerAdmin = (event) => {
         event.preventDefault();
         const { password, confirmPassword } = this.state;
         if (password !== confirmPassword) {
-          this.setState({
-            message: `Passwords do not match!`,
-          });
+          this.passwordError();
         } else {
           const body = {
             username: this.state.username,
@@ -77,16 +82,19 @@ class AccountCreationView extends React.Component{
                     password: '',
                     confirmPassword: ''
                 })
+                SweetAlertSuccess(this.state.message);
               } else {
                 this.setState({
-                  message: 'Ooops! That didn\'t work. The username might already be taken. Try again!',
+                  message: 'Ooops! That didn\'t work. Try again!',
                 });
+                SweetAlertFailure(this.state.message)
               }
             })
             .catch(() => {
               this.setState({
-                message: 'Ooops! Something went wrong!',
+                message: 'Username is taken',
               });
+              SweetAlertFailure(this.state.message)
             });
         }
       } // end registerAdmin
@@ -97,6 +105,7 @@ class AccountCreationView extends React.Component{
     });
     }
 
+<<<<<<< HEAD
     renderAlert() {
         if (this.state.message !== '') {
           sweetAlertSuccess(this.state.message)
@@ -111,6 +120,8 @@ class AccountCreationView extends React.Component{
     }
 
 
+=======
+>>>>>>> 525b441c5b7bb1f6f478db501d35074120bb6353
     render(){
         let content = null;
         let nav = null;
@@ -122,7 +133,6 @@ class AccountCreationView extends React.Component{
                 )
                 content = (
                     <div>
-                    {this.renderAlert()}
                     <form >
                     <Typography>Register New Admin</Typography>
                     <div>
