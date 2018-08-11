@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
 import Nav from '../../components/Nav/Nav';
-import sweetAlertSuccess from '../../redux/modules/sweetAlertSuccess';
+import SweetAlertSuccess from '../../redux/modules/sweetAlertSuccess';
 
 
 const styles = theme => ({
@@ -77,15 +77,16 @@ class AccountCreationView extends React.Component{
                     password: '',
                     confirmPassword: ''
                 })
+                SweetAlertSuccess(this.state.message);
               } else {
                 this.setState({
-                  message: 'Ooops! That didn\'t work. The username might already be taken. Try again!',
+                  message: 'Ooops! That didn\'t work. Try again!',
                 });
               }
             })
             .catch(() => {
               this.setState({
-                message: 'Ooops! Something went wrong!',
+                message: 'Username is taken',
               });
             });
         }
