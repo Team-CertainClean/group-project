@@ -69,7 +69,7 @@ class SimpleModal extends React.Component {
           <div style={getModalStyle()} className={classes.paper}>
           {/* <pre>{JSON.stringify(this.props.updateId)}</pre> */}
             <Typography variant="title" id="modal-title">
-              Rooms and Cleanliness Score:
+              Rooms | Cleanliness Score:
             </Typography>
             <div>
                 {this.props.roomInfo.map((room, i) => {
