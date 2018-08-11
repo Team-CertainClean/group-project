@@ -14,6 +14,8 @@ import { ROOM_ACTIONS } from '../../redux/actions/roomActions';
 
 //Modules
 import estimateCalculator from '../../redux/modules/estimateCalculator';
+import sweetAlertFailure from '../../redux/modules/sweetAlertFailure';
+import sweetAlertSuccess from '../../redux/modules/sweetAlertSuccess';
 
 // //Material UI
 import Typography from '@material-ui/core/Typography';
@@ -54,12 +56,17 @@ const styles = (theme) => ({
     },
     unselectedLocationType: {
         margin: '1%',
-        padding: '2.5%',
-        paddingLeft: '4%',
-        paddingRight: '4%',
-        borderRadius: '100px',
-        fontSize: 48,
+		padding: '2.5%',
+		paddingLeft: '4%',
+		paddingRight: '4%',
+		borderRadius: '100px',
+		fontSize: '3vw',
         color: 'white',
+        border: '0.2vw solid white' ,
+        '&:hover': {
+            border: '0.2vw solid rgba(255,255,255,0.5)'
+
+		}
     },
 	card: {
 		minWidth: 275
@@ -97,22 +104,33 @@ const styles = (theme) => ({
 	whole: {
 		border: '1px solid green'
 	},
-	titles: {
-		color: 'white',
-		fontSize: '5vh'
-	},
 	getStartedButton: {
-        borderRadius: '100px',
-        display: 'flex', 
-        backgroundColor: '#ef8902',
-        marginTop: '5%',
-        padding: '2.5%',
-        paddingLeft: '4%',
-        paddingRight: '4%',
-        fontSize: 48,
-        color: 'white !important'
-        
-    },
+        backgroundSize: '200% auto',
+        flex: '1 1 auto',
+        transition: '0.5s',
+        backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%, #fe981e 100%)',
+		borderRadius: '200px',
+		display: 'flex',
+		backgroundColor: '#ef8902',
+		marginTop: '5%',
+		padding: '2.5%',
+		paddingLeft: '4%',
+		paddingRight: '4%',
+		fontSize: '3vw',
+        color: 'white !important',
+        '&:hover': {
+            backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%,#fbad40 100%)',
+            backgroundColor: '#E8E8E8',
+            backgroundPosition: 'right center',
+		}
+	},
+	locationTypeContent: {
+        marginTop: '7vh',
+        width: '100vw',
+        backgroundColor: 'white',
+        fontSize: '1vw',
+        padding: '1vw'
+	},
 });
 
 function getModalStyle() {
@@ -164,9 +182,14 @@ class RoomInputView extends Component {
 	};
 
 	addRoomToReducer = () => {
-		this.props.dispatch({ type: CUSTOMER_ACTIONS.ROOMS, payload: this.state.room });
-		this.handleClose();
-		this.clearState();
+		if(this.state.roomName != ''){
+			this.props.dispatch({ type: CUSTOMER_ACTIONS.ROOMS, payload: this.state.room });
+			this.handleClose();
+			sweetAlertSuccess(`You've added the ${this.state.roomName} with a cleanliness rating of ${this.state.room.cleanliness_score}!`);
+			this.clearState();
+		} else {
+			sweetAlertFailure("You didn't choose a room! Please pick a room and rate it before adding.");
+		}
 	};
 
 	clearState = () => {
@@ -186,7 +209,7 @@ class RoomInputView extends Component {
 		const { classes } = this.props;
 		content = (
 			<center className={classes.whole}>
-			<Typography gutterBottom className={classes.titles}>Select room that needs to be cleaned! </Typography>
+			<Typography gutterBottom className={classes.locationTypeContent}>Select room that needs to be cleaned! </Typography>
 				<RoomComponent />
 				<div>
 					
@@ -202,7 +225,7 @@ class RoomInputView extends Component {
 								Add kind of room and how dirty it is.
 							</Typography>
 							<Typography variant="subheading" id="simple-modal-description">
-								To prevent misestiamting please, input real information.
+								To prevent misestimating please, input real information.
 							</Typography>
 
 							<FormControl className={classes.formControl}>
@@ -245,7 +268,7 @@ class RoomInputView extends Component {
 						</Button> */}
 						<BackButton scroll={this.props.scroll} offset={1}/>
 						{this.props.selectedRooms.length > 0 ? 
-							<Button onClick={this.calcEstAndScrollToSchedule} >
+							<Button className={classes.unselectedLocationType} onClick={this.calcEstAndScrollToSchedule} >
 								Next
 							</Button>
 							: 

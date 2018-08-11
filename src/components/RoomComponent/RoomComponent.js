@@ -16,41 +16,36 @@ const mapStateToProps = state => ({
 const styles = {
     icon: {
       float: 'left',
-      height: '6vh',
+      height: '6vw',
       marginLeft: '0.5vw'
     },
     rate: {
+      // padding: '6vw',
       borderRadius: '40vw',
       position:'relative',
       backgroundColor: '#A8A8A8',
       width: '60vw',
-      height: '10vh',
-      border: '1px solid red',
-      marginTop: '1vh',
-      
+      height: '12vw',
     },
     roomname: {
       fontFamily: 'Arial, Helvetica, sans-serif',
       color: 'white',
       position: 'absolute',
       float: 'left',
-      fontSize: '6vh',
-      marginTop: '4.5vh',
-      marginLeft: '3vw',
+      fontSize: '3vw',
+      marginTop: '5.5`vw',
+      marginLeft: '4vw'
       
 
     },
     circles: {
+      marginTop: '3vw',
       float:'right',
-      marginTop: '2vh',
       marginRight: '3vw',
     },
     RoomList: {
       border: '1px solid yellow',
       marginTop: '10%'
-    },
-    fakerate: {
-     opacity: '0.5'
     }
   };
 

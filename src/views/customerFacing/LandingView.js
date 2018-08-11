@@ -24,14 +24,18 @@ import RoomInputView from './RoomInputView';
 
 // const url = (name, wrap = false) => `${wrap ? 'url(' : ''}public/${name}.jpg${wrap ? ')' : ''}`
 const styles = {
-	fontFamily: 'Menlo-Regular, Menlo, monospace',
+    fontFamily: 'Open Sans ,sans-serif',
 	fontSize: 14,
 	lineHeight: '10px',
 	alignItems: 'center',
 	justifyContent: 'center',
-
+   
 	bookNow: {
-		marginTop: '5%',
+        backgroundSize: '200% auto',
+        flex: '1 1 auto',
+        transition: '0.5s',
+        backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%, #ef8902 100%)',
+		marginTop: '4%',
 		paddingLeft: '4vw',
 		paddingRight: '4vw',
 		padding: '2vw',
@@ -39,10 +43,10 @@ const styles = {
 		display: 'absolute',
 		color: 'white',
 		// backgroundColor: '#ef8902',
-		backgroundColor: '#ef8902',
+		//backgroundColor: '#ef8902',
 		'&:hover': {
-			color: '#ef8902',
-			backgroundColor: '#E8E8E8'
+            backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%,fbad40 100%)',
+            backgroundPosition: 'right center',
 		}
 	},
 	selectedLocationType: {
@@ -51,33 +55,45 @@ const styles = {
 		paddingLeft: '4%',
 		paddingRight: '4%',
 		borderRadius: '100px',
-		color: '#ef8902',
-		fontSize: 51,
-		backgroundColor: 'white',
-		'&:hover': {
-			color: '#ef8902',
-			backgroundColor: 'white'
-		}
+		color: '#fe981e',
+		fontSize: '3vw',
+		backgroundColor: 'white !important',
+		
 	},
 	unselectedLocationType: {
+        
 		margin: '1%',
 		padding: '2.5%',
 		paddingLeft: '4%',
 		paddingRight: '4%',
 		borderRadius: '100px',
-		fontSize: 48,
-		color: 'white'
+		fontSize: '3vw',
+        color: 'white',
+        border: '0.2vw solid white' ,
+        '&:hover': {
+            border: '0.2vw solid rgba(255,255,255,0.5)'
+
+		}
 	},
 	getStartedButton: {
-		borderRadius: '100px',
+        backgroundSize: '200% auto',
+        flex: '1 1 auto',
+        transition: '0.5s',
+        backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%, #fe981e 100%)',
+		borderRadius: '200px',
 		display: 'flex',
 		backgroundColor: '#ef8902',
 		marginTop: '5%',
 		padding: '2.5%',
 		paddingLeft: '4%',
 		paddingRight: '4%',
-		fontSize: 48,
-		color: 'white !important'
+		fontSize: '3vw',
+        color: 'white !important',
+        '&:hover': {
+            backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%,#fbad40 100%)',
+            backgroundColor: '#E8E8E8',
+            backgroundPosition: 'right center',
+		}
 	},
 	getStartedLink: {
 		color: 'white !important',
@@ -88,23 +104,21 @@ const styles = {
 		alignItems: 'center',
 		justifyContent: 'center',
 		marginTop: '10%',
-		width: '80%',
-		height: '20%'
 	},
 	typeOfPropertyContent: {
-		marginTop: '10%',
-		fontSize: 25,
-		color: 'white',
-		width: '80%',
-		height: '40%'
+	
+		
 	},
 	center: {
 		width: '100%',
 		height: '80%'
 	},
 	locationTypeContent: {
-		fontSize: 25,
-		color: 'white !important'
+        marginTop: '7vh',
+        width: '100vw',
+        backgroundColor: 'white',
+        fontSize: '1vw',
+        padding: '1vw'
 	},
 	water: {
 		opacity: '0.3',
@@ -116,7 +130,6 @@ const styles = {
 	logo: {
 		marginTop: '5%',
 		position: 'absolute',
-
 		'-webkit-animation': 'fadein 4s',
 		'-moz-animation': 'fadein 4s',
 		'-ms-animation': 'fadein 4s',
@@ -129,7 +142,8 @@ const styles = {
 		marginTop: '-20%',
 		width: '20%',
 		height: 'auto'
-	}
+    }
+   
 };
 
 const mapStateToProps = (state) => ({
@@ -153,8 +167,9 @@ class CustomerLandingView extends React.Component {
   
 	selectLocationType = (type) => {
 		if (type === 'residential') {
+           
 			this.setState({ selection: true, propertytype: 'residential' });
-			this.props.dispatch({ type: CUSTOMER_ACTIONS.LOCATION, payload: 1 });
+            this.props.dispatch({ type: CUSTOMER_ACTIONS.LOCATION, payload: 1 });
 		} else {
 			this.setState({ selection: false, propertytype: 'commercial' });
 			this.props.dispatch({ type: CUSTOMER_ACTIONS.LOCATION, payload: 2 });
@@ -194,20 +209,29 @@ class CustomerLandingView extends React.Component {
 			maxHeight: '75vw',
 			backgroundPosition: '50% 50%',
 			backgroundRepeat: 'no-repeat',
-			backgroundSize: 'cover'
+            backgroundSize: 'cover',
 		};
 		// Conditional check to apply either a background color or background image based on state
 		if (this.state.propertytype === 'residential') {
-			layerBackground.backgroundImage = "url('/Home.jpg')";
+            layerBackground.transition = '1s';
+            layerBackground.backgroundImage = "url('/Home.jpg')";
+            setTimeout(layerBackground.transition = '0s', 5000);
 		} else if (this.state.propertytype === 'commercial') {
-			layerBackground.backgroundImage = "url('/Office.jpg')";
+            layerBackground.transition = '1s';
+            layerBackground.backgroundImage = "url('/Office.jpg')";
+            setTimeout(layerBackground.transition = '0s', 5000);
 		} else {
-			layerBackground.backgroundColor = 'rgba(255, 139, 0, 1)';
+			layerBackground.backgroundColor = '#fe981e';
 		}
-
+        let RoomLayerBackground = {
+            display:'block',
+            overflow:'auto',
+            height: '100%',
+            backgroundColor: '#c2c2c2',
+        }
 		if (this.state.selection === null) {
 			locationTypeContent = (
-				<Typography className={classes.locationTypeContent}>Please choose type of your property.</Typography>
+				<Typography className={classes.locationTypeContent}>Please choose the type of your property.</Typography>
 			);
 			locationTypeChoices = (
 				<div>
@@ -229,13 +253,15 @@ class CustomerLandingView extends React.Component {
 			);
 		} else if (this.state.selection) {
 			locationTypeContent = (
+                <div>
 				<Typography className={classes.locationTypeContent}>
 					What to expect: You'll fill out our estimator to receive an estimated duration your cleaning will
 					take and then we'll contact you when we've confirmed.
+				</Typography>
 					<Button className={classes.getStartedButton} onClick={() => this.refs.parallax.scrollTo(2)}>
 						Get Started
 					</Button>
-				</Typography>
+                </div>
 			);
 			locationTypeChoices = (
 				<div>
@@ -255,15 +281,15 @@ class CustomerLandingView extends React.Component {
 			);
 		} else {
 			locationTypeContent = (
+                <div>
 				<Typography className={classes.locationTypeContent}>
 					What to expect: You'll be navigated to our contact form, and then we will get in touch to discuss
 					the cleaning in further detail.
-					{/* <Link to={this.state.path} className={classes.getStartedLink}> */}
+				</Typography>
 					<Button className={classes.getStartedButton} onClick={() => this.refs.parallax.scrollTo(2)}>
 						Get Started
 					</Button>
-					{/* </Link> */}
-				</Typography>
+                    </div>
 			);
 			locationTypeChoices = (
 				<div>
@@ -289,7 +315,7 @@ class CustomerLandingView extends React.Component {
 				content = (
 					<Parallax.Layer offset={2} speed={1} style={styles}>
 						<ContactInfoView
-							pScroll={this.refs.parallax.scrollTo}
+							scroll={this.scroll}
 							selection={this.state.selection}
 							history={this.props.history}
 						/>
@@ -300,7 +326,7 @@ class CustomerLandingView extends React.Component {
         	case 'residential':
 				layer = (
 					<div>
-						<Parallax.Layer offset={2} speed={1} style={{ backgroundColor: 'grey' }} />
+						<Parallax.Layer offset={2} speed={1} style={ RoomLayerBackground } />
 						<Parallax.Layer offset={3} speed={1} style={{ backgroundColor: 'grey' }} />
 						<Parallax.Layer offset={4} speed={1} style={{ backgroundColor: 'grey' }} />
 					</div>
@@ -333,14 +359,14 @@ class CustomerLandingView extends React.Component {
 		return (
 			<Parallax ref="parallax" pages={numberofpages}>
 				<Parallax.Layer offset={0} speed={1} style={{ backgroundColor: 'white' }} />
-				<Parallax.Layer offset={1} speed={1} style={layerBackground} className="fadeIt" />
+				<Parallax.Layer offset={1} speed={1} style={layerBackground}  />
 				{layer}
 				<Parallax.Layer offset={0} speed={5} style={styles} onClick={() => this.refs.parallax.scrollTo(1)}>
 					<img src="/giphy.gif" width="100%" className={classes.water} />
 					<center className="firstFade" className={classes.logo}>
 						<img src="/LOGO-01.png" width="70%" />
 						<div className="firstButton">
-							<Button className={classes.bookNow} onClick={() => this.refs.parallax.scrollTo(1)}>
+							<Button className={classes.getStartedButton} onClick={() => this.refs.parallax.scrollTo(1)}>
 								BOOK NOW
 							</Button>
 						</div>
@@ -352,13 +378,7 @@ class CustomerLandingView extends React.Component {
 					speed={2}
 					// style={{ backgroundImage: '', backgroundSize: 'cover' }}>
 				><div className="main" onClick={this.toggle}>
-                {/* <Transition
-                  native
-                  from={{ opacity: 0, transform: 'translate3d(100%,0,0)' }}
-                  enter={{ opacity: 1, transform: 'translate3d(0%,0,0)' }}
-                  leave={{ opacity: 0, transform: 'translate3d(-50%,0,0)' }}>
-                  {pages[this.state.index]}
-                </Transition> */}
+              
               </div>
 					<center className={classes.center}>
 						<div className={classes.typeOfProperty}>
