@@ -49,6 +49,13 @@ class Nav extends Component {
               </Link>
             </li>
             <li>
+              <Link to="/calendar" style={{textDecorationLine: 'none'}}>
+                <Button>
+                  Availability Calendar
+                </Button>
+              </Link>
+            </li>
+            <li>
               <Link to="/accountCreation" style={{textDecorationLine: 'none'}}>
                 <Button>
                   Create New Admin
