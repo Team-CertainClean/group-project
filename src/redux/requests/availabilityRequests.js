@@ -35,3 +35,12 @@ export function editAvailability(payload){
             throw error.response || error;
         });
 }
+
+export function fetchUnavailability(){
+    return axios.get('/api/availability/unavailability')
+        .then(response => response.data)
+        .catch(error => {
+            alert("Error fetching unavailability")
+            throw error.response || error;
+        });
+}

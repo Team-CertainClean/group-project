@@ -31,18 +31,18 @@ router.get('/', (req, res)=>{
         });
 });
 
-// router.get('/unavailable', (req, res)=>{
-//     const queryText = 'select start, end from availability;';
-//     pool.query(queryText)
-//         .then(async (result) => {
-//             const unavailability = await invertCalendar(result.rows);
-//             res.send(unavailability);
-//         })
-//         .catch(error => {
-//             console.log('Error handling GET for /api/availability/unavailable: ', error);
-//             res.sendStatus(404)
-//         });
-// });
+router.get('/unavailable', (req, res)=>{
+    const queryText = 'select start, end from availability;';
+    pool.query(queryText)
+        .then(async (result) => {
+            const unavailability = await invertCalendar(result.rows);
+            res.send(unavailability);
+        })
+        .catch(error => {
+            console.log('Error handling GET for /api/availability/unavailable: ', error);
+            res.sendStatus(404)
+        });
+});
 
 router.delete('/:id', (req, res)=>{
     const queryText ='delete from availability where id = $1;';

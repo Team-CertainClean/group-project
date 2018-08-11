@@ -1,7 +1,6 @@
 import { select, put, takeLatest } from 'redux-saga/effects';
 import { AVAILABILITY_ACTIONS } from '../actions/availabilityActions';
-import { fetchAvailability, postAvailability, removeAvailability, editAvailability } from '../requests/availabilityRequests';
-import { getAvailability } from '../selectors/availabilitySelector';
+import { fetchAvailability, postAvailability, removeAvailability, editAvailability, fetchUnavailability } from '../requests/availabilityRequests';
 
 console.log('SAGA');
 
@@ -11,6 +10,15 @@ function* fetch(){
         yield put({type: AVAILABILITY_ACTIONS.STORE, payload: availability});
     }catch(error){
         alert("Failed to fetch availability");
+    }
+}
+
+function* getUn(action){
+    try{
+        const unavailability = yield fetchUnavailability();
+        yield put({type: AVAILABILITY_ACTIONS.STORE_UN, payload: unavailability});
+    }catch(error){
+        alert("Failed to fetch unavailability");
     }
 }
 
@@ -47,7 +55,8 @@ function* availabilitySaga(){
     yield takeLatest(AVAILABILITY_ACTIONS.FETCH, fetch);
     yield takeLatest(AVAILABILITY_ACTIONS.POST, post);
     yield takeLatest(AVAILABILITY_ACTIONS.REMOVE, remove);
-    yield takeLatest(AVAILABILITY_ACTIONS.EDIT, edit)
+    yield takeLatest(AVAILABILITY_ACTIONS.EDIT, edit);
+    yield takeLatest(AVAILABILITY_ACTIONS.GET_UN, getUn);
 }
 
 export default availabilitySaga;
