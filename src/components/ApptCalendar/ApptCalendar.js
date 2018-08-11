@@ -18,7 +18,8 @@ Calendar.setLocalizer(Calendar.momentLocalizer(moment));
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 const mapStateToProps = state => ({
-    availabilityEvents: state.availability,
+    available: state.availability.available,
+    unavailable: state.availability.unavailable,
     estimate: state.customer.duration,
 });
 
@@ -32,6 +33,7 @@ class ApptCalendar extends Component {
                 end: null,
                 },
             ],
+
             newEvent: {
                 start: null,
                 end: null,
@@ -41,20 +43,27 @@ class ApptCalendar extends Component {
 
     componentDidMount() {
         this.props.dispatch({ type: AVAILABILITY_ACTIONS.FETCH });
+        this.props.dispatch({ type: AVAILABILITY_ACTIONS.GET_UN});
     }
 
     componentDidUpdate(prevProps) {
-        console.log('this.props.availabilityEvents', this.props.availabilityEvents);
-        if(this.props.availabilityEvents !== prevProps.availabilityEvents) {
-            let eventsArr = [];
-            for (let event of this.props.availabilityEvents){
-                eventsArr.push({ start: new Date(event.start), end: new Date(event.end) })
-            }
-            this.setState({
-                events: [...eventsArr],
-            });
+        // console.log('this.props.availabilityEvents', this.props.availabilityEvents);
+        // if(this.props.availabilityEvents !== prevProps.availabilityEvents) {
+        //     let eventsArr = [];
+        //     for (let event of this.props.availabilityEvents){
+        //         eventsArr.push({ start: new Date(event.start), end: new Date(event.end) })
+        //     }
+        //     this.setState({
+        //         events: eventsArr,
+        //     });
+        // }
+        // console.log('events after availability:', this.eventsArr)
+        // console.log('this.state.events = ', this.state.events);
+        if (this.props.userType === 'customer'){
+            this.setState({events: [...this.state.events, ...this.props.unavailable]});
+        }else if (this.props.userType === 'admin'){
+            this.setState({events: this.props.available});
         }
-        console.log('this.state.events = ', this.state.events);
     }
 
     moveEvent = ({ event, start, end }) => {
@@ -101,19 +110,23 @@ class ApptCalendar extends Component {
 
     onSelect = (slotInfo) => {
         if (this.props.userType === 'customer'){
-            // console.log(slotInfo.start.getHours(), slotInfo.end.getHours());
-            // console.log(this.props.estimate);
-            if(this.state.events.length > 0){
+            console.log("ME!", slotInfo.start.getHours(), slotInfo.end.getHours());
+            console.log(this.props.estimate);
+            if(this.state.events[0].start){
                 sweetAlertFailure("You've already chosen a time for the cleaning, if this was a mistake, feel free to drag and drop your previous selection to your desired time.");
             } else {
-                    let diff = new Date(slotInfo.end).getHours() - new Date(slotInfo.start).getHours();
-                    if (this.props.estimate == diff){
+                    let start = new Date(slotInfo.start);
+                    let end = new Date(slotInfo.end);
+                    let diffHours = end.getHours() - start.getHours();
+                    let diffMinutes = end.getMinutes() - start.getMinutes();
+                    let diff = diffHours + (diffMinutes / 60);
+                    if (this.props.estimate === diff){
                         console.log('slotInfo:', slotInfo);
                         this.setState({
                             newEvent: {start: new Date(slotInfo.start), end: new Date(slotInfo.end)},
                         });
                         this.setState({
-                            events: [this.state.newEvent]
+                            events: [this.state.newEvent, ...this.props.unavailable]
                         })
                         this.dispatchAppt();
                         return true;
@@ -147,7 +160,7 @@ class ApptCalendar extends Component {
 
     render() {
         // const { classes } = this.props;
-        console.log(this.state);
+        // console.log(this.state);
         return (
             <div>
                 <DragAndDropCalendar 
