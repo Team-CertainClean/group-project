@@ -105,23 +105,6 @@ class AccountCreationView extends React.Component{
     });
     }
 
-<<<<<<< HEAD
-    renderAlert() {
-        if (this.state.message !== '') {
-          sweetAlertSuccess(this.state.message)
-        //   return (
-        //     <h1>
-        //       {this.state.message}
-        //     </h1>
-        //   );
-        // }
-        // return (<span />);
-      }
-    }
-
-
-=======
->>>>>>> 525b441c5b7bb1f6f478db501d35074120bb6353
     render(){
         let content = null;
         let nav = null;
