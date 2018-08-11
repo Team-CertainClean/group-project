@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 // import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 import { AVAILABILITY_ACTIONS } from '../../redux/actions/availabilityActions';
 import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
+import sweetAlertFailure from '../../redux/modules/sweetAlertFailure';
+import sweetAlertSuccess from '../../redux/modules/sweetAlertSuccess';
 
 Calendar.setLocalizer(Calendar.momentLocalizer(moment));
 const DragAndDropCalendar = withDragAndDrop(Calendar);
@@ -76,7 +78,7 @@ class ApptCalendar extends Component {
           events: nextEvents,
         })
         console.log('this.state=', this.state)
-        alert(`the event was dropped onto ${updatedEvent.start}`)
+        sweetAlertSuccess(`You're desired cleaning time has changed to be on ${updatedEvent.start.toLocaleDateString()} from ${updatedEvent.start.toLocaleTimeString()} to ${updatedEvent.end.toLocaleTimeString()}.`);
     }
 
     // resizeEvent = ({ event, start, end }) => {
@@ -97,23 +99,29 @@ class ApptCalendar extends Component {
     // }
 
     onSelect = (slotInfo) => {
-        if (this.props.estimate < (slotInfo.end - slotInfo.start)){
-            console.log('slotInfo:', slotInfo);
-            this.setState({
-                newEvent: {start: new Date(slotInfo.start), end: new Date(slotInfo.end)},
-            });
-            this.setState({
-                events: [...this.state.events, this.state.newEvent]
-            })
-            this.dispatchAppt();
-            return true;
+        if(this.state.events.length > 0){
+            sweetAlertFailure("You've already chosen a time for the cleaning, if this was a mistake, feel free to drag and drop your previous selection to your desired time.");
         } else {
-            alert(`The time you selected is not sufficient for your estimated service duration. Please select another time`);
+                let diff = new Date(slotInfo.end).getHours() - new Date(slotInfo.start).getHours();
+                if (this.props.estimate == diff){
+                    console.log('slotInfo:', slotInfo);
+                    this.setState({
+                        newEvent: {start: new Date(slotInfo.start), end: new Date(slotInfo.end)},
+                    });
+                    this.setState({
+                        events: [this.state.newEvent]
+                    })
+                    this.dispatchAppt();
+                    return true;
+                } else {
+                    sweetAlertFailure(`The time you've selected does not match your estimated duration of ${this.props.estimate} hour(s). Please select another time that will accomodate this estimate.`);
+                }
         }
     }
 
     dispatchAppt() {
         this.props.dispatch({ type: CUSTOMER_ACTIONS.APPT, payload: this.state.newEvent });
+        sweetAlertSuccess(`We've recorded you're desired cleaning time on ${this.state.newEvent.start.toLocaleDateString()} from ${this.state.newEvent.start.toLocaleTimeString()} to ${this.state.newEvent.end.toLocaleTimeString()}`);
     }
 
     render() {
