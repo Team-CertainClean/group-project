@@ -2,7 +2,7 @@ import Calendar from 'react-big-calendar';
 import moment from 'moment';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+import './custom-big-calendar.css';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 import React, { Component } from 'react';
@@ -11,6 +11,8 @@ import { connect } from 'react-redux';
 // import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 import { AVAILABILITY_ACTIONS } from '../../redux/actions/availabilityActions';
 import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
+import sweetAlertFailure from '../../redux/modules/sweetAlertFailure';
+import sweetAlertSuccess from '../../redux/modules/sweetAlertSuccess';
 
 Calendar.setLocalizer(Calendar.momentLocalizer(moment));
 const DragAndDropCalendar = withDragAndDrop(Calendar);
@@ -55,30 +57,30 @@ class ApptCalendar extends Component {
         console.log('this.state.events = ', this.state.events);
     }
 
-    // moveEvent = ({ event, start, end }) => {
-    //     const { events } = this.state;
-    //     console.log('in moveevent');
-    //     const idx = events.indexOf(event);
-    //     console.log('idx:', idx);
-    //     // let allDay = event.allDay
+    moveEvent = ({ event, start, end }) => {
+        const { events } = this.state;
+        console.log('in moveevent');
+        const idx = events.indexOf(event);
+        console.log('idx:', idx);
+        // let allDay = event.allDay
     
-    //     // if (!event.allDay && droppedOnAllDaySlot) {
-    //     //   allDay = true
-    //     // } else if (event.allDay && !droppedOnAllDaySlot) {
-    //     //   allDay = false
-    //     // }
+        // if (!event.allDay && droppedOnAllDaySlot) {
+        //   allDay = true
+        // } else if (event.allDay && !droppedOnAllDaySlot) {
+        //   allDay = false
+        // }
     
-    //     const updatedEvent = { ...event, start, end}
+        const updatedEvent = { ...event, start, end}
     
-    //     const nextEvents = [...events]
-    //     nextEvents.splice(idx, 1, updatedEvent)
+        const nextEvents = [...events]
+        nextEvents.splice(idx, 1, updatedEvent)
     
-    //     this.setState({
-    //       events: nextEvents,
-    //     })
-    //     console.log('this.state=', this.state)
-    //     alert(`the event was dropped onto ${updatedEvent.start}`)
-    // }
+        this.setState({
+          events: nextEvents,
+        })
+        console.log('this.state=', this.state)
+        sweetAlertSuccess(`You're desired cleaning time has changed to be on ${updatedEvent.start.toLocaleDateString()} from ${updatedEvent.start.toLocaleTimeString()} to ${updatedEvent.end.toLocaleTimeString()}.`);
+    }
 
     // resizeEvent = ({ event, start, end }) => {
     //     console.log('in resizeEvent');
@@ -101,19 +103,23 @@ class ApptCalendar extends Component {
         if (this.props.userType === 'customer'){
             // console.log(slotInfo.start.getHours(), slotInfo.end.getHours());
             // console.log(this.props.estimate);
-            let diff = slotInfo.end.getHours() - slotInfo.start.getHours();
-            if (this.props.estimate === diff){
-                // console.log('slotInfo:', slotInfo);
-                this.setState({
-                    newEvent: {start: new Date(slotInfo.start), end: new Date(slotInfo.end)},
-                });
-                this.setState({
-                    events: [...this.state.events, this.state.newEvent]
-                })
-                this.dispatchAppt();
-                return true;
+            if(this.state.events.length > 0){
+                sweetAlertFailure("You've already chosen a time for the cleaning, if this was a mistake, feel free to drag and drop your previous selection to your desired time.");
             } else {
-                alert(`The time you selected is not sufficient for your estimated service duration. Please select another time`);
+                    let diff = new Date(slotInfo.end).getHours() - new Date(slotInfo.start).getHours();
+                    if (this.props.estimate == diff){
+                        console.log('slotInfo:', slotInfo);
+                        this.setState({
+                            newEvent: {start: new Date(slotInfo.start), end: new Date(slotInfo.end)},
+                        });
+                        this.setState({
+                            events: [this.state.newEvent]
+                        })
+                        this.dispatchAppt();
+                        return true;
+                    } else {
+                        sweetAlertFailure(`The time you've selected does not match your estimated duration of ${this.props.estimate} hour(s). Please select another time that will accomodate this estimate.`);
+                    }
             }
         } else if (this.props.userType === 'admin'){
             this.setState({
@@ -124,14 +130,15 @@ class ApptCalendar extends Component {
             })
             this.dispatchAvailability();
             return true;
-        }
-    }
+        }        
+    }    
 
-    dispatchAppt() {
+    dispatchAppt = () => {
         this.props.dispatch({ type: CUSTOMER_ACTIONS.APPT, payload: this.state.newEvent });
+        sweetAlertSuccess(`We've recorded you're desired cleaning time on ${this.state.newEvent.start.toLocaleDateString()} from ${this.state.newEvent.start.toLocaleTimeString()} to ${this.state.newEvent.end.toLocaleTimeString()}`);
     }
 
-    dispatchAvailability() {
+    dispatchAvailability = () => {
         this.props.dispatch({ type: AVAILABILITY_ACTIONS.STORE, payload: this.state.newEvent });
         this.setState({
             newEvent: { start: null, end: null }

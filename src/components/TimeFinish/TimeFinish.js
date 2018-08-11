@@ -42,7 +42,7 @@ class TimeFinish extends Component {
                 <Card className={classes.card}>
                     <CardContent>
                         <Typography className={classes.title} color="textPrimary">
-                            ESTIMATE TIME: {this.props.estimate}
+                            ESTIMATE TIME: {this.props.estimate} hr
                         </Typography>
                     </CardContent>
                     <CardActions>
