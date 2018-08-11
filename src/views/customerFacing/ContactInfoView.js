@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 import { REQUEST_ACTIONS } from '../../redux/actions/requestActions';
+import { CLEANING_TYPE_ACTIONS } from '../../redux/actions/cleaningTypeActions';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -88,7 +89,8 @@ class ContactInfoView extends Component {
 
     componentDidMount() {
         this.props.dispatch({type: USER_ACTIONS.FETCH_USER});
-        this.props.dispatch({type: REQUEST_ACTIONS.FETCH})
+        this.props.dispatch({type: REQUEST_ACTIONS.FETCH});
+        this.props.dispatch({type: CLEANING_TYPE_ACTIONS.FETCH})
     }// end componentDidMount
 
     handleChange = (contactInfo) => (event) => {
