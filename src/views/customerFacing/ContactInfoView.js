@@ -177,7 +177,7 @@ class ContactInfoView extends Component {
                 <Button variant="contained" onClick={this.submitContactInfo} className={classes.getStartedButton}>
                 Get Quote
             </Button>
-            <BackButton scroll={this.props.scroll} offset={3}/>
+            <BackButton scroll={this.props.scroll} offset={this.props.selection ? 3 : 1}/>
             </form>
                 
             
