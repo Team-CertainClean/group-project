@@ -311,7 +311,6 @@ class CustomerLandingView extends React.Component {
 						<Parallax.Layer offset={2} speed={1} style={styles}>
 							<RoomInputView history={this.props.history} scroll={this.scroll} />
 						</Parallax.Layer>
-          
 						<Parallax.Layer offset={3} speed={1} style={styles}>
 							<ApptTimeSelectView scroll={this.scroll} history={this.props.history} />
 						</Parallax.Layer>
