@@ -183,7 +183,7 @@ class ContactInfoView extends Component {
       content = (
             
 
-            <center className={classes.wholeContact} noValidate autoComplete="on">
+            <center className={classes.wholeContact} noValidate >
             <img src={'https://www.shareicon.net/data/128x128/2015/12/11/685826_sign_512x512.png'} className={classes.protectionImg}></img>
 
             <div className={classes.locationTypeContent}>

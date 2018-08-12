@@ -17,6 +17,8 @@ const mapStateToProps = state => ({
 const styles = {
     view: {
         backgroundColor: 'lightgrey',
+        position: 'relative',
+        top: '60px'
     },
 };
 
