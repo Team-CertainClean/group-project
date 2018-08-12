@@ -13,6 +13,9 @@ const styles = {
     view: {
         backgroundColor: 'lightgrey',
     },
+    calendar: {
+        width: '90vp',
+    }
 };
 
 class ApptTimeSelectView extends Component {
@@ -25,10 +28,10 @@ class ApptTimeSelectView extends Component {
         return (
             <div className={classes.view}>
 
-                <ContactInfo className={classes.contact} />
+                {/* <ContactInfo className={classes.contact} /> */}
                 {/* <RoomInfo className={classes.room} /> */}
                 <TimeFinish className={classes.time} />
-                <ApptCalendar className={classes.calendar} />
+                <ApptCalendar className={classes.calendar} userType={'customer'}/>
                 <BackButton scroll={this.props.scroll} offset={2}/>
                 <Button onClick={() => this.props.scroll(4)}>Next</Button>
             </div>

@@ -34,8 +34,8 @@ insert into Location_Type("location_type") values ('Residential'), ('Commercial'
 create table Request(
 
     id serial primary key,
-    cleaning_type_id int references Cleaning_Type,
-    location_type_id int references Location_Type not null,
+	cleaning_type_id int references Cleaning_Type,
+	location_type_id int references Location_Type,
     "start" timestamp with time zone,
     "end" timestamp with time zone,
     est_duration float not null,

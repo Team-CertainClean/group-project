@@ -9,7 +9,7 @@ class RoomList extends Component {
   render() {
     return (
       <ul>
-        <li>{this.props.roomInfo.room_name}  {this.props.roomInfo.cleanliness_score}</li>
+        <li>{this.props.roomInfo.room_name} | {this.props.roomInfo.cleanliness_score}</li>
       </ul>
     );
   }

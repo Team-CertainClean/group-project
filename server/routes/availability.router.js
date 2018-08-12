@@ -1,17 +1,26 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
+const availabilityTransaction = require('../modules/router-modules/availability-router/availabilityTransaction');
+const invertCalendar = require('../modules/router-modules/availability-router/invertCalendar');
 
-router.post('/', (req, res)=>{
-    console.log('in POST of availabilityRouter');
-    const availability = req.body;
-    const queryText = 'insert into availability (start, "end") values ($1, $2);'; // Stretch, insert a media_key as well from AWS for accessing photos
-    pool.query(queryText, [availability.start, availability.end])
+// router.post('/', (req, res)=>{
+//     console.log('in POST of availabilityRouter');
+//     const availability = req.body;
+//     const queryText = 'insert into availability (start, "end") values ($1, $2);'; // Stretch, insert a media_key as well from AWS for accessing photos
+//     pool.query(queryText, [availability.start, availability.end])
+//         .then(result => res.sendStatus(201))
+//         .catch(error=>{
+//             console.log('Error handling POST for /api/availability: ', error);
+//             res.sendStatus(500);
+//         });
+// });
+
+router.post('/', (req, res) => {
+    // Module that performs SQL transaction to post customer provided information into the DB
+    availabilityTransaction(req.body)
         .then(result => res.sendStatus(201))
-        .catch(error=>{
-            console.log('Error handling POST for /api/availability: ', error);
-            res.sendStatus(500);
-        });
+        .catch(error=>console.log('Error handling POST for /api/request ', error));
 });
 
 router.get('/', (req, res)=>{
@@ -23,18 +32,18 @@ router.get('/', (req, res)=>{
         });
 });
 
-// router.get('/unavailable', (req, res)=>{
-//     const queryText = 'select start, end from availability;';
-//     pool.query(queryText)
-//         .then(async (result) => {
-//             const unavailability = await invertCalendar(result.rows);
-//             res.send(unavailability);
-//         })
-//         .catch(error => {
-//             console.log('Error handling GET for /api/availability/unavailable: ', error);
-//             res.sendStatus(404)
-//         });
-// });
+router.get('/unavailable', (req, res)=>{
+    const queryText = 'select start, "end" from availability;';
+    pool.query(queryText)
+        .then( async (result) => {
+            const unavailability = await invertCalendar(result.rows);
+            res.send(unavailability);
+        })
+        .catch(error => {
+            console.log('Error handling GET for /api/availability/unavailable: ', error);
+            res.sendStatus(404)
+        });
+});
 
 router.delete('/:id', (req, res)=>{
     const queryText ='delete from availability where id = $1;';
