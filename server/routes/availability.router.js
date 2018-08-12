@@ -36,7 +36,9 @@ router.get('/unavailable', (req, res)=>{
     const queryText = 'select start, "end" from availability;';
     pool.query(queryText)
         .then( async (result) => {
+            console.log('in get unavailable');
             const unavailability = await invertCalendar(result.rows);
+            // console.log(unavailability);
             res.send(unavailability);
         })
         .catch(error => {

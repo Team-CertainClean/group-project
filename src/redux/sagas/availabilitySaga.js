@@ -28,6 +28,7 @@ function* post(){
         const availabilityStore = yield select(getAvailability);
         console.log('posting in availability saga');
         yield postAvailability(availabilityStore);
+        yield put({type: AVAILABILITY_ACTIONS.RESET_NEW});
         yield put({type: AVAILABILITY_ACTIONS.FETCH});
     }catch(error){
         alert("Failed to post availability");

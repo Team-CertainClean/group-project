@@ -10,6 +10,17 @@ const available = (state = [], action) => {
     }
 }
 
+const newAvailable = (state = [], action) => {
+    switch (action.type) {
+        case AVAILABILITY_ACTIONS.NEW:
+        return [...state, action.payload];
+        case AVAILABILITY_ACTIONS.RESET_NEW:
+        return [];
+        default:
+        return state;
+    }
+}
+
 const unavailable = (state = [], action) => {
     switch(action.type){
         case AVAILABILITY_ACTIONS.STORE_UN:
@@ -21,5 +32,6 @@ const unavailable = (state = [], action) => {
 
 export default combineReducers({
     available,
-    unavailable
+    newAvailable,
+    unavailable,
 });

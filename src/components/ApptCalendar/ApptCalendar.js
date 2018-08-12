@@ -47,56 +47,56 @@ class ApptCalendar extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(this.props.available !== prevProps.available) {
+        console.log('in update', prevProps);
+        console.log(this.props.unavailable);
+        
+        if(this.props.unavailable !== prevProps.unavailable) {
+            
+
             if (this.props.userType === 'customer'){
-                this.setState({events: [...this.state.events, ...this.props.unavailable]});
-            }else if (this.props.userType === 'admin'){
-                this.setState({events: this.props.available});
+                console.log('in cond', this.props.unavailable);
+                let tempArray = [];
+                for(let object of this.props.unavailable){
+                    for(let prop in object){
+                        object[prop] = new Date(object[prop]);
+                    }
+                    tempArray.push(object);
+                }  
+
+                this.setState({events: [...this.state.events, ...tempArray]});
             }
+            else if (this.props.userType === 'admin'){
+                console.log("Admin");
+                let tempArray = [];
+                for(let object of this.props.available){
+                    for(let prop in object){
+                        object[prop] = new Date(object[prop]);
+                    }
+                    tempArray.push(object);
+                }
+                    this.setState({events: [...tempArray]});
+                }
         }
     }
 
     moveEvent = ({ event, start, end }) => {
         const { events } = this.state;
-        console.log('in moveevent');
         const idx = events.indexOf(event);
-        console.log('idx:', idx);
-        // let allDay = event.allDay
-    
-        // if (!event.allDay && droppedOnAllDaySlot) {
-        //   allDay = true
-        // } else if (event.allDay && !droppedOnAllDaySlot) {
-        //   allDay = false
-        // }
-    
-        const updatedEvent = { ...event, start, end}
-    
-        const nextEvents = [...events]
-        nextEvents.splice(idx, 1, updatedEvent)
-    
-        this.setState({
-          events: nextEvents,
-        })
-        console.log('this.state=', this.state)
-        sweetAlertSuccess(`You're desired cleaning time has changed to be on ${updatedEvent.start.toLocaleDateString()} from ${updatedEvent.start.toLocaleTimeString()} to ${updatedEvent.end.toLocaleTimeString()}.`);
+        if(idx === 0){
+            const updatedEvent = { ...event, start, end}
+        
+            const nextEvents = [...events]
+            nextEvents.splice(idx, 1, updatedEvent)
+        
+            this.setState({
+            events: nextEvents,
+            })
+            console.log('this.state=', this.state)
+            sweetAlertSuccess(`You're desired cleaning time has changed to be on ${updatedEvent.start.toLocaleDateString()} from ${updatedEvent.start.toLocaleTimeString()} to ${updatedEvent.end.toLocaleTimeString()}.`);
+        } else {
+            sweetAlertFailure("You can only change your event.");
+        }
     }
-
-    // resizeEvent = ({ event, start, end }) => {
-    //     console.log('in resizeEvent');
-    //     const { events } = this.state;
-    //     const idz = events.indexOf(event);
-    //     console.log(idz);
-    //     const nextEvents = events.map((existingEvent, i) => {
-    //       return (i === idz)
-    //         ? { ...existingEvent, start, end }
-    //         : existingEvent
-    //     })
-    
-    //     this.setState({
-    //       events: nextEvents,
-    //     })
-    //     //alert(`${event.title} was resized to ${start}-${end}`)
-    // }
 
     onSelect = (slotInfo) => {
         if (this.props.userType === 'customer'){
@@ -142,7 +142,7 @@ class ApptCalendar extends Component {
     }
 
     dispatchAvailability = () => {
-        this.props.dispatch({ type: AVAILABILITY_ACTIONS.STORE, payload: this.state.newEvent });
+        this.props.dispatch({ type: AVAILABILITY_ACTIONS.NEW, payload: this.state.newEvent });
         this.setState({
             newEvent: { start: null, end: null }
         })
@@ -150,7 +150,6 @@ class ApptCalendar extends Component {
 
     render() {
         // const { classes } = this.props;
-        // console.log(this.state);
         return (
             <div>
                 <DragAndDropCalendar 
