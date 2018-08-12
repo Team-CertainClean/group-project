@@ -5,12 +5,13 @@ import PropTypes from 'prop-types';
 
 const styles = {
     backButton: {
-        margin: '1%',
-		padding: '2.5%',
-		paddingLeft: '4%',
-		paddingRight: '4%',
+        marginTop: '1vw',
+    margin: '1vw',
+    padding: '1%',
+    paddingLeft: '2%',
+    paddingRight: '2%',
 		borderRadius: '100px',
-		fontSize: '3vw',
+        fontSize: '2vw',
         color: 'white',
         border: '0.2vw solid white' ,
         '&:hover': {
@@ -19,6 +20,7 @@ const styles = {
 		}
     }
 }
+
 
 const BackButton = (props) => {
     const { classes, scroll, offset } = props;

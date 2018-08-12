@@ -117,7 +117,7 @@ const styles = {
         marginTop: '7vh',
         width: '100vw',
         backgroundColor: 'white',
-        fontSize: '1vw',
+        fontSize: '2vh',
         padding: '1vw'
 	},
 	water: {
@@ -230,7 +230,6 @@ class CustomerLandingView extends React.Component {
         let ContactLayerBackground ={
 
         }
-        layerBackground.backgroundImage = "url('/Home.jpg')";
 		if (this.state.selection === null) {
 			locationTypeContent = (
 				<Typography className={classes.locationTypeContent}>Please choose the type of your property.</Typography>
@@ -257,7 +256,7 @@ class CustomerLandingView extends React.Component {
 			locationTypeContent = (
                 <div>
 				<Typography className={classes.locationTypeContent}>
-					What to expect: You'll fill out our estimator to receive an estimated duration your cleaning will
+					 You'll fill out our estimator to receive an estimated duration your cleaning will
 					take and then we'll contact you when we've confirmed.
 				</Typography>
 					<Button className={classes.getStartedButton} onClick={() => this.refs.parallax.scrollTo(2)}>
@@ -285,7 +284,7 @@ class CustomerLandingView extends React.Component {
 			locationTypeContent = (
                 <div>
 				<Typography className={classes.locationTypeContent}>
-					What to expect: You'll be navigated to our contact form, and then we will get in touch to discuss
+					 You'll be navigated to our contact form, and then we will get in touch to discuss
 					the cleaning in further detail.
 				</Typography>
 					<Button className={classes.getStartedButton} onClick={() => this.refs.parallax.scrollTo(2)}>

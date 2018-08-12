@@ -38,38 +38,79 @@ const styles = (theme) => ({
 		backgroundColor: 'white',
 		// boxShadow: theme.shadows[5],
 		// padding: theme.spacing.unit * 6,
-		borderRadius: '200vw'
+		borderRadius: '200vw',
+		padding: '4vw'
 	},
 
-	selectedLocationType: {
-        margin: '1%',
-        padding: '2.5%',
-        paddingLeft: '4%',
-        paddingRight: '4%',
-       borderRadius: '100px',
-        color: '#ef8902',
-        fontSize: 51,
-        backgroundColor: 'white',
-        '&:hover':{
-            color: '#ef8902',
-            backgroundColor: 'white'
-        }
+	smallGetStartedButton: {
+		float: 'left',
+		backgroundSize: '200% auto',
+		transition: '0.5s',
+		backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%, #fe981e 100%)',
+		borderRadius: '200px',
+		display: 'flex',
+		backgroundColor: '#ef8902',
+		marginTop: '3vw',
+		margin: '1vw',
+		padding: '2%',
+		paddingLeft: '4%',
+		paddingRight: '4%',
+		fontSize: '2vw',
+		color: 'white !important',
+		'&:hover': {
+			backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%,#fbad40 100%)',
+			backgroundColor: '#E8E8E8',
+			backgroundPosition: 'right center'
+		}
 	},
-	
-    unselectedLocationType: {
-        margin: '1%',
+
+	smallUnselectedLocationType: {
+		float: 'left',
+		marginTop: '3vw',
+		margin: '1vw',
+		padding: '2%',
+		paddingLeft: '4%',
+		paddingRight: '4%',
+		borderRadius: '100px',
+		fontSize: '2vw',
+		color: 'grey',
+		border: '0.2vw solid grey',
+		'&:hover': {
+			border: '0.2vw solid rgba(255,255,255,0.5)'
+		}
+	},
+	selectedLocationType: {
+		margin: '1%',
 		padding: '2.5%',
 		paddingLeft: '4%',
 		paddingRight: '4%',
 		borderRadius: '100px',
-		fontSize: '3vw',
-        color: 'white',
-        border: '0.2vw solid white' ,
-        '&:hover': {
-            border: '0.2vw solid rgba(255,255,255,0.5)'
-
+		color: '#ef8902',
+		fontSize: 51,
+		backgroundColor: 'white',
+		'&:hover': {
+			color: '#ef8902',
+			backgroundColor: 'white'
 		}
-    },
+	},
+//small one
+	unselectedLocationType: {
+		
+			marginTop: '1vw',
+		margin: '1vw',
+		padding: '1%',
+		paddingLeft: '2%',
+		paddingRight: '2%',
+			borderRadius: '100px',
+			fontSize: '2vw',
+			color: 'white',
+			border: '0.2vw solid white' ,
+			'&:hover': {
+				border: '0.2vw solid rgba(255,255,255,0.5)'
+	
+			}
+		
+	},
 	card: {
 		minWidth: 275
 	},
@@ -90,38 +131,62 @@ const styles = (theme) => ({
 		marginBottom: 12
 	},
 	iconModal: {
-		float: 'right',
-		height: '30px',
-		margin: '3px',
-		marginTop: '30px'
+		float: 'left',
+		height: '6.5vw',
+		margin: '0.25vw'
 	},
 	circlesModal: {
-		float: 'right',
+		display: 'block',
+		alignContent: 'center',
+		width: '60vw'
+		// backgroundColor: 'yellow'
 	},
 	circlesModalRateElements: {
-		float: 'left',
-		fontSize: '1vw',
+		paddingLeft: '3.5vw',
+		marginLeft: '9vw',
+		// backgroundColor: 'blue',
+		width: '38vw',
+		position: 'static'
 	},
-	circlesModalRateElementsText: {
+
+	circlesModalRateElementsDirty: {
 		color: 'grey',
-	
-		marginTop: '1vw',
+		position: 'absolute',
+		float: 'left',
+		marginLeft: '4vw',
+		marginTop: '3.1vw',
+		fontSize: '1.5vw'
+	},
+	circlesModalRateElementsClean: {
+		color: 'grey',
+		float: 'right',
+		marginRight: '4vw',
+		marginTop: '3.1vw',
+		fontSize: '1.5vw'
+	},
+	modalButtons:{
+		alignContent: 'center',
+		display: 'flex',
+		justifyContent: 'center',
+	},
+	buttonsElement: {
+		
 	},
 	roomDropDown: {
 		marginTop: '30px'
 	},
 	whole: {
-		display:'block',
-		overflow:'auto',
+		display: 'block',
+		overflow: 'auto',
 		height: '100%',
 		backgroundColor: '#c2c2c2',
 		paddingBottom: '10vw'
 	},
 	getStartedButton: {
-        backgroundSize: '200% auto',
-        flex: '1 1 auto',
-        transition: '0.5s',
-        backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%, #fe981e 100%)',
+		backgroundSize: '200% auto',
+		flex: '1 1 auto',
+		transition: '0.5s',
+		backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%, #fe981e 100%)',
 		borderRadius: '200px',
 		display: 'flex',
 		backgroundColor: '#ef8902',
@@ -130,33 +195,38 @@ const styles = (theme) => ({
 		paddingLeft: '4%',
 		paddingRight: '4%',
 		fontSize: '3vw',
-        color: 'white !important',
-        '&:hover': {
-            backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%,#fbad40 100%)',
-            backgroundColor: '#E8E8E8',
-            backgroundPosition: 'right center',
+		color: 'white !important',
+		'&:hover': {
+			backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%,#fbad40 100%)',
+			backgroundColor: '#E8E8E8',
+			backgroundPosition: 'right center'
 		}
 	},
 	locationTypeContent: {
-        marginTop: '7vh',
-        width: '100vw',
-        backgroundColor: 'white',
-        fontSize: '1vw',
-        padding: '1vw'
+		marginTop: '7vh',
+		width: '100vw',
+		backgroundColor: 'white',
+		fontSize: '2vh',
+		padding: '1vw'
 	},
-	formControl:{
-		
+	formControl: {
 		borderBottom: ' 1px solid rgba(0, 0, 0, 0) !important'
 	},
 	roomDropDown: {
+		fontSize: '4vw',
 		margin: '1vw',
 		padding: '1vw',
 		borderRadius: '100vw',
 		backgroundColor: 'grey',
 		color: 'white',
-		width: '10vw',
-		height: 'auto',
-		marginLeft: '3vw',
+		width: '40vw',
+		height: '5vw',
+		marginLeft: '9vw'
+	},
+	hoverDescription: {
+		fontSize: '2vw',
+		height: '2vw',
+		color: 'black'
 	}
 });
 
@@ -179,9 +249,11 @@ class RoomInputView extends Component {
 			room: {
 				room_id: '',
 				room_name: '',
-				cleanliness_score: 3
+				cleanliness_score: 0
 			},
-			roomName: ''
+			roomName: '',
+			hover: 0,
+			setDes: false,
 		};
 	}
 
@@ -190,7 +262,7 @@ class RoomInputView extends Component {
 	};
 
 	handleClose = () => {
-		this.setState({ open: false });
+		this.setState({ open: false, roomName: '', room: {room_id: '', room_name: '', cleanliness_score: 0}, hover: 0, setDes: false });
 	};
 
 	componentDidMount() {
@@ -205,11 +277,15 @@ class RoomInputView extends Component {
 	}; // end handle change
 
 	setScore = (rate) => {
-		this.setState({ room: { ...this.state.room, cleanliness_score: rate } });
+		this.setState({ room: { ...this.state.room, cleanliness_score: rate }, setDes: true });
 	};
 
+	changeDescription = (rate) => {
+		this.setState({  hover: rate });
+		console.log(this.state.hover);
+	};
 	addRoomToReducer = () => {
-		if(this.state.roomName != ''){
+		if (this.state.roomName != '') {
 			this.props.dispatch({ type: CUSTOMER_ACTIONS.ROOMS, payload: this.state.room });
 			this.handleClose();
 			this.clearState();
@@ -224,22 +300,81 @@ class RoomInputView extends Component {
 
 	calcEstAndScrollToSchedule = () => {
 		const estimate = estimateCalculator(this.props.selectedRooms);
-		this.props.dispatch({type: CUSTOMER_ACTIONS.DURATION, payload: estimate});
+		this.props.dispatch({ type: CUSTOMER_ACTIONS.DURATION, payload: estimate });
 		this.props.scroll(3);
 		// this.props.history.push('schedule');
-	}
+	};
 
 	render() {
+		let HoverDescription;
 		let content = null;
 
+		if(this.state.setDes){
+			switch (this.state.room.cleanliness_score) {
+				case 1:
+				
+			HoverDescription = ('Messy');
+					break;
+	
+				case 2:
+			HoverDescription = ('Medium Mess');
+					break;
+	
+				case 3:
+			HoverDescription = ('Lil Dirt');
+					break;
+	
+				case 4:
+			HoverDescription = ('Dusty and shit');
+					break;
+	
+				case 5:
+				HoverDescription = ('Clean but needs refresh');
+					break;
+	
+				default:
+				
+					break;
+			}
+		} else {
+		switch (this.state.hover) {
+			case 1:
+			
+		HoverDescription = ('Messy');
+				break;
+
+			case 2:
+		HoverDescription = ('Medium Mess');
+				break;
+
+			case 3:
+		HoverDescription = ('Lil Dirt');
+				break;
+
+			case 4:
+		HoverDescription = ('Dusty and shit');
+				break;
+
+			case 5:
+			HoverDescription = ('Clean but needs refresh');
+				break;
+
+			default:
+			
+				break;
+		}
+	}
 		const { classes } = this.props;
 		content = (
 			<center className={classes.whole}>
-			<Typography gutterBottom className={classes.locationTypeContent}>Select room that needs to be cleaned! </Typography>
+				<Typography gutterBottom className={classes.locationTypeContent}>
+					Select room that needs to be cleaned!{' '}
+				</Typography>
 				<RoomComponent />
 				<div>
-					
-					<Button onClick={this.handleOpen} className={classes.getStartedButton}>Add room</Button>
+					<Button onClick={this.handleOpen} className={classes.getStartedButton}>
+						Add room
+					</Button>
 					<Modal
 						aria-labelledby="simple-modal-title"
 						aria-describedby="simple-modal-description"
@@ -247,68 +382,67 @@ class RoomInputView extends Component {
 						onClose={this.handleClose}
 					>
 						<div style={getModalStyle()} className={classes.modalStyle}>
-						<center>
-							<Typography  id="modal-title">
-								Add kind of room and how dirty it is.
-							</Typography>
-							<Typography  id="simple-modal-description">
-								To prevent misestimating please, input real information.
-							</Typography>
+							<center>
+								<Typography id="modal-title">Add kind of room and how clean it is.</Typography>
+								<Typography id="simple-modal-description">
+									To prevent misestimating please, input real information.
+								</Typography>
 							</center>
 
 							<FormControl className={classes.formControl}>
-								<Select
-									onChange={this.handleChange}
-									className={classes.roomDropDown}
-									value={this.state.roomName}
-								>
-									<MenuItem value={this.state.roomName} disabled>
-										{this.state.roomName}
-									</MenuItem>
-									{this.props.rooms.map((room) => (
-										<MenuItem key={room.id} value={room}>
-											{room.room_name}
+								<center>
+									<Select
+										onChange={this.handleChange}
+										className={classes.roomDropDown}
+										value={this.state.roomName}
+									>
+										<MenuItem value={this.state.roomName} disabled>
+											{this.state.roomName}
 										</MenuItem>
-									))};
-								</Select>
+										{this.props.rooms.map((room) => (
+											<MenuItem key={room.id} value={room}>
+												{room.room_name}
+											</MenuItem>
+										))};
+									</Select>
+								</center>
 							</FormControl>
 
 							<div className={classes.circlesModal}>
-							<p className={classes.circlesModalRateElements +''+ classes.circlesModalRateElementsText}>Dirty</p>
-							<Rating
-								className={classes.circlesModalRateElements}
-								onChange={(rate) => this.setScore(rate)}
-								initialRating={this.state.room.cleanliness_score}
-								placeholderRating={3.0}
-								emptySymbol={<img src="/RatingIconGrey.png" className={classes.iconModal} />}
-								placeholderSymbol={<img src="/RatingIconOrange.png" className={classes.iconModal} />}
-								fullSymbol={<img src="/RatingIconOrange.png" className={classes.iconModal} />}
-							/>
-							<p className={classes.circlesModalRateElements+''+ classes.circlesModalRateElementsText}>Clean</p>
+								<p className={classes.circlesModalRateElementsDirty}>Dirty</p>
+								<Rating
+									className={classes.circlesModalRateElements}
+									onChange={(rate) => this.setScore(rate)}
+									initialRating={this.state.room.cleanliness_score}
+									emptySymbol={<img src="/RatingIconGrey.png" className={classes.iconModal} />}
+									placeholderSymbol={
+										<img src="/RatingIconOrange.png" className={classes.iconModal} />
+									}
+									fullSymbol={<img src="/RatingIconOrange.png" className={classes.iconModal} />}
+									onHover={(rate) => this.changeDescription(rate)}
+								/>
+								<p className={classes.circlesModalRateElementsClean}>Clean</p>
 							</div>
+							
+							<center className={classes.hoverDescription} >{HoverDescription}</center>
 
-							<center>
-								<Button onClick={this.addRoomToReducer}>Add room</Button>
-								<Button onClick={this.handleClose}>Close</Button>
+							<center className={classes.modalButtons}>
+								<Button className={classes.smallUnselectedLocationType} onClick={this.handleClose}>Close</Button>
+								<Button className={classes.smallGetStartedButton}onClick={this.addRoomToReducer} >Add room</Button>
 							</center>
 						</div>
 					</Modal>
 				</div>
-				<div>
-						{/* <Button onClick={() => this.props.history.push('schedule')}>
+				<center className={classes.buttonsElement}>
+					<BackButton scroll={this.props.scroll} offset={1} />
+					{this.props.selectedRooms.length > 0 ? (
+						<Button className={classes.unselectedLocationType} onClick={this.calcEstAndScrollToSchedule}>
 							Next
-						</Button> */}
-						<BackButton scroll={this.props.scroll} offset={1}/>
-						{this.props.selectedRooms.length > 0 ? 
-							<Button className={classes.unselectedLocationType} onClick={this.calcEstAndScrollToSchedule} >
-								Next
-							</Button>
-							: 
-							null
-						}
-					</div>
+						</Button>
+					) : null}
+				</center>
 			</center>
-		)
+		);
 
 		return <div>{content}</div>;
 	}
