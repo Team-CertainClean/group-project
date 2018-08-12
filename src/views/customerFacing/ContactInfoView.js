@@ -205,12 +205,12 @@ class ContactInfoView extends Component {
                         value={this.state.cleaning_type}
                         onChange={this.handleChange('cleaning_type_id')}
                     >
-                        <MenuItem value={this.state.cleaning_type} disabled>
+                        <MenuItem style={{width: '100%'}} value={this.state.cleaning_type} disabled>
                         {this.state.cleaning_type}
                         </MenuItem>
                         {this.props.cleaningTypes.map((option, i) => {
                             return (
-                                    <MenuItem key={i} value={option.id}>{option.cleaning_type}</MenuItem> 
+                                    <MenuItem style={{width: '100%'}} key={i} value={option.id}>{option.cleaning_type}</MenuItem> 
                                     );    
                             })
                         }
