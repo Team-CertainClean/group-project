@@ -1,1 +1,1 @@
-export const getAvailability = state => state.availability;
+export const getAvailability = state => state.availability.newAvailable;

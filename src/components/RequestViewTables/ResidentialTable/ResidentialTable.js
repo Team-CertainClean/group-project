@@ -60,7 +60,7 @@ class ResidentialTable extends React.Component{
             filter: '',
             sort: {
                 orderParam: 'status',
-                sortBy: 'ASC',
+                sortBy: 'DESC',
             },
         }
     }
@@ -76,18 +76,21 @@ class ResidentialTable extends React.Component{
         this.filterRooms(event.target.value);
     }
 
-    closeRequest = (id) => {
+    closeRequest = async(id) => {
         console.log(`in closeRequest`, id)
-        this.props.dispatch({type: REQUEST_ACTIONS.CLOSE, payload: id})
+        await this.props.dispatch({type: REQUEST_ACTIONS.CLOSE, payload: id});
+        await this.props.dispatch({type: REQUEST_ACTIONS.FETCH, payload: this.state.sort});
+
     }
     
-    updateRequest = (payload) => {
-        console.log(`update payload`, payload)
-        let newStatus = payload.status 
-        newStatus++
-        let newPayload = { newStatus: newStatus, payload }
-        console.log(`newPayload`, newPayload)
-        this.props.dispatch({type: REQUEST_ACTIONS.UPDATE, payload: newPayload})
+    updateRequest = async(payload) => {
+        console.log(`update payload`, payload);
+        let newStatus = payload.status;
+        newStatus++;
+        let newPayload = { newStatus: newStatus, payload };
+        console.log(`newPayload`, newPayload);
+        await this.props.dispatch({type: REQUEST_ACTIONS.UPDATE, payload: newPayload});
+        await this.props.dispatch({type: REQUEST_ACTIONS.FETCH, payload: this.state.sort});
     }
 
   async sort(thing){

@@ -1,6 +1,6 @@
 import { CLEANING_TYPE_ACTIONS } from '../actions/cleaningTypeActions';
 import { put, takeLatest } from 'redux-saga/effects';
-import { fetchCleaningTypes } from '../requests/cleaningTypeRequests';
+import { fetchCleaningTypes, postCleaningType, removeCleaningType } from '../requests/cleaningTypeRequests';
 
 function* fetch(){
     try{
@@ -12,10 +12,28 @@ function* fetch(){
     }
 }
 
+function* post(action){
+    try{
+        yield postCleaningType(action.payload);
+        yield put({type: CLEANING_TYPE_ACTIONS.FETCH});
+    }catch(error){
+        alert("Failed to post location");
+    }
+}
+
+function* remove(action){
+    try{
+        yield removeCleaningType(action.payload);
+        yield put({type: CLEANING_TYPE_ACTIONS.FETCH});
+    } catch(error){
+        alert("Failed to post location")
+    }
+}
+
 function* cleaningTypeSaga(){
     yield takeLatest(CLEANING_TYPE_ACTIONS.FETCH, fetch);
-    // yield takeLatest(CLEANING_TYPE_ACTIONS.POST, post);
-    // yield takeLatest(CLEANING_TYPE_ACTIONS.REMOVE, remove);
+    yield takeLatest(CLEANING_TYPE_ACTIONS.POST, post);
+    yield takeLatest(CLEANING_TYPE_ACTIONS.REMOVE, remove);
     // yield takeLatest(CLEANING_TYPE_ACTIONS.EDIT, edit);
 }
 

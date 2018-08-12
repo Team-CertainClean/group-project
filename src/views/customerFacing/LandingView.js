@@ -210,14 +210,15 @@ class CustomerLandingView extends React.Component {
 			backgroundPosition: '50% 50%',
 			backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
+            
 		};
 		// Conditional check to apply either a background color or background image based on state
 		if (this.state.propertytype === 'residential') {
-            layerBackground.transition = '1s';
+            
             layerBackground.backgroundImage = "url('/Home.jpg')";
             setTimeout(layerBackground.transition = '0s', 5000);
 		} else if (this.state.propertytype === 'commercial') {
-            layerBackground.transition = '1s';
+            
             layerBackground.backgroundImage = "url('/Office.jpg')";
             setTimeout(layerBackground.transition = '0s', 5000);
 		} else {
@@ -226,6 +227,10 @@ class CustomerLandingView extends React.Component {
         let RoomLayerBackground = {
           
         }
+        let ContactLayerBackground ={
+
+        }
+        layerBackground.backgroundImage = "url('/Home.jpg')";
 		if (this.state.selection === null) {
 			locationTypeContent = (
 				<Typography className={classes.locationTypeContent}>Please choose the type of your property.</Typography>
@@ -307,7 +312,7 @@ class CustomerLandingView extends React.Component {
 		}
 		switch (this.state.propertytype) {
 			case 'commercial':
-				layer = <Parallax.Layer offset={2} speed={1} style={{ backgroundColor: 'grey' }} />;
+				layer = <Parallax.Layer offset={2} speed={1} style={{  background: 'linear-gradient(to bottom, white 30%, grey 100%)'  }} />;
 				numberofpages = 3;
 				content = (
 					<Parallax.Layer offset={2} speed={1} style={styles}>
@@ -325,7 +330,7 @@ class CustomerLandingView extends React.Component {
 					<div>
 						<Parallax.Layer offset={2} speed={1} style={ RoomLayerBackground } />
 						<Parallax.Layer offset={3} speed={1} style={{ backgroundColor: 'grey' }} />
-						<Parallax.Layer offset={4} speed={1} style={{ backgroundColor: 'grey' }} />
+						<Parallax.Layer offset={4} speed={1} style={{ background: 'linear-gradient(to bottom, white 30%, grey 100%)'  }} />
 					</div>
 				);
 				numberofpages = 5;
