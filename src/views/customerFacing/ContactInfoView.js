@@ -102,7 +102,8 @@ class ContactInfoView extends Component {
                 email: '',
                 location_address: '',
                 phone_number: '',
-                cleaning_type_id: '',
+                // needs to stay 0 to store commercial requests. DO NOT DELETE!
+                cleaning_type_id: 0,
             },
             cleaning_type: null,
         }
@@ -128,7 +129,7 @@ class ContactInfoView extends Component {
         console.log(`in submitContactInfo`)
         await swal({
             title: "Are you sure?",
-            text: "Thank you! We will contact you soon with your estimate.",
+            text: "You didn't forget anything, did you?",
             icon: "success",
             buttons: ["No", "Confirm"],
             dangerMode: true,
@@ -153,7 +154,7 @@ class ContactInfoView extends Component {
 
       content = (
             
-            <center className={classes.wholeContact} noValidate autoComplete="off">
+            <center className={classes.wholeContact} noValidate autoComplete="on">
             <div className={classes.locationTypeContent}>
 					Please, let us contact you!
 				</div>
