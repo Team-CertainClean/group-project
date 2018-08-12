@@ -209,9 +209,9 @@ class ContactInfoView extends Component {
                         onChange={this.handleChange('cleaning_type_id')}
                     >
                         <MenuItem style={{width: '100%'}} value={this.state.cleaning_type} disabled>
-                        {this.state.cleaning_type}
+                        {this.state.cleaning_type ? this.state.cleaning_type : "None"}
                         </MenuItem>
-                        {this.props.cleaningTypes.map((option, i) => {
+                        {this.props.cleaningTypes.filter(option => option.id > 1).map((option, i) => {
                             return (
                                     <MenuItem style={{width: '100%'}} key={i} value={option.id}>{option.cleaning_type}</MenuItem> 
                                     );    
