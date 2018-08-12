@@ -124,27 +124,6 @@ class ContactInfoView extends Component {
         console.log(this.state.contact)
     }// end handle change
 
-
-    runSweet(){
-        swal({
-        title: "Does this all look correct?",
-        text: "Figure out a way to insert the things!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      })
-      .then((willSubmit) => {
-        if (willSubmit) {
-            this.submitContactInfo();
-            swal("Great! Your request file has been submitted!", {
-                icon: "success",
-            });
-        } else {
-          swal("Press back and make your edits!");
-        }
-      });
-    }
-
      submitContactInfo = async () => {
         console.log(`in submitContactInfo`)
         await swal({
