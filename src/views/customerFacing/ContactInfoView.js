@@ -94,18 +94,16 @@ class ContactInfoView extends Component {
     }// end componentDidMount
 
     handleChange = (contactInfo) => (event) => {
-        console.log(`in handleChange`)
-        console.log(event.target.value);
-        console.log(this.props.cleaningTypes[event.target.value - 1].cleaning_type);
-        this.setState({
-            contact: {
-                ...this.state.contact,
-                [contactInfo]: event.target.value,
-            },
-            cleaning_type: this.props.cleaningTypes[event.target.value - 1].cleaning_type
-        });
+        if(contactInfo === "cleaning_type_id"){
+            this.setState({
+                cleaning_type: this.props.cleaningTypes[event.target.value - 1].cleaning_type
+            });
+        } else {
+            this.setState({contact: {
+                ...this.state.contact, [contactInfo]: event.target.value
+            }});
+        }
     }// end handle change
-
 
     runSweet(){
         swal({
@@ -153,7 +151,6 @@ class ContactInfoView extends Component {
   render() {
     let content = null;
     const { classes } = this.props;
-    console.log(this.state.cleaning_type);
       content = (
             
             <form  noValidate autoComplete="off">
