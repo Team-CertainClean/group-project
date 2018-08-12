@@ -28,11 +28,26 @@ import BackButton from '../../components/BackButton/BackButton';
 const styles = theme => ({
 wholeContact:{
 },
+grey: {
+    fontSize: '1vw',
+    color: 'black'
+},
 form: {
     width: '40vw',
 },
+selectField:{
+  
+		margin: '1%',
+        padding: '1%',
+        paddingLeft: '2%',
+        paddingRight: '2%',
+		borderRadius: '100vw',
+		backgroundColor: 'grey',
+		color: 'white !important',
+		width: '40vw',
+},
       textField: {
-        border:'1px solid yellow',
+      
        width: '40vw',
         margin: '1%',
         padding: '1%',
@@ -40,19 +55,14 @@ form: {
         paddingRight: '2%',
         borderRadius: '100px',
         backgroundColor: 'grey',
-        color: 'white',
+        color: 'white !important',
         display: 'flex',
       },
       button: {
         backgroundColor: '#EF8902'
       },
      
-      input: {
-        paddingLeft: '4%',
-        paddingRight: '4%',
-        borderRadius: '100px',
-          color: 'white'
-      },
+    
       getStartedButton:  {
         backgroundSize: '200% auto',
         flex: '1 1 auto',
@@ -77,13 +87,31 @@ form: {
         marginBottom: '0.5vw',
         width: '100vw',
         backgroundColor: 'white',
-        fontSize: '1vw',
+        fontSize: '2vh',
         padding: '1vw',
 
     },
     protectionImg:{
         width: '5vw',
     },
+    smallUnselectedLocationType: {
+		float: 'left',
+		marginTop: '3vw',
+		margin: '1vw',
+		padding: '2%',
+		paddingLeft: '2%',
+		paddingRight: '2%',
+		borderRadius: '100px',
+		fontSize: '2vw',
+		color: 'grey',
+		border: '0.2vw solid grey',
+		'&:hover': {
+			border: '0.2vw solid rgba(255,255,255,0.5)'
+		}
+    },
+    input: {
+    color:'white !important'
+    }
 
 });
 
@@ -175,10 +203,10 @@ class ContactInfoView extends Component {
       content = (
             
             <center className={classes.wholeContact} noValidate autoComplete="off">
-            <div className={classes.locationTypeContent}>
-					Please, let us contact you!
-				</div>
             <img src={'https://www.shareicon.net/data/128x128/2015/12/11/685826_sign_512x512.png'} className={classes.protectionImg}></img>
+            <div className={classes.locationTypeContent}>
+                    Almost done! Please enter your contact information, so we can send you as estimate.
+				</div>
                 <div className={classes.from}>
                 <TextField
                     id="first_name"
@@ -220,11 +248,16 @@ class ContactInfoView extends Component {
                     onChange={this.handleChange('phone_number')}
                     InputProps={{ className: classes.input }}
                 />
+                 
                 {this.props.selection ? 
-                <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="cleaning_type_id"> Cleaning Type</InputLabel>
+                <div>
+                    <center className={classes.grey}>
+                 Type:
+				</center>
+                     
                     <Select
-                        className={classes.input}
+                    placeholder="Type"
+                       className={classes.selectField}
                         value={this.state.cleaning_type_id}
                         onChange={this.handleChange('cleaning_type_id')}
                     >
@@ -236,13 +269,13 @@ class ContactInfoView extends Component {
                             })
                         }
                     </Select>
-                    <FormHelperText>Please select your cleaning type:</FormHelperText>
-                </FormControl>
+                    
+                </div>
                 : null } 
                 <Button onClick={this.submitContactInfo} className={classes.getStartedButton} >
                 Get Quote
             </Button>
-            <BackButton  scroll={this.props.scroll} offset={this.props.selection ? 3 : 1}/>
+            <BackButton  className={classes.smallUnselectedLocationType} scroll={this.props.scroll} offset={this.props.selection ? 3 : 1}/>
             </div> </center>
                 
             
