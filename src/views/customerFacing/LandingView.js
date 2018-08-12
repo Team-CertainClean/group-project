@@ -328,7 +328,7 @@ class CustomerLandingView extends React.Component {
 				layer = (
 					<div>
 						<Parallax.Layer offset={2} speed={1} style={ RoomLayerBackground } />
-						<Parallax.Layer offset={3} speed={1} style={{ backgroundColor: 'grey' }} />
+						<Parallax.Layer offset={3} speed={1} style={{  }} />
 						<Parallax.Layer offset={4} speed={1} style={{ background: 'linear-gradient(to bottom, white 30%, grey 100%)'  }} />
 					</div>
 				);
