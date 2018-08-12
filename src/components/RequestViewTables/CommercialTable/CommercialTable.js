@@ -60,7 +60,7 @@ class CommercialTable extends React.Component{
             requests: [],
             sort: {
                 orderParam: 'status',
-                sortBy: 'ASC',
+                sortBy: 'DESC',
             },
         };
 
@@ -84,17 +84,6 @@ class CommercialTable extends React.Component{
         console.log(`newPayload`, newPayload)
         this.props.dispatch({type: REQUEST_ACTIONS.UPDATE, payload: newPayload})
     }
-
-    // async sort(thing){
-    //     await this.setState({
-    //         sort: {
-    //             orderParam: thing,
-    //             sortBy: 'ASC'
-    //         }
-    //     })
-    //     console.log(`this.state.sort`, thing)
-    //     await this.props.dispatch({type: REQUEST_ACTIONS.FETCH, payload: this.state.sort})
-    // }
 
     async sort(thing){
         if (this.state.sort.sortBy === 'ASC'){
