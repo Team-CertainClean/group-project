@@ -95,13 +95,15 @@ class ContactInfoView extends Component {
 
     handleChange = (contactInfo) => (event) => {
         console.log(`in handleChange`)
+        console.log(event.target.value);
+        console.log(this.props.cleaningTypes[event.target.value - 1].cleaning_type);
         this.setState({
             contact: {
                 ...this.state.contact,
                 [contactInfo]: event.target.value,
-            }
-        })
-        console.log(this.state.contact)
+            },
+            cleaning_type: this.props.cleaningTypes[event.target.value - 1].cleaning_type
+        });
     }// end handle change
 
 
@@ -151,7 +153,7 @@ class ContactInfoView extends Component {
   render() {
     let content = null;
     const { classes } = this.props;
-
+    console.log(this.state.cleaning_type);
       content = (
             
             <form  noValidate autoComplete="off">
@@ -200,10 +202,12 @@ class ContactInfoView extends Component {
                     <InputLabel htmlFor="cleaning_type_id"> Cleaning Type</InputLabel>
                     <Select
                         className={classes.input}
-                        value={this.state.cleaning_type_id}
+                        value={this.state.cleaning_type}
                         onChange={this.handleChange('cleaning_type_id')}
                     >
-                        <MenuItem value={this.state.contact.cleaning_type_id}>{this.state.cleaning_type}</MenuItem>
+                        <MenuItem value={this.state.cleaning_type} disabled>
+                        {this.state.cleaning_type}
+                        </MenuItem>
                         {this.props.cleaningTypes.map((option, i) => {
                             return (
                                     <MenuItem key={i} value={option.id}>{option.cleaning_type}</MenuItem> 
