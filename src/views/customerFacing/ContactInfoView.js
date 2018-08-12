@@ -26,43 +26,63 @@ import BackButton from '../../components/BackButton/BackButton';
 
 
 const styles = theme => ({
-
+wholeContact:{
+},
+form: {
+    width: '40vw',
+},
       textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-        width: 230,
+        border:'1px solid yellow',
+       width: '40vw',
         margin: '1%',
-        padding: '2.5%',
-        paddingLeft: '4%',
-        paddingRight: '4%',
+        padding: '1%',
+        paddingLeft: '2%',
+        paddingRight: '2%',
         borderRadius: '100px',
-        backgroundColor: '#EF8902',
-        color: 'white'
+        backgroundColor: 'grey',
+        color: 'white',
+        display: 'flex',
       },
       button: {
         backgroundColor: '#EF8902'
       },
-      formControl: {
-        margin: theme.spacing.unit,
-        minWidth: 120,
-      },
+     
       input: {
         paddingLeft: '4%',
         paddingRight: '4%',
         borderRadius: '100px',
           color: 'white'
       },
-      getStartedButton: {
-        borderRadius: '100px',
-        display: 'flex', 
-        backgroundColor: '#ef8902',
-        marginTop: '5%',
-        padding: '2.5%',
-        paddingLeft: '4%',
-        paddingRight: '4%',
-        fontSize: 48,
-        color: 'white !important'
-        
+      getStartedButton:  {
+        backgroundSize: '200% auto',
+        flex: '1 1 auto',
+        transition: '0.5s',
+        backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%, #fe981e 100%)',
+		borderRadius: '200px',
+		display: 'flex',
+		backgroundColor: '#ef8902',
+		marginTop: '2%',
+		padding: '2.5%',
+		paddingLeft: '4%',
+		paddingRight: '4%',
+		fontSize: '3vw',
+        color: 'white !important',
+        '&:hover': {
+            backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%,#fbad40 100%)',
+            backgroundColor: '#E8E8E8',
+            backgroundPosition: 'right center',
+		}
+    },
+    locationTypeContent: {
+        marginBottom: '0.5vw',
+        width: '100vw',
+        backgroundColor: 'white',
+        fontSize: '1vw',
+        padding: '1vw',
+
+    },
+    protectionImg:{
+        width: '5vw',
     },
 
 });
@@ -82,7 +102,8 @@ class ContactInfoView extends Component {
                 email: '',
                 location_address: '',
                 phone_number: '',
-                cleaning_type_id: '',
+                // needs to stay 1 to store commercial requests. DO NOT DELETE!
+                cleaning_type_id: 1,
             },
             cleaning_type: null,
         }
@@ -95,20 +116,22 @@ class ContactInfoView extends Component {
 
     handleChange = (contactInfo) => (event) => {
         console.log(`in handleChange`)
+        console.log(event.target.value);
+        console.log(this.props.cleaningTypes[event.target.value - 1].cleaning_type);
         this.setState({
             contact: {
                 ...this.state.contact,
                 [contactInfo]: event.target.value,
-            }
-        })
-        console.log(this.state.contact)
+            },
+            cleaning_type: this.props.cleaningTypes[event.target.value - 1].cleaning_type
+        });
     }// end handle change
 
      submitContactInfo = async () => {
         console.log(`in submitContactInfo`)
         await swal({
             title: "Are you sure?",
-            text: "Did you add everything you needed to?",
+            text: "You didn't forget anything, did you?",
             icon: "success",
             buttons: ["No", "Confirm"],
             dangerMode: true,
@@ -130,10 +153,15 @@ class ContactInfoView extends Component {
   render() {
     let content = null;
     const { classes } = this.props;
-
+    console.log(this.state.cleaning_type);
       content = (
             
-            <form  noValidate autoComplete="off">
+            <center className={classes.wholeContact} noValidate autoComplete="on">
+            <div className={classes.locationTypeContent}>
+					Please, let us contact you!
+				</div>
+            <img src={'https://www.shareicon.net/data/128x128/2015/12/11/685826_sign_512x512.png'} className={classes.protectionImg}></img>
+                <div className={classes.from}>
                 <TextField
                     id="first_name"
                     placeholder="First Name"
@@ -179,13 +207,15 @@ class ContactInfoView extends Component {
                     <InputLabel htmlFor="cleaning_type_id"> Cleaning Type</InputLabel>
                     <Select
                         className={classes.input}
-                        value={this.state.cleaning_type_id}
+                        value={this.state.cleaning_type}
                         onChange={this.handleChange('cleaning_type_id')}
                     >
-                        <MenuItem value={this.state.contact.cleaning_type_id}>{this.state.cleaning_type}</MenuItem>
+                        <MenuItem style={{width: '100%'}} value={this.state.cleaning_type} disabled>
+                        {this.state.cleaning_type}
+                        </MenuItem>
                         {this.props.cleaningTypes.map((option, i) => {
                             return (
-                                    <MenuItem key={i} value={option.id}>{option.cleaning_type}</MenuItem> 
+                                    <MenuItem style={{width: '100%'}} key={i} value={option.id}>{option.cleaning_type}</MenuItem> 
                                     );    
                             })
                         }
@@ -193,11 +223,11 @@ class ContactInfoView extends Component {
                     <FormHelperText>Please select your cleaning type:</FormHelperText>
                 </FormControl>
                 : null } 
-                <Button variant="contained" onClick={this.submitContactInfo} className={classes.getStartedButton}>
+                <Button onClick={this.submitContactInfo} className={classes.getStartedButton} >
                 Get Quote
             </Button>
-            <BackButton scroll={this.props.scroll} offset={this.props.selection ? 3 : 1}/>
-            </form>
+            <BackButton  scroll={this.props.scroll} offset={this.props.selection ? 3 : 1}/>
+            </div> </center>
                 
             
       );

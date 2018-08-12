@@ -30,8 +30,8 @@ class CommercialTableRow extends Component {
           <TableCell>{ this.props.rowData.request_info.request_id }</TableCell>
           <TableCell>{ this.props.rowData.contact_info.first_name } { this.props.rowData.contact_info.last_name }</TableCell>
           <TableCell>{ this.props.rowData.contact_info.email }</TableCell>
-          <TableCell><RoomInfoModal roomInfo={this.props.rowData.room_info.rooms} /></TableCell>
-          <TableCell>{ this.props.rowData.request_info.start_time } { this.props.rowData.request_info.end_time }</TableCell>
+          {/* <TableCell><RoomInfoModal roomInfo={this.props.rowData.room_info.rooms} /></TableCell> */}
+          {/* <TableCell>{ this.props.rowData.request_info.start_time } { this.props.rowData.request_info.end_time }</TableCell> */}
           <TableCell>{ scheduled }</TableCell>
           <TableCell>{ status }</TableCell>
       </TableRow>
