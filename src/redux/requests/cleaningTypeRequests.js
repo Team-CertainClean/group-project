@@ -19,9 +19,17 @@ export function postCleaningType(payload){
 }
 
 export function removeCleaningType(payload){
-    return axios.delete('/api/cleaningtype', payload)
+    return axios.delete(`/api/cleaningtype/${payload}`, payload)
     .then(response => console.log("Delete Successful on cleaningTypeReqs"))
     .catch(error=>{
         console.log("Failed to delete cleaningType on cleaningTypeReqs", error)
     })
+}
+
+export function updateCleaningType(payload){
+    return axios.put(`/api/cleaningtype/${payload.id}`, payload)
+        .then(response => response)
+        .catch(error =>{
+            console.log("Failed to update location", error);
+        });
 }

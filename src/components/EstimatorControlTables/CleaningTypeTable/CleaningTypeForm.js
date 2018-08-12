@@ -14,7 +14,7 @@ class CleaningTypeForm extends React.Component{
                     type="text"
                     // className={classes.textField}
                     margin="normal"
-                    value={this.props.cleaningType}
+                    value={this.props.cleaning_type}
                     onChange={this.props.handleChangeFor}
                 />
                 <Button onClick={this.props.submitCleaningType}>Add Type</Button>
