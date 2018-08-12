@@ -17,6 +17,14 @@ const styles = {
     marginBottom: 16,
     fontSize: 14,
   },
+  locationTypeContent: {
+    marginTop: '7vh',
+    width: '100vw',
+    backgroundColor: 'white',
+    fontSize: '2vh',
+    padding: '1vw'
+},
+  
 };
 
 const mapStateToProps = state => ({
@@ -39,19 +47,9 @@ class TimeFinish extends Component {
         const { classes } = this.props;
         return (
             <div>
-                <Card className={classes.card}>
-                    <CardContent>
-                        <Typography className={classes.title} color="textPrimary">
-                            ESTIMATE TIME: {this.props.estimate} hr
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button onClick={this.props.handleClick}>Next</Button>
-                        {/* <Button variant="contained" size="small">
-                            BOOK IT NOW
-                        </Button> */}
-                    </CardActions>
-                </Card>
+                        <center className={classes.locationTypeContent}>
+                           Your estiamte time is {this.props.estimate} hrs.
+                        </center>
             </div>
         );
     }

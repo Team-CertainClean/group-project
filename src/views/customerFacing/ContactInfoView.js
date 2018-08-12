@@ -27,6 +27,7 @@ import BackButton from '../../components/BackButton/BackButton';
 
 const styles = theme => ({
 wholeContact:{
+    paddingBottom:'6vw',
 },
 grey: {
     fontSize: '1vw',
@@ -92,7 +93,7 @@ selectField:{
 
     },
     protectionImg:{
-        width: '5vw',
+        width: '3vw',
     },
     smallUnselectedLocationType: {
 		float: 'left',

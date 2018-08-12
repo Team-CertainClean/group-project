@@ -179,7 +179,7 @@ const styles = (theme) => ({
 		display: 'block',
 		overflow: 'auto',
 		height: '100%',
-		backgroundColor: '#c2c2c2',
+		background: 'linear-gradient(to bottom, white 0%, lightgrey 20%, lightgrey 80%, white 100%)' , 
 		paddingBottom: '10vw'
 	},
 	getStartedButton: {
