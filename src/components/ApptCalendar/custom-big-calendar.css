@@ -75,7 +75,6 @@
     font-weight: bold;
     font-size: 90%;
     min-height: 0;
-    border-bottom: 1px solid rgb(0, 0, 0);
   }
   .rbc-header + .rbc-header {
     border-left: 1px solid rgb(0, 0, 0);
@@ -101,7 +100,7 @@
     z-index: 4;
   }
   .rbc-today {
-    background-color: #fe991e8e;
+    background-color: rgb(228, 228, 228);
   }
   .rbc-toolbar {
     display: -webkit-flex;
@@ -354,7 +353,7 @@
   .rbc-overlay {
     position: absolute;
     z-index: 5;
-    border: 1px solid #000000;
+    /* border: 1px solid #000000; */
     background-color: #fff;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
     padding: 10px;
@@ -363,7 +362,7 @@
     margin-top: 1px;
   }
   .rbc-overlay-header {
-    border-bottom: 1px solid #000000;
+    /* border-bottom: 1px solid #000000; */
     margin: -10px -10px 5px -10px;
     padding: 2px 10px;
   }
@@ -461,6 +460,7 @@
   .rbc-label {
     padding: 0 5px;
     position: relative;
+    float: right;
     top: 5px;
   }
   .rbc-day-slot {
@@ -477,6 +477,7 @@
     left: 10px;
     right: 0;
   }
+
   .rbc-day-slot .rbc-event {
     border: 1px solid #fe981e;
     display: -webkit-flex;
@@ -511,7 +512,8 @@
     min-height: 1em;
   }
   .rbc-day-slot .rbc-time-slot {
-    border-top: 1px solid #000000;
+    border-bottom: 1px outset grey;
+    opacity: 0.2;
   }
   .rbc-time-slot {
     -webkit-flex: 1 0 0;
