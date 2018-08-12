@@ -36,9 +36,7 @@ const styles = {
       fontSize: '3vw',
       marginTop: '5.5vw',
       marginLeft: '4vw'
-      
-
-    },
+     },
     circles: {
       marginTop: '3vw',
       float:'right',
