@@ -47,7 +47,7 @@ class ApptCalendar extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(this.props.availabilityEvents !== prevProps.availabilityEvents) {
+        if(this.props.available !== prevProps.available) {
             if (this.props.userType === 'customer'){
                 this.setState({events: [...this.state.events, ...this.props.unavailable]});
             }else if (this.props.userType === 'admin'){
