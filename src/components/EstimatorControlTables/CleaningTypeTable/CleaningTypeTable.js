@@ -17,6 +17,7 @@ import {EstimatorControlStyles} from '../styles';
 
 // Component Imports 
 import EditableTableRow from '../../EditableTableRow/EditableTableRow';
+import CleaningTypeForm from './CleaningTypeForm';
 
 
 const mapStateToProps = state => ({
@@ -27,12 +28,37 @@ class CleaningTypeTable extends React.Component{
     constructor(){
         super();
         this.state = {
-            cleaningType: null,
+            cleaning_type: null,
         }
     }
 
     componentDidMount(){
         this.props.dispatch({type: CLEANING_TYPE_ACTIONS.FETCH});
+    }
+
+    submitCleaningType = () => {
+        this.props.dispatch({type: CLEANING_TYPE_ACTIONS.POST, payload: this.state.cleaning_type});
+        this.clearInputs();
+    }
+
+    handleChangeFor = event => {
+        return new Promise((resolve, reject)=>{
+            try{
+                this.setState({cleaning_type: {...this.state.cleaning_type, [event.target.id]: event.target.value}});
+                console.log(`this.state.cleaning_type`, this.state.cleaning_type)
+                resolve();
+            }catch(error){
+                reject();
+            }
+        });
+    }
+
+    removeCleaningType = (id) => {
+        this.props.dispatch({type: CLEANING_TYPE_ACTIONS.REMOVE, payload: id});
+    }
+
+    clearInputs = () => {
+        this.setState({cleaning_type: ''});
     }
 
     render(){
@@ -52,7 +78,7 @@ class CleaningTypeTable extends React.Component{
                     <TableBody>
                         {this.props.cleaningTypes.map(type => {
                             return(
-                                <EditableTableRow rowData={type} actions={CLEANING_TYPE_ACTIONS} />
+                                <EditableTableRow rowData={type} actions={CLEANING_TYPE_ACTIONS} remove={this.removeCleaningType}/>
                             );
                         })}
                     </TableBody>
@@ -62,7 +88,7 @@ class CleaningTypeTable extends React.Component{
         return(
             <div className={classes.estimatorControlComponent}>
                 <Typography variant="title">Add Cleaning Type</Typography>
-                {/* <AddCleaningTypeForm/> */}
+                <CleaningTypeForm handleChangeFor={this.handleChangeFor} submitCleaningType={this.submitCleaningType} cleaningType={this.state.cleaning_type} />
                 <Card className={classes.tableCard}>
                     <CardContent>
                         {table}

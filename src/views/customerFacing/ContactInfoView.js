@@ -102,8 +102,8 @@ class ContactInfoView extends Component {
                 email: '',
                 location_address: '',
                 phone_number: '',
-                // needs to stay 0 to store commercial requests. DO NOT DELETE!
-                cleaning_type_id: 0,
+                // needs to stay 1 to store commercial requests. DO NOT DELETE!
+                cleaning_type_id: 1,
             },
             cleaning_type: null,
         }
