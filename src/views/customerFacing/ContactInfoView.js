@@ -108,7 +108,7 @@ class ContactInfoView extends Component {
         console.log(`in submitContactInfo`)
         await swal({
             title: "Are you sure?",
-            text: "Thank you! We will contact you soon with your estimate.",
+            text: "Did you add everything you needed to?",
             icon: "success",
             buttons: ["No", "Confirm"],
             dangerMode: true,
