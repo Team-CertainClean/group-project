@@ -1,7 +1,7 @@
-import Calendar from 'react-big-calendar';
+import Calendar from '../../libraries/react-big-calendar';
 import moment from 'moment';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
-import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
+import '../../libraries/react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import './custom-big-calendar.css';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';

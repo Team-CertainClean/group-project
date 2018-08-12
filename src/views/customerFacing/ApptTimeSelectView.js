@@ -52,7 +52,7 @@ class ApptTimeSelectView extends Component {
                 <ApptCalendar className={classes.calendar} userType={'customer'}/>
                 <center>
                 <BackButton scroll={this.props.scroll} offset={2}/>
-                <Button className={classes.unselectedLocationType} TypeonClick={() => this.props.scroll(4)}>Next</Button>
+                <Button className={classes.unselectedLocationType} onClick={() => this.props.scroll(4)}>Next</Button>
                 </center>
             </div>
         );
