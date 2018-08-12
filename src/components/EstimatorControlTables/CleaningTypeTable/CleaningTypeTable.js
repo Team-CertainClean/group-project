@@ -28,7 +28,9 @@ class CleaningTypeTable extends React.Component{
     constructor(){
         super();
         this.state = {
-            cleaning_type: null,
+            cleaning_type: {
+                cleaning_type: ''
+            },
         }
     }
 
@@ -54,11 +56,12 @@ class CleaningTypeTable extends React.Component{
     }
 
     removeCleaningType = (id) => {
+        console.log(`removeCleaningType id`, id)
         this.props.dispatch({type: CLEANING_TYPE_ACTIONS.REMOVE, payload: id});
     }
 
     clearInputs = () => {
-        this.setState({cleaning_type: ''});
+        this.setState({cleaning_type: {cleaning_type:''}});
     }
 
     render(){
@@ -88,7 +91,7 @@ class CleaningTypeTable extends React.Component{
         return(
             <div className={classes.estimatorControlComponent}>
                 <Typography variant="title">Add Cleaning Type</Typography>
-                <CleaningTypeForm handleChangeFor={this.handleChangeFor} submitCleaningType={this.submitCleaningType} cleaningType={this.state.cleaning_type} />
+                <CleaningTypeForm handleChangeFor={this.handleChangeFor} submitCleaningType={this.submitCleaningType} cleaning_type={this.state.cleaning_type.cleaning_type} />
                 <Card className={classes.tableCard}>
                     <CardContent>
                         {table}
