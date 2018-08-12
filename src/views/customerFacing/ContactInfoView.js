@@ -130,7 +130,8 @@ class ContactInfoView extends Component {
                 email: '',
                 location_address: '',
                 phone_number: '',
-                cleaning_type_id: '',
+                // needs to stay 1 to store commercial requests. DO NOT DELETE!
+                cleaning_type_id: 1,
             },
             cleaning_type: null,
         }
@@ -142,42 +143,22 @@ class ContactInfoView extends Component {
     }// end componentDidMount
 
     handleChange = (contactInfo) => (event) => {
-        console.log(`in handleChange`)
-        this.setState({
-            contact: {
-                ...this.state.contact,
-                [contactInfo]: event.target.value,
-            }
-        })
-        console.log(this.state.contact)
-    }// end handle change
-
-
-    runSweet(){
-        swal({
-        title: "Does this all look correct?",
-        text: "Figure out a way to insert the things!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      })
-      .then((willSubmit) => {
-        if (willSubmit) {
-            this.submitContactInfo();
-            swal("Great! Your request file has been submitted!", {
-                icon: "success",
+        if(contactInfo === "cleaning_type_id"){
+            this.setState({
+                cleaning_type: this.props.cleaningTypes[event.target.value - 1].cleaning_type
             });
         } else {
-          swal("Press back and make your edits!");
+            this.setState({contact: {
+                ...this.state.contact, [contactInfo]: event.target.value
+            }});
         }
-      });
-    }
+    }// end handle change
 
      submitContactInfo = async () => {
         console.log(`in submitContactInfo`)
         await swal({
             title: "Are you sure?",
-            text: "Thank you! We will contact you soon with your estimate.",
+            text: "You didn't forget anything, did you?",
             icon: "success",
             buttons: ["No", "Confirm"],
             dangerMode: true,
@@ -199,11 +180,12 @@ class ContactInfoView extends Component {
   render() {
     let content = null;
     const { classes } = this.props;
-
       content = (
             
-            <center className={classes.wholeContact} noValidate autoComplete="off">
+
+            <center className={classes.wholeContact} noValidate autoComplete="on">
             <img src={'https://www.shareicon.net/data/128x128/2015/12/11/685826_sign_512x512.png'} className={classes.protectionImg}></img>
+
             <div className={classes.locationTypeContent}>
                     Almost done! Please enter your contact information, so we can send you as estimate.
 				</div>
@@ -256,15 +238,21 @@ class ContactInfoView extends Component {
 				</center>
                      
                     <Select
-                    placeholder="Type"
+
+              
                        className={classes.selectField}
-                        value={this.state.cleaning_type_id}
+                      
+
+                        value={this.state.cleaning_type}
+
                         onChange={this.handleChange('cleaning_type_id')}
                     >
-                        <MenuItem value={this.state.contact.cleaning_type_id}>{this.state.cleaning_type}</MenuItem>
+                        <MenuItem style={{width: '100%'}} value={this.state.cleaning_type} disabled>
+                        {this.state.cleaning_type}
+                        </MenuItem>
                         {this.props.cleaningTypes.map((option, i) => {
                             return (
-                                    <MenuItem key={i} value={option.id}>{option.cleaning_type}</MenuItem> 
+                                    <MenuItem style={{width: '100%'}} key={i} value={option.id}>{option.cleaning_type}</MenuItem> 
                                     );    
                             })
                         }
