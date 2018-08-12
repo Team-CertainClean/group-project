@@ -1,9 +1,7 @@
-body {
+body,html,.popUp {
+    font-family: sans-serif;
+}
 
-}
-img {
-	pointer-events: none;
-}
 
 .instructions h1 {
 	font-size: 24px;
@@ -114,6 +112,13 @@ li a:hover {
 	animation-duration: 10s;
 	-webkit-animation-fill-mode: both;
 	animation-fill-mode: both;
+}
+#modal-title {
+    font-size: 2vw ;
+}
+
+#simple-modal-description {
+    font-size: 1vw ;
 }
 
 @-webkit-keyframes fadeIn {

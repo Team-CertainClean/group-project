@@ -32,14 +32,15 @@ const mapStateToProps = (state) => ({
 });
 
 const styles = (theme) => ({
-	paper: {
+	modalStyle: {
 		position: 'absolute',
-		width: theme.spacing.unit * 50,
-		backgroundColor: theme.palette.background.paper,
-		boxShadow: theme.shadows[5],
-		padding: theme.spacing.unit * 6,
-		borderRadius: '200px'
+		width: '60vw',
+		backgroundColor: 'white',
+		// boxShadow: theme.shadows[5],
+		// padding: theme.spacing.unit * 6,
+		borderRadius: '200vw'
 	},
+
 	selectedLocationType: {
         margin: '1%',
         padding: '2.5%',
@@ -53,7 +54,8 @@ const styles = (theme) => ({
             color: '#ef8902',
             backgroundColor: 'white'
         }
-    },
+	},
+	
     unselectedLocationType: {
         margin: '1%',
 		padding: '2.5%',
@@ -95,8 +97,15 @@ const styles = (theme) => ({
 	},
 	circlesModal: {
 		float: 'right',
-		marginRight: '5px',
-		paddingBottom: '10px'
+	},
+	circlesModalRateElements: {
+		float: 'left',
+		fontSize: '1vw',
+	},
+	circlesModalRateElementsText: {
+		color: 'grey',
+	
+		marginTop: '1vw',
 	},
 	roomDropDown: {
 		marginTop: '30px'
@@ -135,6 +144,20 @@ const styles = (theme) => ({
         fontSize: '1vw',
         padding: '1vw'
 	},
+	formControl:{
+		
+		borderBottom: ' 1px solid rgba(0, 0, 0, 0) !important'
+	},
+	roomDropDown: {
+		margin: '1vw',
+		padding: '1vw',
+		borderRadius: '100vw',
+		backgroundColor: 'grey',
+		color: 'white',
+		width: '10vw',
+		height: 'auto',
+		marginLeft: '3vw',
+	}
 });
 
 function getModalStyle() {
@@ -223,13 +246,15 @@ class RoomInputView extends Component {
 						open={this.state.open}
 						onClose={this.handleClose}
 					>
-						<div style={getModalStyle()} className={classes.paper}>
-							<Typography variant="title" id="modal-title">
+						<div style={getModalStyle()} className={classes.modalStyle}>
+						<center>
+							<Typography  id="modal-title">
 								Add kind of room and how dirty it is.
 							</Typography>
-							<Typography variant="subheading" id="simple-modal-description">
+							<Typography  id="simple-modal-description">
 								To prevent misestimating please, input real information.
 							</Typography>
+							</center>
 
 							<FormControl className={classes.formControl}>
 								<Select
@@ -246,11 +271,12 @@ class RoomInputView extends Component {
 										</MenuItem>
 									))};
 								</Select>
-								<FormHelperText>Select room that needs to be cleaned</FormHelperText>
 							</FormControl>
 
+							<div className={classes.circlesModal}>
+							<p className={classes.circlesModalRateElements +''+ classes.circlesModalRateElementsText}>Dirty</p>
 							<Rating
-								className={classes.circlesModal}
+								className={classes.circlesModalRateElements}
 								onChange={(rate) => this.setScore(rate)}
 								initialRating={this.state.room.cleanliness_score}
 								placeholderRating={3.0}
@@ -258,6 +284,9 @@ class RoomInputView extends Component {
 								placeholderSymbol={<img src="/RatingIconOrange.png" className={classes.iconModal} />}
 								fullSymbol={<img src="/RatingIconOrange.png" className={classes.iconModal} />}
 							/>
+							<p className={classes.circlesModalRateElements+''+ classes.circlesModalRateElementsText}>Clean</p>
+							</div>
+
 							<center>
 								<Button onClick={this.addRoomToReducer}>Add room</Button>
 								<Button onClick={this.handleClose}>Close</Button>
