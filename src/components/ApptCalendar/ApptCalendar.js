@@ -52,6 +52,7 @@ class ApptCalendar extends Component {
         
         if(this.props.unavailable !== prevProps.unavailable) {
             
+
             if (this.props.userType === 'customer'){
                 console.log('in cond', this.props.unavailable);
                 let tempArray = [];

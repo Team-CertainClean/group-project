@@ -102,7 +102,8 @@ class ContactInfoView extends Component {
                 email: '',
                 location_address: '',
                 phone_number: '',
-                cleaning_type_id: '',
+                // needs to stay 0 to store commercial requests. DO NOT DELETE!
+                cleaning_type_id: 0,
             },
             cleaning_type: null,
         }
@@ -115,20 +116,22 @@ class ContactInfoView extends Component {
 
     handleChange = (contactInfo) => (event) => {
         console.log(`in handleChange`)
+        console.log(event.target.value);
+        console.log(this.props.cleaningTypes[event.target.value - 1].cleaning_type);
         this.setState({
             contact: {
                 ...this.state.contact,
                 [contactInfo]: event.target.value,
-            }
-        })
-        console.log(this.state.contact)
+            },
+            cleaning_type: this.props.cleaningTypes[event.target.value - 1].cleaning_type
+        });
     }// end handle change
 
      submitContactInfo = async () => {
         console.log(`in submitContactInfo`)
         await swal({
             title: "Are you sure?",
-            text: "Thank you! We will contact you soon with your estimate.",
+            text: "You didn't forget anything, did you?",
             icon: "success",
             buttons: ["No", "Confirm"],
             dangerMode: true,
@@ -150,10 +153,10 @@ class ContactInfoView extends Component {
   render() {
     let content = null;
     const { classes } = this.props;
-
+    console.log(this.state.cleaning_type);
       content = (
             
-            <center className={classes.wholeContact} noValidate autoComplete="off">
+            <center className={classes.wholeContact} noValidate autoComplete="on">
             <div className={classes.locationTypeContent}>
 					Please, let us contact you!
 				</div>
@@ -204,13 +207,15 @@ class ContactInfoView extends Component {
                     <InputLabel htmlFor="cleaning_type_id"> Cleaning Type</InputLabel>
                     <Select
                         className={classes.input}
-                        value={this.state.cleaning_type_id}
+                        value={this.state.cleaning_type}
                         onChange={this.handleChange('cleaning_type_id')}
                     >
-                        <MenuItem value={this.state.contact.cleaning_type_id}>{this.state.cleaning_type}</MenuItem>
+                        <MenuItem style={{width: '100%'}} value={this.state.cleaning_type} disabled>
+                        {this.state.cleaning_type}
+                        </MenuItem>
                         {this.props.cleaningTypes.map((option, i) => {
                             return (
-                                    <MenuItem key={i} value={option.id}>{option.cleaning_type}</MenuItem> 
+                                    <MenuItem style={{width: '100%'}} key={i} value={option.id}>{option.cleaning_type}</MenuItem> 
                                     );    
                             })
                         }

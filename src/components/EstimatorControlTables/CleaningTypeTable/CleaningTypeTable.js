@@ -16,7 +16,7 @@ import {withStyles} from '@material-ui/core/styles';
 import {EstimatorControlStyles} from '../styles';
 
 // Component Imports 
-import EditableTableRow from './CleaningTypeTableRow';
+import EditableTableRow from '../../EditableTableRow/EditableTableRow';
 
 
 const mapStateToProps = state => ({
