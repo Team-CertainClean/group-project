@@ -8,6 +8,7 @@ import { AVAILABILITY_ACTIONS } from '../../redux/actions/availabilityActions';
 import ApptCalendar from '../../components/ApptCalendar/ApptCalendar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Nav from '../../components/Nav/Nav';
 
 const mapStateToProps = state => ({
     user: state.user,
@@ -36,6 +37,7 @@ class AdminCalendarView extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.view}>
+                <Nav />
                 <Typography>Admin Calendar View</Typography>
                 <Button onClick={this.saveAvailability}>Save</Button>
                 <ApptCalendar className={classes.calendar} userType={'admin'}/>
