@@ -205,9 +205,10 @@
   .rbc-slot-selecting .rbc-event {
     cursor: inherit;
     pointer-events: none;
+    background-color: #fe991ebf;
   }
   .rbc-event.rbc-selected {
-    background-color: #656565;
+    background-color: #d87f13d7;
   }
   .rbc-event-label {
     font-size: 80%;
@@ -529,7 +530,7 @@
   .rbc-slot-selection {
     z-index: 10;
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #d87f13d7;
     color: white;
     font-size: 75%;
     width: 100%;
