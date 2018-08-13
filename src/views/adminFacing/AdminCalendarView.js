@@ -48,7 +48,8 @@ class AdminCalendarView extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.view}>
-                <Nav />
+
+                <Nav history={this.props.history}/>
                 <br/>
                 <br/>
                 <div className={classes.saveButton}>

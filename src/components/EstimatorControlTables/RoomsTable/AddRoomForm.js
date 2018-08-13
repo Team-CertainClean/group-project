@@ -24,7 +24,7 @@ class AddRoomForm extends React.Component{
                     onChange={this.props.handleChangeFor}
                 />
                 <TextField
-                    id="one"
+                    id="cleanliness_metric_one"
                     label="Dirtiest Metric"
                     type="number"
                     // className={classes.textField}
@@ -33,7 +33,7 @@ class AddRoomForm extends React.Component{
                     onChange={this.props.handleChangeFor}
                 />
                 <TextField
-                    id="two"
+                    id="cleanliness_metric_two"
                     label="Dirty Metric"
                     type="number"
                     // className={classes.textField}
@@ -42,7 +42,7 @@ class AddRoomForm extends React.Component{
                     onChange={this.props.handleChangeFor}
                 />
                 <TextField
-                    id="three"
+                    id="cleanliness_metric_three"
                     label="Normal Metric"
                     type="number"
                     // className={classes.textField}
@@ -51,7 +51,7 @@ class AddRoomForm extends React.Component{
                     onChange={this.props.handleChangeFor}
                 />
                 <TextField
-                    id="four"
+                    id="cleanliness_metric_four"
                     label="Clean Metric"
                     type="number"
                     // className={classes.textField}
@@ -60,7 +60,7 @@ class AddRoomForm extends React.Component{
                     onChange={this.props.handleChangeFor}
                 />
                 <TextField
-                    id="five"
+                    id="cleanliness_metric_five"
                     label="Cleanest Metric"
                     type="number"
                     // className={classes.textField}
