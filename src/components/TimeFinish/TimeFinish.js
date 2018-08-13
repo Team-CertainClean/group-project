@@ -14,17 +14,22 @@ const styles = {
         width: '100vw',
     },
     durationEstimate: {
-        // backgroundColor: '',
-        fontSize: '24px',
-        marginLeft: '10px',
+        width: '70vw',
+        fontSize: '2.2vw',
+        color: 'white',
+        backgroundColor: '#A8A8A8',
+        borderRadius: '200vw',
+        paddingTop: '1.5vw',
+        paddingBottom: '1.5vw',
+        marginBottom: '1vw',
+        marginTop: '.5vw',
     },
     direction: {
-        // backgroundColor: 'white',
-        marginLeft: '10px',
-        fontSize: '20px',
-        paddingBottom: '10px',
-    }
-  
+        marginBottom: '1vw',
+        width: '100vw',
+        color: 'black',
+        fontSize: '1.5vw',
+    },
 };
 
 const mapStateToProps = state => ({
@@ -46,13 +51,15 @@ class TimeFinish extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <div>
-                <Typography className={classes.durationEstimate}>
-                    Your estimated service duration: {this.props.estimate} hours
-                </Typography>
-                <Typography className={classes.direction}>
-                    Click on an available start time (white space) and drag to fill a time slot equal to your estimated service duration.
-                </Typography>
+            <div className={classes.card}>
+                <center>
+                    <center className={classes.durationEstimate}>
+                        Your estimated service duration: {this.props.estimate} hours
+                    </center>
+                </center>
+                <center className={classes.direction}>
+                    Click on an available start time (white space) and drag to fill a time slot equal to your estimated service duration
+				</center>
             </div>
         );
     }

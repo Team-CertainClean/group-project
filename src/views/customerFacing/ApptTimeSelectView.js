@@ -10,30 +10,25 @@ import Button from '@material-ui/core/Button';
 import BackButton from '../../components/BackButton/BackButton';
 
 const styles = {
-    view: {paddingBottom:'4vw',
-        background: 'linear-gradient(to bottom, white 0%, lightgrey 20%, lightgrey 80%, white 100%)'
-    },
-    calendar: {
-        width: '90vp',
+    view: {
+        paddingBottom:'4vw',
+        background: 'linear-gradient(to bottom, white 0%, lightgrey 20%, lightgrey 80%, white 100%)',
     },
     //small one
 	unselectedLocationType: {
-		
         marginTop: '1vw',
-    margin: '1vw',
-    padding: '1%',
-    paddingLeft: '2%',
-    paddingRight: '2%',
+        margin: '1vw',
+        padding: '1%',
+        paddingLeft: '2%',
+        paddingRight: '2%',
         borderRadius: '100px',
         fontSize: '2vw',
         color: 'white',
         border: '0.2vw solid white' ,
         '&:hover': {
             border: '0.2vw solid rgba(255,255,255,0.5)'
-
-        }
-    
-},
+        },
+    },
 };
 
 class ApptTimeSelectView extends Component {
@@ -49,9 +44,11 @@ class ApptTimeSelectView extends Component {
                 {/* <ContactInfo className={classes.contact} /> */}
                 {/* <RoomInfo className={classes.room} /> */}
                 <TimeFinish className={classes.time} />
-                <ApptCalendar className={classes.calendar} userType={'customer'}/>
                 <center>
-                <BackButton scroll={this.props.scroll} offset={2}/>
+                    <ApptCalendar className={classes.calendar} userType={'customer'}/>
+                </center>
+                <center>
+                <BackButton className={classes.backButton} scroll={this.props.scroll} offset={2}/>
                 <Button className={classes.unselectedLocationType} onClick={() => this.props.scroll(4)}>Next</Button>
                 </center>
             </div>
