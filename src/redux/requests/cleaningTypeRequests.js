@@ -12,7 +12,7 @@ export function fetchCleaningTypes(){
 
 export function postCleaningType(payload){
     return axios.post('/api/cleaningtype', payload)
-        .then(response => alert("Post successful"))
+        .then(response => response)
         .catch(error=>{
             console.log("Failed to post cleaningType", error);
         });
