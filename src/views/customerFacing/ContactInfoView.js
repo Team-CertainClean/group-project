@@ -131,15 +131,15 @@ class ContactInfoView extends Component {
         console.log(`in submitContactInfo`)
         await swal({
             title: "Are you sure?",
-            text: "You didn't forget anything, did you?",
+            text: "Click Sumbit to request your cleaning.",
             icon: "success",
-            buttons: ["No", "Confirm"],
+            buttons: ["Cancel", "Submit"],
             dangerMode: true,
           }).then( async (willSubmit)=>{
             if (willSubmit) {
                 await this.props.dispatch({ type: CUSTOMER_ACTIONS.CONTACT,  payload: this.state.contact});
                 await this.props.dispatch({type: CUSTOMER_ACTIONS.POST});
-                await swal("Great! Your request file has been submitted!", {
+                await swal("Great! Your request has been submitted!", {
                     icon: "success",
                 });
                 window.location.reload();
