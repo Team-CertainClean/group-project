@@ -75,7 +75,9 @@ class RequestsView extends React.Component{
         return(
             <div style={{'width': '100vw', 'position': 'relative', 'left': -8}}>
                 <Nav history={this.props.history} />
+                <center>
                 { menuBar }
+                </center>
                 <br />
                 { table }
 

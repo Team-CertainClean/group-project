@@ -18,10 +18,26 @@ const mapStateToProps = state => ({
 const styles = {
 
     saveButton: {
-        height: '40px',
         marginTop: '30px',
-        float: 'right',
-        // marginRight: '10px',
+        display: 'inline-block',
+        backgroundSize: '200% auto',
+        transition: '0.5s',
+        backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%, #fe981e 100%)',
+        borderRadius: '200px',
+        display: 'flex',
+        backgroundColor: '#ef8902',
+        marginTop: '1vw',
+        margin: '1vw',
+        padding: '2%',
+        paddingLeft: '4%',
+        paddingRight: '4%',
+        fontSize: '2vw',
+        color: 'white !important',
+        '&:hover': {
+          backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%,#fbad40 100%)',
+          backgroundColor: '#E8E8E8',
+          backgroundPosition: 'right center'
+        }
     },
     calendar: {
         position: 'absolute',
@@ -53,10 +69,10 @@ class AdminCalendarView extends Component {
                 <Nav history={this.props.history}/>
                 <br/>
                 <br/>
-                <div className={classes.saveButton}>
-                    <Button variant="contained" onClick={this.saveAvailability}>Save</Button>
-                </div>    
                 <ApptCalendar className={classes.calendar} userType={'admin'}/>
+                <center>
+                    <Button variant="contained" onClick={this.saveAvailability} className={classes.saveButton}>Save</Button>
+                </center>
             </div>
         );
     }

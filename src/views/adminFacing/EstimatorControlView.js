@@ -38,8 +38,9 @@ class EstimatorControlView extends React.Component{
         return(
             <div style={{'width': '100vw', 'position': 'relative', 'left': -8}}>
                 <Nav history={this.props.history}/>
+                <center>
                 <MenuBar menuOptions={menuOptions} selectOption={this.selectOption} />
-                <br/><br/><br/>
+                </center>
                 <div>
                     {table}
                 </div>

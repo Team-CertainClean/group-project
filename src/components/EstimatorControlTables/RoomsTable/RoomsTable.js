@@ -287,7 +287,7 @@ class RoomControlTable extends React.Component{
 
         return(
             <div className={classes.estimatorControlComponent}>
-                <Typography variant="title">Add Rooms</Typography>
+                <Typography style={{marginBottom: 10}} variant="title">Add Rooms</Typography>
                 <AddRoomForm handleChangeFor={this.handleChangeFor} submitRoom={this.submitRoom} room={this.state.roomInfo.room_name} metrics={metrics} anchor={this.state.anchor} locations={this.props.locations}/>
                 <Card className={classes.tableCard}>
                     <CardContent>

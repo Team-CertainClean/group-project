@@ -2,12 +2,16 @@ import React from 'react';
 
 // Material UI Imports
 import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
+import { EstimatorControlStyles } from '../styles';
 import Button from '@material-ui/core/Button';
 
 class AddCleanerForm extends React.Component{
     render(){
+        const { classes } = this.props;
         return(
             <div>
+                <div className={classes.formblock}>
                 <TextField
                     id="first_name"
                     label="First Name"
@@ -35,10 +39,13 @@ class AddCleanerForm extends React.Component{
                     value={this.props.properly_account_id}
                     onChange={this.props.handleChangeFor}
                 />
-                <Button onClick={this.props.submitCleaner}>Add Cleaner</Button>
+                </div>
+                <center>
+                <Button className={classes.submitButton} onClick={this.props.submitCleaner}>Add Cleaner</Button>
+                </center>
             </div>
         );
     }
 }
 
-export default AddCleanerForm;
+export default withStyles(EstimatorControlStyles)(AddCleanerForm);

@@ -8,6 +8,10 @@ const MenuBarStyles = {
         '& *': {
             color: 'white'
         },
+        marginBottom: '7vw',
+        paddingLeft: '1vw',
+        paddingRight: '1vw',
+        borderRadius: '10vw'
     },
     list: {
         display: 'grid',

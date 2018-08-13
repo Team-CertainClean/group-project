@@ -29,5 +29,32 @@ export const EstimatorControlStyles = {
     },
     textFieldFont: {
         fontSize: 12
-    }
+    },
+    formblock: {
+        backgroundColor: 'lightgrey',
+        borderRadius: '10vw',
+        padding: '1vw',
+        paddingBottom: '2vw'
+     },
+     submitButton: {
+      
+         backgroundSize: '200% auto',
+         transition: '0.5s',
+         backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%, #fe981e 100%)',
+         borderRadius: '200px',
+         display: 'flex',
+         backgroundColor: '#ef8902',
+         // marginTop: '3vw',
+         margin: '1vw',
+         // padding: '2%',
+         // paddingLeft: '4%',
+         // paddingRight: '4%',
+         fontSize: '2vw',
+         color: 'white !important',
+         '&:hover': {
+           backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%,#fbad40 100%)',
+           backgroundColor: '#E8E8E8',
+           backgroundPosition: 'right center'
+         }
+       },
 }

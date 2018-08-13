@@ -7,7 +7,11 @@ const MenuBarStyles = {
         backgroundColor: 'rgba(77, 71, 66)',
         '& *': {
             color: 'white'
-        }
+        },
+        marginBottom: '5vw',
+        paddingLeft: '1vw',
+        paddingRight: '1vw',
+        borderRadius: '10vw'
     },
     list: {
         display: 'grid',

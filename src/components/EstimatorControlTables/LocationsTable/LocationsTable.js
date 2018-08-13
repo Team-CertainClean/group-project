@@ -87,7 +87,7 @@ class LocationControlTable extends React.Component{
         }
         return(
             <div className={classes.estimatorControlComponent}>
-                <Typography variant="title">Add Locations</Typography>
+                <Typography style={{marginBottom: 10}} variant="title">Add Locations</Typography>
                 <AddLocationForm handleChangeFor={this.handleChangeFor} submitLocation={this.submitLocation} location={this.state.locationInfo.location_type}/>
                 <Card className={classes.tableCard}>
                     <CardContent>
