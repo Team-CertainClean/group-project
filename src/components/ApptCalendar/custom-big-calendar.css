@@ -110,14 +110,14 @@
         -ms-flex-align: center;
             align-items: center;
     margin-bottom: 10px;
-    font-size: 16px;
+    margin-top: 30px;
+    font-size: 24px;
   }
   .rbc-toolbar .rbc-toolbar-label {
     -webkit-flex-grow: 1;
         -ms-flex-positive: 1;
             flex-grow: 1;
     padding: 0 10px;
-    text-align: center;
   }
   .rbc-toolbar button {
     color: #000000;
