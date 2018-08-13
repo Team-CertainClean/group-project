@@ -36,11 +36,11 @@ class RoomControlTable extends React.Component{
             roomInfo: {
                 room_name: '',
                 location_type_id: 0,
-                cleanliness_one_metric: null,
-                cleanliness_two_metric: null,
-                cleanliness_three_metric: null,
-                cleanliness_four_metric: null,
-                cleanliness_five_metric: null,
+                cleanliness_one_metric: '',
+                cleanliness_two_metric: '',
+                cleanliness_three_metric: '',
+                cleanliness_four_metric: '',
+                cleanliness_five_metric: '',
             },
             anchor: null,
             rooms: [],
@@ -92,7 +92,7 @@ class RoomControlTable extends React.Component{
         The clearInputs method runs as part of the submitRoom method, and clears the input fields of the form.
     */
     clearInputs = () => {
-        this.setState({roomInfo: {room_name: '', location_type_id: 0, cleanliness_metrics: {one: null, two: null, three: null, four: null, five: null}}});
+        this.setState({roomInfo: {room_name: '', location_type_id: 0, cleanliness_metric_one: '', cleanliness_metric_two: '', cleanliness_metric_three: '', cleaniness_metric_four: '', cleanliness_metric_five: ''}});
     }
     /*
         The handleChangeFor method handles the changes for all of the input fields in the AddRoomForm.
