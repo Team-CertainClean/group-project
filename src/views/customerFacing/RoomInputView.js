@@ -313,23 +313,23 @@ class RoomInputView extends Component {
 			switch (this.state.room.cleanliness_score) {
 				case 1:
 				
-			HoverDescription = ('Messy');
+			HoverDescription = ('Very Messy');
 					break;
 	
 				case 2:
-			HoverDescription = ('Medium Mess');
+			HoverDescription = ('Messy');
 					break;
 	
 				case 3:
-			HoverDescription = ('Lil Dirt');
+			HoverDescription = ('A Little Messy');
 					break;
 	
 				case 4:
-			HoverDescription = ('Dusty and shit');
+			HoverDescription = ('A Little Dust');
 					break;
 	
 				case 5:
-				HoverDescription = ('Clean but needs refresh');
+				HoverDescription = ('Clean But Needs A Refresh');
 					break;
 	
 				default:
