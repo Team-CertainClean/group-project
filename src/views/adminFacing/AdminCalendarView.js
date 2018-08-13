@@ -37,7 +37,7 @@ class AdminCalendarView extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.view}>
-                <Nav />
+                <Nav history={this.props.history}/>
                 <Typography>Admin Calendar View</Typography>
                 <Button onClick={this.saveAvailability}>Save</Button>
                 <ApptCalendar className={classes.calendar} userType={'admin'}/>
