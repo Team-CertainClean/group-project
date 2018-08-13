@@ -10,20 +10,20 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 const styles = {
-  card: {
-    width: '100vw',
-  },
-  title: {
-    marginBottom: 16,
-    fontSize: 14,
-  },
-  locationTypeContent: {
-    marginTop: '7vh',
-    width: '100vw',
-    backgroundColor: 'white',
-    fontSize: '2vh',
-    padding: '1vw'
-},
+    card: {
+        width: '100vw',
+    },
+    durationEstimate: {
+        // backgroundColor: '',
+        fontSize: '24px',
+        marginLeft: '10px',
+    },
+    direction: {
+        // backgroundColor: 'white',
+        marginLeft: '10px',
+        fontSize: '20px',
+        paddingBottom: '10px',
+    }
   
 };
 
@@ -47,9 +47,12 @@ class TimeFinish extends Component {
         const { classes } = this.props;
         return (
             <div>
-                        <center className={classes.locationTypeContent}>
-                           Your estiamte time is {this.props.estimate} hrs.
-                        </center>
+                <Typography className={classes.durationEstimate}>
+                    Your estimated service duration: {this.props.estimate} hours
+                </Typography>
+                <Typography className={classes.direction}>
+                    Click on an available start time (white space) and drag to fill a time slot equal to your estimated service duration.
+                </Typography>
             </div>
         );
     }

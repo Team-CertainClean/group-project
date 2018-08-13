@@ -9,15 +9,25 @@ import ApptCalendar from '../../components/ApptCalendar/ApptCalendar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Nav from '../../components/Nav/Nav';
+import sweetAlertSuccess from '../../redux/modules/sweetAlertSuccess';
 
 const mapStateToProps = state => ({
     user: state.user,
 });
 
 const styles = {
-    view: {
-        backgroundColor: 'lightgrey',
+    saveButton: {
+        height: '40px',
+        marginTop: '30px',
+        float: 'right',
+        // marginRight: '10px',
     },
+    calendar: {
+        position: 'absolute',
+        width: '100vw',
+        marginRight: '-10px',
+    }
+    
 };
 
 class AdminCalendarView extends Component {
@@ -30,16 +40,21 @@ class AdminCalendarView extends Component {
     }
 
     saveAvailability = (event) => {
-        this.props.dispatch({ type: AVAILABILITY_ACTIONS.POST })
+        this.props.dispatch({ type: AVAILABILITY_ACTIONS.POST });
+        sweetAlertSuccess(`Cleaner availability saved and customer scheduler updated.`);
     }
 
     render() {
         const { classes } = this.props;
         return (
             <div className={classes.view}>
+
                 <Nav history={this.props.history}/>
-                <Typography>Admin Calendar View</Typography>
-                <Button onClick={this.saveAvailability}>Save</Button>
+                <br/>
+                <br/>
+                <div className={classes.saveButton}>
+                    <Button variant="contained" onClick={this.saveAvailability}>Save</Button>
+                </div>    
                 <ApptCalendar className={classes.calendar} userType={'admin'}/>
             </div>
         );
