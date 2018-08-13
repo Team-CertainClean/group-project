@@ -112,7 +112,7 @@ class AccountCreationView extends React.Component{
     
         if (this.props.user.userName) {
                 nav = (
-                  <Nav />
+                  <Nav history={this.props.history}/>
                 )
                 content = (
                     <div>
