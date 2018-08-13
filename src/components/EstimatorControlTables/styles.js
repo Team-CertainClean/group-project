@@ -17,7 +17,7 @@ export const EstimatorControlStyles = {
     },
     row: {
         '&:nth-of-type(even)': {
-            backgroundColor: 'rgba(160, 156, 153)'
+            backgroundColor: 'rgba(192, 190, 189, 0.6)'
         },
         '&:nth-of-type(odd)': {
             backgroundColor: 'rgba(255, 255, 255, 1)'
