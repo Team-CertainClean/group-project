@@ -144,10 +144,7 @@ class ContactInfoView extends Component {
     }// end componentDidMount
 
     handleChange = (contactInfo) => (event) => {
-        console.log(event.target.value);
-        console.log(event.target.id);
         if(contactInfo === "cleaning_type_id"){
-            console.log();
             this.setState({
                 cleaning_type: event.target.value.cleaning_type, contact: {cleaning_type_id: event.target.value.id}
             });
