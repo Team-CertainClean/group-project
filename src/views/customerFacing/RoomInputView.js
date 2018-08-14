@@ -313,7 +313,7 @@ class RoomInputView extends Component {
 			switch (this.state.room.cleanliness_score) {
 				case 1:
 				
-			HoverDescription = ('Very Messy');
+			HoverDescription = ('Dirty');
 					break;
 	
 				case 2:
@@ -321,15 +321,15 @@ class RoomInputView extends Component {
 					break;
 	
 				case 3:
-			HoverDescription = ('A Little Messy');
+			HoverDescription = ('Cluttered');
 					break;
 	
 				case 4:
-			HoverDescription = ('A Little Dust');
+			HoverDescription = ('Untidy');
 					break;
 	
 				case 5:
-				HoverDescription = ('Clean But Needs A Refresh');
+				HoverDescription = ('Needs A Refresh');
 					break;
 	
 				default:
@@ -340,7 +340,7 @@ class RoomInputView extends Component {
 		switch (this.state.hover) {
 			case 1:
 			
-		HoverDescription = ('Very Messy');
+		HoverDescription = ('Dirty');
 				break;
 
 			case 2:
@@ -348,15 +348,15 @@ class RoomInputView extends Component {
 				break;
 
 			case 3:
-		HoverDescription = ('A Little Messy');
+		HoverDescription = ('Cluttered');
 				break;
 
 			case 4:
-		HoverDescription = ('A Little Dust');
+		HoverDescription = ('Untidy');
 				break;
 
 			case 5:
-			HoverDescription = ('Clean But Needs A Refresh');
+			HoverDescription = ('Needs A Refresh');
 				break;
 
 			default:
@@ -368,7 +368,7 @@ class RoomInputView extends Component {
 		content = (
 			<center className={classes.whole}>
 				<Typography gutterBottom className={classes.locationTypeContent}>
-					Select room that needs to be cleaned!{' '}
+					CREATE YOUR LIST OF ROOMS THAT NEED CLEANING{' '}
 				</Typography>
 				<RoomComponent />
 				<div>
@@ -383,9 +383,9 @@ class RoomInputView extends Component {
 					>
 						<div style={getModalStyle()} className={classes.modalStyle}>
 							<center>
-								<Typography id="modal-title">Add kind of room and how clean it is.</Typography>
+								<Typography id="modal-title">SELECT ROOM TYPE AND CLEANLINESS</Typography>
 								<Typography id="simple-modal-description">
-									To prevent misestimating please, input real information.
+									Selections are used in estimate calculation
 								</Typography>
 							</center>
 
@@ -409,7 +409,7 @@ class RoomInputView extends Component {
 							</FormControl>
 
 							<div className={classes.circlesModal}>
-								<p className={classes.circlesModalRateElementsDirty}>Dirty</p>
+								<p className={classes.circlesModalRateElementsDirty}>Filthy</p>
 								<Rating
 									className={classes.circlesModalRateElements}
 									onChange={(rate) => this.setScore(rate)}
@@ -428,7 +428,7 @@ class RoomInputView extends Component {
 
 							<center className={classes.modalButtons}>
 								<Button className={classes.smallUnselectedLocationType} onClick={this.handleClose}>Close</Button>
-								<Button className={classes.smallGetStartedButton}onClick={this.addRoomToReducer} >Add room</Button>
+								<Button className={classes.smallGetStartedButton}onClick={this.addRoomToReducer} >Save</Button>
 							</center>
 						</div>
 					</Modal>
