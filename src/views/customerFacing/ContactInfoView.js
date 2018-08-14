@@ -146,7 +146,7 @@ class ContactInfoView extends Component {
     handleChange = (contactInfo) => (event) => {
         if(contactInfo === "cleaning_type_id"){
             this.setState({
-                cleaning_type: event.target.value.cleaning_type, contact: {cleaning_type_id: event.target.value.id}
+                cleaning_type: event.target.value.cleaning_type, contact: {...this.state.contact, cleaning_type_id: event.target.value.id}
             });
         } else {
             this.setState({contact: {
@@ -156,7 +156,7 @@ class ContactInfoView extends Component {
     }// end handle change
 
      submitContactInfo = async () => {
-        console.log(`in submitContactInfo`)
+        console.log(`in submitContactInfo: `, this.state)
         await swal({
             title: "Are you sure?",
             text: "Click Sumbit to request your cleaning.",
