@@ -176,11 +176,12 @@ const styles = (theme) => ({
 		marginTop: '30px'
 	},
 	whole: {
+		
 		display: 'block',
 		overflow: 'auto',
 		height: '100%',
-		background: 'linear-gradient(to bottom, white 0%, lightgrey 20%, lightgrey 80%, white 100%)' , 
-		paddingBottom: '10vw'
+		background: 'linear-gradient(to bottom, white 0%, lightgrey 20%, lightgrey 70%, white 100%)' , 
+		paddingBottom: '20vw'
 	},
 	getStartedButton: {
 		backgroundSize: '200% auto',

@@ -19,16 +19,18 @@ const styles = {
         color: 'white',
         backgroundColor: '#A8A8A8',
         borderRadius: '200vw',
-        paddingTop: '1.5vw',
-        paddingBottom: '1.5vw',
+        paddingTop: '2vw',
+        paddingBottom: '2vw',
         marginBottom: '1vw',
         marginTop: '.5vw',
     },
     direction: {
-        marginBottom: '1vw',
-        width: '100vw',
-        color: 'black',
-        fontSize: '1.5vw',
+        marginTop: '3vh',
+        marginBottom: '3vh',
+		width: '100vw',
+		backgroundColor: 'white',
+		fontSize: '2vh',
+		padding: '1vw'
     },
 };
 
