@@ -111,7 +111,7 @@ class RoomControlTable extends React.Component{
                         this.setState({roomInfo: {...this.state.roomInfo, [event.target.id]: event.target.value, anchor: null}});
                         break;
                     default:
-                        this.setState({roomInfo: {...this.state.roomInfo, [event.target.id]: event.target.value}});
+                        this.setState({roomInfo: {...this.state.roomInfo, [event.target.id]: event.target.value.id}});
                         break;
                     }
                 resolve();

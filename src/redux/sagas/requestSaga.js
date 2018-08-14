@@ -2,8 +2,18 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { REQUEST_ACTIONS } from '../actions/requestActions';
 import { fetchRequestData, closeRequest, postRequest, updateRequest } from '../requests/requestRequests';
 
+const defaultSort = {
+    orderParam: 'sort_id',
+    sortBy: 'DESC'
+}
+
 function* fetch(action){
-    let sort = action.payload
+    let sort;
+    if(action.payload){
+        sort = action.payload;
+    } else {
+        sort = action;
+    }
     console.log(`fetch action.payload`, sort)
     try{
         const request = yield fetchRequestData(sort);
@@ -19,7 +29,7 @@ function* close(action){
     try{
         yield put({type: REQUEST_ACTIONS.POST, payload: action.payload})
         yield closeRequest(action.payload);
-        yield put({type: REQUEST_ACTIONS.FETCH});
+        yield put({type: REQUEST_ACTIONS.FETCH, payload: defaultSort});
     }catch(error){
         yield alert('Error removing request', error);
     }
@@ -37,7 +47,7 @@ function* post(action){
 function* update(action){
     try{
         yield updateRequest(action.payload);
-        yield put({type: REQUEST_ACTIONS.FETCH});
+        yield put({type: REQUEST_ACTIONS.FETCH, payload: defaultSort});
     } catch(error){
         alert('Error updating this request', error);
     }

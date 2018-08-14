@@ -34,7 +34,7 @@ class RequestsView extends React.Component{
             filter: '',
             requests: [],
             sort: {
-                orderParam: 'request.id',
+                orderParam: 'sort_id',
                 sortBy: 'DESC',
             },
             selectedTable: 0
