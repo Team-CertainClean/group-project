@@ -123,7 +123,7 @@ class CleanerControlTable extends React.Component{
         }
         return(
             <div className={classes.estimatorControlComponent}>
-                <Typography variant="title">Add Cleaners</Typography>
+                <Typography style={{marginBottom: 10}} variant="title">Add Cleaners</Typography>
                 <AddCleanerForm handleChangeFor={this.handleChangeFor} submitCleaner={this.submitCleaner} first_name={this.state.cleanerInfo.first_name} last_name={this.state.cleanerInfo.last_name} properly_account_id={this.state.cleanerInfo.properly_account_id} />
                 <Card className={classes.tableCard}>
                     <CardContent>

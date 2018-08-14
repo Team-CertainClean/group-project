@@ -90,7 +90,7 @@ class CleaningTypeTable extends React.Component{
         }
         return(
             <div className={classes.estimatorControlComponent}>
-                <Typography variant="title">Add Cleaning Type</Typography>
+                <Typography style={{marginBottom: 10}} variant="title">Add Cleaning Type</Typography>
                 <CleaningTypeForm handleChangeFor={this.handleChangeFor} submitCleaningType={this.submitCleaningType} cleaning_type={this.state.cleaning_type.cleaning_type} />
                 <Card className={classes.tableCard}>
                     <CardContent>

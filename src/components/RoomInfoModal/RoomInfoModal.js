@@ -26,6 +26,24 @@ const styles = theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
   },
+  roomName:{
+    border: '1px solid red'
+  },
+  smallUnselectedLocationType: {
+	
+		marginTop: '3vw',
+		margin: '1vw',
+		padding: '2%',
+		paddingLeft: '4%',
+		paddingRight: '4%',
+		borderRadius: '100px',
+		fontSize: '2vw',
+		color: 'grey',
+		border: '0.2vw solid grey',
+		'&:hover': {
+			border: '0.2vw solid rgba(255,255,255,0.5)'
+		}
+	},
 });
 
 const mapStateToProps = state => ({
@@ -68,18 +86,19 @@ class SimpleModal extends React.Component {
         >
           <div style={getModalStyle()} className={classes.paper}>
           {/* <pre>{JSON.stringify(this.props.updateId)}</pre> */}
-            <Typography variant="title" id="modal-title">
-              Rooms | Cleanliness Score:
-            </Typography>
+            <center variant="title" id="modal-title">
+              Rooms/Cleanliness:
+            </center>
+            <br/>
             <div>
                 {this.props.roomInfo.map((room, i) => {
                     return(
-                        <RoomList key={i} roomInfo={room} />
+                        <RoomList  key={i} roomInfo={room} />
                     );
                 })}
             </div>
               <pre>{JSON.stringify(this.props.roominfo)}</pre>
-            <Button onClick={this.handleClose}>Close</Button>
+           <center> <Button className={classes.smallUnselectedLocationType} onClick={this.handleClose}>Close</Button></center>
           </div>
         </Modal>
       </div>

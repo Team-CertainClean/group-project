@@ -16,24 +16,86 @@ import Nav from '../../components/Nav/Nav';
 import SweetAlertSuccess from '../../redux/modules/sweetAlertSuccess';
 import SweetAlertFailure from '../../redux/modules/sweetAlertFailure';
 
-
 const styles = theme => ({
     container: {
-        display: 'flex',
-        flexWrap: 'wrap',
+        // display: 'flex',
+        // flexWrap: 'wrap',
       },
       textField: {
+        display: 'block',
+        fontSize: '2vw',
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
         width: 230,
       },
-      button: {
-          backgroundColor: '#EF8902',
-      },
       formControl: {
-        margin: theme.spacing.unit,
+      
         minWidth: 120,
       },
+      loginbox: {
+        
+      },
+      paper: {
+        overflow:'auto',
+        padding: '2vw',
+        paddingLeft: '3vw',
+        paddingRight: '3vw',
+        borderRadius: '100vw',
+        backgroundColor: 'white',
+        width:'30vw',
+        
+        marginTop: '15vw',
+        boxShadow: "2px 2px 5px grey",
+        verticalAlign: 'middle',
+      },
+      bg:{
+        position: 'absolute',
+        width: '100vw',
+        height: '100vh',
+        background: 'linear-gradient(to bottom, white 0%,  lightgrey 100%)',
+        backgroundColor: 'lightgrey',
+      },
+      submitButton: {
+        float: 'left',
+        backgroundSize: '200% auto',
+        transition: '0.5s',
+        backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%, #fe981e 100%)',
+        borderRadius: '200px',
+        display: 'flex',
+        backgroundColor: '#ef8902',
+        // marginTop: '3vw',
+        margin: '1vw',
+        // padding: '2%',
+        // paddingLeft: '4%',
+        // paddingRight: '4%',
+        fontSize: '2vw',
+        color: 'white !important',
+        '&:hover': {
+          backgroundImage: 'linear-gradient(to right, #ff8008 0%, #ffc837 51%,#fbad40 100%)',
+          backgroundColor: '#E8E8E8',
+          backgroundPosition: 'right center'
+        }
+      },
+      cancelButton: {
+        margin: '1vw',
+        float: 'left',
+        // margin: '1vw',
+        // padding: '2%',
+        // paddingLeft: '4%',
+        // paddingRight: '4%',
+        borderRadius: '100px',
+        fontSize: '2vw',
+        color: 'grey',
+        border: '0.2vw solid grey',
+        '&:hover': {
+          border: '0.2vw solid rgba(255,255,255,0.5)'
+        }
+      },
+      buttondiv:{
+        marginTop: '0.5vw',
+        marginLeft: '4vw'
+
+      }
 
 });
 
@@ -115,9 +177,10 @@ class AccountCreationView extends React.Component{
                   <Nav history={this.props.history}/>
                 )
                 content = (
-                    <div>
-                    <form >
-                    <Typography>Register New Admin</Typography>
+                    <div >
+                      <center>
+                    <h2>Register New Admin</h2>
+                      </center>
                     <div>
                         <TextField
                             id="username"
@@ -146,23 +209,29 @@ class AccountCreationView extends React.Component{
                             margin="normal"
                         />
                     </div>
-                    <div>
-                        <Button variant="contained" onClick={this.registerAdmin} className={classes.button}>
+                    
+                      <center  className={classes.buttondiv}>
+                        <Button variant="contained" onClick={this.registerAdmin} className={classes.submitButton}>
                             Submit
                         </Button>
-                        <Link to="/home"><Typography>Cancel</Typography></Link>
+                        <Link to="/home"><Button className={classes.cancelButton}>Cancel</Button></Link>
+                      </center>
                     </div>
-                    </form>
-                </div>
                 );
         }
     
     
         return(
-            <Paper>
+            <div >
                 { nav }
-                { content }
-            </Paper>
+                  <center  className={classes.bg}>
+                    <div className={classes.loginbox}>
+                          <div className={classes.paper}>
+                             { content }
+                          </div>
+                    </div>
+                  </center>
+            </div>
         );
     }
 }

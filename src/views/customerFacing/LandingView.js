@@ -141,7 +141,8 @@ const styles = {
 		zIndex: '-1',
 		marginTop: '-20%',
 		width: '20%',
-		height: 'auto'
+        height: 'auto',
+        
     }
    
 };
@@ -211,6 +212,9 @@ class CustomerLandingView extends React.Component {
 			backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             
+           
+            //'-webkit-mask-image': '-webkit-gradient(linear,left top,left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0) ))',
+            
 		};
 		// Conditional check to apply either a background color or background image based on state
 		if (this.state.propertytype === 'residential') {
@@ -232,7 +236,7 @@ class CustomerLandingView extends React.Component {
         }
 		if (this.state.selection === null) {
 			locationTypeContent = (
-				<Typography className={classes.locationTypeContent}>Please choose the type of your property.</Typography>
+				<Typography className={classes.locationTypeContent}>SELECT PROPERTY TYPE</Typography>
 			);
 			locationTypeChoices = (
 				<div>
@@ -256,8 +260,7 @@ class CustomerLandingView extends React.Component {
 			locationTypeContent = (
                 <div>
 				<Typography className={classes.locationTypeContent}>
-					 You'll fill out our estimator to receive an estimated duration your cleaning will
-					take and then we'll contact you when we've confirmed.
+					CLICK GET STARTED TO ADD ROOMS FOR YOUR CUSTOM CLEANING
 				</Typography>
 					<Button className={classes.getStartedButton} onClick={() => this.refs.parallax.scrollTo(2)}>
 						Get Started
@@ -284,8 +287,7 @@ class CustomerLandingView extends React.Component {
 			locationTypeContent = (
                 <div>
 				<Typography className={classes.locationTypeContent}>
-					 You'll be navigated to our contact form, and then we will get in touch to discuss
-					the cleaning in further detail.
+					CLICK GET STARTED TO CONTACT US
 				</Typography>
 					<Button className={classes.getStartedButton} onClick={() => this.refs.parallax.scrollTo(2)}>
 						Get Started

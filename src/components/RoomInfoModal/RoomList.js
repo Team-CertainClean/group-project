@@ -8,9 +8,12 @@ class RoomList extends Component {
 
   render() {
     return (
+      <center >
       <ul>
-        <li>{this.props.roomInfo.room_name} | {this.props.roomInfo.cleanliness_score}</li>
+        <li> <div style={{ fontSize: '2vw', marginLeft: '5vw', float: 'left', marginRight:'1vw'}}>{this.props.roomInfo.room_name}</div> 
+        <div style={{fontSize: '2vw','color':'orange', float: 'left',}}>{this.props.roomInfo.cleanliness_score}</div></li>
       </ul>
+      </center>
     );
   }
 }
