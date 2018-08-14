@@ -59,7 +59,7 @@ class ResidentialTable extends React.Component{
             requests: [],
             filter: '',
             sort: {
-                orderParam: 'request.id',
+                orderParam: 'sort_id',
                 sortBy: 'DESC',
             },
         }

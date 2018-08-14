@@ -3,6 +3,7 @@ import axios from 'axios';
 export function fetchRequestData(payload){
     console.log(`this is fetchRequestData on requestRequests`, );
     let url;
+    console.log(payload);
     if(payload){
         url = `/api/request/requestTable?sort=${payload.orderParam}&order=${payload.sortBy}`;
     } else {
