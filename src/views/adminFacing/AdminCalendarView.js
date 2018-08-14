@@ -16,7 +16,12 @@ const mapStateToProps = state => ({
 });
 
 const styles = {
-
+    view: {  
+        position: 'absolute',
+        width: '100vw',
+        height: '100vh',
+    background: 'linear-gradient(to bottom, white 0%,  lightgrey 100%)',
+        },
     saveButton: {
         marginTop: '30px',
         display: 'inline-block',
@@ -42,8 +47,12 @@ const styles = {
     calendar: {
         position: 'absolute',
         width: '100vw',
-        marginRight: '-10px',
+    },
+    calendarbox: {
+        marginTop: '5vw',
+        margin: '0 auto'
     }
+    
     
 };
 
@@ -67,9 +76,9 @@ class AdminCalendarView extends Component {
             <div className={classes.view}>
 
                 <Nav history={this.props.history}/>
-                <br/>
-                <br/>
-                <ApptCalendar className={classes.calendar} userType={'admin'}/>
+                <center className={classes.calendarbox}>
+                    <ApptCalendar className={classes.calendar} userType={'admin'}/>
+                </center>
                 <center>
                     <Button variant="contained" onClick={this.saveAvailability} className={classes.saveButton}>Save</Button>
                 </center>

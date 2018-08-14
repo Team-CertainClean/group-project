@@ -16,13 +16,13 @@ import Nav from '../../components/Nav/Nav';
 import SweetAlertSuccess from '../../redux/modules/sweetAlertSuccess';
 import SweetAlertFailure from '../../redux/modules/sweetAlertFailure';
 
-
 const styles = theme => ({
     container: {
         // display: 'flex',
         // flexWrap: 'wrap',
       },
       textField: {
+        display: 'block',
         fontSize: '2vw',
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
@@ -216,7 +216,6 @@ class AccountCreationView extends React.Component{
                         </Button>
                         <Link to="/home"><Button className={classes.cancelButton}>Cancel</Button></Link>
                       </center>
-                    
                     </div>
                 );
         }
