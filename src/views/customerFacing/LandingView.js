@@ -141,7 +141,8 @@ const styles = {
 		zIndex: '-1',
 		marginTop: '-20%',
 		width: '20%',
-		height: 'auto'
+        height: 'auto',
+        
     }
    
 };
@@ -210,6 +211,9 @@ class CustomerLandingView extends React.Component {
 			backgroundPosition: '50% 50%',
 			backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
+            
+           
+            //'-webkit-mask-image': '-webkit-gradient(linear,left top,left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0) ))',
             
 		};
 		// Conditional check to apply either a background color or background image based on state

@@ -69,8 +69,8 @@ class Nav extends Component {
                 </Button>
                 </Link>
             </li>
-            <li style={{position: 'fixed', right: '10px', top: '14px'}}>
-              <Button onClick={this.logout}>
+            <li style={{position: 'fixed', right: '10px', top: '13px'}}>
+              <Button  style={{backgroundColor: 'black',color: 'white', padding: 'vw', borderRadius: '5vw'}} onClick={this.logout}>
                 Log Out
               </Button>
             </li>

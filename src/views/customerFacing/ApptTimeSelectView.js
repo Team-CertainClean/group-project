@@ -11,8 +11,9 @@ import BackButton from '../../components/BackButton/BackButton';
 
 const styles = {
     view: {
-        paddingBottom:'4vw',
+        //paddingTop: '5vw',
         background: 'linear-gradient(to bottom, white 0%, lightgrey 20%, lightgrey 80%, white 100%)',
+        paddingBottom: '20vw'
     },
     //small one
 	unselectedLocationType: {

@@ -73,7 +73,8 @@ class RequestsView extends React.Component{
         }
     
         return(
-            <div style={{'width': '100vw', 'position': 'relative', 'left': -8}}>
+            <div style={{'width': '100vw','position': 'absolute','paddingBottom':'20vh', height: '100vh',
+            background: 'linear-gradient(to bottom, white 0%,  lightgrey 100%)',}}>f
                 <Nav history={this.props.history} />
                 <center>
                 { menuBar }
