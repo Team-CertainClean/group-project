@@ -19,21 +19,20 @@ class LocationSelectionMenu extends React.Component{
         this.setState({anchor: null});
     }
 
-    handleMenuSelect = (event) => {
-        console.log(event.target.value);
-        this.props.handleChangeFor(event);
+
+    handleSelect = (event) => {
         this.setState({location: event.target.value.location_type});
+        this.props.handleLocationSelect(event.target.value.id);
     }
 
     render(){
-        console.log(this.state.location_type);
         return(
             <div style={{display: 'inline', margin: 0}}>
                 {/* <Button onClick={this.openMenu} style={{width: 50, height: 50}}>Location Type</Button> */}
                 <Select
                     id="location-menu"
                     value={this.state.location ? this.state.location : "Location Type"}
-                    onChange={this.handleMenuSelect}
+                    onChange={this.handleSelect}
                     style={{width: '8vw'}}
                 >
                     <MenuItem value={this.state.location ? this.state.location :  "Location Type"} disabled>

@@ -100,18 +100,19 @@ class RoomControlTable extends React.Component{
         The id of the input field must be the same as the key within local state being changed.
     */
     handleChangeFor = event => {
+        console.log(event.target.value, event.target.id);
         return new Promise((resolve, reject)=>{
             try{
                 switch(event.target.id){
-                    case 'clealiness_one_metric':
-                    case 'clealiness_two_metric':
-                    case 'clealiness_three_metric':
-                    case 'clealiness_four_metric':
-                    case 'clealiness_five_metric':
+                    case 'clealiness_metric_one':
+                    case 'clealiness_metric_two':
+                    case 'clealiness_metric_three':
+                    case 'clealiness_metric_four':
+                    case 'clealiness_metric_five':
                         this.setState({roomInfo: {...this.state.roomInfo, [event.target.id]: event.target.value, anchor: null}});
                         break;
                     default:
-                        this.setState({roomInfo: {...this.state.roomInfo, [event.target.id]: event.target.value.id}});
+                        this.setState({roomInfo: {...this.state.roomInfo, [event.target.id]: event.target.value}});
                         break;
                     }
                 resolve();
@@ -119,6 +120,10 @@ class RoomControlTable extends React.Component{
                 reject();
             }
         });
+    }
+
+    handleLocationSelect = (id) => {
+        this.setState({roomInfo: {...this.state.roomInfo, location_type_id: id}});
     }
     /*
         The filterRooms method runs on change of the selection menu.
@@ -236,6 +241,7 @@ class RoomControlTable extends React.Component{
     }
 
     render(){
+        console.log(this.state.roomInfo);
         const { classes } = this.props;
         let table = null;
         // If this.state.rooms is existent, we render the table using this.state.rooms (sorted, filtered, or untouched)
@@ -288,7 +294,7 @@ class RoomControlTable extends React.Component{
         return(
             <div className={classes.estimatorControlComponent}>
                 <Typography style={{marginBottom: 10}} variant="title">Add Rooms</Typography>
-                <AddRoomForm handleChangeFor={this.handleChangeFor} submitRoom={this.submitRoom} room={this.state.roomInfo.room_name} metrics={metrics} anchor={this.state.anchor} locations={this.props.locations}/>
+                <AddRoomForm handleChangeFor={this.handleChangeFor} handleLocationSelect={this.handleLocationSelect} submitRoom={this.submitRoom} room={this.state.roomInfo.room_name} metrics={metrics} anchor={this.state.anchor} locations={this.props.locations}/>
                 <Card className={classes.tableCard}>
                     <CardContent>
                         {table}

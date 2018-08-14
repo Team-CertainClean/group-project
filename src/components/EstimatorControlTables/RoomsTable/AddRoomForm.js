@@ -43,7 +43,6 @@ class AddRoomForm extends React.Component{
 
     render(){
         const { classes } = this.props;
-        console.log('Render FORM');
         let form = null;
         
             form = (
@@ -102,7 +101,7 @@ class AddRoomForm extends React.Component{
                     value={this.props.metrics.five}
                     onChange={this.props.handleChangeFor}
                 />
-                <LocationSelectionMenu locations={this.props.locations} handleChangeFor={this.props.handleChangeFor} anchor={this.props.anchor} />
+                <LocationSelectionMenu locations={this.props.locations} handleLocationSelect={this.props.handleLocationSelect} anchor={this.props.anchor} />
                 </div>
                 <center>
                 <Button onClick={this.props.submitRoom} className={classes.submitButton}>Add Room</Button>
