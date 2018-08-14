@@ -144,9 +144,12 @@ class ContactInfoView extends Component {
     }// end componentDidMount
 
     handleChange = (contactInfo) => (event) => {
+        console.log(event.target.value);
+        console.log(event.target.id);
         if(contactInfo === "cleaning_type_id"){
+            console.log();
             this.setState({
-                cleaning_type: this.props.cleaningTypes[event.target.value - 1].cleaning_type
+                cleaning_type: event.target.value.cleaning_type, contact: {cleaning_type_id: event.target.value.id}
             });
         } else {
             this.setState({contact: {
@@ -251,9 +254,9 @@ class ContactInfoView extends Component {
                         <MenuItem style={{width: '100%'}} value={this.state.cleaning_type} disabled>
                         {this.state.cleaning_type ? this.state.cleaning_type : "None"}
                         </MenuItem>
-                        {this.props.cleaningTypes.filter(option => option.id > 1).map((option, i) => {
+                        {this.props.cleaningTypes.map((option, i) => {
                             return (
-                                    <MenuItem style={{width: '100%'}} key={i} value={option.id}>{option.cleaning_type}</MenuItem> 
+                                    <MenuItem style={{width: '100%'}} key={i} value={option}>{option.cleaning_type}</MenuItem> 
                                     );    
                             })
                         }
