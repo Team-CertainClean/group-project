@@ -36,7 +36,8 @@ class EstimatorControlView extends React.Component{
 
         const menuOptions=["Rooms", "Locations", "Cleaners", "Cleaning Type"];
         return(
-            <div style={{'width': '100vw', 'position': 'relative', 'left': -8}}>
+            <div style={{'width': '100vw','position': 'absolute','paddingBottom':'20vh', height: '100vh',
+        background: 'linear-gradient(to bottom, white 0%,  lightgrey 100%)',}}>
                 <Nav history={this.props.history}/>
                 <center>
                 <MenuBar menuOptions={menuOptions} selectOption={this.selectOption} />
