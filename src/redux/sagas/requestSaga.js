@@ -37,7 +37,7 @@ function* post(action){
 function* update(action){
     try{
         yield updateRequest(action.payload);
-        yield put({type: REQUEST_ACTIONS.FETCH});
+        // yield put({type: REQUEST_ACTIONS.FETCH});
     } catch(error){
         alert('Error updating this request', error);
     }

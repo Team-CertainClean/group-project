@@ -59,7 +59,7 @@ class ResidentialTable extends React.Component{
             requests: [],
             filter: '',
             sort: {
-                orderParam: 'status',
+                orderParam: 'request.id',
                 sortBy: 'DESC',
             },
         }
@@ -118,6 +118,7 @@ class ResidentialTable extends React.Component{
         const { classes } = this.props;
         let table = null;
         console.log(`in residentialTable`, this.state.requests);
+        console.log("Sort: ", this.state.sort);
         if(this.state.requests){
             table = (
                 <div>
