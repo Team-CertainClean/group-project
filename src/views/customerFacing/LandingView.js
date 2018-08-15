@@ -106,12 +106,10 @@ const styles = {
 		marginTop: '10%',
 	},
 	typeOfPropertyContent: {
-	
-		
 	},
 	center: {
 		width: '100%',
-		height: '80%'
+		height: '80%',
 	},
 	locationTypeContent: {
         marginTop: '7vh',
