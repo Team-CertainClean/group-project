@@ -72,15 +72,27 @@ class AdminCalendarView extends Component {
 
     render() {
         const { classes } = this.props;
+        let nav = null;
+        let apptCalendar = null;
+        let button = null;
+
+        if (this.props.user.userName) {
+            nav = ( <Nav history={this.props.history} /> );
+            apptCalendar = ( <ApptCalendar className={classes.calendar} userType={'admin'} /> );
+            button = (<Button variant="contained" onClick={this.saveAvailability} className={classes.saveButton}>Save</Button> )
+
+        };
         return (
             <div className={classes.view}>
-
-                <Nav history={this.props.history}/>
+                { nav }
+                {/* <Nav history={this.props.history}/> */}
                 <center className={classes.calendarbox}>
-                    <ApptCalendar className={classes.calendar} userType={'admin'}/>
+                    { apptCalendar }
+                    {/* <ApptCalendar className={classes.calendar} userType={'admin'}/> */}
                 </center>
                 <center>
-                    <Button variant="contained" onClick={this.saveAvailability} className={classes.saveButton}>Save</Button>
+                    { button }
+                    {/* <Button variant="contained" onClick={this.saveAvailability} className={classes.saveButton}>Save</Button> */}
                 </center>
             </div>
         );
