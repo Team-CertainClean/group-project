@@ -188,7 +188,7 @@ class ContactInfoView extends Component {
             <img src={'https://www.shareicon.net/data/128x128/2015/12/11/685826_sign_512x512.png'} className={classes.protectionImg}></img>
 
                 <div className={classes.locationTypeContent}>
-                    Enter your contact information.
+                    ENTER YOUR CONTACT INFORMATION.
 				</div>
                 <div className={classes.from}>
                 <TextField
