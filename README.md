@@ -1,5 +1,13 @@
 # Team Certain Clean
 
+## Getting Started
+
+- Create a project folder on your local system
+- git init to initialize your local repo
+- Copy the url of this repo
+- Use the "git clone" command in your command line tool, and paste the url in after the command
+- Now the repo is on your system.  Follow the instructions below to deploy to Heroku.
+
 ## Deployment to Heroku
 
 >Heroku
