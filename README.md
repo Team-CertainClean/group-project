@@ -49,9 +49,9 @@ There are a number of steps you'll need to follow to deploy to Heroku if that is
     Note: Your project also needs to have a git repository.
 
 - Heroku Setup
-    - Before you deploy, make sure your server port (found [here](server/server.js)) is configured correctly as:
+    - Before you deploy, in your ```server.js``` file, make sure your server port (found [here](server/server.js)) is configured correctly as:
     
-    ```var port = process.env.PORT || 5000;```
+    ```const port = process.env.PORT || 5000;```
 
     - Run the following commands from within your project folder.
         - In terminal, navigate to your project folder and type heroku create
