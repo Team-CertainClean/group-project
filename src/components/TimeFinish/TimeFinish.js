@@ -29,9 +29,10 @@ const styles = {
         marginBottom: '3vh',
 		width: '100vw',
 		backgroundColor: 'white',
-		fontSize: '2vh',
+		fontSize: '1.5vh',
 		padding: '1vw'
     },
+
 };
 
 const mapStateToProps = state => ({
@@ -60,7 +61,7 @@ class TimeFinish extends Component {
                     </center>
                 </center>
                 <center className={classes.direction}>
-                    Click on an available start time (white space) and drag to fill a time slot equal to your estimated service duration
+                    CLICK ON AN AVAILABLE START TIME (WHITE SPACE) AND DRAG TO FILL A TIME SLOT EQUAL TO YOUR ESTIMATED SERVICE DURATION.
 				</center>
             </div>
         );
