@@ -15,14 +15,13 @@ import { ROOM_ACTIONS } from '../../redux/actions/roomActions';
 //Modules
 import estimateCalculator from '../../redux/modules/estimateCalculator';
 import sweetAlertFailure from '../../redux/modules/sweetAlertFailure';
-import sweetAlertSuccess from '../../redux/modules/sweetAlertSuccess';
 
 // //Material UI
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
+// import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
