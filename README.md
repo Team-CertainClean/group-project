@@ -20,9 +20,8 @@ There are a number of steps you'll need to follow to deploy to Heroku if that is
 
 - Heroku Prerequisites
     - Sign up for an account on Heroku.com
-    - Install Heroku CLI by typing brew install heroku in Terminal
-    - Additional installation notes and troubleshooting
-    - Authenticate by typing heroku login in Terminal
+    - Install Heroku CLI (In this example you can use HomeBrew, if it's installed, by typing brew install heroku in Terminal, or your command line tool).
+    - Authenticate by typing heroku login in your command line tool.
     Note: Your project also needs to have a git repository.
 
 - Heroku Setup
@@ -32,7 +31,7 @@ There are a number of steps you'll need to follow to deploy to Heroku if that is
 
     - Run the following commands from within your project folder.
         - In terminal, navigate to your project folder and type heroku create
-        - Login in if prompted
+        - Login in if prompted using the credentials you created your Heroku account with.
         - Type git remote -v to ensure it added successfully
         - In terminal, type git push heroku master
         - Our website is now live! However... we also have a database
