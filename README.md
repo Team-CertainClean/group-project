@@ -3,10 +3,13 @@
 ## Getting Started
 
 - Create a project folder on your local system
-- git init to initialize your local repo
+- Open your Command Line tool (Terminal on Mac) and navigate to the file you created by typing ```cd ~/location_of_your_file``` where "location_of_your_file" is the path of your file. 
+- Type ```git init``` to initialize your local repo
 - Copy the url of this repo
-- Use the "git clone" command in your command line tool, and paste the url in after the command
-- Now the repo is on your system.  Follow the instructions below to deploy to Heroku.
+- Use the ```git clone``` command in your command line tool, and paste the url in after the command. 
+- Now the repo is on your system.
+- Navigate back to your Command Line and type: ```npm install```
+- Follow the instructions below to deploy to Heroku.
 
 ## Database Setup
 
@@ -17,7 +20,8 @@
 - Now you'll copy paste the database.sql file in the root folder of the project into the SQL Query tool
 - Now that it's all in Postico, you'll need to go down the file and execute each CREATE TABLE query to get all the table set up.
 - Once you've executed each CREATE TABLE query, you're database is now set up and ready to go.
-- BUT WAIT ONE MOMENT! YOU'LL NEED AN ADMIN ACCOUNT.  Navigate to /register and set up an account.  Once this is done, you can go into App.js and comment out the Route for /register and RegisterPage to disable the ability to register an admin account.
+- Back in your Command Line tool, type ```npm run server```. After that has completed, type ```npm run client```. This will start the application on your local host and navigate you to your browser.
+- BUT WAIT ONE MOMENT! YOU'LL NEED AN ADMIN ACCOUNT.  Navigate to ```localhost:3000/#/register``` and set up an account.  Once this is done, you can go into App.js and comment out the Route for /register and RegisterPage to disable the ability to register an admin account.
 - Now you're set and ready to go! Follow the instructions below to deploy!
 
 ## Deployment to Heroku
