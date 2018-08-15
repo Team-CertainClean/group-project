@@ -7,8 +7,6 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { compose } from 'redux';
-// import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 import { AVAILABILITY_ACTIONS } from '../../redux/actions/availabilityActions';
 import { CUSTOMER_ACTIONS } from '../../redux/actions/customerActions';
 import sweetAlertFailure from '../../redux/modules/sweetAlertFailure';
@@ -33,7 +31,6 @@ class ApptCalendar extends Component {
                 end: null,
                 },
             ],
-
             newEvent: {
                 start: null,
                 end: null,
@@ -47,14 +44,8 @@ class ApptCalendar extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('in update', prevProps);
-        console.log(this.props.unavailable);
-        
         if(this.props.unavailable !== prevProps.unavailable) {
-            
-
             if (this.props.userType === 'customer'){
-                console.log('in cond', this.props.unavailable);
                 let tempArray = [];
                 for(let object of this.props.unavailable){
                     for(let prop in object){
@@ -62,11 +53,9 @@ class ApptCalendar extends Component {
                     }
                     tempArray.push(object);
                 }  
-
                 this.setState({events: [...this.state.events, ...tempArray]});
             }
             else if (this.props.userType === 'admin'){
-                console.log("Admin");
                 let tempArray = [];
                 for(let object of this.props.available){
                     for(let prop in object){
@@ -83,15 +72,13 @@ class ApptCalendar extends Component {
         const { events } = this.state;
         const idx = events.indexOf(event);
         if(idx === 0){
-            const updatedEvent = { ...event, start, end}
-        
-            const nextEvents = [...events]
-            nextEvents.splice(idx, 1, updatedEvent)
-        
+            const updatedEvent = { ...event, start, end};
+            const nextEvents = [...events];
+            nextEvents.splice(idx, 1, updatedEvent);
             this.setState({
             events: nextEvents,
-            })
-            console.log('this.state=', this.state)
+            });
+            this.props.dispatch({ type: CUSTOMER_ACTIONS.APPT, payload: updatedEvent });
             sweetAlertSuccess(`You're desired cleaning time has changed to be on ${updatedEvent.start.toLocaleDateString()} from ${updatedEvent.start.toLocaleTimeString()} to ${updatedEvent.end.toLocaleTimeString()}.`);
         } else {
             sweetAlertFailure("You can only change your event.");
@@ -100,8 +87,6 @@ class ApptCalendar extends Component {
 
     onSelect = (slotInfo) => {
         if (this.props.userType === 'customer'){
-            console.log("ME!", slotInfo.start.getHours(), slotInfo.end.getHours());
-            console.log(this.props.estimate);
             if(this.state.events[0].start){
                 sweetAlertFailure("You've already chosen a time for the cleaning, if this was a mistake, feel free to drag and drop your previous selection to your desired time.");
             } else {
@@ -111,13 +96,12 @@ class ApptCalendar extends Component {
                     let diffMinutes = end.getMinutes() - start.getMinutes();
                     let diff = diffHours + (diffMinutes / 60);
                     if (this.props.estimate === diff){
-                        console.log('slotInfo:', slotInfo);
                         this.setState({
                             newEvent: {start: new Date(slotInfo.start), end: new Date(slotInfo.end)},
                         });
                         this.setState({
                             events: [this.state.newEvent, ...this.props.unavailable]
-                        })
+                        });
                         this.dispatchAppt();
                         return true;
                     } else {
@@ -130,7 +114,7 @@ class ApptCalendar extends Component {
             });
             this.setState({
                 events: [...this.state.events, this.state.newEvent]
-            })
+            });
             this.dispatchAvailability();
             return true;
         }        
@@ -145,15 +129,13 @@ class ApptCalendar extends Component {
         this.props.dispatch({ type: AVAILABILITY_ACTIONS.NEW, payload: this.state.newEvent });
         this.setState({
             newEvent: { start: null, end: null }
-        })
+        });
     }
 
     render() {
-        // const { classes } = this.props;
         return (
             <div>
                 <DragAndDropCalendar 
-                // className={classes.calendar}
                 defaultDate={new Date()}
                 defaultView={Calendar.Views.WEEK}
                 views={{
@@ -174,10 +156,5 @@ class ApptCalendar extends Component {
         );
     }
 }
-
-// ApptCalendar.propTypes = {
-//     classes: PropTypes.object.isRequired,
-// };
-  
 
 export default connect(mapStateToProps)(DragDropContext(HTML5Backend)(ApptCalendar));
