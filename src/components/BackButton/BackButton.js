@@ -21,7 +21,6 @@ const styles = {
     }
 }
 
-
 const BackButton = (props) => {
     const { classes, scroll, offset } = props;
     return (
