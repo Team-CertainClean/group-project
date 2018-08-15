@@ -7,7 +7,6 @@ import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { AVAILABILITY_ACTIONS } from '../../redux/actions/availabilityActions'; 
 import ApptCalendar from '../../components/ApptCalendar/ApptCalendar';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import Nav from '../../components/Nav/Nav';
 import sweetAlertSuccess from '../../redux/modules/sweetAlertSuccess';
 
@@ -57,9 +56,6 @@ const styles = {
 };
 
 class AdminCalendarView extends Component {
-    // constructor(props) {
-    //     super(props);
-    // }
 
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
@@ -85,14 +81,11 @@ class AdminCalendarView extends Component {
         return (
             <div className={classes.view}>
                 { nav }
-                {/* <Nav history={this.props.history}/> */}
                 <center className={classes.calendarbox}>
                     { apptCalendar }
-                    {/* <ApptCalendar className={classes.calendar} userType={'admin'}/> */}
                 </center>
                 <center>
                     { button }
-                    {/* <Button variant="contained" onClick={this.saveAvailability} className={classes.saveButton}>Save</Button> */}
                 </center>
             </div>
         );

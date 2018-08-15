@@ -2,8 +2,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { CLEANER_ACTIONS } from '../actions/cleanerActions';
 import { fetchCleaners, postCleaner, removeCleaner, editCleaner } from '../requests/cleanerRequests';
 
-console.log('SAGA');
-
 function* fetch(){
     try{
         const cleaners = yield fetchCleaners();
