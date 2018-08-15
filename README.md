@@ -8,6 +8,18 @@
 - Use the "git clone" command in your command line tool, and paste the url in after the command
 - Now the repo is on your system.  Follow the instructions below to deploy to Heroku.
 
+## Database Setup
+
+- Install "Postico", a tool used for manipulating and creating SQL databases using PostgreSQL
+- Now open Postico and connect to your local host
+- Here you will need to create a database titled "Certain_Clean"
+- Once this database is created navigate to the SQL Query page provided in Postico
+- Now you'll copy paste the database.sql file in the root folder of the project into the SQL Query tool
+- Now that it's all in Postico, you'll need to go down the file and execute each CREATE TABLE query to get all the table set up.
+- Once you've executed each CREATE TABLE query, you're database is now set up and ready to go.
+- BUT WAIT ONE MOMENT! YOU'LL NEED AN ADMIN ACCOUNT.  Navigate to /register and set up an account.  Once this is done, you can go into App.js and comment out the Route for /register and RegisterPage to disable the ability to register an admin account.
+- Now you're set and ready to go! Follow the instructions below to deploy!
+
 ## Deployment to Heroku
 
 >Heroku
